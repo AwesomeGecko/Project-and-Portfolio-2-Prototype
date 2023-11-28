@@ -53,6 +53,10 @@ MonoBehaviour:
   playerSpeed: 5
   jumpHeight: 7.5
   gravityValue: -20
+  sprintMod: 1.5
+  crouchMod: 0.75
+  crouchDist: 0.5
+  crouchTransitionSpeed: 0
 --- !u!143 &7020114901427775267
 CharacterController:
   m_ObjectHideFlags: 0
