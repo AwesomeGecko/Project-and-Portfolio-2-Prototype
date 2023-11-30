@@ -12,6 +12,7 @@ public class damageIndicator : MonoBehaviour
 
     PostProcessVolume volume;
     Vignette vignette;
+    private bool isPaused;
 
     void Start()
     {
@@ -40,6 +41,14 @@ public class damageIndicator : MonoBehaviour
         {
             StartCoroutine(TakeDamageEffect());
         }
+
+        isPaused = gameManager.instance.isPaused;
+
+        if (isPaused)
+        {
+            vignette.enabled.Override(false);
+        }
+        
     }
 
     IEnumerator TakeDamageEffect()
