@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Rendering.PostProcessing;
+using UnityEngine.UI;
 
 public class gameManager : MonoBehaviour
 {
@@ -21,7 +23,13 @@ public class gameManager : MonoBehaviour
 
     [Header("Player")]
     public GameObject player;
+    private float intensity;
+    [SerializeField] PostProcessVolume volume;
+    Vignette vignette;
+    [SerializeField] public Image playerHPBar;
+    [SerializeField] public Image playerStaminaBar;
 
+    [Header("Public bools")]
     public bool isPaused;
     float timeScaleOrig;
     int enemiesRemaining;
@@ -34,6 +42,17 @@ public class gameManager : MonoBehaviour
         onTarget = false;
         timeScaleOrig = Time.timeScale;
         player = GameObject.FindWithTag("Player");
+        volume.profile.TryGetSettings<Vignette>(out vignette);
+        if (!vignette)
+        {
+            //if the Vignette is not avalible or emty
+            Debug.Log("error, empty vignette");
+        }
+        else
+        {
+            //turns off the Vignette by default
+            vignette.enabled.Override(false);
+        }
     }
 
     // Update is called once per frame
@@ -47,7 +66,15 @@ public class gameManager : MonoBehaviour
         }
         interact();
 
-        
+        if (isPaused)
+        {
+            vignette.enabled.Override(false);
+        }
+
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    StartCoroutine(TakeDamageEffect());
+        //}
 
     }
 
@@ -83,6 +110,13 @@ public class gameManager : MonoBehaviour
     {
         statePause();
         menuActive = menuWin;
+        menuActive.SetActive(true);
+    }
+
+    public void youLose()
+    {
+        statePause();
+        menuActive = menuLose;
         menuActive.SetActive(true);
     }
 
@@ -140,5 +174,40 @@ public class gameManager : MonoBehaviour
         menuActive = previousMenu;
         menuActive.SetActive(true);
     }
-    
+
+    public void damageIndicator()
+    {
+        StartCoroutine(TakeDamageEffect());
+    }
+
+    IEnumerator TakeDamageEffect()
+    {
+        intensity = 0.4f;
+
+        //Turns on Vignette
+        vignette.enabled.Override(true);
+        //Sets intensity
+        vignette.intensity.Override(0.4f);
+        yield return new WaitForSeconds(0.4f);
+
+
+        //waites for the intensity to go back to 0
+        while (intensity > 0)
+        {
+            intensity -= 0.01f;
+
+            //once the intensity goes below 0
+            if (intensity < 0)
+            {
+                intensity = 0;
+            }
+            //Vignette intensity is updated
+            vignette.intensity.Override(intensity);
+            yield return new WaitForSeconds(0.01f);
+        }
+
+        //once the intinsity is at 0 it turns off the Vignette
+        vignette.enabled.Override(false);
+        yield break;
+    }
 }

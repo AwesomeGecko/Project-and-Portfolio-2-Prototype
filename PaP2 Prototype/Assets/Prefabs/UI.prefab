@@ -1788,7 +1788,7 @@ GameObject:
   m_Component:
   - component: {fileID: 955808750818519318}
   m_Layer: 5
-  m_Name: Stamina
+  m_Name: Stamina UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1997,7 +1997,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6048017981744770927}
   m_Layer: 5
-  m_Name: Health
+  m_Name: Health UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3629,7 +3629,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuActive: {fileID: 0}
-  previousMenu: {fileID: 0}
   menuPause: {fileID: 6153510891622811075}
   menuWin: {fileID: 4746298898366618798}
   menuLose: {fileID: 7552413843005274598}
@@ -3637,6 +3636,9 @@ MonoBehaviour:
   interactive: {fileID: 3202188639474691056}
   interact_text: {fileID: 6141229747343721652}
   player: {fileID: 0}
+  volume: {fileID: 0}
+  playerHPBar: {fileID: 7511336844506496453}
+  playerStaminaBar: {fileID: 5290621115997652278}
   isPaused: 0
   onTarget: 0
 --- !u!114 &1443762788051409405

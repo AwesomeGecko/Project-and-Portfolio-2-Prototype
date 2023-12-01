@@ -82,11 +82,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 7020114901427775267}
-  HP: 5
+  HP: 10
+  Stamina: 10
   playerSpeed: 5
   jumpHeight: 7.5
   gravityValue: -20
-  sprintMod: 1.5
+  sprintSpeed: 7.5
   crouchMod: 0.75
   crouchDist: 0.5
   bullet: {fileID: 5550751600062205222, guid: f2ebe8c562f11b3439d76c5a0b962c1d, type: 3}
@@ -94,6 +95,8 @@ MonoBehaviour:
   shootDamage: 1
   bulletDestroyTime: 5
   shootRate: 0.25
+  staminaRunCost: 2
+  staminaRestoreSpeed: 0.8
 --- !u!143 &7020114901427775267
 CharacterController:
   m_ObjectHideFlags: 0
@@ -374,7 +377,6 @@ GameObject:
   m_Component:
   - component: {fileID: 190079591800523482}
   - component: {fileID: 7271591767371328955}
-  - component: {fileID: 6599742507959292504}
   m_Layer: 6
   m_Name: PostProcessing
   m_TagString: Untagged
@@ -414,15 +416,3 @@ MonoBehaviour:
   blendDistance: 0
   weight: 1
   priority: 0
---- !u!114 &6599742507959292504
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7225609620667402624}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95306d0a972397243b2d6a3a3d91fd22, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
