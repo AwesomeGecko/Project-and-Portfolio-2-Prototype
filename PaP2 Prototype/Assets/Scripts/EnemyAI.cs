@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+
 public class EnemyAI : MonoBehaviour
 {
     [SerializeField] NavMeshAgent agent;
@@ -19,6 +20,7 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] Transform shootPos;
 
     bool isShooting;
+    bool PlayerInRange;
 
     // Start is called before the first frame update
     void Start()
@@ -32,11 +34,24 @@ public class EnemyAI : MonoBehaviour
 
         agent.SetDestination(gameManager.instance.player.transform.position);
 
-        if (!isShooting )
+        if (PlayerInRange )
         {
-            StartCoroutine(shoot());    
+            agent.SetDestination(gameManager.instance.player.transform.position);
+            if (!isShooting )
+            {
+                StartCoroutine(shoot());
+            }
+               
         }
 
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Player"))
+        {
+            PlayerInRange = false;
+        }
     }
 
     IEnumerator shoot()
