@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IDamage
 {
     [SerializeField] CharacterController controller;
 
+    [SerializeField] int HP;
     [SerializeField] float playerSpeed;
     [SerializeField] float jumpHeight;
     [SerializeField] float gravityValue;
@@ -14,11 +15,18 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float crouchDist;
     //[SerializeField] float crouchTransitionSpeed;
 
+    [SerializeField] GameObject bullet;
+    [SerializeField] Transform shootPos;
+    [SerializeField] int shootDamage;
+    [SerializeField] int bulletDestroyTime;
+    [SerializeField] float shootRate;
+
     private Vector3 playerVelocity;
     private Vector3 move;
     private bool groundedPlayer;
     private int jumpCount;
     private Vector3 crouchCameraDist;
+    private bool isShooting;
 
 
     // Start is called before the first frame update
@@ -30,8 +38,19 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Movement();
+    }
+
+    void Movement()
+    {
         Sprint();
         Crouch();
+
+        if (Input.GetButtonDown("Fire1") && !isShooting && !gameManager.instance.isPaused)
+        {
+            StartCoroutine(Shoot());
+        }
+
         //Identical movement code in the lectures
         groundedPlayer = controller.isGrounded;
         if (groundedPlayer && playerVelocity.y < 0)
@@ -54,6 +73,14 @@ public class PlayerController : MonoBehaviour
         controller.Move(playerVelocity * Time.deltaTime);
     }
 
+    IEnumerator Shoot()
+    {
+        isShooting = true;
+        Instantiate(bullet, shootPos.position, transform.rotation);
+        yield return new WaitForSeconds(shootRate);
+        isShooting = false;
+    }
+
     void Sprint()
     {
         if (Input.GetButtonDown("Sprint"))
@@ -73,14 +100,26 @@ public class PlayerController : MonoBehaviour
             controller.height -= crouchDist;
             playerSpeed *= crouchMod;
             Camera.main.transform.localPosition -= crouchCameraDist;
-            //Debug.Log("player is crouching");
         }
         else if (Input.GetButtonUp("Crouch"))
         {
             controller.height += crouchDist;
             playerSpeed /= crouchMod;
             Camera.main.transform.localPosition += crouchCameraDist;
-            //Debug.Log("player is no longer crouching");
         }
+    }
+    public void takeDamage(int amount)
+    {
+        HP -= amount;
+        //UpdatePlayerUI();
+        if (HP <= 0)
+        {
+            //you died
+        }
+    }
+
+    void UpdatePlayerUI()
+    {
+        //Update player HP and stamina
     }
 }

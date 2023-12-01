@@ -14,7 +14,15 @@ public class bullet : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rb.velocity = transform.forward * speed;
+        //
+        if(rb.tag == "PlayerBullet")
+        {
+            rb.velocity = Camera.main.transform.forward * speed;
+        }
+        else
+        {
+            rb.velocity = transform.forward * speed;
+        }
         Destroy(gameObject, destroyTime);
     }
 
@@ -23,13 +31,16 @@ public class bullet : MonoBehaviour
         if (other.isTrigger)
             return;
 
-        IDamage dmg = other.GetComponent<IDamage>();
-
-        if (dmg != null)
+        if(other.tag != "Player" && rb.tag != "PlayerBullet") { }
+        else
         {
-            dmg.takeDamage(damage);
-        }
+            IDamage dmg = other.GetComponent<IDamage>();
 
-        Destroy(gameObject);
+            if (dmg != null)
+            {
+                dmg.takeDamage(damage);
+            }
+            Destroy(gameObject);
+        }
     }
 }
