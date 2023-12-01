@@ -32,7 +32,7 @@ public class EnemyAI : MonoBehaviour
     void Update()
     {
 
-        agent.SetDestination(gameManager.instance.player.transform.position);
+       
 
         if (PlayerInRange )
         {
@@ -50,10 +50,18 @@ public class EnemyAI : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
-            PlayerInRange = false;
+            PlayerInRange = true;
         }
     }
 
+    public void OnTriggerExit(Collider other)
+    {
+        if(other.CompareTag("Player"))
+        {
+            PlayerInRange = false;
+        }
+        
+    }
     IEnumerator shoot()
     {
         isShooting = true;
