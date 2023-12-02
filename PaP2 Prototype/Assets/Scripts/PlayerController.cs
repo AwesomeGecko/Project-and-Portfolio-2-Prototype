@@ -1,15 +1,18 @@
+using Palmmedia.ReportGenerator.Core.Common;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour, IDamage
 {
+    
 
     [Header("Components")]
     [SerializeField] CharacterController controller;
 
     [Header("Player Stats")]
-    [SerializeField] int HP;
+    [SerializeField] public int HP;
     [SerializeField] float Stamina;
     [SerializeField] float playerSpeed;
     [SerializeField] float jumpHeight;
@@ -26,6 +29,7 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField] int bulletDestroyTime;
     [SerializeField] float shootRate;
     [SerializeField] public int ammoCounter;
+    private int gameManagerAmmo;
 
     private Vector3 playerVelocity;
     private Vector3 move;
@@ -33,6 +37,7 @@ public class PlayerController : MonoBehaviour, IDamage
     private int jumpCount;
     private Vector3 crouchCameraDist;
     private bool isShooting;
+    private bool interactPickup;
 
     //Z- added HP Stamina and bools for running and stamina restoring
     private int HPOriginal;
@@ -55,6 +60,8 @@ public class PlayerController : MonoBehaviour, IDamage
         StaminaOrig = Stamina;
         initialSpeed = playerSpeed;
         UpdatePlayerUI();
+        int.TryParse(gameManager.instance.ammoCounter.text, out gameManagerAmmo);
+        ammoCounter = gameManagerAmmo;
     }
 
     // Update is called once per frame
@@ -167,7 +174,7 @@ public class PlayerController : MonoBehaviour, IDamage
     { 
         isRunning = true;
         Stamina -= 1;
-        yield return new WaitForSeconds(staminaRunCost);
+        yield return new WaitForSeconds(0.8f);
         isRunning = false;
     }
 
@@ -186,6 +193,6 @@ public class PlayerController : MonoBehaviour, IDamage
         //Update player HP and stamina
         gameManager.instance.playerHPBar.fillAmount = (float)HP / HPOriginal;
         gameManager.instance.playerStaminaBar.fillAmount = Stamina / StaminaOrig;
-        gameManager.instance.ammoCounter.text = ammoCounter.ToString();
+        gameManager.instance.ammoCounter.text = ammoCounter.ToString("0");
     }
 }

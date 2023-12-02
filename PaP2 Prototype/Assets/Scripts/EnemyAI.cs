@@ -13,12 +13,14 @@ public class EnemyAI : MonoBehaviour, IDamage
     [SerializeField] Renderer model;
 
     [SerializeField] GameObject player;
+    [SerializeField] Transform playerPos;
     [SerializeField] int speed;
 
     [SerializeField] GameObject bullet;
     [SerializeField] float shootRate;
+    [SerializeField] float shootSpeed;
     [SerializeField] Transform shootPos;
-
+    [SerializeField] Transform shootPos2;
     bool isShooting;
     bool PlayerInRange;
 
@@ -30,14 +32,18 @@ public class EnemyAI : MonoBehaviour, IDamage
 
     }
 
+    
+
     // Update is called once per frame
     void Update()
     {
 
-       
+        
 
         if (PlayerInRange )
         {
+            transform.rotation = Quaternion.LookRotation(playerPos.position - transform.position, transform.up);
+
             agent.SetDestination(gameManager.instance.player.transform.position);
             if (!isShooting )
             {
@@ -68,7 +74,11 @@ public class EnemyAI : MonoBehaviour, IDamage
     {
         isShooting = true;
 
-        Instantiate(bullet, shootPos.position, transform.rotation);
+        var enemybullet = Instantiate(bullet, shootPos.position, transform.rotation);
+        var enemybullet2 = Instantiate(bullet, shootPos2.position, transform.rotation);
+
+        
+
 
         yield return new WaitForSeconds(shootRate);
         isShooting = false;
