@@ -31,4 +31,9 @@ public class buttonFunctions : MonoBehaviour
     {
         gameManager.instance.backBttn();
     }
+
+    public void play()
+    {
+        gameManager.instance.stateUnpause();
+    }
 }
