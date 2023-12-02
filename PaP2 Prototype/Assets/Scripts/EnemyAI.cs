@@ -4,10 +4,10 @@ using UnityEngine;
 using UnityEngine.AI;
 
 
-public class EnemyAI : MonoBehaviour
+public class EnemyAI : MonoBehaviour, IDamage
 {
     [SerializeField] NavMeshAgent agent;
-
+    [SerializeField] Rigidbody rb;
     [SerializeField] int HP;
 
     [SerializeField] Renderer model;
@@ -26,6 +26,8 @@ public class EnemyAI : MonoBehaviour
     void Start()
     {
         gameManager.instance.updateGameGoal(1);
+
+
     }
 
     // Update is called once per frame
@@ -74,15 +76,20 @@ public class EnemyAI : MonoBehaviour
 
     public void takeDamage(int amount)
     {
-        HP -= amount;
+       
 
-        StartCoroutine(flashRed());
+            HP -= amount;
 
-        if (HP <= 0)
-        {
-            gameManager.instance.updateGameGoal(-1);
-            Destroy(gameObject);
-        }
+            StartCoroutine(flashRed());
+
+            if (HP <= 0)
+            {
+                gameManager.instance.updateGameGoal(-1);
+                Destroy(gameObject);
+            }
+        
+
+        
 
 
     }
