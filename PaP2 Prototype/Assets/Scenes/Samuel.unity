@@ -610,15 +610,23 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3251788820894578651, guid: 5f698264e89308d44899ad2c29e21941, type: 3}
       propertyPath: HP
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3251788820894578651, guid: 5f698264e89308d44899ad2c29e21941, type: 3}
       propertyPath: speed
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3251788820894578651, guid: 5f698264e89308d44899ad2c29e21941, type: 3}
+      propertyPath: bullet
+      value: 
+      objectReference: {fileID: 3393345968891059192, guid: 8ad9da3d86fcb0b4b8d2949686ce9956, type: 3}
+    - target: {fileID: 3251788820894578651, guid: 5f698264e89308d44899ad2c29e21941, type: 3}
       propertyPath: shootRate
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5701292604254272586, guid: 5f698264e89308d44899ad2c29e21941, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.6666667
       objectReference: {fileID: 0}
     - target: {fileID: 8168814099955323348, guid: 5f698264e89308d44899ad2c29e21941, type: 3}
       propertyPath: m_AutoBraking
