@@ -23,8 +23,9 @@ public class gameManager : MonoBehaviour
 
     [Header("Player")]
     public GameObject player;
+    [SerializeField] GameObject damageScreen;
     private float intensity;
-    [SerializeField] PostProcessVolume volume;
+    private PostProcessVolume volume;
     Vignette vignette;
     [SerializeField] public Image playerHPBar;
     [SerializeField] public Image playerStaminaBar;
@@ -42,6 +43,8 @@ public class gameManager : MonoBehaviour
         onTarget = false;
         timeScaleOrig = Time.timeScale;
         player = GameObject.FindWithTag("Player");
+        damageScreen = GameObject.FindWithTag("DamageScreen");
+        volume = damageScreen.GetComponent<PostProcessVolume>();
         volume.profile.TryGetSettings<Vignette>(out vignette);
         if (!vignette)
         {
