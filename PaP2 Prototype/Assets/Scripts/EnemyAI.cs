@@ -13,7 +13,7 @@ public class EnemyAI : MonoBehaviour, IDamage
     [SerializeField] Renderer model;
 
     [SerializeField] GameObject player;
-    [SerializeField] Transform playerPos;
+    
     [SerializeField] int speed;
 
     [SerializeField] GameObject bullet;
@@ -42,7 +42,7 @@ public class EnemyAI : MonoBehaviour, IDamage
 
         if (PlayerInRange )
         {
-            transform.rotation = Quaternion.LookRotation(playerPos.position - transform.position, transform.up);
+            
 
             agent.SetDestination(gameManager.instance.player.transform.position);
             if (!isShooting )
@@ -74,8 +74,8 @@ public class EnemyAI : MonoBehaviour, IDamage
     {
         isShooting = true;
 
-        var enemybullet = Instantiate(bullet, shootPos.position, transform.rotation);
-        var enemybullet2 = Instantiate(bullet, shootPos2.position, transform.rotation);
+         Instantiate(bullet, shootPos.position, transform.rotation);
+         Instantiate(bullet, shootPos2.position, transform.rotation);
 
         
 
