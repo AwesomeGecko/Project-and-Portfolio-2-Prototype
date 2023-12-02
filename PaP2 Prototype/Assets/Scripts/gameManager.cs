@@ -22,7 +22,7 @@ public class gameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI interact_text;
 
     [Header("Player")]
-    [SerializeField] Transform playerSpawnPos;
+    [SerializeField] GameObject playerSpawnPos;
     public GameObject player;
     public PlayerController playerScript;
     [SerializeField] GameObject damageScreen;
@@ -46,12 +46,16 @@ public class gameManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+
+        playerSpawnPos = GameObject.FindWithTag("Player Spawn Position");
+
         spawnPlayer();
         instance = this;
         onTarget = false;
         timeScaleOrig = Time.timeScale;
         player = GameObject.FindWithTag("Player");
         playerScript = player.GetComponent<PlayerController>();
+        
         damageScreen = GameObject.FindWithTag("DamageScreen");
         volume = damageScreen.GetComponent<PostProcessVolume>();
         volume.profile.TryGetSettings<Vignette>(out vignette);
@@ -221,6 +225,6 @@ public class gameManager : MonoBehaviour
 
     void spawnPlayer()
     {
-        Instantiate(player, playerSpawnPos.position, transform.rotation);
+        Instantiate(player, playerSpawnPos.transform.position, transform.rotation);
     }
 }

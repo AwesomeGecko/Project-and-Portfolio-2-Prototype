@@ -6,6 +6,7 @@ TagManager:
   tags:
   - PlayerBullet
   - DamageScreen
+  - Player Spawn Position
   layers:
   - Default
   - TransparentFX
