@@ -494,14 +494,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4882108818407447930, guid: 88130395ff4ef8d43a683154e855afc5, type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 3936800427781867614, guid: 415e8ce8c9de02143b1cd6917b11c526, type: 3}
-    - target: {fileID: 4882108818407447930, guid: 88130395ff4ef8d43a683154e855afc5, type: 3}
-      propertyPath: playerPos
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 7203873767424423323, guid: 88130395ff4ef8d43a683154e855afc5, type: 3}
       propertyPath: m_Name
       value: Alien
@@ -603,14 +595,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Big Robot
       objectReference: {fileID: 0}
-    - target: {fileID: 7709005576494853707, guid: be609eb4d25e5c34ebb01d3969825884, type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 3936800427781867614, guid: 415e8ce8c9de02143b1cd6917b11c526, type: 3}
-    - target: {fileID: 7709005576494853707, guid: be609eb4d25e5c34ebb01d3969825884, type: 3}
-      propertyPath: playerPos
-      value: 
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -624,14 +608,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3251788820894578651, guid: 5f698264e89308d44899ad2c29e21941, type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 3936800427781867614, guid: 415e8ce8c9de02143b1cd6917b11c526, type: 3}
-    - target: {fileID: 3251788820894578651, guid: 5f698264e89308d44899ad2c29e21941, type: 3}
-      propertyPath: playerPos
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 9062981272011841574, guid: 5f698264e89308d44899ad2c29e21941, type: 3}
       propertyPath: m_Name
       value: Enemy Robot 1
