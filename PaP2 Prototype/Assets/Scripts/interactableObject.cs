@@ -6,7 +6,9 @@ public class interactableObject : MonoBehaviour {
 
     public bool playerInRange;
     public string ItemName;
-    public int ammoAmount;
+    private int ammoAmount = 25;
+    private int healAmount = 5;
+
 
     public string GetItemName()
     {
@@ -23,19 +25,22 @@ public class interactableObject : MonoBehaviour {
     {
         if (Input.GetButtonDown("Interact") && playerInRange && gameManager.instance.onTarget)
         {
-
             Debug.Log("Item Added to Inventory");
 
             Destroy(gameObject);
 
             if (ItemName == "Ammo")
             {
-                gameManager.instance.ammoCounter.text = ammoAmount.ToString();
+                gameManager.instance.playerScript.ammoCounter += ammoAmount;
             }
-
+            if (ItemName == "Health")
+            {
+                gameManager.instance.playerScript.HP += healAmount;
+            }
         }
     }
 
+    
 
     private void OnTriggerEnter(Collider other)
     {

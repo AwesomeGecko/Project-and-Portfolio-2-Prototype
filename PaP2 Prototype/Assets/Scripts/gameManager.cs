@@ -23,6 +23,7 @@ public class gameManager : MonoBehaviour
 
     [Header("Player")]
     public GameObject player;
+    public PlayerController playerScript;
     [SerializeField] GameObject damageScreen;
     private float intensity;
     private PostProcessVolume volume;
@@ -47,6 +48,7 @@ public class gameManager : MonoBehaviour
         onTarget = false;
         timeScaleOrig = Time.timeScale;
         player = GameObject.FindWithTag("Player");
+        playerScript = player.GetComponent<PlayerController>();
         damageScreen = GameObject.FindWithTag("DamageScreen");
         volume = damageScreen.GetComponent<PostProcessVolume>();
         volume.profile.TryGetSettings<Vignette>(out vignette);
@@ -144,7 +146,7 @@ public class gameManager : MonoBehaviour
 
                 onTarget = true;
 
-                interact_text.text = "Press E to pick up " + interactable.GetItemName();
+                interact_text.text = "Pick up [E] " + interactable.GetItemName();
                 interactive.SetActive(true);
             }
             else
