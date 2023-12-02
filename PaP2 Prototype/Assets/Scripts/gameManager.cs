@@ -22,6 +22,7 @@ public class gameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI interact_text;
 
     [Header("Player")]
+    [SerializeField] Transform playerSpawnPos;
     public GameObject player;
     public PlayerController playerScript;
     [SerializeField] GameObject damageScreen;
@@ -44,6 +45,7 @@ public class gameManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        Instantiate(player, playerSpawnPos.position, transform.rotation);
         instance = this;
         onTarget = false;
         timeScaleOrig = Time.timeScale;
@@ -67,7 +69,6 @@ public class gameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
 
         if (Input.GetButtonDown("Cancel") && menuActive == null)
         {
