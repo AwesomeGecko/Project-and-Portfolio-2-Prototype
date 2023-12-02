@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class interactableObject : PlayerController
-{
+public class interactableObject : MonoBehaviour {
+
     public bool playerInRange;
     public string ItemName;
-    public int ammoAmount = 25;
+    public int ammoAmount;
 
     public string GetItemName()
     {
@@ -31,7 +31,6 @@ public class interactableObject : PlayerController
             if (ItemName == "Ammo")
             {
                 gameManager.instance.ammoCounter.text = ammoAmount.ToString();
-                //PlayerController.instance.ammoCounter += ammoAmount;
             }
 
         }

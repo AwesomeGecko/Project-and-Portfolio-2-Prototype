@@ -95,6 +95,7 @@ MonoBehaviour:
   shootDamage: 1
   bulletDestroyTime: 5
   shootRate: 0.25
+  ammoCounter: 10
   staminaRunCost: 2
   staminaRestoreSpeed: 0.8
 --- !u!143 &7020114901427775267

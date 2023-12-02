@@ -99,7 +99,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerInRange: 0
-  ItemName: Key
+  ItemName: Ammo
+  ammoAmount: 25
 --- !u!65 &4212386985054616368
 BoxCollider:
   m_ObjectHideFlags: 0
