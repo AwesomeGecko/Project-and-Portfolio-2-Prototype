@@ -11,7 +11,7 @@ public class gameManager : MonoBehaviour
 
     [Header("Menus")]
     [SerializeField] GameObject menuActive;
-    private GameObject previousMenu;
+    [SerializeField] GameObject previousMenu;
     [SerializeField] GameObject menuPause;
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
@@ -22,6 +22,7 @@ public class gameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI interact_text;
 
     [Header("Player")]
+    [SerializeField] Transform playerSpawnPos;
     public GameObject player;
     public PlayerController playerScript;
     [SerializeField] GameObject damageScreen;
@@ -34,6 +35,7 @@ public class gameManager : MonoBehaviour
     [SerializeField] public Image playerStaminaBar;
     [SerializeField] public TextMeshProUGUI ammoCounter;
     [SerializeField] public TextMeshProUGUI gunName;
+    [SerializeField] public TextMeshProUGUI enemyCounter;
 
     [Header("Public bools")]
     public bool isPaused;
@@ -44,6 +46,7 @@ public class gameManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        spawnPlayer();
         instance = this;
         onTarget = false;
         timeScaleOrig = Time.timeScale;
@@ -67,7 +70,6 @@ public class gameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
 
         if (Input.GetButtonDown("Cancel") && menuActive == null)
         {
@@ -81,12 +83,7 @@ public class gameManager : MonoBehaviour
         {
             vignette.enabled.Override(false);
         }
-
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    StartCoroutine(TakeDamageEffect());
-        //}
-
+        enemyCounter.text = enemiesRemaining.ToString("0");
     }
 
     public void statePause()
@@ -220,5 +217,10 @@ public class gameManager : MonoBehaviour
         //once the intinsity is at 0 it turns off the Vignette
         vignette.enabled.Override(false);
         yield break;
+    }
+
+    void spawnPlayer()
+    {
+        Instantiate(player, playerSpawnPos.position, transform.rotation);
     }
 }

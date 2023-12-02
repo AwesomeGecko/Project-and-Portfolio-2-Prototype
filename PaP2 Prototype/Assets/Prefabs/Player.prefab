@@ -62,8 +62,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2155480264091548213}
   - {fileID: 190079591800523482}
@@ -82,7 +82,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 7020114901427775267}
-  HP: 10
+  HP: 20
   Stamina: 10
   playerSpeed: 5
   jumpHeight: 7.5
@@ -245,7 +245,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5af02fe3451b7b94aafea00e33b453e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensitivity: 750
+  sensitivity: 200
   lockVertMin: -90
   lockVertMax: 90
   invtertY: 0
