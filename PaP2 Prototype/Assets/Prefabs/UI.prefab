@@ -3636,7 +3636,7 @@ MonoBehaviour:
   interactive: {fileID: 3202188639474691056}
   interact_text: {fileID: 6141229747343721652}
   player: {fileID: 0}
-  volume: {fileID: 0}
+  damageScreen: {fileID: 0}
   playerHPBar: {fileID: 7511336844506496453}
   playerStaminaBar: {fileID: 5290621115997652278}
   isPaused: 0
