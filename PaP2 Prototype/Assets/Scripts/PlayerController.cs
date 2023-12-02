@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour, IDamage
 {
+    
+
     [Header("Components")]
     [SerializeField] CharacterController controller;
 
@@ -24,6 +26,7 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField] int shootDamage;
     [SerializeField] int bulletDestroyTime;
     [SerializeField] float shootRate;
+    [SerializeField] public int ammoCounter;
 
     private Vector3 playerVelocity;
     private Vector3 move;
@@ -46,6 +49,7 @@ public class PlayerController : MonoBehaviour, IDamage
     // Start is called before the first frame update
     void Start()
     {
+        ammoCounter = 10;
         crouchCameraDist = new Vector3(0, crouchDist / 2, 0);
         //Z- Set all placeholders and updating the UI
         HPOriginal = HP;
@@ -67,7 +71,7 @@ public class PlayerController : MonoBehaviour, IDamage
 
         
 
-        if (Input.GetButtonDown("Fire1") && !isShooting && !gameManager.instance.isPaused)
+        if (Input.GetButtonDown("Fire1") && !isShooting && !gameManager.instance.isPaused && ammoCounter >= 1)
         {
             StartCoroutine(Shoot());
         }
@@ -103,6 +107,7 @@ public class PlayerController : MonoBehaviour, IDamage
     IEnumerator Shoot()
     {
         isShooting = true;
+        ammoCounter -= 1;
         Instantiate(bullet, shootPos.position, transform.rotation);
         yield return new WaitForSeconds(shootRate);
         isShooting = false;
@@ -182,5 +187,6 @@ public class PlayerController : MonoBehaviour, IDamage
         //Update player HP and stamina
         gameManager.instance.playerHPBar.fillAmount = (float)HP / HPOriginal;
         gameManager.instance.playerStaminaBar.fillAmount = Stamina / StaminaOrig;
+        gameManager.instance.ammoCounter.text = ammoCounter.ToString();
     }
 }

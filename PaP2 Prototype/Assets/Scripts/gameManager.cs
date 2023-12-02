@@ -27,8 +27,12 @@ public class gameManager : MonoBehaviour
     private float intensity;
     private PostProcessVolume volume;
     Vignette vignette;
+
+    [Header("UI")]
     [SerializeField] public Image playerHPBar;
     [SerializeField] public Image playerStaminaBar;
+    [SerializeField] public TextMeshProUGUI ammoCounter;
+    [SerializeField] public TextMeshProUGUI gunName;
 
     [Header("Public bools")]
     public bool isPaused;
@@ -61,6 +65,8 @@ public class gameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+
         if (Input.GetButtonDown("Cancel") && menuActive == null)
         {
             statePause();

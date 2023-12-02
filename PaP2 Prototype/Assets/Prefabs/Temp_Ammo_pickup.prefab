@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 8090638093897385435}
   - component: {fileID: 1591704380139923691}
   - component: {fileID: 1757967687074889990}
-  - component: {fileID: 7795190143967165850}
   - component: {fileID: 4212386985054616368}
   - component: {fileID: 4074423987723635681}
   m_Layer: 0
@@ -101,19 +100,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerInRange: 0
   ItemName: Key
---- !u!114 &7795190143967165850
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6417249973555663722}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 384028707b9650d488723dc687839f2d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageAmount: 1
 --- !u!65 &4212386985054616368
 BoxCollider:
   m_ObjectHideFlags: 0
