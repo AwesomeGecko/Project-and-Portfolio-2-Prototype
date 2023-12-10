@@ -84,10 +84,10 @@ MonoBehaviour:
   controller: {fileID: 7020114901427775267}
   HP: 20
   Stamina: 10
-  playerSpeed: 5
+  playerSpeed: 10
   jumpHeight: 7.5
   gravityValue: -20
-  sprintSpeed: 7.5
+  sprintSpeed: 15
   crouchMod: 0.75
   crouchDist: 0.5
   bullet: {fileID: 5550751600062205222, guid: f2ebe8c562f11b3439d76c5a0b962c1d, type: 3}

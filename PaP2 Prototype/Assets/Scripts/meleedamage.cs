@@ -22,12 +22,12 @@ public class damage : MonoBehaviour
 
         IDamage dmg = other.GetComponent<IDamage>();
 
-        if(dmg != null)
+        if (dmg != null)
         {
-           dmg.takeDamage(damageAmount);
+            dmg.takeDamage(damageAmount);
         }
-        
-       
+
+
     }
 
 }

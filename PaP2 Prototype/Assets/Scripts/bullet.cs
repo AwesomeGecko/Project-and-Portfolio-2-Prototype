@@ -30,20 +30,13 @@ public class bullet : MonoBehaviour
     {
         if (other.isTrigger)
             return;
-
-        if(other.tag != "Player" && rb.tag != "PlayerBullet") { }
-        else
-        {
-            IDamage dmg = other.GetComponent<IDamage>();
-
-            if (dmg != null)
-            {
-                dmg.takeDamage(damage);
-            }
-            Destroy(gameObject);
-        }
-
         
+        IDamage dmg = other.GetComponent<IDamage>();
 
+        if (dmg != null)
+        {
+            dmg.takeDamage(damage);
+        }
+        Destroy(gameObject);
     }
 }
