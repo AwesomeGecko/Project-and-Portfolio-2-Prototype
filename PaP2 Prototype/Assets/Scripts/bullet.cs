@@ -31,6 +31,13 @@ public class bullet : MonoBehaviour
         if (other.isTrigger)
             return;
         
+        if(rb.CompareTag("PlayerBullet"))
+        {
+            if(other.CompareTag("Player"))
+            {
+                return;
+            }
+        }
         IDamage dmg = other.GetComponent<IDamage>();
 
         if (dmg != null)
