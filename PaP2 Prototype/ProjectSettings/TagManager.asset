@@ -7,6 +7,7 @@ TagManager:
   - PlayerBullet
   - DamageScreen
   - Player Spawn Position
+  - Pistol
   layers:
   - Default
   - TransparentFX
