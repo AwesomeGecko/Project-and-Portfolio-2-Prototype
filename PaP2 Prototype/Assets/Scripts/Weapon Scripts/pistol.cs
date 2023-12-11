@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class pistol : weaponBase
 {
-    //public Transform pistolShootPos;
-    //[SerializeField] GameObject bullet;
+    public Transform pistolShootPos;
+    [SerializeField] GameObject bullet;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,9 +18,9 @@ public class pistol : weaponBase
         
     }
 
-    //public override void Shoot()
-    //{
-    //    Debug.Log("Pistol is shooting");
-    //    Instantiate(bullet, pistolShootPos.position, transform.rotation);
-    //}
+    public override void Shoot()
+    {
+        Debug.Log("Pistol is shooting");
+        Instantiate(bullet, pistolShootPos.position, transform.rotation);
+    }
 }

@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class weaponBase : MonoBehaviour
 {
-    public Transform pistolShootPos;
-    [SerializeField] GameObject bullet;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +19,7 @@ public class weaponBase : MonoBehaviour
     public virtual void Shoot()
     {
         Debug.Log("pulling shoot from pistol");
-        Instantiate(bullet, pistolShootPos.position, transform.rotation);
+        
     }
 
 }
