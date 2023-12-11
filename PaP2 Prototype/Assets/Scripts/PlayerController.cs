@@ -128,12 +128,11 @@ public class PlayerController : MonoBehaviour, IDamage
     {
         
         isShooting = true;
-
-        weaponBase currentWeaponScript = currentWeapon.GetComponent<weaponBase>();
+        
+        weaponBase currentWeaponScript = currentWeapon.GetComponent<weaponBase>(); 
         currentWeaponScript.Shoot();
         ammoCounter -= 1;
 
-        weaponBase currentWeaponScript = currentWeapon.GetComponent<weaponBase>();
 
         yield return new WaitForSeconds(shootRate);
         isShooting = false;
