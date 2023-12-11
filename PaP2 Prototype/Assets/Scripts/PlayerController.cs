@@ -23,8 +23,8 @@ public class PlayerController : MonoBehaviour, IDamage
     //[SerializeField] float crouchTransitionSpeed;
 
     [Header("Gun Stats")]
-    [SerializeField] GameObject bullet;
-    [SerializeField] Transform shootPos;
+    //[SerializeField] GameObject bullet;
+    //[SerializeField] Transform shootPos;
     [SerializeField] int shootDamage;
     [SerializeField] int bulletDestroyTime;
     [SerializeField] float shootRate;
@@ -49,10 +49,24 @@ public class PlayerController : MonoBehaviour, IDamage
     //Z- a way to store the initial speed can make it easier later
     private float initialSpeed;
 
+    //Gun objects to call in game
+    public GameObject pistolPrefab;
+    public GameObject m16Prefab;
+    public GameObject m4Prefab;
+    public GameObject currentWeapon;
 
+    //Gun attachment points
+    public Transform pistolAttachmentPoint;
+    public Transform m16AttachmentPoint;
+    public Transform m4AttachmentPoint;
+
+   
     // Start is called before the first frame update
     void Start()
     {
+        //Start out with the pistol
+        SpawnWeapon(pistolPrefab, pistolAttachmentPoint);
+
         ammoCounter = 10;
         crouchCameraDist = new Vector3(0, crouchDist / 2, 0);
         //Z- Set all placeholders and updating the UI
@@ -112,9 +126,15 @@ public class PlayerController : MonoBehaviour, IDamage
 
     IEnumerator Shoot()
     {
+        
         isShooting = true;
+
+        weaponBase currentWeaponScript = currentWeapon.GetComponent<weaponBase>();
+        currentWeaponScript.Shoot();
         ammoCounter -= 1;
-        Instantiate(bullet, shootPos.position, transform.rotation);
+
+        weaponBase currentWeaponScript = currentWeapon.GetComponent<weaponBase>();
+
         yield return new WaitForSeconds(shootRate);
         isShooting = false;
     }
@@ -194,5 +214,14 @@ public class PlayerController : MonoBehaviour, IDamage
         gameManager.instance.playerHPBar.fillAmount = (float)HP / HPOriginal;
         gameManager.instance.playerStaminaBar.fillAmount = Stamina / StaminaOrig;
         gameManager.instance.ammoCounter.text = ammoCounter.ToString("0");
+    }
+
+    //Weapon methods to spawn the correct weapons to the correct positions
+    void SpawnWeapon(GameObject weaponPrefab, Transform attachmentPoint)
+    {
+        currentWeapon = Instantiate(weaponPrefab, attachmentPoint.position, attachmentPoint.rotation);
+        currentWeapon.transform.parent = attachmentPoint; //Attach the weapon to its proper point because every weapon is different
+
+        Debug.Log("Weapon spawned: " + currentWeapon.name);
     }
 }
