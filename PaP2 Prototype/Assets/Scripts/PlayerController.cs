@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour, IDamage
 
     [Header("Components")]
     [SerializeField] CharacterController controller;
+    [SerializeField] AudioSource aud;
 
     [Header("Player Stats")]
     [SerializeField] public int HP;
