@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour, IDamage
 {
-    
+
 
     [Header("Components")]
     [SerializeField] CharacterController controller;
@@ -23,8 +23,8 @@ public class PlayerController : MonoBehaviour, IDamage
     //[SerializeField] float crouchTransitionSpeed;
 
     [Header("Gun Stats")]
-    //[SerializeField] GameObject bullet;
-    //[SerializeField] Transform shootPos;
+    [SerializeField] GameObject bullet;
+    [SerializeField] Transform shootPos;
     [SerializeField] int shootDamage;
     [SerializeField] int bulletDestroyTime;
     [SerializeField] float shootRate;
@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour, IDamage
     private bool groundedPlayer;
     private int jumpCount;
     private Vector3 crouchCameraDist;
-    private bool isShooting;
+    
     private bool interactPickup;
 
     //Z- added HP Stamina and bools for running and stamina restoring
@@ -49,23 +49,18 @@ public class PlayerController : MonoBehaviour, IDamage
     //Z- a way to store the initial speed can make it easier later
     private float initialSpeed;
 
-    //Gun objects to call in game
-    public GameObject pistolPrefab;
-    public GameObject m16Prefab;
-    public GameObject m4Prefab;
-    public GameObject currentWeapon;
+    //Gun logic
+    [SerializeField] List<gunStats> gunList = new List<gunStats>();
+    [SerializeField] int shootDist;
+    [SerializeField] GameObject gunModel;
+    int selectedGun;
+    private bool isShooting;
 
-    //Gun attachment points
-    public Transform pistolAttachmentPoint;
-    public Transform m16AttachmentPoint;
-    public Transform m4AttachmentPoint;
 
-   
     // Start is called before the first frame update
     void Start()
     {
-        //Start out with the pistol
-        SpawnWeapon(pistolPrefab, pistolAttachmentPoint);
+        //EquipGun(currentGunIndex);
 
         ammoCounter = 10;
         crouchCameraDist = new Vector3(0, crouchDist / 2, 0);
@@ -82,6 +77,7 @@ public class PlayerController : MonoBehaviour, IDamage
     void Update()
     {
         Movement();
+       
     }
 
     void Movement()
@@ -91,10 +87,7 @@ public class PlayerController : MonoBehaviour, IDamage
 
         
 
-        if (Input.GetButtonDown("Fire1") && !isShooting && !gameManager.instance.isPaused && ammoCounter >= 1)
-        {
-            StartCoroutine(Shoot());
-        }
+        
 
         //Identical movement code in the lectures
         groundedPlayer = controller.isGrounded;
@@ -126,11 +119,26 @@ public class PlayerController : MonoBehaviour, IDamage
 
     IEnumerator Shoot()
     {
-        
+
         isShooting = true;
+
+        gunList[selectedGun].ammoCur--;
+
+
+        RaycastHit hit;
+        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDist))
+            Instantiate(gunList[selectedGun].hitEffect, hit.point, transform.rotation);
+
+            Debug.Log(hit.transform.name);
+
+            IDamage dmg = hit.collider.GetComponent<IDamage>();
+
+            if (hit.transform != transform && dmg != null)
+            {
+                dmg.takeDamage(shootDamage);
+            }
         
-        weaponBase currentWeaponScript = currentWeapon.GetComponent<weaponBase>(); 
-        currentWeaponScript.Shoot();
+
         ammoCounter -= 1;
 
 
@@ -215,12 +223,41 @@ public class PlayerController : MonoBehaviour, IDamage
         gameManager.instance.ammoCounter.text = ammoCounter.ToString("0");
     }
 
-    //Weapon methods to spawn the correct weapons to the correct positions
-    void SpawnWeapon(GameObject weaponPrefab, Transform attachmentPoint)
+    
+    public void getGunStats(gunStats gun)
     {
-        currentWeapon = Instantiate(weaponPrefab, attachmentPoint.position, attachmentPoint.rotation);
-        currentWeapon.transform.parent = attachmentPoint; //Attach the weapon to its proper point because every weapon is different
+        gunList.Add(gun);
 
-        Debug.Log("Weapon spawned: " + currentWeapon.name);
+        shootDamage = gun.shootDamage;
+        shootDist = gun.shootDist;
+        shootRate = gun.shootRate;
+
+        gunModel.GetComponent<MeshFilter>().sharedMesh = gun.model.GetComponent<MeshFilter>().sharedMesh;
+        gunModel.GetComponent<MeshRenderer>().sharedMaterial = gun.model.GetComponent<MeshRenderer>().sharedMaterial;
+    }
+
+    void selectGun()
+    {
+        if (Input.GetAxis("Mouse ScrollWheel") > 0 && selectedGun < gunList.Count - 1)
+        {
+            selectedGun++;
+            changeGun();
+        }
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0 && selectedGun > 0)
+        {
+            selectedGun--;
+            changeGun();
+        }
+    }
+
+    void changeGun()
+    {
+        shootDamage = gunList[selectedGun].shootDamage;
+        shootDist = gunList[selectedGun].shootDist;
+        shootRate = gunList[selectedGun].shootRate;
+
+        gunModel.GetComponent<MeshFilter>().sharedMesh = gunList[selectedGun].model.GetComponent<MeshFilter>().sharedMesh;
+        gunModel.GetComponent<MeshRenderer>().sharedMaterial = gunList[selectedGun].model.GetComponent<MeshRenderer>().sharedMaterial;
+        isShooting = false;
     }
 }
