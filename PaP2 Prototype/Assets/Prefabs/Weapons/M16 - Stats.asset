@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 89383eed46ec81644ac36e0524ce1bb1, type: 3}
-  m_Name: Gun - Pistol
+  m_Name: M16 - Stats
   m_EditorClassIdentifier: 
-  shootDamage: 2
-  shootRate: 0.5
-  shootDist: 150
-  ammoCur: 10
-  ammoMax: 10
-  model: {fileID: 2110456051912792520, guid: d0ab6b7358c2fe04b8d2031aafcf6e08, type: 3}
+  shootDamage: 4
+  shootRate: 0.2
+  shootDist: 25
+  ammoCur: 16
+  ammoMax: 30
+  model: {fileID: 3157565929852043342, guid: cc4156adf6614cb4693b57fd602cf0b9, type: 3}
   hitEffect: {fileID: 468260622339083660, guid: f8c505478bba5bf4dbdeaa85632801a6, type: 3}
   shootSound: {fileID: 0}
   shootSoundVol: 0
