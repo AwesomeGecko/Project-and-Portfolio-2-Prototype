@@ -48,15 +48,11 @@ public class gameManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-<<<<<<< HEAD
-=======
+
 
         playerSpawnPos = GameObject.FindWithTag("PlayerSpawnPos");
 
-<<<<<<< Updated upstream
-=======
->>>>>>> a43d986f4aa1aee3d8595b9b8f78bd4104d34013
->>>>>>> Stashed changes
+
         
         instance = this;
         onTarget = false;
