@@ -36,6 +36,8 @@ public class gameManager : MonoBehaviour
     [Header("UI")]
     [SerializeField] public Image playerHPBar;
     [SerializeField] public Image playerStaminaBar;
+    [SerializeField] public Image Scope;
+    [SerializeField] public Image Crosshair;
     [SerializeField] public TextMeshProUGUI ammoCounter;
     [SerializeField] public TextMeshProUGUI maxAmmoCounter;
     [SerializeField] public TextMeshProUGUI gunName;

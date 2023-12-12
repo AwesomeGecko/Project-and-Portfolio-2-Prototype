@@ -81,6 +81,7 @@ MonoBehaviour:
   shootDist: 0
   gunModel: {fileID: 5075347595302112038}
   defaultPistol: {fileID: 11400000, guid: b622e77337d8b8141acab1f561c0b35b, type: 2}
+  scopeIn: {fileID: 6951981033588707834}
 --- !u!143 &5190971063148889619
 CharacterController:
   m_ObjectHideFlags: 0
@@ -287,7 +288,7 @@ GameObject:
   - component: {fileID: 6000765930483488672}
   - component: {fileID: 4531409513561699504}
   - component: {fileID: 6377505571970645536}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Gun Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -61,8 +61,8 @@ public class PlayerController : MonoBehaviour, IDamage
     private bool isAiming;
     private float defaultFOV;
     int selectedGun;
+    public Camera scopeIn;
     
-
     // Start is called before the first frame update
     void Start()
     {
@@ -337,29 +337,45 @@ public class PlayerController : MonoBehaviour, IDamage
         //Adjust the camera properties
         if (isAiming)
         {
-            //if the current gun wants the scope and if the scope is available
-            if (currentGun.useScopeCamera && currentGun.scopeCamera != null)
+            
+            //If the current gun wants the scope
+            if (currentGun.shouldUseScope)
             {
-                //Enable the scope camera
-                currentGun.scopeCamera.enabled = true;
+                //Deactivate the main crosshairs
+                gameManager.instance.Crosshair.gameObject.SetActive(false);
+                
+                //Enable the scope image overlay ontop of the main camera
+                gameManager.instance.Scope.gameObject.SetActive(true);
+
+                //Cull the gun out of screen
+                Camera.main.cullingMask = Camera.main.cullingMask & ~(1 << 7);
+
                 //Adjust the scope cameras FOV
-                currentGun.scopeCamera.fieldOfView = currentGun.fieldOfView;
+                Camera.main.fieldOfView = currentGun.fieldOfView;
             }
             else
             {
-                //Enable the main camera
-                Camera.main.enabled = true;
+                //Deactivate the Scope image
+                gameManager.instance.Scope.gameObject.SetActive(false);
+
+                //Enable the main crosshairs
+                gameManager.instance.Crosshair.gameObject.SetActive(true);
+                                
+                //Cull the gun back onto screen
+                scopeIn.cullingMask = scopeIn.cullingMask | (1 << 7);
+
                 //Adjust the main cameras FOV
                 Camera.main.fieldOfView = currentGun.fieldOfView;
             }
         }
         else
         {
-            //Disable the scope camera if available when exiting aiming down sights
-            if (currentGun.scopeCamera != null)
-            {
-                currentGun.scopeCamera.enabled = false;
-            }
+            //Cull the gun onto screen
+            scopeIn.cullingMask = scopeIn.cullingMask | (1 << 7);
+
+            //Disable the scope camera
+            gameManager.instance.Scope.gameObject.SetActive(false);
+
             //Re-enable the main camera and set it to the default value
             Camera.main.fieldOfView = defaultFOV;
         }
