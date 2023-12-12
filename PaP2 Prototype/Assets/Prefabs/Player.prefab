@@ -67,6 +67,14 @@ MonoBehaviour:
   shootRate: 0
   ammoCounter: 0
   maxAmmo: 0
+  soundSteps:
+  - {fileID: 8300000, guid: f6c214bca5e20274d958c0d78f78ca27, type: 3}
+  - {fileID: 8300000, guid: 040b30653ed0e0a4092e135887dc40cd, type: 3}
+  - {fileID: 8300000, guid: 2e7b64ebdbc19844a8be137c2e1f36f7, type: 3}
+  - {fileID: 8300000, guid: 195ca5674ba594646baec2491c1974a2, type: 3}
+  - {fileID: 8300000, guid: 226808efc9f05354e970aa8dc2c3c1f6, type: 3}
+  - {fileID: 8300000, guid: fdc3bd9cca9423b4dafa375c10cd2be6, type: 3}
+  soundStepsVol: 0.25
   HPOriginal: 0
   staminaRunCost: 2
   staminaRestoreSpeed: 0.8
@@ -448,7 +456,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5af02fe3451b7b94aafea00e33b453e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensitivity: 200
+  sensitivity: 500
   lockVertMin: -90
   lockVertMax: 90
   invtertY: 0
