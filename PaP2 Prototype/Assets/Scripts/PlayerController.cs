@@ -31,13 +31,19 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField] public int maxAmmo;
     private int gameManagerAmmo;
 
+    [Header("Audio")]
+    [SerializeField] AudioClip[] soundSteps;
+    [Range(0f, 1f)][SerializeField] float soundStepsVol;
+
     private Vector3 playerVelocity;
     private Vector3 move;
     private bool groundedPlayer;
     private int jumpCount;
     private Vector3 crouchCameraDist;
     private bool isShooting;
+    bool isPlayingSteps;
 
+    [Header("Gameplay Info")]
     public int HPOriginal;
     private float StaminaOrig;
     public float staminaRunCost;
@@ -105,18 +111,20 @@ public class PlayerController : MonoBehaviour, IDamage
             Movement();
        
     }
-
+    
     void Movement()
     {
         RunCode();
         Crouch();
 
-        
-
-        
-
         //Identical movement code in the lectures
         groundedPlayer = controller.isGrounded;
+
+        if (groundedPlayer && move.normalized.magnitude > 0.3f && !isPlayingSteps)
+        {
+            StartCoroutine(PlaySteps());
+        }
+
         if (groundedPlayer && playerVelocity.y < 0)
         {
             playerVelocity.y = 0f;
@@ -142,6 +150,22 @@ public class PlayerController : MonoBehaviour, IDamage
         }
     }
 
+    IEnumerator PlaySteps()
+    {
+        isPlayingSteps = true;
+        aud.PlayOneShot(soundSteps[Random.Range(0, soundSteps.Length - 1)], soundStepsVol);
+        if(!isRunning)
+        {
+            yield return new WaitForSeconds(0.5f);
+        }
+        else
+        {
+            yield return new WaitForSeconds(0.3f);
+        }
+        isPlayingSteps = false;
+    }
+
+
     public void teleportPlayer()
     {
         controller.enabled = false;
@@ -155,6 +179,7 @@ public class PlayerController : MonoBehaviour, IDamage
         isShooting = true;
 
         gunList[selectedGun].ammoCur--;
+        aud.PlayOneShot(gunList[selectedGun].shootSound, gunList[selectedGun].shootSoundVol);
 
 
         RaycastHit hit;
@@ -265,6 +290,7 @@ public class PlayerController : MonoBehaviour, IDamage
     public void getGunStats(gunStats gun)
     {
         gunList.Add(gun);
+        selectedGun = gunList.Count - 1;
 
         shootDamage = gun.shootDamage;
         shootDist = gun.shootDist;

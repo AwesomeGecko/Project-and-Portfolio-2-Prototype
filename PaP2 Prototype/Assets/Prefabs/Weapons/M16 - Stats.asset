@@ -19,8 +19,8 @@ MonoBehaviour:
   ammoMax: 30
   model: {fileID: 3157565929852043342, guid: cc4156adf6614cb4693b57fd602cf0b9, type: 3}
   hitEffect: {fileID: 468260622339083660, guid: f8c505478bba5bf4dbdeaa85632801a6, type: 3}
-  shootSound: {fileID: 0}
-  shootSoundVol: 0
+  shootSound: {fileID: 8300000, guid: 1b145bcffd767854fb0c71c37678ebaa, type: 3}
+  shootSoundVol: 0.25
   useScopeCamera: 0
   fieldOfView: 42
   scopeCamera: {fileID: 0}
