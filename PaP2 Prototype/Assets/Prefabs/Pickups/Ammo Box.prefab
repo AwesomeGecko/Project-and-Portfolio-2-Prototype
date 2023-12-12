@@ -93,8 +93,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerInRange: 0
   ItemName: Ammo
-  animator: {fileID: 8250114098227343509}
   interactCollider: {fileID: 3999737413616856892}
+  rotationSpeed: 0
+  bounceHeight: 0.1
+  bounceSpeed: 1
+  despawnDelay: 0.5
+  delayBeforeEffects: 1
 --- !u!65 &4592473780542094632
 BoxCollider:
   m_ObjectHideFlags: 0

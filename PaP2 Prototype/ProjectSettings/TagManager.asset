@@ -7,9 +7,9 @@ TagManager:
   - PlayerBullet
   - DamageScreen
   - PlayerSpawnPos
-  - Player Spawn Position
   - Pistol
   - Big Robot
+  - TeleportPos
   layers:
   - Default
   - TransparentFX

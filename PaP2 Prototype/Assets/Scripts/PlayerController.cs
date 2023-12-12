@@ -37,7 +37,6 @@ public class PlayerController : MonoBehaviour, IDamage
     private int jumpCount;
     private Vector3 crouchCameraDist;
     private bool isShooting;
-    private bool interactPickup;
 
     public int HPOriginal;
     private float StaminaOrig;
@@ -46,6 +45,7 @@ public class PlayerController : MonoBehaviour, IDamage
     private bool isRunning;
     private bool isStaminaRestore;
     private float initialSpeed;
+
 
     //Gun logic
    
@@ -133,13 +133,10 @@ public class PlayerController : MonoBehaviour, IDamage
         }
     }
 
-    public void respawnPlayer()
+    public void teleportPlayer()
     {
-        HP = HPOriginal;
-        UpdatePlayerUI();
-
         controller.enabled = false;
-        transform.position = gameManager.instance.playerSpawnPos.transform.position;
+        transform.position = gameManager.instance.TeleportPos.transform.position;
         controller.enabled = true;
     }
 

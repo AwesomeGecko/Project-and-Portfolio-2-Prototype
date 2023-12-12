@@ -8,8 +8,22 @@ public class interactableObject : MonoBehaviour {
     public string ItemName;
     private int ammoAmount = 25;
     private int healAmount = 5;
-    [SerializeField] Animator animator;
+    Animator animator;
     [SerializeField] Collider interactCollider;
+
+    public float rotationSpeed = 25f;
+    public float bounceHeight = 0.1f;
+    public float bounceSpeed = 1.0f;
+    public float despawnDelay = 0.5f;
+    public float delayBeforeEffects = 1.0f;
+    private bool isPickedUp = false;
+    private float initialY;
+
+    void Start()
+    {
+        initialY = transform.position.y;
+        animator = GetComponent<Animator>();
+    }
 
     public string GetItemName()
     {
@@ -19,10 +33,19 @@ public class interactableObject : MonoBehaviour {
 
     void Update()
     {
-        gather();
+        interact();
+        if (!isPickedUp)
+            transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime);
+
+
+        if (!isPickedUp)
+        {
+            float newY = initialY + Mathf.Sin(Time.time * bounceSpeed) * bounceHeight;
+            transform.position = new Vector3(transform.position.x, newY, transform.position.z);
+        }
     }
 
-    public void gather()
+    public void interact()
     {
         if (Input.GetButtonDown("Interact") && playerInRange && gameManager.instance.onTarget)
         {
@@ -31,11 +54,22 @@ public class interactableObject : MonoBehaviour {
             if (ItemName == "Ammo")
             {
                 ammoBox(); //opens and resets ammo box after time
+                
             }
 
             if (ItemName == "Health")
             {
                 healthBox(); //opens and resets health box after time
+            }
+
+            if (ItemName == "TP Key")
+            {
+                //used to turn on teleporter
+                keyCollector();
+                if (gameManager.instance.keysCollected == 3)
+                { 
+                    gameManager.instance.isTPOn = true;
+                }
             }
 
         }
@@ -93,6 +127,14 @@ public class interactableObject : MonoBehaviour {
         }
         gameManager.instance.isHP = false;
 
+    }
+
+    void keyCollector()
+    {
+        gameManager.instance.maxText.text = "Key Collected";
+        gameManager.instance.runText();
+        gameManager.instance.keysCollected++;
+        Destroy(gameObject);
     }
 
     IEnumerator openBox()

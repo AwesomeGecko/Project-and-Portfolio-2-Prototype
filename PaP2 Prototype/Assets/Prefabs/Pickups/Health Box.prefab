@@ -93,8 +93,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerInRange: 0
   ItemName: Health
-  animator: {fileID: 7201075271544892770}
   interactCollider: {fileID: 7817280206225856648}
+  rotationSpeed: 0
+  bounceHeight: 0.1
+  bounceSpeed: 1
+  despawnDelay: 0.5
+  delayBeforeEffects: 1
 --- !u!65 &2855300059232819885
 BoxCollider:
   m_ObjectHideFlags: 0

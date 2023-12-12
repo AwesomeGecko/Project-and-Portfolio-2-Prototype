@@ -18,13 +18,14 @@ public class gameManager : MonoBehaviour
     [SerializeField] GameObject menuControls;
 
     [Header("Interactive UI")]
-    [SerializeField] GameObject interactive;
-    [SerializeField] TextMeshProUGUI interact_text;
-    [SerializeField] GameObject maxPickup;
+    [SerializeField] public GameObject interactive;
+    [SerializeField] public  TextMeshProUGUI interact_text;
+    [SerializeField] public GameObject maxPickup;
     [SerializeField] public TextMeshProUGUI maxText;
 
     [Header("Player")]
     [SerializeField] public GameObject playerSpawnPos;
+    [SerializeField] public GameObject TeleportPos;
     public GameObject player;
     public Vector3 currentEnemyPosition;
     [SerializeField] GameObject damageScreen;
@@ -39,6 +40,7 @@ public class gameManager : MonoBehaviour
     [SerializeField] public TextMeshProUGUI maxAmmoCounter;
     [SerializeField] public TextMeshProUGUI gunName;
     [SerializeField] public TextMeshProUGUI enemyCounter;
+    [SerializeField] public TextMeshProUGUI keysLeft;
 
     [Header("Scripts")]
     public PlayerController playerScript;
@@ -51,6 +53,8 @@ public class gameManager : MonoBehaviour
     public bool onTarget;
     public bool isAmmo;
     public bool isHP;
+    public bool isTPOn;
+    public int keysCollected;
 
     // Start is called before the first frame update
     void Awake()
@@ -61,6 +65,8 @@ public class gameManager : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         playerScript = player.GetComponent<PlayerController>();
         playerSpawnPos = GameObject.FindWithTag("PlayerSpawnPos");
+        TeleportPos = GameObject.FindWithTag("TeleportPos");
+        
 
         damageScreen = GameObject.FindWithTag("DamageScreen");
         volume = damageScreen.GetComponent<PostProcessVolume>();
@@ -94,6 +100,7 @@ public class gameManager : MonoBehaviour
             vignette.enabled.Override(false);
         }
         enemyCounter.text = enemiesRemaining.ToString("0");
+        keysLeft.text = keysCollected.ToString("0");
     }
 
     public void statePause()
@@ -150,14 +157,11 @@ public class gameManager : MonoBehaviour
 
             if (interactable && interactable.playerInRange)
             {
-
                 onTarget = true;
 
                 interact_text.text = "Pick up [E] " + interactable.GetItemName();
                 interactive.SetActive(true);
-
                 
-
             }
             else
             {
@@ -249,10 +253,17 @@ public class gameManager : MonoBehaviour
         }
     }
 
+    public void runText()
+    {
+        StartCoroutine(maxPickups());
+    }
+
     IEnumerator maxPickups()
     {
         maxPickup.SetActive(true);
         yield return new WaitForSeconds(1f);
         maxPickup.SetActive(false);
     }
+
+    
 }
