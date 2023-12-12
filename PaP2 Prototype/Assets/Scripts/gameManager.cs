@@ -17,9 +17,11 @@ public class gameManager : MonoBehaviour
     [SerializeField] GameObject menuLose;
     [SerializeField] GameObject menuControls;
 
-    [Header("Interactive")]
+    [Header("Interactive UI")]
     [SerializeField] GameObject interactive;
     [SerializeField] TextMeshProUGUI interact_text;
+    [SerializeField] GameObject maxPickup;
+    [SerializeField] TextMeshProUGUI maxText;
 
     [Header("Player")]
     [SerializeField] GameObject playerSpawnPos;
@@ -47,7 +49,7 @@ public class gameManager : MonoBehaviour
     void Awake()
     {
 
-        playerSpawnPos = GameObject.FindWithTag("Player Spawn Position");
+        playerSpawnPos = GameObject.FindWithTag("PlayerSpawnPos");
 
         spawnPlayer();
         instance = this;
@@ -55,6 +57,7 @@ public class gameManager : MonoBehaviour
         timeScaleOrig = Time.timeScale;
         player = GameObject.FindWithTag("Player");
         playerScript = player.GetComponent<PlayerController>();
+
         
         damageScreen = GameObject.FindWithTag("DamageScreen");
         volume = damageScreen.GetComponent<PostProcessVolume>();
@@ -149,6 +152,9 @@ public class gameManager : MonoBehaviour
 
                 interact_text.text = "Pick up [E] " + interactable.GetItemName();
                 interactive.SetActive(true);
+
+                
+
             }
             else
             {
@@ -161,6 +167,7 @@ public class gameManager : MonoBehaviour
         {
             onTarget = false;
             interactive.SetActive(false);
+            
         }
     }
 
@@ -226,5 +233,23 @@ public class gameManager : MonoBehaviour
     void spawnPlayer()
     {
         Instantiate(player, playerSpawnPos.transform.position, transform.rotation);
+    }
+
+    public void maxItems()
+    {
+        if (playerScript.ammoCounter >= playerScript.maxAmmo)
+        {
+            StartCoroutine(maxPickups());
+            maxText.text = "Ammo Too Full";
+            playerScript.ammoCounter = playerScript.maxAmmo;
+        }
+    }
+
+    IEnumerator maxPickups()
+    {
+        menuActive = maxPickup;
+        menuActive.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        menuActive.SetActive(false);
     }
 }

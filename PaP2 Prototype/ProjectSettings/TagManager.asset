@@ -6,6 +6,7 @@ TagManager:
   tags:
   - PlayerBullet
   - DamageScreen
+  - PlayerSpawnPos
   - Player Spawn Position
   - Pistol
   layers:

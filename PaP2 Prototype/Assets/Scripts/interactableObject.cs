@@ -32,6 +32,7 @@ public class interactableObject : MonoBehaviour {
             if (ItemName == "Ammo")
             {
                 gameManager.instance.playerScript.ammoCounter += ammoAmount;
+                gameManager.instance.maxItems();
             }
             if (ItemName == "Health")
             {

@@ -18,18 +18,18 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField] float playerSpeed;
     [SerializeField] float jumpHeight;
     [SerializeField] float gravityValue;
-    [SerializeField] private float sprintSpeed;  //Z- changed the sprintMod as the sprint stoped working because of it
+    [SerializeField] private float sprintSpeed;
     [SerializeField] float crouchMod;
     [SerializeField] float crouchDist;
-    //[SerializeField] float crouchTransitionSpeed;
 
     [Header("Gun Stats")]
     [SerializeField] GameObject bullet;
-    [SerializeField] Transform shootPos;
+    [SerializeField] GameObject shootPos;
     [SerializeField] int shootDamage;
     [SerializeField] int bulletDestroyTime;
     [SerializeField] float shootRate;
     [SerializeField] public int ammoCounter;
+    [SerializeField] public int maxAmmo;
     private int gameManagerAmmo;
 
     private Vector3 playerVelocity;
@@ -37,17 +37,15 @@ public class PlayerController : MonoBehaviour, IDamage
     private bool groundedPlayer;
     private int jumpCount;
     private Vector3 crouchCameraDist;
-    
+    private bool isShooting;
     private bool interactPickup;
 
-    //Z- added HP Stamina and bools for running and stamina restoring
-    private int HPOriginal;
+    public int HPOriginal;
     private float StaminaOrig;
     public float staminaRunCost;
     public float staminaRestoreSpeed;
     private bool isRunning;
     private bool isStaminaRestore;
-    //Z- a way to store the initial speed can make it easier later
     private float initialSpeed;
 
     //Gun logic
@@ -55,7 +53,6 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField] int shootDist;
     [SerializeField] GameObject gunModel;
     int selectedGun;
-    private bool isShooting;
 
 
     // Start is called before the first frame update
@@ -65,7 +62,6 @@ public class PlayerController : MonoBehaviour, IDamage
 
         ammoCounter = 10;
         crouchCameraDist = new Vector3(0, crouchDist / 2, 0);
-        //Z- Set all placeholders and updating the UI
         HPOriginal = HP;
         StaminaOrig = Stamina;
         initialSpeed = playerSpeed;
@@ -121,7 +117,6 @@ public class PlayerController : MonoBehaviour, IDamage
         playerVelocity.y += gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
 
-        //Z- added a way for stamina to restore
         if (!isStaminaRestore && !isRunning && Stamina < StaminaOrig)
         {
             StartCoroutine(RestoreStamina());
@@ -140,7 +135,7 @@ public class PlayerController : MonoBehaviour, IDamage
         if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDist))
             Instantiate(gunList[selectedGun].hitEffect, hit.point, transform.rotation);
 
-            Debug.Log(hit.transform.name);
+            //Debug.Log(hit.transform.name);
 
             IDamage dmg = hit.collider.GetComponent<IDamage>();
 
@@ -157,11 +152,8 @@ public class PlayerController : MonoBehaviour, IDamage
         isShooting = false;
     }
 
-    //Z- Changed the Sprint() to RunCode because of the IEnumerator wasnt nessesary TBH
     void RunCode()
     {
-        //Z- Changed the GetButtonDown to GetButton so when the user holds down the key it changed the UI
-        //i tried to keep the original but it only changed things once, this way calles it multiple times
         if (Input.GetButton("Sprint") && Stamina > 0.2f)
         {
             if (!isRunning)
@@ -170,7 +162,7 @@ public class PlayerController : MonoBehaviour, IDamage
                 playerSpeed = sprintSpeed;
             }
         }
-        else //Z- once the user is no longer holding the button it resets the speed, again i will try to make this better
+        else
         {
             playerSpeed = initialSpeed;
         }
@@ -207,7 +199,6 @@ public class PlayerController : MonoBehaviour, IDamage
         }
     }
 
-    //Z- Sets the running bool takes one from stamina 
     IEnumerator Sprint()
     { 
         isRunning = true;
@@ -216,7 +207,6 @@ public class PlayerController : MonoBehaviour, IDamage
         isRunning = false;
     }
 
-    //Z- Sets the Restoring bool and Adds one to the Stamina
     IEnumerator RestoreStamina()
     {
         isStaminaRestore = true;
@@ -225,10 +215,8 @@ public class PlayerController : MonoBehaviour, IDamage
         isStaminaRestore = false;
     }
 
-    //Z- Added UI so health and Stamina works
     void UpdatePlayerUI()
     {
-        //Update player HP and stamina
         gameManager.instance.playerHPBar.fillAmount = (float)HP / HPOriginal;
         gameManager.instance.playerStaminaBar.fillAmount = Stamina / StaminaOrig;
         gameManager.instance.ammoCounter.text = ammoCounter.ToString("0");
