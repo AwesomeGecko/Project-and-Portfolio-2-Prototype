@@ -51,8 +51,9 @@ public class PlayerController : MonoBehaviour, IDamage
    
     [SerializeField] int shootDist;
     [SerializeField] GameObject gunModel;
+    [SerializeField] gunStats defaultPistol;
     int selectedGun;
-
+    
 
     // Start is called before the first frame update
     void Start()
@@ -63,6 +64,16 @@ public class PlayerController : MonoBehaviour, IDamage
         HPOriginal = HP;
         StaminaOrig = Stamina;
         initialSpeed = playerSpeed;
+
+        if(defaultPistol != null)
+        {
+            getGunStats(defaultPistol);
+        }
+        else
+        {
+            Debug.LogError("Default pistol scriptable object is not assigned in the Unity Editor.");
+        }
+
         playerRespawn();
         int.TryParse(gameManager.instance.ammoCounter.text, out gameManagerAmmo);
         ammoCounter = gameManagerAmmo;
