@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shootDamage: 2
   shootRate: 0.5
-  shootDist: 150
+  shootDist: 20
   ammoCur: 10
   ammoMax: 10
   model: {fileID: 2110456051912792520, guid: d0ab6b7358c2fe04b8d2031aafcf6e08, type: 3}

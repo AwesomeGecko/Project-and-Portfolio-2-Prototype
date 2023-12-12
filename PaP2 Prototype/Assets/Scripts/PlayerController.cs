@@ -23,8 +23,9 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField] float crouchDist;
 
     [Header("Gun Stats")]
-    [SerializeField] GameObject bullet;
-    [SerializeField] GameObject shootPos;
+    [SerializeField] List<gunStats> gunList = new List<gunStats>();
+    //[SerializeField] GameObject bullet;
+    //[SerializeField] GameObject shootPos;
     [SerializeField] int shootDamage;
     [SerializeField] int bulletDestroyTime;
     [SerializeField] float shootRate;
@@ -49,7 +50,7 @@ public class PlayerController : MonoBehaviour, IDamage
     private float initialSpeed;
 
     //Gun logic
-    [SerializeField] List<gunStats> gunList = new List<gunStats>();
+   
     [SerializeField] int shootDist;
     [SerializeField] GameObject gunModel;
     int selectedGun;

@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89383eed46ec81644ac36e0524ce1bb1, type: 3}
   m_Name: M16 - Stats
   m_EditorClassIdentifier: 
-  shootDamage: 4
+  shootDamage: 3
   shootRate: 0.2
-  shootDist: 25
-  ammoCur: 16
+  shootDist: 200
+  ammoCur: 30
   ammoMax: 30
   model: {fileID: 3157565929852043342, guid: cc4156adf6614cb4693b57fd602cf0b9, type: 3}
   hitEffect: {fileID: 468260622339083660, guid: f8c505478bba5bf4dbdeaa85632801a6, type: 3}
