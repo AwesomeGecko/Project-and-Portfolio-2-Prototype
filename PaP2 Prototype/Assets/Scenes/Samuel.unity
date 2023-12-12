@@ -659,10 +659,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7690791594612462352, guid: 88130395ff4ef8d43a683154e855afc5, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.5733333
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -802,18 +798,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1955939370964929539, guid: be609eb4d25e5c34ebb01d3969825884, type: 3}
-      propertyPath: m_Radius
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1955939370964929539, guid: be609eb4d25e5c34ebb01d3969825884, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5867944530844572290, guid: be609eb4d25e5c34ebb01d3969825884, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 1.6666667
-      objectReference: {fileID: 0}
     - target: {fileID: 6684607624845021018, guid: be609eb4d25e5c34ebb01d3969825884, type: 3}
       propertyPath: m_LocalPosition.x
       value: -44.75
@@ -857,10 +841,6 @@ PrefabInstance:
     - target: {fileID: 6684607624845382328, guid: be609eb4d25e5c34ebb01d3969825884, type: 3}
       propertyPath: m_Name
       value: Big Robot
-      objectReference: {fileID: 0}
-    - target: {fileID: 8205528709798583184, guid: be609eb4d25e5c34ebb01d3969825884, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 2.1666667
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
