@@ -24,8 +24,6 @@ public class PlayerController : MonoBehaviour, IDamage
 
     [Header("Gun Stats")]
     [SerializeField] List<gunStats> gunList = new List<gunStats>();
-    //[SerializeField] GameObject bullet;
-    //[SerializeField] GameObject shootPos;
     [SerializeField] int shootDamage;
     [SerializeField] int bulletDestroyTime;
     [SerializeField] float shootRate;
@@ -61,7 +59,6 @@ public class PlayerController : MonoBehaviour, IDamage
     {
         //EquipGun(currentGunIndex);
 
-        ammoCounter = 10;
         crouchCameraDist = new Vector3(0, crouchDist / 2, 0);
         HPOriginal = HP;
         StaminaOrig = Stamina;
@@ -244,7 +241,7 @@ public class PlayerController : MonoBehaviour, IDamage
         gameManager.instance.playerHPBar.fillAmount = (float)HP / HPOriginal;
         gameManager.instance.playerStaminaBar.fillAmount = Stamina / StaminaOrig;
         gameManager.instance.ammoCounter.text = ammoCounter.ToString("0");
-        
+        gameManager.instance.maxAmmoCounter.text = maxAmmo.ToString("0");
     }
 
     
@@ -255,6 +252,8 @@ public class PlayerController : MonoBehaviour, IDamage
         shootDamage = gun.shootDamage;
         shootDist = gun.shootDist;
         shootRate = gun.shootRate;
+        ammoCounter = gun.ammoCur;
+        maxAmmo = gun.ammoMax;
 
         gunModel.GetComponent<MeshFilter>().sharedMesh = gun.model.GetComponent<MeshFilter>().sharedMesh;
         gunModel.GetComponent<MeshRenderer>().sharedMaterial = gun.model.GetComponent<MeshRenderer>().sharedMaterial;
@@ -279,6 +278,8 @@ public class PlayerController : MonoBehaviour, IDamage
         shootDamage = gunList[selectedGun].shootDamage;
         shootDist = gunList[selectedGun].shootDist;
         shootRate = gunList[selectedGun].shootRate;
+        ammoCounter = gunList[selectedGun].ammoCur;
+        maxAmmo = gunList[selectedGun].ammoMax;
 
         gunModel.GetComponent<MeshFilter>().sharedMesh = gunList[selectedGun].model.GetComponent<MeshFilter>().sharedMesh;
         gunModel.GetComponent<MeshRenderer>().sharedMaterial = gunList[selectedGun].model.GetComponent<MeshRenderer>().sharedMaterial;

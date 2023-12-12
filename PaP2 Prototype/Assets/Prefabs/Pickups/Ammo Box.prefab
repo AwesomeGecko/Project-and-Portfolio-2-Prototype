@@ -93,6 +93,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerInRange: 0
   ItemName: Ammo
+  animator: {fileID: 8250114098227343509}
 --- !u!65 &4592473780542094632
 BoxCollider:
   m_ObjectHideFlags: 0

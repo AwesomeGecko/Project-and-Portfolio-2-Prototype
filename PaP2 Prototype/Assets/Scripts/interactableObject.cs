@@ -8,7 +8,8 @@ public class interactableObject : MonoBehaviour {
     public string ItemName;
     private int ammoAmount = 25;
     private int healAmount = 5;
-
+    [SerializeField] Animator animator;
+    [SerializeField] Collider interactCollider;
 
     public string GetItemName()
     {
@@ -27,21 +28,23 @@ public class interactableObject : MonoBehaviour {
         {
             Debug.Log("Item Added to Inventory");
 
-            Destroy(gameObject);
+            
 
             if (ItemName == "Ammo")
             {
+                animator.SetTrigger("isOpen");
                 gameManager.instance.playerScript.ammoCounter += ammoAmount;
                 gameManager.instance.maxItems();
+                interactCollider.enabled = false;
             }
             if (ItemName == "Health")
             {
+                animator.SetTrigger("isOpen");
                 gameManager.instance.playerScript.HP += healAmount;
             }
+
         }
     }
-
-    
 
     private void OnTriggerEnter(Collider other)
     {
