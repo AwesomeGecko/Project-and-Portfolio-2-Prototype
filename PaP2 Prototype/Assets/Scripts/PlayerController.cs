@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour, IDamage
 {
-    
+
 
     [Header("Components")]
     [SerializeField] CharacterController controller;
@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour, IDamage
     private bool groundedPlayer;
     private int jumpCount;
     private Vector3 crouchCameraDist;
-    private bool isShooting;
+    
     private bool interactPickup;
 
     //Z- added HP Stamina and bools for running and stamina restoring
@@ -50,10 +50,19 @@ public class PlayerController : MonoBehaviour, IDamage
     //Z- a way to store the initial speed can make it easier later
     private float initialSpeed;
 
+    //Gun logic
+    [SerializeField] List<gunStats> gunList = new List<gunStats>();
+    [SerializeField] int shootDist;
+    [SerializeField] GameObject gunModel;
+    int selectedGun;
+    private bool isShooting;
+
 
     // Start is called before the first frame update
     void Start()
     {
+        //EquipGun(currentGunIndex);
+
         ammoCounter = 10;
         crouchCameraDist = new Vector3(0, crouchDist / 2, 0);
         //Z- Set all placeholders and updating the UI
@@ -68,7 +77,18 @@ public class PlayerController : MonoBehaviour, IDamage
     // Update is called once per frame
     void Update()
     {
-        Movement();
+        if (!gameManager.instance.isPaused)
+        {
+            if (gunList.Count > 0)
+            {
+                if (Input.GetButton("Fire1") && !isShooting)
+                    StartCoroutine(Shoot());
+
+                selectGun();
+            }
+        }
+            Movement();
+       
     }
 
     void Movement()
@@ -78,10 +98,7 @@ public class PlayerController : MonoBehaviour, IDamage
 
         
 
-        if (Input.GetButtonDown("Fire1") && !isShooting && !gameManager.instance.isPaused && ammoCounter >= 1)
-        {
-            StartCoroutine(Shoot());
-        }
+        
 
         //Identical movement code in the lectures
         groundedPlayer = controller.isGrounded;
@@ -113,9 +130,29 @@ public class PlayerController : MonoBehaviour, IDamage
 
     IEnumerator Shoot()
     {
+
         isShooting = true;
+
+        gunList[selectedGun].ammoCur--;
+
+
+        RaycastHit hit;
+        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDist))
+            Instantiate(gunList[selectedGun].hitEffect, hit.point, transform.rotation);
+
+            Debug.Log(hit.transform.name);
+
+            IDamage dmg = hit.collider.GetComponent<IDamage>();
+
+            if (hit.transform != transform && dmg != null)
+            {
+                dmg.takeDamage(shootDamage);
+            }
+        
+
         ammoCounter -= 1;
-        Instantiate(bullet, shootPos.position, transform.rotation);
+
+
         yield return new WaitForSeconds(shootRate);
         isShooting = false;
     }
@@ -195,5 +232,43 @@ public class PlayerController : MonoBehaviour, IDamage
         gameManager.instance.playerHPBar.fillAmount = (float)HP / HPOriginal;
         gameManager.instance.playerStaminaBar.fillAmount = Stamina / StaminaOrig;
         gameManager.instance.ammoCounter.text = ammoCounter.ToString("0");
+    }
+
+    
+    public void getGunStats(gunStats gun)
+    {
+        gunList.Add(gun);
+
+        shootDamage = gun.shootDamage;
+        shootDist = gun.shootDist;
+        shootRate = gun.shootRate;
+
+        gunModel.GetComponent<MeshFilter>().sharedMesh = gun.model.GetComponent<MeshFilter>().sharedMesh;
+        gunModel.GetComponent<MeshRenderer>().sharedMaterial = gun.model.GetComponent<MeshRenderer>().sharedMaterial;
+    }
+
+    void selectGun()
+    {
+        if (Input.GetAxis("Mouse ScrollWheel") > 0 && selectedGun < gunList.Count - 1)
+        {
+            selectedGun++;
+            changeGun();
+        }
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0 && selectedGun > 0)
+        {
+            selectedGun--;
+            changeGun();
+        }
+    }
+
+    void changeGun()
+    {
+        shootDamage = gunList[selectedGun].shootDamage;
+        shootDist = gunList[selectedGun].shootDist;
+        shootRate = gunList[selectedGun].shootRate;
+
+        gunModel.GetComponent<MeshFilter>().sharedMesh = gunList[selectedGun].model.GetComponent<MeshFilter>().sharedMesh;
+        gunModel.GetComponent<MeshRenderer>().sharedMaterial = gunList[selectedGun].model.GetComponent<MeshRenderer>().sharedMaterial;
+        isShooting = false;
     }
 }
