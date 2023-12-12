@@ -66,7 +66,7 @@ public class PlayerController : MonoBehaviour, IDamage
         HPOriginal = HP;
         StaminaOrig = Stamina;
         initialSpeed = playerSpeed;
-        UpdatePlayerUI();
+        playerRespawn();
         int.TryParse(gameManager.instance.ammoCounter.text, out gameManagerAmmo);
         ammoCounter = gameManagerAmmo;
         
@@ -219,11 +219,22 @@ public class PlayerController : MonoBehaviour, IDamage
         isStaminaRestore = false;
     }
 
-    void UpdatePlayerUI()
+    public void playerRespawn()
+    {
+        HP = HPOriginal;
+        UpdatePlayerUI();
+
+        controller.enabled = false;
+        transform.position = gameManager.instance.playerSpawnPos.transform.position;
+        controller.enabled = true;
+    }
+
+    public void UpdatePlayerUI()
     {
         gameManager.instance.playerHPBar.fillAmount = (float)HP / HPOriginal;
         gameManager.instance.playerStaminaBar.fillAmount = Stamina / StaminaOrig;
         gameManager.instance.ammoCounter.text = ammoCounter.ToString("0");
+        
     }
 
     

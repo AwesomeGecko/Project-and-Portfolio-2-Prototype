@@ -24,7 +24,7 @@ public class gameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI maxText;
 
     [Header("Player")]
-    [SerializeField] GameObject playerSpawnPos;
+    [SerializeField] public GameObject playerSpawnPos;
     public GameObject player;
     public PlayerController playerScript;
     [SerializeField] GameObject damageScreen;
@@ -50,7 +50,7 @@ public class gameManager : MonoBehaviour
     {
 
 
-        playerSpawnPos = GameObject.FindWithTag("PlayerSpawnPos");
+        
 
 
         
