@@ -51,7 +51,7 @@ public class gameManager : MonoBehaviour
 
         playerSpawnPos = GameObject.FindWithTag("PlayerSpawnPos");
 
-        spawnPlayer();
+        
         instance = this;
         onTarget = false;
         timeScaleOrig = Time.timeScale;
@@ -230,10 +230,10 @@ public class gameManager : MonoBehaviour
         yield break;
     }
 
-    void spawnPlayer()
-    {
-        Instantiate(player, playerSpawnPos.transform.position, transform.rotation);
-    }
+    //void spawnPlayer()
+    //{
+    //    Instantiate(player, playerSpawnPos.transform.position, transform.rotation);
+    //}
 
     public void maxItems()
     {

@@ -68,6 +68,7 @@ public class PlayerController : MonoBehaviour, IDamage
         UpdatePlayerUI();
         int.TryParse(gameManager.instance.ammoCounter.text, out gameManagerAmmo);
         ammoCounter = gameManagerAmmo;
+        
     }
 
     // Update is called once per frame
@@ -133,6 +134,7 @@ public class PlayerController : MonoBehaviour, IDamage
 
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDist))
+        { 
             Instantiate(gunList[selectedGun].hitEffect, hit.point, transform.rotation);
 
             //Debug.Log(hit.transform.name);
@@ -145,7 +147,8 @@ public class PlayerController : MonoBehaviour, IDamage
             }
         
 
-        ammoCounter -= 1;
+            ammoCounter -= 1;
+        }
 
 
         yield return new WaitForSeconds(shootRate);

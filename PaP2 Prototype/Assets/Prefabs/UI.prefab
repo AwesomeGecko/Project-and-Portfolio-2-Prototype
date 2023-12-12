@@ -963,7 +963,7 @@ GameObject:
   - component: {fileID: 1453045187792047515}
   - component: {fileID: 1839696024624591095}
   m_Layer: 5
-  m_Name: Interact_bar
+  m_Name: maxBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3081,7 +3081,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &101366435295015368
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3383,7 +3383,7 @@ GameObject:
   - component: {fileID: 6794812490524316861}
   - component: {fileID: 241443840692163461}
   m_Layer: 5
-  m_Name: Interact_text
+  m_Name: maxText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3562,8 +3562,8 @@ MonoBehaviour:
   menuControls: {fileID: 1484712600534028397}
   interactive: {fileID: 7451277246688152446}
   interact_text: {fileID: 1820666768542192257}
-  maxPickup: {fileID: 0}
-  maxText: {fileID: 0}
+  maxPickup: {fileID: 4570701984072889860}
+  maxText: {fileID: 241443840692163461}
   playerSpawnPos: {fileID: 0}
   player: {fileID: 3936800427781867614, guid: 415e8ce8c9de02143b1cd6917b11c526, type: 3}
   playerScript: {fileID: 0}
