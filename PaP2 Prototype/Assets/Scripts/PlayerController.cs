@@ -125,6 +125,16 @@ public class PlayerController : MonoBehaviour, IDamage
         }
     }
 
+    public void respawnPlayer()
+    {
+        HP = HPOriginal;
+        UpdatePlayerUI();
+
+        controller.enabled = false;
+        transform.position = gameManager.instance.playerSpawnPos.transform.position;
+        controller.enabled = true;
+    }
+
     IEnumerator Shoot()
     {
 
