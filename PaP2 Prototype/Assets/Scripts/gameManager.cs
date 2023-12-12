@@ -21,13 +21,12 @@ public class gameManager : MonoBehaviour
     [SerializeField] GameObject interactive;
     [SerializeField] TextMeshProUGUI interact_text;
     [SerializeField] GameObject maxPickup;
-    [SerializeField] public TextMeshProUGUI maxText;
+    [SerializeField] TextMeshProUGUI maxText;
 
     [Header("Player")]
     [SerializeField] public GameObject playerSpawnPos;
     public GameObject player;
     public PlayerController playerScript;
-    public Vector3 currentEnemyPosition;
     [SerializeField] GameObject damageScreen;
     private float intensity;
     private PostProcessVolume volume;
@@ -37,7 +36,6 @@ public class gameManager : MonoBehaviour
     [SerializeField] public Image playerHPBar;
     [SerializeField] public Image playerStaminaBar;
     [SerializeField] public TextMeshProUGUI ammoCounter;
-    [SerializeField] public TextMeshProUGUI maxAmmoCounter;
     [SerializeField] public TextMeshProUGUI gunName;
     [SerializeField] public TextMeshProUGUI enemyCounter;
 
@@ -228,6 +226,10 @@ public class gameManager : MonoBehaviour
         yield break;
     }
 
+    //void spawnPlayer()
+    //{
+    //    Instantiate(player, playerSpawnPos.transform.position, transform.rotation);
+    //}
 
     public void maxItems()
     {
@@ -245,6 +247,5 @@ public class gameManager : MonoBehaviour
         menuActive.SetActive(true);
         yield return new WaitForSeconds(1f);
         menuActive.SetActive(false);
-        menuActive = null;
     }
 }
