@@ -348,7 +348,7 @@ public class PlayerController : MonoBehaviour, IDamage
                 gameManager.instance.Scope.gameObject.SetActive(true);
 
                 //Cull the gun out of screen
-                Camera.main.cullingMask = Camera.main.cullingMask & ~(1 << 7);
+                scopeIn.cullingMask = scopeIn.cullingMask & ~(1 << 7);
 
                 //Adjust the scope cameras FOV
                 Camera.main.fieldOfView = currentGun.fieldOfView;
