@@ -24,7 +24,7 @@ public class gameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI maxText;
 
     [Header("Player")]
-    [SerializeField] GameObject playerSpawnPos;
+    [SerializeField] public GameObject playerSpawnPos;
     public GameObject player;
     public PlayerController playerScript;
     [SerializeField] GameObject damageScreen;
@@ -48,7 +48,6 @@ public class gameManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-
         instance = this;
         onTarget = false;
         timeScaleOrig = Time.timeScale;
