@@ -21,12 +21,12 @@ public class gameManager : MonoBehaviour
     [SerializeField] GameObject interactive;
     [SerializeField] TextMeshProUGUI interact_text;
     [SerializeField] GameObject maxPickup;
-    [SerializeField] TextMeshProUGUI maxText;
+    [SerializeField] public TextMeshProUGUI maxText;
 
     [Header("Player")]
     [SerializeField] public GameObject playerSpawnPos;
     public GameObject player;
-    public PlayerController playerScript;
+    public Vector3 currentEnemyPosition;
     [SerializeField] GameObject damageScreen;
     private float intensity;
     private PostProcessVolume volume;
@@ -36,14 +36,21 @@ public class gameManager : MonoBehaviour
     [SerializeField] public Image playerHPBar;
     [SerializeField] public Image playerStaminaBar;
     [SerializeField] public TextMeshProUGUI ammoCounter;
+    [SerializeField] public TextMeshProUGUI maxAmmoCounter;
     [SerializeField] public TextMeshProUGUI gunName;
     [SerializeField] public TextMeshProUGUI enemyCounter;
+
+    [Header("Scripts")]
+    public PlayerController playerScript;
+    public interactableObject IOScript;
 
     [Header("Public bools")]
     public bool isPaused;
     float timeScaleOrig;
     int enemiesRemaining;
     public bool onTarget;
+    public bool isAmmo;
+    public bool isHP;
 
     // Start is called before the first frame update
     void Awake()
@@ -226,26 +233,26 @@ public class gameManager : MonoBehaviour
         yield break;
     }
 
-    //void spawnPlayer()
-    //{
-    //    Instantiate(player, playerSpawnPos.transform.position, transform.rotation);
-    //}
 
     public void maxItems()
     {
-        if (playerScript.ammoCounter >= playerScript.maxAmmo)
+        if (playerScript.ammoCounter >= playerScript.maxAmmo && isAmmo)
         {
             StartCoroutine(maxPickups());
             maxText.text = "Ammo Too Full";
             playerScript.ammoCounter = playerScript.maxAmmo;
         }
+        if (playerScript.HP >= playerScript.HPOriginal && isHP)
+        {
+            StartCoroutine(maxPickups());
+            maxText.text = "Health Too Full";
+        }
     }
 
     IEnumerator maxPickups()
     {
-        menuActive = maxPickup;
-        menuActive.SetActive(true);
+        maxPickup.SetActive(true);
         yield return new WaitForSeconds(1f);
-        menuActive.SetActive(false);
+        maxPickup.SetActive(false);
     }
 }

@@ -28,19 +28,14 @@ public class interactableObject : MonoBehaviour {
         {
             Debug.Log("Item Added to Inventory");
 
-            
-
             if (ItemName == "Ammo")
             {
-                animator.SetTrigger("isOpen");
-                gameManager.instance.playerScript.ammoCounter += ammoAmount;
-                gameManager.instance.maxItems();
-                interactCollider.enabled = false;
+                ammoBox(); //opens and resets ammo box after time
             }
+
             if (ItemName == "Health")
             {
-                animator.SetTrigger("isOpen");
-                gameManager.instance.playerScript.HP += healAmount;
+                healthBox(); //opens and resets health box after time
             }
 
         }
@@ -61,5 +56,51 @@ public class interactableObject : MonoBehaviour {
         {
             playerInRange = false;
         }
+    }
+
+    void ammoBox()
+    {
+        gameManager.instance.isAmmo = true;
+        if (gameManager.instance.playerScript.ammoCounter < gameManager.instance.playerScript.maxAmmo) //if current ammo is less than max
+        {
+            StartCoroutine(openBox());
+            gameManager.instance.playerScript.ammoCounter += ammoAmount; //adds ammo
+
+            if (gameManager.instance.playerScript.ammoCounter >= gameManager.instance.playerScript.maxAmmo) //if current ammo is greater than max
+            {
+                gameManager.instance.playerScript.ammoCounter = gameManager.instance.playerScript.maxAmmo; //sets back to max
+            }
+        }
+        else
+        {
+            gameManager.instance.maxItems();
+        }
+        gameManager.instance.isAmmo = false;
+    }
+
+    void healthBox()
+    {
+        
+        gameManager.instance.isHP = true;
+        if (gameManager.instance.playerScript.HP < gameManager.instance.playerScript.HPOriginal)
+        {
+            StartCoroutine(openBox());
+            gameManager.instance.playerScript.HP += healAmount;
+        }
+        else
+        {
+            gameManager.instance.maxItems();
+        }
+        gameManager.instance.isHP = false;
+
+    }
+
+    IEnumerator openBox()
+    {
+        animator.SetTrigger("isOpen");
+        interactCollider.enabled = false;
+        yield return new WaitForSeconds(20f);
+        animator.SetTrigger("isClosed");
+        interactCollider.enabled = true;
     }
 }
