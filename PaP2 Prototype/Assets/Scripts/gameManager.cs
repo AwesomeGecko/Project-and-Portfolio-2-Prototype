@@ -49,11 +49,6 @@ public class gameManager : MonoBehaviour
     void Awake()
     {
 
-
-        playerSpawnPos = GameObject.FindWithTag("PlayerSpawnPos");
-
-
-        
         instance = this;
         onTarget = false;
         timeScaleOrig = Time.timeScale;

@@ -53,7 +53,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c4f598dce2fd5744490725ee58c6b263, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.71
+      value: -8.64
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c4f598dce2fd5744490725ee58c6b263, type: 3}
       propertyPath: m_LocalPosition.y
@@ -61,7 +61,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c4f598dce2fd5744490725ee58c6b263, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -18.78
+      value: -3.69
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c4f598dce2fd5744490725ee58c6b263, type: 3}
       propertyPath: m_LocalRotation.w
@@ -149,7 +149,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 8331926061451717366}
   rb: {fileID: 0}
-  HP: 0
+  HP: 2
   model: {fileID: 6598872626872152116}
   player: {fileID: 3936800427781867614, guid: 415e8ce8c9de02143b1cd6917b11c526, type: 3}
   speed: 0

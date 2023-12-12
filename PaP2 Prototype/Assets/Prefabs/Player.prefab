@@ -1,36 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1983346260298370883
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1987547213170466733}
-  m_Layer: 0
-  m_Name: shootPos
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1987547213170466733
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1983346260298370883}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.25, y: -0.174, z: 1.053}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4348678658203458779}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2983655738157960448
 GameObject:
   m_ObjectHideFlags: 0
@@ -92,17 +61,15 @@ MonoBehaviour:
   sprintSpeed: 15
   crouchMod: 0.75
   crouchDist: 0.5
-  bullet: {fileID: 5550751600062205222, guid: f2ebe8c562f11b3439d76c5a0b962c1d, type: 3}
-  shootPos: {fileID: 1983346260298370883}
-  shootDamage: 1
-  bulletDestroyTime: 5
-  shootRate: 0.25
-  ammoCounter: 10
-  maxAmmo: 30
+  gunList: []
+  shootDamage: 0
+  bulletDestroyTime: 0
+  shootRate: 0
+  ammoCounter: 0
+  maxAmmo: 0
   HPOriginal: 0
   staminaRunCost: 2
   staminaRestoreSpeed: 0.8
-  gunList: []
   shootDist: 0
   gunModel: {fileID: 5075347595302112038}
 --- !u!143 &5190971063148889619
@@ -465,7 +432,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1987547213170466733}
   - {fileID: 6000765930483488672}
   m_Father: {fileID: 2032022834073519530}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
