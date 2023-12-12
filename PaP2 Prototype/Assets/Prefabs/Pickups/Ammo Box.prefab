@@ -94,6 +94,7 @@ MonoBehaviour:
   playerInRange: 0
   ItemName: Ammo
   animator: {fileID: 8250114098227343509}
+  interactCollider: {fileID: 3999737413616856892}
 --- !u!65 &4592473780542094632
 BoxCollider:
   m_ObjectHideFlags: 0

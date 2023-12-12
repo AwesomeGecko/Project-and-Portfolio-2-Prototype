@@ -941,7 +941,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4306582936213630466}
         m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
-        m_MethodName: Reset
+        m_MethodName: respawnPlayer
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3565,16 +3565,21 @@ MonoBehaviour:
   maxPickup: {fileID: 4570701984072889860}
   maxText: {fileID: 241443840692163461}
   playerSpawnPos: {fileID: 0}
-  player: {fileID: 3936800427781867614, guid: 415e8ce8c9de02143b1cd6917b11c526, type: 3}
-  playerScript: {fileID: 0}
+  player: {fileID: 0}
+  currentEnemyPosition: {x: 0, y: 0, z: 0}
   damageScreen: {fileID: 0}
   playerHPBar: {fileID: 4675500130915375282}
   playerStaminaBar: {fileID: 8582228286999791117}
   ammoCounter: {fileID: 6268836205310075850}
+  maxAmmoCounter: {fileID: 2223039527815576562}
   gunName: {fileID: 3407383575870928918}
   enemyCounter: {fileID: 1327504916675964690}
+  playerScript: {fileID: 0}
+  IOScript: {fileID: 0}
   isPaused: 0
   onTarget: 0
+  isAmmo: 0
+  isHP: 0
 --- !u!114 &4306582936213630466
 MonoBehaviour:
   m_ObjectHideFlags: 0
