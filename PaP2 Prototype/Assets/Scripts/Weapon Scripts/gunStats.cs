@@ -15,4 +15,10 @@ public class gunStats : ScriptableObject
     public ParticleSystem hitEffect;
     public AudioClip shootSound;
     [Range(0, 1)] public float shootSoundVol;
+
+    public bool useScopeCamera;
+    [Range(1, 120)] public float fieldOfView = 60f;
+
+    public Camera scopeCamera;
+
 }

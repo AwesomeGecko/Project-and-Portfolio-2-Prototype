@@ -21,3 +21,6 @@ MonoBehaviour:
   hitEffect: {fileID: 468260622339083660, guid: f8c505478bba5bf4dbdeaa85632801a6, type: 3}
   shootSound: {fileID: 0}
   shootSoundVol: 0
+  useScopeCamera: 0
+  fieldOfView: 42
+  scopeCamera: {fileID: 0}

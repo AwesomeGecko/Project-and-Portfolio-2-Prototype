@@ -52,6 +52,8 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField] int shootDist;
     [SerializeField] GameObject gunModel;
     [SerializeField] gunStats defaultPistol;
+    private bool isAiming;
+    private float defaultFOV;
     int selectedGun;
     
 
@@ -65,7 +67,10 @@ public class PlayerController : MonoBehaviour, IDamage
         StaminaOrig = Stamina;
         initialSpeed = playerSpeed;
 
-        if(defaultPistol != null)
+        //Default field of view for the player
+        defaultFOV = Camera.main.fieldOfView;
+
+        if (defaultPistol != null)
         {
             getGunStats(defaultPistol);
         }
@@ -89,6 +94,10 @@ public class PlayerController : MonoBehaviour, IDamage
             {
                 if (Input.GetButton("Fire1") && !isShooting)
                     StartCoroutine(Shoot());
+
+                if (Input.GetButtonDown("AimDownSight"))
+                    ToggleAimDownSights();
+
 
                 selectGun();
             }
@@ -293,4 +302,41 @@ public class PlayerController : MonoBehaviour, IDamage
         gunModel.GetComponent<MeshRenderer>().sharedMaterial = gunList[selectedGun].model.GetComponent<MeshRenderer>().sharedMaterial;
         isShooting = false;
     }
+
+    void ToggleAimDownSights()
+    {
+        isAiming = !isAiming;
+        gunStats currentGun = gunList[selectedGun];
+
+        //Adjust the camera properties
+        if (isAiming)
+        {
+            //if the current gun wants the scope and if the scope is available
+            if (currentGun.useScopeCamera && currentGun.scopeCamera != null)
+            {
+                //Enable the scope camera
+                currentGun.scopeCamera.enabled = true;
+                //Adjust the scope cameras FOV
+                currentGun.scopeCamera.fieldOfView = currentGun.fieldOfView;
+            }
+            else
+            {
+                //Enable the main camera
+                Camera.main.enabled = true;
+                //Adjust the main cameras FOV
+                Camera.main.fieldOfView = currentGun.fieldOfView;
+            }
+        }
+        else
+        {
+            //Disable the scope camera if available when exiting aiming down sights
+            if (currentGun.scopeCamera != null)
+            {
+                currentGun.scopeCamera.enabled = false;
+            }
+            //Re-enable the main camera and set it to the default value
+            Camera.main.fieldOfView = defaultFOV;
+        }
+    }
+
 }

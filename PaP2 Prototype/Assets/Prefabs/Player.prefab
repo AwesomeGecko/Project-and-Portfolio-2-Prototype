@@ -72,6 +72,7 @@ MonoBehaviour:
   staminaRestoreSpeed: 0.8
   shootDist: 0
   gunModel: {fileID: 5075347595302112038}
+  defaultPistol: {fileID: 11400000, guid: b622e77337d8b8141acab1f561c0b35b, type: 2}
 --- !u!143 &5190971063148889619
 CharacterController:
   m_ObjectHideFlags: 0
