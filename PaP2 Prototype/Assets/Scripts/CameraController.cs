@@ -10,11 +10,14 @@ public class CameraController : MonoBehaviour
 
     [SerializeField] bool invtertY;
 
+    [SerializeField] AudioSource aud;
+
     private float xRot;
 
     // Start is called before the first frame update
     void Start()
     {
+        
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -38,5 +41,14 @@ public class CameraController : MonoBehaviour
         xRot = Mathf.Clamp(xRot, lockVertMin, lockVertMax);
         transform.localRotation = Quaternion.Euler(xRot, 0, 0);
         transform.parent.Rotate(Vector3.up * mouseX);
+
+        if(gameManager.instance.isPaused)
+        {
+            aud.Pause();
+        }
+        else
+        {
+            aud.UnPause();
+        }
     }
 }
