@@ -48,17 +48,23 @@ public class gameManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+<<<<<<< HEAD
+=======
 
         playerSpawnPos = GameObject.FindWithTag("PlayerSpawnPos");
 
+<<<<<<< Updated upstream
+=======
+>>>>>>> a43d986f4aa1aee3d8595b9b8f78bd4104d34013
+>>>>>>> Stashed changes
         
         instance = this;
         onTarget = false;
         timeScaleOrig = Time.timeScale;
         player = GameObject.FindWithTag("Player");
         playerScript = player.GetComponent<PlayerController>();
+        playerSpawnPos = GameObject.FindWithTag("PlayerSpawnPos");
 
-        
         damageScreen = GameObject.FindWithTag("DamageScreen");
         volume = damageScreen.GetComponent<PostProcessVolume>();
         volume.profile.TryGetSettings<Vignette>(out vignette);
