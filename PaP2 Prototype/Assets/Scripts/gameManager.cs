@@ -27,6 +27,7 @@ public class gameManager : MonoBehaviour
     [SerializeField] public GameObject playerSpawnPos;
     public GameObject player;
     public PlayerController playerScript;
+    public Vector3 currentEnemyPosition;
     [SerializeField] GameObject damageScreen;
     private float intensity;
     private PostProcessVolume volume;

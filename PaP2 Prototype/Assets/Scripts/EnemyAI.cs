@@ -6,6 +6,8 @@ using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour, IDamage
 {
+    
+
     [SerializeField] NavMeshAgent agent;
     [SerializeField] Rigidbody rb;
     [SerializeField] int HP;
@@ -19,8 +21,8 @@ public class EnemyAI : MonoBehaviour, IDamage
     [SerializeField] GameObject bullet;
     [SerializeField] float shootRate;
     [SerializeField] float shootSpeed;
-    [SerializeField] Transform shootPos;
-    [SerializeField] Transform shootPos2;
+    [SerializeField] Transform enemyshootPos;
+    [SerializeField] Transform enemyshootPos2;
     bool isShooting;
     bool PlayerInRange;
 
@@ -74,11 +76,15 @@ public class EnemyAI : MonoBehaviour, IDamage
     {
         isShooting = true;
 
-         Instantiate(bullet, shootPos.position, transform.rotation);
-         Instantiate(bullet, shootPos2.position, transform.rotation);
-
         
 
+        Instantiate(bullet, enemyshootPos.position, transform.rotation);
+
+        if(gameObject.CompareTag("Big Robot"))
+        {
+            Instantiate(bullet, enemyshootPos2.position, transform.rotation);
+        }
+        
 
         yield return new WaitForSeconds(shootRate);
         isShooting = false;

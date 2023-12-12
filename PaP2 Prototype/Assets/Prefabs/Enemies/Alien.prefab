@@ -156,8 +156,8 @@ MonoBehaviour:
   bullet: {fileID: 3393345968891059192, guid: 8ad9da3d86fcb0b4b8d2949686ce9956, type: 3}
   shootRate: 0.25
   shootSpeed: 0
-  shootPos: {fileID: 7690791594612462352}
-  shootPos2: {fileID: 7690791594612462352}
+  enemyshootPos: {fileID: 7690791594612462352}
+  enemyshootPos2: {fileID: 0}
 --- !u!23 &6598872626872152116
 MeshRenderer:
   m_ObjectHideFlags: 0

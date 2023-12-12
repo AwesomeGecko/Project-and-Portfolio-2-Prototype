@@ -526,7 +526,7 @@ GameObject:
   - component: {fileID: 1955939370964929539}
   m_Layer: 0
   m_Name: Big Robot
-  m_TagString: Untagged
+  m_TagString: Big Robot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -571,8 +571,8 @@ MonoBehaviour:
   bullet: {fileID: 3393345968891059192, guid: 8ad9da3d86fcb0b4b8d2949686ce9956, type: 3}
   shootRate: 0.45
   shootSpeed: 0
-  shootPos: {fileID: 5867944530844572290}
-  shootPos2: {fileID: 8205528709798583184}
+  enemyshootPos: {fileID: 5867944530844572290}
+  enemyshootPos2: {fileID: 8205528709798583184}
 --- !u!95 &6684607624838095066
 Animator:
   serializedVersion: 5

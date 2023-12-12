@@ -21,7 +21,7 @@ public class bullet : MonoBehaviour
         }
         else
         {
-            rb.velocity = transform.forward * speed;
+            rb.velocity = (gameManager.instance.player.transform.position - rb.transform.position) * speed;
         }
         Destroy(gameObject, destroyTime);
     }

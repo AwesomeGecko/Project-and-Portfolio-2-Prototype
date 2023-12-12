@@ -57,7 +57,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: cf3910b7639e12447827e45f63f60201, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.25
+      value: 4.5
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: cf3910b7639e12447827e45f63f60201, type: 3}
       propertyPath: m_LocalPosition.y
@@ -65,7 +65,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: cf3910b7639e12447827e45f63f60201, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -11.5
+      value: 5.5
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: cf3910b7639e12447827e45f63f60201, type: 3}
       propertyPath: m_LocalRotation.w
@@ -144,8 +144,8 @@ MonoBehaviour:
   bullet: {fileID: 3393345968891059192, guid: 8ad9da3d86fcb0b4b8d2949686ce9956, type: 3}
   shootRate: 0.5
   shootSpeed: 0
-  shootPos: {fileID: 5701292604254272586}
-  shootPos2: {fileID: 5701292604254272586}
+  enemyshootPos: {fileID: 5701292604254272586}
+  enemyshootPos2: {fileID: 0}
 --- !u!195 &8168814099955323348
 NavMeshAgent:
   m_ObjectHideFlags: 0

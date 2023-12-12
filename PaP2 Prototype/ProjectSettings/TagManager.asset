@@ -9,6 +9,7 @@ TagManager:
   - PlayerSpawnPos
   - Player Spawn Position
   - Pistol
+  - Big Robot
   layers:
   - Default
   - TransparentFX
