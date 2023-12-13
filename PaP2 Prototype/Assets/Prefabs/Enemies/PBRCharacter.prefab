@@ -2432,6 +2432,7 @@ MonoBehaviour:
   headPos: {fileID: 1721383647185070396}
   anim: {fileID: 3818056906370351630}
   model: {fileID: 1125180650137316569}
+  damageCol: {fileID: 1181870137617099959}
   HP: 5
   viewCone: 90
   speed: 1

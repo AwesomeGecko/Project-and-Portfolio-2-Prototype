@@ -14,6 +14,7 @@ public class EnemyAI : MonoBehaviour, IDamage
     [SerializeField] Transform headPos;
     [SerializeField] Animator anim;
     [SerializeField] Renderer model;
+    [SerializeField] Collider damageCol;
 
     [Header("----- Enemy Stat -----")]
     [SerializeField] int HP;
@@ -170,14 +171,20 @@ public class EnemyAI : MonoBehaviour, IDamage
 
     public void takeDamage(int amount)
     {
-            HP -= amount;         
+            HP -= amount;
+
+        
 
         if (HP <= 0)
         {
+            StopAllCoroutines();
+
             gameManager.instance.updateGameGoal(-1);
             anim.SetBool("Dead", true);
+
+
             agent.enabled = false;
-            
+            damageCol.enabled = false;
             
         }
         else
@@ -194,6 +201,9 @@ public class EnemyAI : MonoBehaviour, IDamage
             faceTarget();
         }
     }
+
+  
+
 
     IEnumerator flashRed()
     {
