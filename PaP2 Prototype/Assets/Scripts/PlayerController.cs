@@ -24,6 +24,9 @@ public class PlayerController : MonoBehaviour, IDamage
 
     [Header("Gun Stats")]
     [SerializeField] List<gunStats> gunList = new List<gunStats>();
+    [SerializeField] GameObject bullet;
+    [SerializeField] Transform shootPos;
+    [SerializeField] Transform scopedShootPos;
     [SerializeField] int shootDamage;
     [SerializeField] int bulletDestroyTime;
     [SerializeField] float shootRate;
@@ -181,24 +184,31 @@ public class PlayerController : MonoBehaviour, IDamage
         gunList[selectedGun].ammoCur--;
         aud.PlayOneShot(gunList[selectedGun].shootSound, gunList[selectedGun].shootSoundVol);
 
+        if (isAiming)
+        {
+            Instantiate(bullet, scopedShootPos.position, transform.rotation);
+        }
+        else
+        {
+            Instantiate(bullet, shootPos.position, transform.rotation);
+        }
+        //RaycastHit hit;
+        //if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDist))
+        //{ 
+        //    Instantiate(gunList[selectedGun].hitEffect, hit.point, transform.rotation);
 
-        RaycastHit hit;
-        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDist))
-        { 
-            Instantiate(gunList[selectedGun].hitEffect, hit.point, transform.rotation);
+        //    //Debug.Log(hit.transform.name);
 
-            //Debug.Log(hit.transform.name);
+        //    IDamage dmg = hit.collider.GetComponent<IDamage>();
 
-            IDamage dmg = hit.collider.GetComponent<IDamage>();
-
-            if (hit.transform != transform && dmg != null)
-            {
-                dmg.takeDamage(shootDamage);
-            }
+        //    if (hit.transform != transform && dmg != null)
+        //    {
+        //        dmg.takeDamage(shootDamage);
+        //    }
         
 
-            ammoCounter -= 1;
-        }
+        //    ammoCounter -= 1;
+        //}
 
 
         yield return new WaitForSeconds(shootRate);

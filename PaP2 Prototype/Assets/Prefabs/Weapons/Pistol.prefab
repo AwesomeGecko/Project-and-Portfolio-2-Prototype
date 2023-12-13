@@ -41,15 +41,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 67f4b2ecf8ad67447b63e9c982fd1a1d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.812
+      value: -1.439
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 67f4b2ecf8ad67447b63e9c982fd1a1d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.367
+      value: 0.429
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 67f4b2ecf8ad67447b63e9c982fd1a1d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.374
+      value: 3.351
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 67f4b2ecf8ad67447b63e9c982fd1a1d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -149,8 +149,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 962b80a821376124c9e598836ed451b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootPos: {fileID: 0}
   gun: {fileID: 11400000, guid: b622e77337d8b8141acab1f561c0b35b, type: 2}
+  shootPos: {fileID: 1124895529136663995}
 --- !u!23 &5779859367872399817
 MeshRenderer:
   m_ObjectHideFlags: 0

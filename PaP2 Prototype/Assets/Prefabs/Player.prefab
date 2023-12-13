@@ -1,5 +1,67 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1620763635427436477
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5615996055112551137}
+  m_Layer: 0
+  m_Name: Shoot Pos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5615996055112551137
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1620763635427436477}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.2338, y: -0.158, z: 0.747}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4348678658203458779}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2467330573347589088
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3625547189095083740}
+  m_Layer: 0
+  m_Name: Scoped Shoot Pos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3625547189095083740
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2467330573347589088}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.003, y: -0.008, z: 0.746}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4348678658203458779}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2983655738157960448
 GameObject:
   m_ObjectHideFlags: 0
@@ -62,6 +124,9 @@ MonoBehaviour:
   crouchMod: 0.75
   crouchDist: 0.5
   gunList: []
+  bullet: {fileID: 5550751600062205222, guid: f2ebe8c562f11b3439d76c5a0b962c1d, type: 3}
+  shootPos: {fileID: 5615996055112551137}
+  scopedShootPos: {fileID: 3625547189095083740}
   shootDamage: 0
   bulletDestroyTime: 0
   shootRate: 0
@@ -303,13 +368,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5075347595302112038}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.03815462, y: -0.013250314, z: -0.00050597364, w: 0.9991839}
+  m_LocalRotation: {x: -0.03315229, y: -0.013256796, z: -0.00043977358, w: 0.9993623}
   m_LocalPosition: {x: 0.24855268, y: -0.25940168, z: 0.47794425}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4348678658203458779}
-  m_LocalEulerAnglesHint: {x: -4.374, y: -1.52, z: 0}
+  m_LocalEulerAnglesHint: {x: -3.8, y: -1.52, z: 0}
 --- !u!33 &4531409513561699504
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -444,6 +509,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6000765930483488672}
+  - {fileID: 5615996055112551137}
+  - {fileID: 3625547189095083740}
   m_Father: {fileID: 2032022834073519530}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6449862447211928539
