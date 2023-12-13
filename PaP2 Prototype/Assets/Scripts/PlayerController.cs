@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour, IDamage
     [Header("Audio")]
     [SerializeField] AudioClip[] soundSteps;
     [Range(0f, 1f)][SerializeField] float soundStepsVol;
+    [SerializeField] AudioClip playerHurt;
 
     private Vector3 playerVelocity;
     private Vector3 move;
@@ -251,6 +252,7 @@ public class PlayerController : MonoBehaviour, IDamage
     }
     public void takeDamage(int amount)
     {
+        aud.PlayOneShot(playerHurt); // Plays sound effect immediately upon taking damage
         HP -= amount;
         UpdatePlayerUI();
         if (HP <= 0)

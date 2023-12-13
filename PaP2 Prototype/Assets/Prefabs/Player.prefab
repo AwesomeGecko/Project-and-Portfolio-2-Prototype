@@ -154,6 +154,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 226808efc9f05354e970aa8dc2c3c1f6, type: 3}
   - {fileID: 8300000, guid: fdc3bd9cca9423b4dafa375c10cd2be6, type: 3}
   soundStepsVol: 0.25
+  playerHurt: {fileID: 8300000, guid: b37f1d3deb0bf83449775a151188c377, type: 3}
   HPOriginal: 0
   staminaRunCost: 2
   staminaRestoreSpeed: 0.8
@@ -161,7 +162,6 @@ MonoBehaviour:
   gunModel: {fileID: 5075347595302112038}
   defaultPistol: {fileID: 11400000, guid: b622e77337d8b8141acab1f561c0b35b, type: 2}
   scopeIn: {fileID: 6951981033588707834}
-  totalAmmo: 0
 --- !u!143 &5190971063148889619
 CharacterController:
   m_ObjectHideFlags: 0
