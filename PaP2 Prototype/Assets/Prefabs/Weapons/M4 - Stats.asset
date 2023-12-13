@@ -22,4 +22,5 @@ MonoBehaviour:
   shootSound: {fileID: 8300000, guid: 8581f806dddef8046b4942de05b897be, type: 3}
   shootSoundVol: 0.25
   shouldUseScope: 1
-  fieldOfView: 40
+  fieldOfView: 30
+  bullet: {fileID: 5550751600062205222, guid: f2ebe8c562f11b3439d76c5a0b962c1d, type: 3}

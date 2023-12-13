@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8330720936998490443
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1124895529136663995}
+  m_Layer: 0
+  m_Name: Shoot Pos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1124895529136663995
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8330720936998490443}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.006, y: 0.0705, z: 0.226}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1585839039878366066}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1263454623043740825
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10,15 +41,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 67f4b2ecf8ad67447b63e9c982fd1a1d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.561
+      value: -0.812
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 67f4b2ecf8ad67447b63e9c982fd1a1d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.429
+      value: 1.367
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 67f4b2ecf8ad67447b63e9c982fd1a1d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.351
+      value: 2.374
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 67f4b2ecf8ad67447b63e9c982fd1a1d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -78,7 +109,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 67f4b2ecf8ad67447b63e9c982fd1a1d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1124895529136663995}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 67f4b2ecf8ad67447b63e9c982fd1a1d, type: 3}
       insertIndex: 1
@@ -93,6 +127,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 4208186165908626497}
   m_SourcePrefab: {fileID: 100100000, guid: 67f4b2ecf8ad67447b63e9c982fd1a1d, type: 3}
+--- !u!4 &1585839039878366066 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 67f4b2ecf8ad67447b63e9c982fd1a1d, type: 3}
+  m_PrefabInstance: {fileID: 1263454623043740825}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2110456051912792520 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 67f4b2ecf8ad67447b63e9c982fd1a1d, type: 3}
@@ -110,6 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 962b80a821376124c9e598836ed451b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shootPos: {fileID: 0}
   gun: {fileID: 11400000, guid: b622e77337d8b8141acab1f561c0b35b, type: 2}
 --- !u!23 &5779859367872399817
 MeshRenderer:
