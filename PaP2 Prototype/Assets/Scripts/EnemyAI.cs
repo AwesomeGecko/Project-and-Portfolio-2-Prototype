@@ -6,25 +6,39 @@ using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour, IDamage
 {
-    
 
+    [Header("----- Components -----")]
     [SerializeField] NavMeshAgent agent;
     [SerializeField] Rigidbody rb;
-    [SerializeField] int HP;
-
+    [SerializeField] GameObject player;
+    [SerializeField] Transform headPos;
+    [SerializeField] Animator anim;
     [SerializeField] Renderer model;
 
-    [SerializeField] GameObject player;
-    
+    [Header("----- Enemy Stat -----")]
+    [SerializeField] int HP;
+    [SerializeField] int viewCone;
     [SerializeField] int speed;
+    [SerializeField] int roamDist;
+    [SerializeField] int roamPauseTime;
+    [SerializeField] float animSpeedTrans;
+    [SerializeField] int targetFaceSpeed;
 
+    [Header("----- Weapon -----")]
     [SerializeField] GameObject bullet;
     [SerializeField] float shootRate;
     [SerializeField] float shootSpeed;
     [SerializeField] Transform enemyshootPos;
     [SerializeField] Transform enemyshootPos2;
+
     bool isShooting;
     bool PlayerInRange;
+    bool destinationChosen;
+    float angleToPlayer;
+    Vector3 playerDir;
+    Vector3 startingPos;
+    float stoppingDistanceOrig;
+
 
     // Start is called before the first frame update
     void Start()
@@ -42,14 +56,20 @@ public class EnemyAI : MonoBehaviour, IDamage
 
         
 
-        if (PlayerInRange )
+        if (agent.isActiveAndEnabled)
         {
-            
 
-            agent.SetDestination(gameManager.instance.player.transform.position);
-            if (!isShooting )
+            float animspeed = agent.velocity.normalized.magnitude;
+            anim.SetFloat("Speed", Mathf.Lerp(anim.GetFloat("Speed"), animspeed, Time.deltaTime * animSpeedTrans));
+
+
+            if (PlayerInRange && !CanSeePLayer())
             {
-                StartCoroutine(shoot());
+                StartCoroutine(roam());
+            }
+            else if (!PlayerInRange)
+            {
+                StartCoroutine(roam());
             }
                
         }
@@ -72,35 +92,105 @@ public class EnemyAI : MonoBehaviour, IDamage
         }
         
     }
+
+    IEnumerator roam()
+    {
+        if (agent.remainingDistance < .05f && !destinationChosen)
+        {
+            destinationChosen = true;
+            agent.stoppingDistance = 0;
+            yield return new WaitForSeconds(roamPauseTime);
+
+            Vector3 randomPos = Random.insideUnitSphere * roamDist;
+            randomPos += startingPos;
+
+            NavMeshHit hit; 
+            NavMesh.SamplePosition(randomPos, out hit, roamDist, 1);
+            agent.SetDestination(hit.position);
+
+            destinationChosen = false;
+        }
+    }   
+
+    bool CanSeePLayer()
+    {
+        playerDir = gameManager.instance.player.transform.position - headPos.position;
+        angleToPlayer = Vector3.Angle(playerDir, transform.forward);
+
+        RaycastHit hit;
+        if (Physics.Raycast(headPos.position, playerDir, out hit))
+        {
+            if (hit.collider.CompareTag("Player") && angleToPlayer <= viewCone)
+            {
+                agent.SetDestination(gameManager.instance.player.transform.position);
+
+
+                if (!isShooting)
+                {
+                    StartCoroutine(shoot());
+                }
+                if (agent.remainingDistance < agent.stoppingDistance)
+                {
+                    faceTarget();
+                }       
+            }
+        }
+
+        agent.stoppingDistance = stoppingDistanceOrig;
+
+        return true;
+    }
+
+    void faceTarget()
+    {
+        Quaternion rot = Quaternion.LookRotation(new Vector3(playerDir.x, transform.position.y, playerDir.z));
+        transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * targetFaceSpeed);
+    }
+
     IEnumerator shoot()
     {
         isShooting = true;
-
-        
-
-        Instantiate(bullet, enemyshootPos.position, transform.rotation);
-
-        if(gameObject.CompareTag("Big Robot"))
-        {
-            Instantiate(bullet, enemyshootPos2.position, transform.rotation);
-        }
-        
+        anim.SetTrigger("Shoot");
+        CreateBullet();
 
         yield return new WaitForSeconds(shootRate);
         isShooting = false;
     }
 
+    public void CreateBullet()
+    {
+        Instantiate(bullet, enemyshootPos.position, transform.rotation);
+
+        if (gameObject.CompareTag("Big Robot"))
+        {
+            Instantiate(bullet, enemyshootPos2.position, transform.rotation);
+        }
+    }
+
     public void takeDamage(int amount)
     {
-            HP -= amount;
+            HP -= amount;         
 
-            StartCoroutine(flashRed());
+        if (HP <= 0)
+        {
+           gameManager.instance.updateGameGoal(-1);
+           anim.SetBool("Dead", true);
+           agent.enabled = false;
+           Destroy(gameObject);
+        }
+        else
+        {
+            StopAllCoroutines();
 
-            if (HP <= 0)
-            {
-                gameManager.instance.updateGameGoal(-1);
-                Destroy(gameObject);
-            }
+            anim.SetTrigger("Damage");
+            destinationChosen = false;
+            isShooting = false;
+
+            StartCoroutine (flashRed());
+            agent.SetDestination(gameManager.instance.player.transform.position);
+
+            faceTarget();
+        }
     }
 
     IEnumerator flashRed()
