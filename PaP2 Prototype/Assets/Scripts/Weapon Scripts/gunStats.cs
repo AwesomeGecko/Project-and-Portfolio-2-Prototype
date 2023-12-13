@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
+using UnityEngine.Jobs;
+using UnityEngine.UIElements;
 
 [CreateAssetMenu]
 public class gunStats : ScriptableObject
@@ -10,6 +13,7 @@ public class gunStats : ScriptableObject
     public int shootDist;
     public int ammoCur;
     public int ammoMax;
+
 
     public GameObject model;
     public ParticleSystem hitEffect;

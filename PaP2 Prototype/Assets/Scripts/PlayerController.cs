@@ -104,11 +104,11 @@ public class PlayerController : MonoBehaviour, IDamage
                 if (Input.GetButton("Fire1") && !isShooting)
                     StartCoroutine(Shoot());
 
+                selectGun();
+
                 if (Input.GetButtonDown("AimDownSight"))
                     ToggleAimDownSights();
-
-
-                selectGun();
+                
             }
         }
             Movement();
@@ -181,8 +181,17 @@ public class PlayerController : MonoBehaviour, IDamage
 
         isShooting = true;
 
+        if (gunList[selectedGun].ammoCur <= 0)
+        {
+            isShooting = false;
+            yield break;
+        }
+
         gunList[selectedGun].ammoCur--;
+        
         aud.PlayOneShot(gunList[selectedGun].shootSound, gunList[selectedGun].shootSoundVol);
+
+        gunStats currentGun = gunList[selectedGun];
 
         if (isAiming)
         {
@@ -192,27 +201,12 @@ public class PlayerController : MonoBehaviour, IDamage
         {
             Instantiate(bullet, shootPos.position, transform.rotation);
         }
-        //RaycastHit hit;
-        //if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDist))
-        //{ 
-        //    Instantiate(gunList[selectedGun].hitEffect, hit.point, transform.rotation);
 
-        //    //Debug.Log(hit.transform.name);
-
-        //    IDamage dmg = hit.collider.GetComponent<IDamage>();
-
-        //    if (hit.transform != transform && dmg != null)
-        //    {
-        //        dmg.takeDamage(shootDamage);
-        //    }
-        
-
-        //    ammoCounter -= 1;
-        //}
-
+        ammoCounter -= 1;
 
         yield return new WaitForSeconds(shootRate);
         isShooting = false;
+        UpdatePlayerUI();
     }
 
     void RunCode()
@@ -292,8 +286,8 @@ public class PlayerController : MonoBehaviour, IDamage
     {
         gameManager.instance.playerHPBar.fillAmount = (float)HP / HPOriginal;
         gameManager.instance.playerStaminaBar.fillAmount = Stamina / StaminaOrig;
-        gameManager.instance.ammoCounter.text = ammoCounter.ToString("0");
-        gameManager.instance.maxAmmoCounter.text = maxAmmo.ToString("0");
+        gameManager.instance.ammoCounter.text = gunList[selectedGun].ammoCur.ToString("0");
+        gameManager.instance.maxAmmoCounter.text = gunList[selectedGun].ammoMax.ToString("0");
     }
 
     
@@ -314,16 +308,20 @@ public class PlayerController : MonoBehaviour, IDamage
 
     void selectGun()
     {
-        if (Input.GetAxis("Mouse ScrollWheel") > 0 && selectedGun < gunList.Count - 1)
+        if (!isAiming)
         {
-            selectedGun++;
-            changeGun();
+            if (Input.GetAxis("Mouse ScrollWheel") > 0 && selectedGun < gunList.Count - 1)
+            {
+                selectedGun++;
+                changeGun();
+            }
+            else if (Input.GetAxis("Mouse ScrollWheel") < 0 && selectedGun > 0)
+            {
+                selectedGun--;
+                changeGun();
+            }
         }
-        else if (Input.GetAxis("Mouse ScrollWheel") < 0 && selectedGun > 0)
-        {
-            selectedGun--;
-            changeGun();
-        }
+        
     }
 
     void changeGun()
@@ -347,21 +345,21 @@ public class PlayerController : MonoBehaviour, IDamage
         //Adjust the camera properties
         if (isAiming)
         {
-            
+         
             //If the current gun wants the scope
             if (currentGun.shouldUseScope)
             {
                 //Deactivate the main crosshairs
                 gameManager.instance.Crosshair.gameObject.SetActive(false);
-                
-                //Enable the scope image overlay ontop of the main camera
-                gameManager.instance.Scope.gameObject.SetActive(true);
 
-                //Cull the gun out of screen
-                scopeIn.cullingMask = scopeIn.cullingMask & ~(1 << 7);
+                    //Enable the scope image overlay ontop of the main camera
+                    gameManager.instance.Scope.gameObject.SetActive(true);
 
-                //Adjust the scope cameras FOV
-                Camera.main.fieldOfView = currentGun.fieldOfView;
+                    //Cull the gun out of screen
+                    scopeIn.cullingMask = scopeIn.cullingMask & ~(1 << 7);
+
+                    //Adjust the scope cameras FOV
+                    Camera.main.fieldOfView = currentGun.fieldOfView;
             }
             else
             {
@@ -370,13 +368,12 @@ public class PlayerController : MonoBehaviour, IDamage
 
                 //Enable the main crosshairs
                 gameManager.instance.Crosshair.gameObject.SetActive(true);
-                                
+
                 //Cull the gun back onto screen
                 scopeIn.cullingMask = scopeIn.cullingMask | (1 << 7);
-
                 //Adjust the main cameras FOV
                 Camera.main.fieldOfView = currentGun.fieldOfView;
-            }
+            } 
         }
         else
         {

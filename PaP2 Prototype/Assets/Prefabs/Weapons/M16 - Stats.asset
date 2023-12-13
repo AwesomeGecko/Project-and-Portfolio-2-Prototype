@@ -15,12 +15,11 @@ MonoBehaviour:
   shootDamage: 3
   shootRate: 0.2
   shootDist: 200
-  ammoCur: 30
-  ammoMax: 30
-  model: {fileID: 3157565929852043342, guid: cc4156adf6614cb4693b57fd602cf0b9, type: 3}
+  ammoCur: 150
+  ammoMax: 150
+  model: {fileID: 1791198492059627473, guid: e770888937ebba1498ff92ea65e424f5, type: 3}
   hitEffect: {fileID: 468260622339083660, guid: f8c505478bba5bf4dbdeaa85632801a6, type: 3}
   shootSound: {fileID: 8300000, guid: 1b145bcffd767854fb0c71c37678ebaa, type: 3}
   shootSoundVol: 0.25
-  useScopeCamera: 0
+  shouldUseScope: 0
   fieldOfView: 42
-  scopeCamera: {fileID: 0}
