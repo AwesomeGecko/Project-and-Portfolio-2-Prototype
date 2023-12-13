@@ -567,6 +567,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 681734634721804330, guid: 415e8ce8c9de02143b1cd6917b11c526, type: 3}
+      propertyPath: aimingScript
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2032022834073519530, guid: 415e8ce8c9de02143b1cd6917b11c526, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.90720844
@@ -611,6 +615,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5898882285470728892, guid: 415e8ce8c9de02143b1cd6917b11c526, type: 3}
+      propertyPath: scopeIn
+      value: 
+      objectReference: {fileID: 1349357203}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -673,6 +681,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7aa6f6434be94e44583bd055d3a42eee, type: 3}
+--- !u!20 &1349357203 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 6951981033588707834, guid: 415e8ce8c9de02143b1cd6917b11c526, type: 3}
+  m_PrefabInstance: {fileID: 1174337267}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1406980354
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -934,7 +947,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1791198492059627473, guid: e770888937ebba1498ff92ea65e424f5, type: 3}
       propertyPath: m_Name
-      value: M16-1
+      value: M16
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

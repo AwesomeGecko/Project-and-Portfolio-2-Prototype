@@ -10,7 +10,7 @@ public class GunScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gun.ammoCur = gun.ammoMax;
+        gun.ammoCur = gun.magSize;
     }
 
     // Update is called once per frame

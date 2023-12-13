@@ -65,7 +65,8 @@ public class PlayerController : MonoBehaviour, IDamage
     private float defaultFOV;
     int selectedGun;
     public Camera scopeIn;
-    
+    public int totalAmmo;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -102,13 +103,22 @@ public class PlayerController : MonoBehaviour, IDamage
             if (gunList.Count > 0)
             {
                 if (Input.GetButton("Fire1") && !isShooting)
+                {
                     StartCoroutine(Shoot());
-
+                }
+                
                 selectGun();
 
                 if (Input.GetButtonDown("AimDownSight"))
+                {
                     ToggleAimDownSights();
-                
+                }
+
+                if (Input.GetButtonDown("Reload"))
+                {
+                    Reload();
+                }
+
             }
         }
             Movement();
@@ -287,7 +297,7 @@ public class PlayerController : MonoBehaviour, IDamage
         gameManager.instance.playerHPBar.fillAmount = (float)HP / HPOriginal;
         gameManager.instance.playerStaminaBar.fillAmount = Stamina / StaminaOrig;
         gameManager.instance.ammoCounter.text = gunList[selectedGun].ammoCur.ToString("0");
-        gameManager.instance.maxAmmoCounter.text = gunList[selectedGun].ammoMax.ToString("0");
+        gameManager.instance.maxAmmoCounter.text = totalAmmo.ToString("0");
     }
 
     
@@ -301,9 +311,11 @@ public class PlayerController : MonoBehaviour, IDamage
         shootRate = gun.shootRate;
         ammoCounter = gun.ammoCur;
         maxAmmo = gun.ammoMax;
+        totalAmmo = gun.ammoCur;
 
         gunModel.GetComponent<MeshFilter>().sharedMesh = gun.model.GetComponent<MeshFilter>().sharedMesh;
         gunModel.GetComponent<MeshRenderer>().sharedMaterial = gun.model.GetComponent<MeshRenderer>().sharedMaterial;
+        
     }
 
     void selectGun()
@@ -385,6 +397,44 @@ public class PlayerController : MonoBehaviour, IDamage
 
             //Re-enable the main camera and set it to the default value
             Camera.main.fieldOfView = defaultFOV;
+        }
+    }
+
+    void Reload()
+    {
+        // Check if the gun is not already full
+        if (gunList[selectedGun].ammoCur < gunList[selectedGun].magSize)
+        {
+            // Calculate the number of bullets needed to fill the magazine
+            int bulletsNeeded = gunList[selectedGun].magSize - gunList[selectedGun].ammoCur;
+
+            // Check if the player has enough bullets to reload
+            if (totalAmmo >= bulletsNeeded)
+            {
+                // Subtract the bullets needed from player's total ammo
+                totalAmmo -= bulletsNeeded;
+
+                // Fill the gun's magazine with the remaining bullets in the total ammo
+                gunList[selectedGun].ammoCur = gunList[selectedGun].magSize;
+
+                // Update the UI
+                UpdatePlayerUI();
+            }
+            else
+            {
+                // Check if there is any ammo left to reload
+                if (totalAmmo > 0)
+                {
+                    // Reload with the remaining ammo
+                    gunList[selectedGun].ammoCur += totalAmmo;
+
+                    // Reset total ammo to 0
+                    totalAmmo = 0;
+
+                    // Update the UI
+                    UpdatePlayerUI();
+                }
+            }
         }
     }
 
