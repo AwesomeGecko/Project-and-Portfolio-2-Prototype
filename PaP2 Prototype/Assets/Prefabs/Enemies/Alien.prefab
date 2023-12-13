@@ -149,10 +149,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 8331926061451717366}
   rb: {fileID: 0}
-  HP: 2
-  model: {fileID: 6598872626872152116}
   player: {fileID: 3936800427781867614, guid: 415e8ce8c9de02143b1cd6917b11c526, type: 3}
+  headPos: {fileID: 0}
+  anim: {fileID: 0}
+  model: {fileID: 6598872626872152116}
+  HP: 2
+  viewCone: 0
   speed: 0
+  roamDist: 0
+  roamPauseTime: 0
+  animSpeedTrans: 0
+  targetFaceSpeed: 0
   bullet: {fileID: 3393345968891059192, guid: 8ad9da3d86fcb0b4b8d2949686ce9956, type: 3}
   shootRate: 0.25
   shootSpeed: 0

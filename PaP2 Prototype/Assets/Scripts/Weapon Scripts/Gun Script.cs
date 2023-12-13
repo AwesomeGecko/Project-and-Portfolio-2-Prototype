@@ -8,7 +8,7 @@ public class GunScript : MonoBehaviour
     [SerializeField] gunStats gun;
     bool triggerSet;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         gun.ammoCur = gun.magSize;
     }

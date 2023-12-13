@@ -65,7 +65,6 @@ public class PlayerController : MonoBehaviour, IDamage
     private float defaultFOV;
     int selectedGun;
     public Camera scopeIn;
-    public int totalAmmo;
 
     // Start is called before the first frame update
     void Start()
@@ -212,8 +211,6 @@ public class PlayerController : MonoBehaviour, IDamage
             Instantiate(bullet, shootPos.position, transform.rotation);
         }
 
-        ammoCounter -= 1;
-
         yield return new WaitForSeconds(shootRate);
         isShooting = false;
         UpdatePlayerUI();
@@ -297,7 +294,7 @@ public class PlayerController : MonoBehaviour, IDamage
         gameManager.instance.playerHPBar.fillAmount = (float)HP / HPOriginal;
         gameManager.instance.playerStaminaBar.fillAmount = Stamina / StaminaOrig;
         gameManager.instance.ammoCounter.text = gunList[selectedGun].ammoCur.ToString("0");
-        gameManager.instance.maxAmmoCounter.text = totalAmmo.ToString("0");
+        gameManager.instance.maxAmmoCounter.text = ammoCounter.ToString("0");
     }
 
     
@@ -309,13 +306,13 @@ public class PlayerController : MonoBehaviour, IDamage
         shootDamage = gun.shootDamage;
         shootDist = gun.shootDist;
         shootRate = gun.shootRate;
-        ammoCounter = gun.ammoCur;
+        ammoCounter = gun.magSize;
         maxAmmo = gun.ammoMax;
-        totalAmmo = gun.ammoCur;
 
         gunModel.GetComponent<MeshFilter>().sharedMesh = gun.model.GetComponent<MeshFilter>().sharedMesh;
         gunModel.GetComponent<MeshRenderer>().sharedMaterial = gun.model.GetComponent<MeshRenderer>().sharedMaterial;
-        
+
+        UpdatePlayerUI();
     }
 
     void selectGun()
@@ -409,10 +406,10 @@ public class PlayerController : MonoBehaviour, IDamage
             int bulletsNeeded = gunList[selectedGun].magSize - gunList[selectedGun].ammoCur;
 
             // Check if the player has enough bullets to reload
-            if (totalAmmo >= bulletsNeeded)
+            if (ammoCounter >= bulletsNeeded)
             {
                 // Subtract the bullets needed from player's total ammo
-                totalAmmo -= bulletsNeeded;
+                ammoCounter -= bulletsNeeded;
 
                 // Fill the gun's magazine with the remaining bullets in the total ammo
                 gunList[selectedGun].ammoCur = gunList[selectedGun].magSize;
@@ -423,13 +420,13 @@ public class PlayerController : MonoBehaviour, IDamage
             else
             {
                 // Check if there is any ammo left to reload
-                if (totalAmmo > 0)
+                if (ammoCounter > 0)
                 {
                     // Reload with the remaining ammo
-                    gunList[selectedGun].ammoCur += totalAmmo;
+                    gunList[selectedGun].ammoCur += ammoCounter;
 
                     // Reset total ammo to 0
-                    totalAmmo = 0;
+                    ammoCounter = 0;
 
                     // Update the UI
                     UpdatePlayerUI();
