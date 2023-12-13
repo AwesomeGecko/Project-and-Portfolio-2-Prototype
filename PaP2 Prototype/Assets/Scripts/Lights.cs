@@ -6,14 +6,16 @@ public class Lights : MonoBehaviour
 {
     public float Oncount;
     public float Offcount;
-    public Light light;
+    Light light;
 
-    [SerializeField] float count;
+    float count;
 
     
     // Start is called before the first frame update
     void Start()
     {
+        light = GetComponent<Light>();
+       
         count = Offcount;
       
     }
