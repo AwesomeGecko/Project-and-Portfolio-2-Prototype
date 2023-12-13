@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2555630399610944236}
   - component: {fileID: 4776280774310833095}
   - component: {fileID: 1050691820125386319}
+  - component: {fileID: -5998587980289654383}
   m_Layer: 0
   m_Name: Player Bullet
   m_TagString: PlayerBullet
@@ -51,6 +52,7 @@ MonoBehaviour:
   damage: 2
   destroyTime: 1
   speed: 50
+  sparkParticles: {fileID: 7257651568562783922, guid: 8a2b77f102a3e4f4c9d2da152d35264a, type: 3}
 --- !u!135 &2555630399610944236
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -212,3 +214,24 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
+--- !u!135 &-5998587980289654383
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5550751600062205222}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.08
+  m_Center: {x: 0, y: 0, z: 0}

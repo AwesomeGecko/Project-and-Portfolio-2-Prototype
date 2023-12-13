@@ -9,7 +9,7 @@ public class bullet : MonoBehaviour
     [SerializeField] int damage;
     [SerializeField] int destroyTime;
     [SerializeField] int speed;
-
+    public ParticleSystem sparkParticles;
 
     // Start is called before the first frame update
     void Start()
@@ -26,24 +26,50 @@ public class bullet : MonoBehaviour
         Destroy(gameObject, destroyTime);
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.isTrigger)
-            return;
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.isTrigger)
+    //        return;
         
-        if(rb.CompareTag("PlayerBullet"))
+    //    if(rb.CompareTag("PlayerBullet"))
+    //    {
+    //        if(other.CompareTag("Player"))
+    //        {
+    //            return;
+    //        }
+    //    }
+
+    //    IDamage dmg = other.GetComponent<IDamage>();
+
+    //    if (dmg != null)
+    //    {
+    //        dmg.takeDamage(damage);
+    //    }
+    //    Destroy(gameObject);
+    //}
+    private void OnCollisionEnter(Collision collision)
+    {
+        
+        // Check if the bullet collided with a surface
+        if (rb.CompareTag("PlayerBullet"))
         {
-            if(other.CompareTag("Player"))
+            if (collision.gameObject.CompareTag("Player"))
             {
                 return;
             }
         }
-
-        IDamage dmg = other.GetComponent<IDamage>();
-
-        if (dmg != null)
+        if (!collision.collider.isTrigger)
         {
-            dmg.takeDamage(damage);
+            // Instantiate the spark particle system at the collision point
+            Instantiate(sparkParticles, collision.contacts[0].point, Quaternion.identity);
+
+            IDamage dmg = collision.collider.GetComponent<IDamage>();
+
+            if (dmg != null)
+            {
+                dmg.takeDamage(damage);
+            }
+            
         }
         Destroy(gameObject);
     }
