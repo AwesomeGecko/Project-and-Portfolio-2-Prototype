@@ -44,7 +44,8 @@ public class EnemyAI : MonoBehaviour, IDamage
     void Start()
     {
         gameManager.instance.updateGameGoal(1);
-
+        startingPos = transform.position;
+        stoppingDistanceOrig = agent.stoppingDistance;
 
     }
 
@@ -173,10 +174,11 @@ public class EnemyAI : MonoBehaviour, IDamage
 
         if (HP <= 0)
         {
-           gameManager.instance.updateGameGoal(-1);
-           anim.SetBool("Dead", true);
-           agent.enabled = false;
-           Destroy(gameObject);
+            gameManager.instance.updateGameGoal(-1);
+            anim.SetBool("Dead", true);
+            agent.enabled = false;
+            
+            
         }
         else
         {
