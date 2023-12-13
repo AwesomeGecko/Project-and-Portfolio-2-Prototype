@@ -356,12 +356,13 @@ public class PlayerController : MonoBehaviour, IDamage
         //Adjust the camera properties
         if (isAiming)
         {
-         
+
+            //Deactivate the main crosshairs
+            gameManager.instance.Crosshair.gameObject.SetActive(false);
+
             //If the current gun wants the scope
             if (currentGun.shouldUseScope)
-            {
-                //Deactivate the main crosshairs
-                gameManager.instance.Crosshair.gameObject.SetActive(false);
+            {                
 
                     //Enable the scope image overlay ontop of the main camera
                     gameManager.instance.Scope.gameObject.SetActive(true);
@@ -377,8 +378,7 @@ public class PlayerController : MonoBehaviour, IDamage
                 //Deactivate the Scope image
                 gameManager.instance.Scope.gameObject.SetActive(false);
 
-                //Enable the main crosshairs
-                gameManager.instance.Crosshair.gameObject.SetActive(true);
+                
 
                 //Cull the gun back onto screen
                 scopeIn.cullingMask = scopeIn.cullingMask | (1 << 7);
@@ -388,6 +388,9 @@ public class PlayerController : MonoBehaviour, IDamage
         }
         else
         {
+            //Enable the main crosshairs
+            gameManager.instance.Crosshair.gameObject.SetActive(true);
+
             //Cull the gun onto screen
             scopeIn.cullingMask = scopeIn.cullingMask | (1 << 7);
 
