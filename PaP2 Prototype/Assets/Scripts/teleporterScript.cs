@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class teleporterScript : MonoBehaviour
 {
@@ -24,7 +25,7 @@ public class teleporterScript : MonoBehaviour
 
     void teleport()
     {
-        gameManager.instance.playerScript.teleportPlayer();
+        SceneManager.LoadScene(2);
     }
 
     void turnOnTeleporter()
