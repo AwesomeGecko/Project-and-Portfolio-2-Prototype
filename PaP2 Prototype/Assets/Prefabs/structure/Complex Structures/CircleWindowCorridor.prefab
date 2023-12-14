@@ -845,7 +845,7 @@ GameObject:
   m_Component:
   - component: {fileID: 742859778485253073}
   m_Layer: 0
-  m_Name: WindowCorridor
+  m_Name: CircleWindowCorridor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
