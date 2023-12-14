@@ -52,7 +52,7 @@ MonoBehaviour:
   damage: 2
   destroyTime: 1
   speed: 4
-  sparkParticles: {fileID: 0}
+  sparkParticles: {fileID: 468260622339083660, guid: f8c505478bba5bf4dbdeaa85632801a6, type: 3}
 --- !u!135 &4760620533451095795
 SphereCollider:
   m_ObjectHideFlags: 0
