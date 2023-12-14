@@ -3855,6 +3855,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4082538424255494856, guid: 377f6c14b7a4dfa449ea5656edf9e17c, type: 3}
+      propertyPath: animSpeedTrans
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4316255527383006322, guid: 377f6c14b7a4dfa449ea5656edf9e17c, type: 3}
       propertyPath: m_Name
       value: Big Mech
