@@ -2418,7 +2418,7 @@ GameObject:
   - component: {fileID: 1181870137617099959}
   - component: {fileID: 4555643678289109971}
   m_Layer: 0
-  m_Name: PBRCharacter
+  m_Name: Robot Soldier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
