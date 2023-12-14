@@ -33,6 +33,11 @@ public class buttonFunctions : MonoBehaviour
         gameManager.instance.openControls();
     }
 
+    public void settings()
+    {
+        gameManager.instance.openSettings();
+    }
+
     public void back()
     {
         gameManager.instance.backBttn();
