@@ -16,6 +16,7 @@ public class gameManager : MonoBehaviour
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
     [SerializeField] GameObject menuControls;
+    [SerializeField] GameObject menuSettings;
 
     [Header("Interactive UI")]
     [SerializeField] public GameObject interactive;
@@ -27,6 +28,7 @@ public class gameManager : MonoBehaviour
     [SerializeField] public GameObject playerSpawnPos;
     [SerializeField] public GameObject TeleportPos;
     public GameObject player;
+    public GameObject cameraObject;
     public Vector3 currentEnemyPosition;
     [SerializeField] GameObject damageScreen;
     private float intensity;
@@ -46,9 +48,10 @@ public class gameManager : MonoBehaviour
 
     [Header("Scripts")]
     public PlayerController playerScript;
-    public interactableObject IOScript;
+    public CameraController cameraScript;
 
-    [Header("Public bools")]
+
+    [Header("Public variables")]
     public bool isPaused;
     float timeScaleOrig;
     int enemiesRemaining;
@@ -65,7 +68,9 @@ public class gameManager : MonoBehaviour
         onTarget = false;
         timeScaleOrig = Time.timeScale;
         player = GameObject.FindWithTag("Player");
+        cameraObject = GameObject.FindWithTag("MainCamera");
         playerScript = player.GetComponent<PlayerController>();
+        cameraScript = cameraObject.GetComponent<CameraController>();
         playerSpawnPos = GameObject.FindWithTag("PlayerSpawnPos");
         TeleportPos = GameObject.FindWithTag("TeleportPos");
         
@@ -188,6 +193,15 @@ public class gameManager : MonoBehaviour
         menuActive = menuControls;
         menuActive.SetActive(true);
     }
+
+    public void openSettings()
+    {
+        updateMenu();
+        menuActive.SetActive(false);
+        menuActive = menuSettings;
+        menuActive.SetActive(true);
+    }
+
     public void updateMenu()
     {
         if (menuActive != null)
