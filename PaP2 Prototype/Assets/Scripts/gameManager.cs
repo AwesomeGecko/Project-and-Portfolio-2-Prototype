@@ -56,7 +56,7 @@ public class gameManager : MonoBehaviour
     [Header("Public variables")]
     public bool isPaused;
     float timeScaleOrig;
-    int enemiesRemaining;
+    public int enemiesRemaining;
     public bool onTarget;
     public bool isAmmo;
     public bool isHP;
@@ -290,7 +290,7 @@ public class gameManager : MonoBehaviour
     IEnumerator maxPickups()
     {
         maxPickup.SetActive(true);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         maxPickup.SetActive(false);
     }
 

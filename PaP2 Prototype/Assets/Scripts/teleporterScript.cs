@@ -10,6 +10,7 @@ public class teleporterScript : MonoBehaviour
 
     public bool playerInRange;
     public bool isTeleporterOn;
+    public int keyCounter;
 
     private void Start()
     {
@@ -21,6 +22,7 @@ public class teleporterScript : MonoBehaviour
     {
         //if the teleporter is on teleport
         turnOnTeleporter();
+        keyCounter = gameManager.instance.keysCollected;
     }
 
     void teleport()
@@ -43,10 +45,23 @@ public class teleporterScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && isTeleporterOn)
+        if (other.CompareTag("Player"))
         {
-            playerInRange = true;
-            teleport();
+            if (keyCounter < 3)
+            {
+                gameManager.instance.maxText.text = "Missing Keys";
+                gameManager.instance.runText();
+            }
+            if (gameManager.instance.enemiesRemaining > 0)
+            {
+                gameManager.instance.maxText.text = "Enemys remain!";
+                gameManager.instance.runText();
+            }
+            if (isTeleporterOn && gameManager.instance.enemiesRemaining <= 0)
+            { 
+                playerInRange = true;
+                teleport();
+            }    
         }
 
     }
