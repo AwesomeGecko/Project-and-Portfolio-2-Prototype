@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class gameManager : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class gameManager : MonoBehaviour
     [SerializeField] public  TextMeshProUGUI interact_text;
     [SerializeField] public GameObject maxPickup;
     [SerializeField] public TextMeshProUGUI maxText;
+    [SerializeField] public GameObject infoScreen;
 
     [Header("Player")]
     [SerializeField] public GameObject playerSpawnPos;
@@ -61,6 +63,9 @@ public class gameManager : MonoBehaviour
     public bool isTPOn;
     public int keysCollected;
 
+    private Scene currentScene;
+    private string sceneName;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -88,6 +93,10 @@ public class gameManager : MonoBehaviour
             //turns off the Vignette by default
             vignette.enabled.Override(false);
         }
+
+        currentScene = SceneManager.GetActiveScene();
+        sceneName = currentScene.name;
+        StartCoroutine(infoScreenTimer());
     }
 
     // Update is called once per frame
@@ -134,7 +143,10 @@ public class gameManager : MonoBehaviour
         enemiesRemaining += amount;
         if (enemiesRemaining <= 0)
         {
-            youWin();
+            if (sceneName == "2nd Level")
+            { 
+                youWin();
+            }
         }
     }
 
@@ -281,5 +293,11 @@ public class gameManager : MonoBehaviour
         maxPickup.SetActive(false);
     }
 
-    
+    IEnumerator infoScreenTimer()
+    {
+        infoScreen.SetActive(true);
+        yield return new WaitForSeconds(20f);
+        infoScreen.SetActive(false);
+    }
+
 }
