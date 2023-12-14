@@ -380,7 +380,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8015038196270360774}
   m_Layer: 0
-  m_Name: BigGlassCorridor
+  m_Name: SquareWindowCorridor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

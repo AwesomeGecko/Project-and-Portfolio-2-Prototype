@@ -6,7 +6,7 @@ public class Lights : MonoBehaviour
 {
     public float Oncount;
     public float Offcount;
-    Light light;
+    new Light light;
 
     float count;
 
