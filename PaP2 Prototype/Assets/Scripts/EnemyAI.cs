@@ -141,11 +141,14 @@ public class EnemyAI : MonoBehaviour, IDamage
                     faceTarget();
                 }       
             }
+            
+
+            return true;
         }
 
-        agent.stoppingDistance = stoppingDistanceOrig;
+        agent.stoppingDistance = 0;
 
-        return true;
+        return false;
     }
 
     void faceTarget()
@@ -183,7 +186,7 @@ public class EnemyAI : MonoBehaviour, IDamage
         if (HP <= 0)
         {
             mySpawner.heyIDied();
-            
+
 
 
             aud.PlayOneShot(deathSound);
@@ -194,24 +197,27 @@ public class EnemyAI : MonoBehaviour, IDamage
 
             agent.enabled = false;
             damageCol.enabled = false;
-            
+
         }
         else
         {
             aud.PlayOneShot(hitSound);
-            
 
+
+            isShooting = false;
             anim.SetTrigger("Damage");
             destinationChosen = false;
 
-            StartCoroutine (flashRed());
+
+            StartCoroutine(flashRed());
             agent.SetDestination(gameManager.instance.player.transform.position);
 
             faceTarget();
         }
+        
     }
 
-  
+
 
 
     IEnumerator flashRed()
