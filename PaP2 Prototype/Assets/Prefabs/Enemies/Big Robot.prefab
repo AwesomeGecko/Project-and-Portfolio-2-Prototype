@@ -567,16 +567,17 @@ MonoBehaviour:
   rb: {fileID: 0}
   player: {fileID: 3936800427781867614, guid: 415e8ce8c9de02143b1cd6917b11c526, type: 3}
   headPos: {fileID: 0}
-  anim: {fileID: 0}
+  anim: {fileID: 6684607624838095066}
   model: {fileID: 3363252862400517696}
+  damageCol: {fileID: 0}
   aud: {fileID: -7653910365744858772}
   HP: 15
-  viewCone: 0
-  speed: 0
-  roamDist: 0
-  roamPauseTime: 0
-  animSpeedTrans: 0
-  targetFaceSpeed: 0
+  viewCone: 90
+  speed: 1
+  roamDist: 10
+  roamPauseTime: 3
+  animSpeedTrans: 8
+  targetFaceSpeed: 3
   bullet: {fileID: 3393345968891059192, guid: 8ad9da3d86fcb0b4b8d2949686ce9956, type: 3}
   shootRate: 0.45
   shootSpeed: 0

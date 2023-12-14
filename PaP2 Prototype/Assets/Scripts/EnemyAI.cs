@@ -14,8 +14,12 @@ public class EnemyAI : MonoBehaviour, IDamage
     [SerializeField] Transform headPos;
     [SerializeField] Animator anim;
     [SerializeField] Renderer model;
+
+    [SerializeField] Collider damageCol;
+
     [SerializeField] AudioSource aud;
     [SerializeField] Collider damageCol;
+
 
     [Header("----- Enemy Stat -----")]
     [SerializeField] int HP;
@@ -182,6 +186,12 @@ public class EnemyAI : MonoBehaviour, IDamage
 
         if (HP <= 0)
         {
+
+            StopAllCoroutines();
+
+
+            aud.PlayOneShot(deathSound);
+
             gameManager.instance.updateGameGoal(-1);
             anim.SetBool("Dead", true);
 
