@@ -304,7 +304,7 @@ public class PlayerController : MonoBehaviour, IDamage
     {
         gunList.Add(gun);
         selectedGun = gunList.Count - 1;
-
+        gun.ammoCur = gun.magSize;
         shootDamage = gun.shootDamage;
         shootDist = gun.shootDist;
         shootRate = gun.shootRate;
