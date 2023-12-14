@@ -2481,6 +2481,7 @@ MonoBehaviour:
   enemyshootPos2: {fileID: 0}
   hitSound: {fileID: 8300000, guid: 0aff9e712df58524e92b99abc49873b7, type: 3}
   deathSound: {fileID: 8300000, guid: aff1c3fe1d4099a46a3d3de76e377364, type: 3}
+  mySpawner: {fileID: 0}
 --- !u!95 &3818056906370351630
 Animator:
   serializedVersion: 5
@@ -2619,7 +2620,7 @@ AudioSource:
   m_GameObject: {fileID: 8518776721266013799}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 6365757799108221917, guid: e5be003068f40a348b4a0174226c24de, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
