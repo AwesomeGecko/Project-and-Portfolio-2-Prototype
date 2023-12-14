@@ -220,7 +220,7 @@ MonoBehaviour:
   speed: 1
   roamDist: 0
   roamPauseTime: 0
-  animSpeedTrans: 0
+  animSpeedTrans: 8
   targetFaceSpeed: 0
   bullet: {fileID: 3393345968891059192, guid: 8ad9da3d86fcb0b4b8d2949686ce9956, type: 3}
   shootRate: 0.5
@@ -229,6 +229,7 @@ MonoBehaviour:
   enemyshootPos2: {fileID: 6869896461990578712}
   hitSound: {fileID: 0}
   deathSound: {fileID: 0}
+  mySpawner: {fileID: 0}
 --- !u!23 &481204982885934690
 MeshRenderer:
   m_ObjectHideFlags: 0
