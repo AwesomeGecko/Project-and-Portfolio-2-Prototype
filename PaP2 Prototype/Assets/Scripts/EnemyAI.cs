@@ -46,12 +46,12 @@ public class EnemyAI : MonoBehaviour, IDamage
     Vector3 playerDir;
     Vector3 startingPos;
     float stoppingDistanceOrig;
-
+    public enemySpawn mySpawner;
 
     // Start is called before the first frame update
     void Start()
     {
-        gameManager.instance.updateGameGoal(1);
+        //gameManager.instance.updateGameGoal(1);
         startingPos = transform.position;
         stoppingDistanceOrig = agent.stoppingDistance;
 
@@ -180,12 +180,12 @@ public class EnemyAI : MonoBehaviour, IDamage
     {
             HP -= amount;
 
-        
+        StopAllCoroutines();
 
         if (HP <= 0)
         {
-
-            StopAllCoroutines();
+            mySpawner.heyIDied();
+            
 
 
             aud.PlayOneShot(deathSound);
@@ -201,11 +201,11 @@ public class EnemyAI : MonoBehaviour, IDamage
         else
         {
             aud.PlayOneShot(hitSound);
-            StopAllCoroutines();
+            
 
             anim.SetTrigger("Damage");
             destinationChosen = false;
-            isShooting = false;
+            
 
             StartCoroutine (flashRed());
             agent.SetDestination(gameManager.instance.player.transform.position);

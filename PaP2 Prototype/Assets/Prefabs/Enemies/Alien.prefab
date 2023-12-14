@@ -133,6 +133,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 7866913612195342844}
   m_SourcePrefab: {fileID: 100100000, guid: c4f598dce2fd5744490725ee58c6b263, type: 3}
+--- !u!95 &4490846933398320475 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: c4f598dce2fd5744490725ee58c6b263, type: 3}
+  m_PrefabInstance: {fileID: 8014196046871349450}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7203873767424423323 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: c4f598dce2fd5744490725ee58c6b263, type: 3}
@@ -154,9 +159,10 @@ MonoBehaviour:
   rb: {fileID: 0}
   player: {fileID: 3936800427781867614, guid: 415e8ce8c9de02143b1cd6917b11c526, type: 3}
   headPos: {fileID: 0}
-  anim: {fileID: 0}
+  anim: {fileID: 4490846933398320475}
   model: {fileID: 6598872626872152116}
   aud: {fileID: 7866913612195342844}
+  damageCol: {fileID: 0}
   HP: 2
   viewCone: 0
   speed: 0
@@ -171,6 +177,7 @@ MonoBehaviour:
   enemyshootPos2: {fileID: 0}
   hitSound: {fileID: 8300000, guid: d198bc32af26cad46bfcfdf55a03b994, type: 3}
   deathSound: {fileID: 8300000, guid: 8146709565a6f8641ac9fe6091fd8e09, type: 3}
+  mySpawner: {fileID: 0}
 --- !u!23 &6598872626872152116
 MeshRenderer:
   m_ObjectHideFlags: 0

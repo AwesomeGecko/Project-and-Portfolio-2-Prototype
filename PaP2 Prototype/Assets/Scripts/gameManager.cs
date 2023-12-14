@@ -131,6 +131,7 @@ public class gameManager : MonoBehaviour
 
     public void updateGameGoal(int amount)
     {
+        
         enemiesRemaining += amount;
         if (enemiesRemaining <= 0)
         {
