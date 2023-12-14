@@ -14,6 +14,7 @@ public class EnemyAI : MonoBehaviour, IDamage
     [SerializeField] Transform headPos;
     [SerializeField] Animator anim;
     [SerializeField] Renderer model;
+
     [SerializeField] AudioSource aud;
     [SerializeField] Collider damageCol;
 
