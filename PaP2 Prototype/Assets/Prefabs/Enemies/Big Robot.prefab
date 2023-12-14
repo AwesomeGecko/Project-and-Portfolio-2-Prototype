@@ -569,8 +569,8 @@ MonoBehaviour:
   headPos: {fileID: 0}
   anim: {fileID: 6684607624838095066}
   model: {fileID: 3363252862400517696}
-  damageCol: {fileID: 0}
   aud: {fileID: -7653910365744858772}
+  damageCol: {fileID: 0}
   HP: 15
   viewCone: 90
   speed: 1
@@ -583,8 +583,8 @@ MonoBehaviour:
   shootSpeed: 0
   enemyshootPos: {fileID: 5867944530844572290}
   enemyshootPos2: {fileID: 8205528709798583184}
-  hitSound: {fileID: 8300000, guid: 9791bfce136bb014e9516ad82c0d552d, type: 3}
-  deathSound: {fileID: 8300000, guid: 3b6d23e4f6b92c74db8b65dc7da2d954, type: 3}
+  hitSound: {fileID: 8300000, guid: 0aff9e712df58524e92b99abc49873b7, type: 3}
+  deathSound: {fileID: 8300000, guid: aff1c3fe1d4099a46a3d3de76e377364, type: 3}
 --- !u!95 &6684607624838095066
 Animator:
   serializedVersion: 5
