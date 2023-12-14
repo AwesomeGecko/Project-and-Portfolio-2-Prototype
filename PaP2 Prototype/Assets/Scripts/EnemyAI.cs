@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -48,13 +49,14 @@ public class EnemyAI : MonoBehaviour, IDamage
     float stoppingDistanceOrig;
     public enemySpawn mySpawner;
 
+
     // Start is called before the first frame update
     void Start()
     {
         //gameManager.instance.updateGameGoal(1);
         startingPos = transform.position;
         stoppingDistanceOrig = agent.stoppingDistance;
-
+        
     }
 
     
@@ -62,15 +64,11 @@ public class EnemyAI : MonoBehaviour, IDamage
     // Update is called once per frame
     void Update()
     {
-
-        
-
         if (agent.isActiveAndEnabled)
         {
 
             float animspeed = agent.velocity.normalized.magnitude;
             anim.SetFloat("Speed", Mathf.Lerp(anim.GetFloat("Speed"), animspeed, Time.deltaTime * animSpeedTrans));
-
 
             if (PlayerInRange && !CanSeePLayer())
             {
@@ -183,7 +181,7 @@ public class EnemyAI : MonoBehaviour, IDamage
     {
             HP -= amount;
 
-        StopAllCoroutines();
+        StopCoroutine(roam());
 
         if (HP <= 0)
         {
