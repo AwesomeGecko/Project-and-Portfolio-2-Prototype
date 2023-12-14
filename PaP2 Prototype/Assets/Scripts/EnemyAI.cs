@@ -15,6 +15,7 @@ public class EnemyAI : MonoBehaviour, IDamage
     [SerializeField] Animator anim;
     [SerializeField] Renderer model;
     [SerializeField] AudioSource aud;
+    [SerializeField] Collider damageCol;
 
     [Header("----- Enemy Stat -----")]
     [SerializeField] int HP;
