@@ -339,7 +339,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 25
+  m_Radius: 35
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!82 &-5526174643812116812
 AudioSource:
