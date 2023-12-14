@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.UI;
-using UnityEditor.SearchService;
+using UnityEngine.SceneManagement;
 
 public class gameManager : MonoBehaviour
 {
@@ -61,6 +61,10 @@ public class gameManager : MonoBehaviour
     public bool isHP;
     public bool isTPOn;
     public int keysCollected;
+    string sceneName;
+    Scene currentScene;
+
+
 
     // Start is called before the first frame update
     void Awake()
@@ -89,6 +93,10 @@ public class gameManager : MonoBehaviour
             //turns off the Vignette by default
             vignette.enabled.Override(false);
         }
+
+        currentScene = SceneManager.GetActiveScene();
+        sceneName = currentScene.name;
+
     }
 
     // Update is called once per frame
@@ -136,8 +144,10 @@ public class gameManager : MonoBehaviour
         enemiesRemaining += amount;
         if (enemiesRemaining <= 0)
         {
-            
-            youWin();
+            if (sceneName == "2nd Level")
+            { 
+                youWin();
+            }
         }
     }
 
