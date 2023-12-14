@@ -145,7 +145,11 @@ public class gameManager : MonoBehaviour
         if (enemiesRemaining <= 0)
         {
             if (sceneName == "2nd Level")
-            { 
+            {
+                youWin();
+            }
+            else if (sceneName == "Test Level")
+            {
                 youWin();
             }
         }
@@ -153,6 +157,12 @@ public class gameManager : MonoBehaviour
 
     public void youWin()
     {
+        StartCoroutine(ShowMenuAfterDelay());
+    }
+
+    private IEnumerator ShowMenuAfterDelay()
+    {
+        yield return new WaitForSeconds(3);
         statePause();
         menuActive = menuWin;
         menuActive.SetActive(true);

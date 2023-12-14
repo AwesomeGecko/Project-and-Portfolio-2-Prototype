@@ -651,6 +651,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boss Spawner
       objectReference: {fileID: 0}
+    - target: {fileID: 7026844262544077510, guid: fcacd592ae299c343b7ee8fc195efb78, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -729,13 +733,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 845547961045250400, guid: a15d61f448f373a42b12cab2fe4bc9a8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 24.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 899499396778010484, guid: a15d61f448f373a42b12cab2fe4bc9a8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -6.4
+      objectReference: {fileID: 0}
     - target: {fileID: 1873076841763944090, guid: a15d61f448f373a42b12cab2fe4bc9a8, type: 3}
       propertyPath: m_Name
       value: Soldier Spawner
       objectReference: {fileID: 0}
     - target: {fileID: 1873076841763944090, guid: a15d61f448f373a42b12cab2fe4bc9a8, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4797366204318355743, guid: a15d61f448f373a42b12cab2fe4bc9a8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: 6848061985384096572, guid: a15d61f448f373a42b12cab2fe4bc9a8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -779,7 +795,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7296582658748581337, guid: a15d61f448f373a42b12cab2fe4bc9a8, type: 3}
       propertyPath: numToSpawn
-      value: 0
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8046209608765390566, guid: a15d61f448f373a42b12cab2fe4bc9a8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 26.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
