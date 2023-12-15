@@ -1,13 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
 using UnityEngine;
 using UnityEngine.AI;
 
-
-public class EnemyAI : MonoBehaviour, IDamage
+public class BossScript : MonoBehaviour, IDamage
 {
-
     [Header("----- Components -----")]
     [SerializeField] NavMeshAgent agent;
     [SerializeField] Rigidbody rb;
@@ -40,6 +37,11 @@ public class EnemyAI : MonoBehaviour, IDamage
     [SerializeField] AudioClip hitSound;
     [SerializeField] AudioClip deathSound;
 
+    [Header("----- Boss State -----")]
+    [SerializeField] float returnToSpawnHealthThreshold = 0.75f;
+    bool isReturningToSpawn;
+    Vector3 spawnPosition;
+
     bool isShooting;
     bool PlayerInRange;
     bool destinationChosen;
@@ -48,25 +50,26 @@ public class EnemyAI : MonoBehaviour, IDamage
     Vector3 startingPos;
     float stoppingDistanceOrig;
     public enemySpawn mySpawner;
+    public int startingHP;
 
 
     // Start is called before the first frame update
     void Start()
     {
         //gameManager.instance.updateGameGoal(1);
+        startingHP = HP;
         startingPos = transform.position;
         stoppingDistanceOrig = agent.stoppingDistance;
-        
+        spawnPosition = transform.position;
     }
 
-    
+
 
     // Update is called once per frame
     void Update()
     {
         if (agent.isActiveAndEnabled)
         {
-
             float animspeed = agent.velocity.normalized.magnitude;
             anim.SetFloat("Speed", Mathf.Lerp(anim.GetFloat("Speed"), animspeed, Time.deltaTime * animSpeedTrans));
 
@@ -74,18 +77,52 @@ public class EnemyAI : MonoBehaviour, IDamage
             {
                 StartCoroutine(roam());
             }
-            else if (!PlayerInRange)
+            else if (!PlayerInRange && !isReturningToSpawn) // Add condition to check if not returning to spawn
             {
                 StartCoroutine(roam());
             }
-               
-        }
 
+            // Check if health is below the threshold for returning to spawn
+            if (HP <= startingHP * returnToSpawnHealthThreshold && !isReturningToSpawn)
+            {
+                StartCoroutine(ReturnToSpawnAndRecover());
+            }
+        }
+    }
+
+    IEnumerator ReturnToSpawnAndRecover()
+    {
+        Debug.Log("Boss is returning to spawn");
+        isReturningToSpawn = true;
+
+        // Disable damage and shooting
+        StopCoroutine(shoot());
+        damageCol.enabled = false;
+        isShooting = false; // Stop shooting
+        agent.isStopped = false; // Allow the agent to move
+
+        // Move to spawn position
+        agent.SetDestination(spawnPosition);
+
+        // Wait for boss to reach spawn position
+        yield return new WaitUntil(() => agent.remainingDistance < agent.stoppingDistance);
+
+        // Wait for 5 seconds
+        yield return new WaitForSeconds(5f);
+
+        // Re-engage the player
+        agent.SetDestination(gameManager.instance.player.transform.position);
+
+        // Enable damage and shooting
+        damageCol.enabled = true;
+        isReturningToSpawn = false;
+
+        StartCoroutine(shoot()); // Resume shooting
     }
 
     public void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
             PlayerInRange = true;
         }
@@ -93,12 +130,12 @@ public class EnemyAI : MonoBehaviour, IDamage
 
     public void OnTriggerExit(Collider other)
     {
-        if(other.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
             PlayerInRange = false;
             agent.stoppingDistance = 0;
         }
-        
+
     }
 
     IEnumerator roam()
@@ -112,13 +149,13 @@ public class EnemyAI : MonoBehaviour, IDamage
             Vector3 randomPos = Random.insideUnitSphere * roamDist;
             randomPos += startingPos;
 
-            NavMeshHit hit; 
+            NavMeshHit hit;
             NavMesh.SamplePosition(randomPos, out hit, roamDist, 1);
             agent.SetDestination(hit.position);
 
             destinationChosen = false;
         }
-    }   
+    }
 
     bool CanSeePLayer()
     {
@@ -135,12 +172,12 @@ public class EnemyAI : MonoBehaviour, IDamage
 
                 if (!isShooting)
                 {
-                    StartCoroutine(shoot());                    
+                    StartCoroutine(shoot());
                 }
                 if (agent.remainingDistance < agent.stoppingDistance)
                 {
                     faceTarget();
-                }       
+                }
             }
             agent.stoppingDistance = stoppingDistanceOrig;
 
@@ -180,51 +217,53 @@ public class EnemyAI : MonoBehaviour, IDamage
 
     public void takeDamage(int amount)
     {
+        if (!isReturningToSpawn) // Check if the boss is not returning to spawn
+        {
             HP -= amount;
 
-        
+            Debug.Log("Boss took damage. HP=" + HP);
 
-        if (HP <= 0 && damageCol.enabled == true && agent.enabled == true)
-        {            
+            if (HP <= 0 && damageCol.enabled == true && agent.enabled == true)
+            {
                 mySpawner.heyIDied();
 
-            if (isShooting)
-            {
-                StopCoroutine(shoot());
+                if (isShooting)
+                {
+                    StopCoroutine(shoot());
+                }
+
+                aud.PlayOneShot(deathSound);
+
+                gameManager.instance.updateGameGoal(-1);
+                anim.SetBool("Dead", true);
+
+                agent.enabled = false;
+                damageCol.enabled = false;
             }
-
-            aud.PlayOneShot(deathSound);
-
-            gameManager.instance.updateGameGoal(-1);
-            anim.SetBool("Dead", true);
-
-
-            agent.enabled = false;
-            damageCol.enabled = false;
-
-        }
-        else
-        {
-            aud.PlayOneShot(hitSound);
-
-
-            
-            anim.SetTrigger("Damage");
-            destinationChosen = false;
-
-
-            StartCoroutine(flashRed());
-            if (agent.isActiveAndEnabled)
+            else if (HP <= startingHP * returnToSpawnHealthThreshold)
             {
-                agent.SetDestination(gameManager.instance.player.transform.position);
+                // Boss reached health threshold to return to spawn
+                StartCoroutine(ReturnToSpawnAndRecover());
             }
-            
+            else
+            {
+                aud.PlayOneShot(hitSound);
 
-            faceTarget();
+                anim.SetTrigger("Damage");
+                destinationChosen = false;
+
+                StartCoroutine(flashRed());
+
+                if (agent.isActiveAndEnabled)
+                {
+                    agent.SetDestination(gameManager.instance.player.transform.position);
+                }
+
+                faceTarget();
+                Debug.Log("Boss took damage");
+            }
         }
-        
     }
-
 
 
 
@@ -235,4 +274,5 @@ public class EnemyAI : MonoBehaviour, IDamage
         model.material.color = Color.white;
     }
 
+    
 }

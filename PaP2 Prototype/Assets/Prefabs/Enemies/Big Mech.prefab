@@ -176,9 +176,12 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 100046, guid: fec746e46c2fd354fa0bc92720075dbd, type: 3}
       insertIndex: 1
-      addedObject: {fileID: 4082538424255494856}
+      addedObject: {fileID: 1808766294574598976}
     - targetCorrespondingSourceObject: {fileID: 100046, guid: fec746e46c2fd354fa0bc92720075dbd, type: 3}
       insertIndex: 2
+      addedObject: {fileID: 4082538424255494856}
+    - targetCorrespondingSourceObject: {fileID: 100046, guid: fec746e46c2fd354fa0bc92720075dbd, type: 3}
+      insertIndex: 3
       addedObject: {fileID: 481204982885934690}
     - targetCorrespondingSourceObject: {fileID: 100046, guid: fec746e46c2fd354fa0bc92720075dbd, type: 3}
       insertIndex: -1
@@ -198,7 +201,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 100046, guid: fec746e46c2fd354fa0bc92720075dbd, type: 3}
   m_PrefabInstance: {fileID: 4316255527383038652}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4082538424255494856
+--- !u!114 &1808766294574598976
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -206,6 +209,43 @@ MonoBehaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4316255527383006322}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1f4137ff142af041af53f7e06cac3f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agent: {fileID: 8458292051549923446}
+  rb: {fileID: 0}
+  player: {fileID: 0}
+  headPos: {fileID: 3472148332309401882}
+  anim: {fileID: 4316255527390384092}
+  model: {fileID: 481204982885934690}
+  aud: {fileID: -5526174643812116812}
+  damageCol: {fileID: 5308738840570844236}
+  HP: 100
+  viewCone: 80
+  speed: 2
+  roamDist: 5
+  roamPauseTime: 1
+  animSpeedTrans: 8
+  targetFaceSpeed: 2
+  bullet: {fileID: 3393345968891059192, guid: 8ad9da3d86fcb0b4b8d2949686ce9956, type: 3}
+  shootRate: 1
+  shootSpeed: 2
+  enemyshootPos: {fileID: 1024829387841291182}
+  enemyshootPos2: {fileID: 6869896461990578712}
+  hitSound: {fileID: 8300000, guid: 0aff9e712df58524e92b99abc49873b7, type: 3}
+  deathSound: {fileID: 8300000, guid: 6e40c3c15672feb40adc88b1342a1b54, type: 3}
+  returnToSpawnHealthThreshold: 0.75
+  mySpawner: {fileID: 0}
+  startingHP: 0
+--- !u!114 &4082538424255494856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4316255527383006322}
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: da042e7206c7d1d47b1febbd9eb08536, type: 3}
   m_Name: 
