@@ -38,9 +38,9 @@ public class BossScript : MonoBehaviour, IDamage
     [SerializeField] AudioClip deathSound;
 
     [Header("----- Boss State -----")]
-    [SerializeField] float returnToSpawnHealthThreshold = 0.75f;
+    
     bool isReturningToSpawn;
-    Vector3 spawnPosition;
+    
 
     bool isShooting;
     bool PlayerInRange;
@@ -60,7 +60,7 @@ public class BossScript : MonoBehaviour, IDamage
         startingHP = HP;
         startingPos = transform.position;
         stoppingDistanceOrig = agent.stoppingDistance;
-        spawnPosition = transform.position;
+       
     }
 
 
@@ -81,12 +81,7 @@ public class BossScript : MonoBehaviour, IDamage
             {
                 StartCoroutine(roam());
             }
-
-            // Check if health is below the threshold for returning to spawn
-            if (HP <= startingHP * returnToSpawnHealthThreshold && !isReturningToSpawn)
-            {
-                StartCoroutine(ReturnToSpawnAndRecover());
-            }
+                        
         }
     }
 
@@ -96,28 +91,34 @@ public class BossScript : MonoBehaviour, IDamage
         isReturningToSpawn = true;
 
         // Disable damage and shooting
-        StopCoroutine(shoot());
+        PlayerInRange = false;
         damageCol.enabled = false;
-        isShooting = false; // Stop shooting
-        agent.isStopped = false; // Allow the agent to move
+
+        Debug.Log("Initial Position: " + startingPos);
 
         // Move to spawn position
-        agent.SetDestination(spawnPosition);
+        agent.SetDestination(startingPos);
 
         // Wait for boss to reach spawn position
-        yield return new WaitUntil(() => agent.remainingDistance < agent.stoppingDistance);
+        yield return new WaitUntil(() => Vector3.Distance(transform.position, startingPos) < 0.5f);
+
+        
 
         // Wait for 5 seconds
         yield return new WaitForSeconds(5f);
 
         // Re-engage the player
+        isReturningToSpawn = false;
+        PlayerInRange = true;
         agent.SetDestination(gameManager.instance.player.transform.position);
 
         // Enable damage and shooting
-        damageCol.enabled = true;
-        isReturningToSpawn = false;
+        damageCol.enabled = true;       
+    }
 
-        StartCoroutine(shoot()); // Resume shooting
+    void HandleHealthThreshold(float threshold)
+    {
+        StartCoroutine(ReturnToSpawnAndRecover());
     }
 
     public void OnTriggerEnter(Collider other)
@@ -240,11 +241,21 @@ public class BossScript : MonoBehaviour, IDamage
                 agent.enabled = false;
                 damageCol.enabled = false;
             }
-            else if (HP <= startingHP * returnToSpawnHealthThreshold)
+
+            if (HP <= startingHP * 0.75f && HP > startingHP * 0.5f)
             {
-                // Boss reached health threshold to return to spawn
-                StartCoroutine(ReturnToSpawnAndRecover());
+                HandleHealthThreshold(0.75f);
             }
+            else if (HP <= startingHP * 0.5f && HP > startingHP * 0.25f)
+            {
+                HandleHealthThreshold(0.5f);
+            }
+            else if (HP <= startingHP * 0.25f && HP > 0)
+            {
+                HandleHealthThreshold(0.25f);
+            }
+            
+
             else
             {
                 aud.PlayOneShot(hitSound);
