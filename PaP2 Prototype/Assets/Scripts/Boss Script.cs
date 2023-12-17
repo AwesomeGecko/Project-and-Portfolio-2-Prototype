@@ -51,6 +51,10 @@ public class BossScript : MonoBehaviour, IDamage
     float stoppingDistanceOrig;
     public enemySpawn mySpawner;
     public int startingHP;
+    private bool hasReturnedToSpawn75;
+    private bool hasReturnedToSpawn50;
+    private bool hasReturnedToSpawn25;
+
 
 
     // Start is called before the first frame update
@@ -108,17 +112,33 @@ public class BossScript : MonoBehaviour, IDamage
         yield return new WaitForSeconds(5f);
 
         // Re-engage the player
-        isReturningToSpawn = false;
+        
         PlayerInRange = true;
         agent.SetDestination(gameManager.instance.player.transform.position);
 
         // Enable damage and shooting
-        damageCol.enabled = true;       
+        damageCol.enabled = true;
+        isReturningToSpawn = false;
     }
 
     void HandleHealthThreshold(float threshold)
     {
-        StartCoroutine(ReturnToSpawnAndRecover());
+        if (threshold == 0.75f && !hasReturnedToSpawn75)
+        {
+            StartCoroutine(ReturnToSpawnAndRecover());
+            hasReturnedToSpawn75 = true;
+        }
+        else if (threshold == 0.5f && !hasReturnedToSpawn50)
+        {
+            StartCoroutine(ReturnToSpawnAndRecover());
+            hasReturnedToSpawn50 = true;
+        }
+        else if (threshold == 0.25f && !hasReturnedToSpawn25)
+        {
+            StartCoroutine(ReturnToSpawnAndRecover());
+            hasReturnedToSpawn25 = true;
+        }
+       
     }
 
     public void OnTriggerEnter(Collider other)
@@ -240,42 +260,51 @@ public class BossScript : MonoBehaviour, IDamage
 
                 agent.enabled = false;
                 damageCol.enabled = false;
-            }
-
-            if (HP <= startingHP * 0.75f && HP > startingHP * 0.5f)
-            {
-                HandleHealthThreshold(0.75f);
-            }
-            else if (HP <= startingHP * 0.5f && HP > startingHP * 0.25f)
-            {
-                HandleHealthThreshold(0.5f);
-            }
-            else if (HP <= startingHP * 0.25f && HP > 0)
-            {
-                HandleHealthThreshold(0.25f);
-            }
-            
+            }           
 
             else
             {
-                aud.PlayOneShot(hitSound);
 
-                anim.SetTrigger("Damage");
-                destinationChosen = false;
-
-                StartCoroutine(flashRed());
-
-                if (agent.isActiveAndEnabled)
+                if (HP <= startingHP * 0.75f && HP > startingHP * 0.5f)
                 {
-                    agent.SetDestination(gameManager.instance.player.transform.position);
+                    HandleHealthThreshold(0.75f);
+                    
                 }
-
-                faceTarget();
-                Debug.Log("Boss took damage");
+                else if (HP <= startingHP * 0.5f && HP > startingHP * 0.25f)
+                {
+                    HandleHealthThreshold(0.5f);
+                    
+                }
+                else if (HP <= startingHP * 0.25f && HP > 0)
+                {
+                    HandleHealthThreshold(0.25f);
+                    
+                }
+                else
+                {
+                    NormalDamage();
+                }
             }
         }
     }
+    void NormalDamage()
+    {
+        Debug.Log("NormalDamage triggered.");
+        aud.PlayOneShot(hitSound);
 
+        anim.SetTrigger("Damage");
+        destinationChosen = false;
+
+        StartCoroutine(flashRed());
+
+        if (agent.isActiveAndEnabled)
+        {
+            agent.SetDestination(gameManager.instance.player.transform.position);
+        }
+
+        faceTarget();
+        Debug.Log("Boss took damage");
+    }
 
 
     IEnumerator flashRed()
