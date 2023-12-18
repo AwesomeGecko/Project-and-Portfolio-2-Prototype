@@ -43,13 +43,14 @@ GameObject:
   - component: {fileID: 7031891384128597315}
   - component: {fileID: 4293141447323107288}
   - component: {fileID: 3001959801529245067}
+  - component: {fileID: 7935167788929877465}
   m_Layer: 0
   m_Name: Boss Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1492840904363109215
 Transform:
   m_ObjectHideFlags: 0
@@ -102,9 +103,27 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7026844262544077510}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b6ba9f9710aeeba4c99506bbecb0ddbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectToSpawn: {fileID: 4316255527383006322, guid: 377f6c14b7a4dfa449ea5656edf9e17c, type: 3}
+  numToSpawn: 1
+  timeBetweenSpawns: 1
+  spawnPos:
+  - {fileID: 5436843124566530980}
+  spawnList: []
+--- !u!114 &7935167788929877465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7026844262544077510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbd54b336fd9c1f459dfcc31e080d0f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   objectToSpawn: {fileID: 4316255527383006322, guid: 377f6c14b7a4dfa449ea5656edf9e17c, type: 3}
