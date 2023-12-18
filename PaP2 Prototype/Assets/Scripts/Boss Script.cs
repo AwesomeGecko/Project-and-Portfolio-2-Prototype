@@ -49,7 +49,7 @@ public class BossScript : MonoBehaviour, IDamage
     Vector3 playerDir;
     Vector3 startingPos;
     float stoppingDistanceOrig;
-    public enemySpawn mySpawner;
+    public BossSpawner mySpawner;
     public int startingHP;
     private bool hasReturnedToSpawn75;
     private bool hasReturnedToSpawn50;
@@ -85,7 +85,7 @@ public class BossScript : MonoBehaviour, IDamage
             {
                 StartCoroutine(roam());
             }
-                        
+            
         }
     }
 
@@ -118,7 +118,7 @@ public class BossScript : MonoBehaviour, IDamage
 
         // Enable damage and shooting
         damageCol.enabled = true;
-        isReturningToSpawn = false;
+        isReturningToSpawn = false;        
     }
 
     void HandleHealthThreshold(float threshold)
@@ -126,10 +126,11 @@ public class BossScript : MonoBehaviour, IDamage
         if (threshold == 0.75f && !hasReturnedToSpawn75)
         {
             StartCoroutine(ReturnToSpawnAndRecover());
-            hasReturnedToSpawn75 = true;
+            hasReturnedToSpawn75 = true;            
         }
         else if (threshold == 0.5f && !hasReturnedToSpawn50)
         {
+            
             StartCoroutine(ReturnToSpawnAndRecover());
             hasReturnedToSpawn50 = true;
         }
@@ -146,6 +147,7 @@ public class BossScript : MonoBehaviour, IDamage
         if (other.CompareTag("Player"))
         {
             PlayerInRange = true;
+            Debug.Log("Player entered boss trigger zone.");
         }
     }
 
@@ -155,6 +157,7 @@ public class BossScript : MonoBehaviour, IDamage
         {
             PlayerInRange = false;
             agent.stoppingDistance = 0;
+            Debug.Log("Player exited boss trigger zone.");
         }
 
     }
@@ -267,27 +270,28 @@ public class BossScript : MonoBehaviour, IDamage
 
                 if (HP <= startingHP * 0.75f && HP > startingHP * 0.5f)
                 {
-                    HandleHealthThreshold(0.75f);
-                    
+                    normalDamage();
+                    HandleHealthThreshold(0.75f);                    
                 }
                 else if (HP <= startingHP * 0.5f && HP > startingHP * 0.25f)
                 {
+                    normalDamage();
                     HandleHealthThreshold(0.5f);
                     
                 }
                 else if (HP <= startingHP * 0.25f && HP > 0)
                 {
-                    HandleHealthThreshold(0.25f);
-                    
+                    normalDamage();
+                    HandleHealthThreshold(0.25f);                    
                 }
                 else
                 {
-                    NormalDamage();
+                    normalDamage();
                 }
             }
         }
-    }
-    void NormalDamage()
+    }    
+    void normalDamage()
     {
         Debug.Log("NormalDamage triggered.");
         aud.PlayOneShot(hitSound);
@@ -305,7 +309,6 @@ public class BossScript : MonoBehaviour, IDamage
         faceTarget();
         Debug.Log("Boss took damage");
     }
-
 
     IEnumerator flashRed()
     {

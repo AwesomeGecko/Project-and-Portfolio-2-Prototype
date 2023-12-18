@@ -148,7 +148,7 @@ public class gameManager : MonoBehaviour
             {
                 youWin();
             }
-            else if (sceneName == "Test Level")
+            else if (sceneName == "Casey")
             {
                 youWin();
             }
