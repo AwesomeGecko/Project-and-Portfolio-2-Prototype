@@ -30,8 +30,8 @@ public class BossScript : MonoBehaviour, IDamage
     [SerializeField] GameObject bullet;
     [SerializeField] float shootRate;
     [SerializeField] float shootSpeed;
-    [SerializeField] Transform enemyshootPos;
-    [SerializeField] Transform enemyshootPos2;
+    [SerializeField] Transform shootPos;
+    [SerializeField] Transform shootPos2;
 
     [Header("----- Audio -----")]
     [SerializeField] AudioClip hitSound;
@@ -223,19 +223,17 @@ public class BossScript : MonoBehaviour, IDamage
     {
         isShooting = true;
         anim.SetTrigger("Shoot");
-        CreateBullet();
-
         yield return new WaitForSeconds(shootRate);
         isShooting = false;
     }
 
     public void CreateBullet()
     {
-        Instantiate(bullet, enemyshootPos.position, transform.rotation);
+        Instantiate(bullet, shootPos.position, transform.rotation);
 
         if (gameObject.CompareTag("Big Robot"))
         {
-            Instantiate(bullet, enemyshootPos2.position, transform.rotation);
+            Instantiate(bullet, shootPos2.position, transform.rotation);
         }
     }
 
