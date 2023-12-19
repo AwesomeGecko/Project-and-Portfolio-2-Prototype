@@ -51,26 +51,205 @@ public class EnemyAI : MonoBehaviour, IDamage
 
 
     // Start is called before the first frame update
+    //void Start()
+    //{
+    //    //gameManager.instance.updateGameGoal(1);
+    //    startingPos = transform.position;
+    //    stoppingDistanceOrig = agent.stoppingDistance;
+
+    //}
+
+
+
+    //// Update is called once per frame
+    //void Update()
+    //{
+    //    if (agent.isActiveAndEnabled)
+    //    {
+
+    //        float animspeed = agent.velocity.normalized.magnitude;
+    //        anim.SetFloat("Speed", Mathf.Lerp(anim.GetFloat("Speed"), animspeed, Time.deltaTime * animSpeedTrans));
+
+    //        if (PlayerInRange && !CanSeePLayer())
+    //        {
+    //            StartCoroutine(roam());
+    //        }
+    //        else if (!PlayerInRange)
+    //        {
+    //            StartCoroutine(roam());
+    //        }
+
+    //    }
+
+    //}
+
+    //public void OnTriggerEnter(Collider other)
+    //{
+    //    if(other.CompareTag("Player"))
+    //    {
+    //        PlayerInRange = true;
+    //    }
+    //}
+
+    //public void OnTriggerExit(Collider other)
+    //{
+    //    if(other.CompareTag("Player"))
+    //    {
+    //        PlayerInRange = false;
+    //        agent.stoppingDistance = 0;
+    //    }
+
+    //}
+
+    //IEnumerator roam()
+    //{
+    //    if (agent.remainingDistance < .05f && !destinationChosen)
+    //    {
+    //        destinationChosen = true;
+    //        agent.stoppingDistance = 0;
+    //        yield return new WaitForSeconds(roamPauseTime);
+
+    //        Vector3 randomPos = Random.insideUnitSphere * roamDist;
+    //        randomPos += startingPos;
+
+    //        NavMeshHit hit; 
+    //        NavMesh.SamplePosition(randomPos, out hit, roamDist, 1);
+    //        agent.SetDestination(hit.position);
+
+    //        destinationChosen = false;
+    //    }
+    //}   
+
+    //bool CanSeePLayer()
+    //{
+    //    playerDir = gameManager.instance.player.transform.position - headPos.position;
+    //    angleToPlayer = Vector3.Angle(playerDir, transform.forward);
+
+    //    RaycastHit hit;
+    //    if (Physics.Raycast(headPos.position, playerDir, out hit))
+    //    {
+    //        if (hit.collider.CompareTag("Player") && angleToPlayer <= viewCone)
+    //        {
+    //            agent.SetDestination(gameManager.instance.player.transform.position);
+
+
+    //            if (!isShooting)
+    //            {
+    //                StartCoroutine(shoot());                    
+    //            }
+    //            if (agent.remainingDistance < agent.stoppingDistance)
+    //            {
+    //                faceTarget();
+    //            }       
+    //        }
+    //        agent.stoppingDistance = stoppingDistanceOrig;
+
+    //        return true;
+    //    }
+
+    //    agent.stoppingDistance = 0;
+
+    //    return false;
+    //}
+
+    //void faceTarget()
+    //{
+    //    Quaternion rot = Quaternion.LookRotation(new Vector3(playerDir.x, transform.position.y, playerDir.z));
+    //    transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * targetFaceSpeed);
+    //}
+
+    //IEnumerator shoot()
+    //{
+    //    isShooting = true;
+    //    anim.SetTrigger("Shoot");
+    //    CreateBullet();
+
+    //    yield return new WaitForSeconds(shootRate);
+    //    isShooting = false;
+    //}
+
+    //public void CreateBullet()
+    //{
+    //    Instantiate(bullet, enemyshootPos.position, transform.rotation);
+
+    //    if (gameObject.CompareTag("Big Robot"))
+    //    {
+    //        Instantiate(bullet, enemyshootPos2.position, transform.rotation);
+    //    }
+    //}
+
+    //public void takeDamage(int amount)
+    //{
+    //        HP -= amount;
+
+
+
+    //    if (HP <= 0 && damageCol.enabled == true && agent.enabled == true)
+    //    {            
+    //            mySpawner.heyIDied();
+
+    //        if (isShooting)
+    //        {
+    //            StopCoroutine(shoot());
+    //        }
+
+    //        aud.PlayOneShot(deathSound);
+
+    //        gameManager.instance.updateGameGoal(-1);
+    //        anim.SetBool("Dead", true);
+
+
+    //        agent.enabled = false;
+    //        damageCol.enabled = false;
+
+    //    }
+    //    else
+    //    {
+    //        aud.PlayOneShot(hitSound);
+
+
+
+    //        anim.SetTrigger("Damage");
+    //        destinationChosen = false;
+
+
+    //        StartCoroutine(flashRed());
+    //        if (agent.isActiveAndEnabled)
+    //        {
+    //            agent.SetDestination(gameManager.instance.player.transform.position);
+    //        }
+
+
+    //        faceTarget();
+    //    }
+
+    //}
+
+
+
+
+    //IEnumerator flashRed()
+    //{
+    //    model.material.color = Color.red;
+    //    yield return new WaitForSeconds(0.1f);
+    //    model.material.color = Color.white;
+    //}
     void Start()
     {
-        //gameManager.instance.updateGameGoal(1);
+
         startingPos = transform.position;
         stoppingDistanceOrig = agent.stoppingDistance;
-        
     }
-
-    
 
     // Update is called once per frame
     void Update()
     {
         if (agent.isActiveAndEnabled)
         {
+            float animationSpeed = agent.velocity.normalized.magnitude;
+            anim.SetFloat("Speed", Mathf.Lerp(anim.GetFloat("Speed"), animationSpeed, Time.deltaTime * animSpeedTrans));
 
-            float animspeed = agent.velocity.normalized.magnitude;
-            anim.SetFloat("Speed", Mathf.Lerp(anim.GetFloat("Speed"), animspeed, Time.deltaTime * animSpeedTrans));
-
-            if (PlayerInRange && !CanSeePLayer())
+            if (PlayerInRange && !canSeePlayer())
             {
                 StartCoroutine(roam());
             }
@@ -78,32 +257,12 @@ public class EnemyAI : MonoBehaviour, IDamage
             {
                 StartCoroutine(roam());
             }
-               
         }
-
-    }
-
-    public void OnTriggerEnter(Collider other)
-    {
-        if(other.CompareTag("Player"))
-        {
-            PlayerInRange = true;
-        }
-    }
-
-    public void OnTriggerExit(Collider other)
-    {
-        if(other.CompareTag("Player"))
-        {
-            PlayerInRange = false;
-            agent.stoppingDistance = 0;
-        }
-        
     }
 
     IEnumerator roam()
     {
-        if (agent.remainingDistance < .05f && !destinationChosen)
+        if (agent.remainingDistance < 0.5 && !destinationChosen)
         {
             destinationChosen = true;
             agent.stoppingDistance = 0;
@@ -112,43 +271,46 @@ public class EnemyAI : MonoBehaviour, IDamage
             Vector3 randomPos = Random.insideUnitSphere * roamDist;
             randomPos += startingPos;
 
-            NavMeshHit hit; 
+            NavMeshHit hit;
             NavMesh.SamplePosition(randomPos, out hit, roamDist, 1);
             agent.SetDestination(hit.position);
 
             destinationChosen = false;
         }
-    }   
+    }
 
-    bool CanSeePLayer()
+    bool canSeePlayer()
     {
         playerDir = gameManager.instance.player.transform.position - headPos.position;
+
         angleToPlayer = Vector3.Angle(playerDir, transform.forward);
 
+        Debug.DrawRay(headPos.position, playerDir);
+
         RaycastHit hit;
+
         if (Physics.Raycast(headPos.position, playerDir, out hit))
         {
             if (hit.collider.CompareTag("Player") && angleToPlayer <= viewCone)
             {
                 agent.SetDestination(gameManager.instance.player.transform.position);
 
-
                 if (!isShooting)
                 {
-                    StartCoroutine(shoot());                    
+                    StartCoroutine(shoot());
                 }
+
                 if (agent.remainingDistance < agent.stoppingDistance)
                 {
                     faceTarget();
-                }       
+                }
+
+                agent.stoppingDistance = stoppingDistanceOrig;
+
+                return true;
             }
-            agent.stoppingDistance = stoppingDistanceOrig;
-
-            return true;
         }
-
         agent.stoppingDistance = 0;
-
         return false;
     }
 
@@ -158,16 +320,31 @@ public class EnemyAI : MonoBehaviour, IDamage
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * targetFaceSpeed);
     }
 
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            PlayerInRange = true;
+        }
+    }
+
+    public void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            PlayerInRange = false;
+            agent.stoppingDistance = 0;
+        }
+    }
+
     IEnumerator shoot()
     {
         isShooting = true;
         anim.SetTrigger("Shoot");
-        CreateBullet();
-
-        yield return new WaitForSeconds(shootRate);
+        yield return new WaitForSeconds(shootRate);        
         isShooting = false;
+        
     }
-
     public void CreateBullet()
     {
         Instantiate(bullet, enemyshootPos.position, transform.rotation);
@@ -178,55 +355,42 @@ public class EnemyAI : MonoBehaviour, IDamage
         }
     }
 
+    //public void weaponColOn()
+    //{
+    //    weaponCollider.enabled = true;
+    //}
+    //public void weaponColOff()
+    //{
+    //    weaponCollider.enabled = false;
+    //}
+
     public void takeDamage(int amount)
     {
-            HP -= amount;
+        HP -= amount;
 
-        
+        StopAllCoroutines();
 
-        if (HP <= 0 && damageCol.enabled == true && agent.enabled == true)
-        {            
-                mySpawner.heyIDied();
-
-            if (isShooting)
-            {
-                StopCoroutine(shoot());
-            }
-
+        if (HP <= 0)
+        {
+            mySpawner.heyIDied();
             aud.PlayOneShot(deathSound);
-
             gameManager.instance.updateGameGoal(-1);
             anim.SetBool("Dead", true);
-
-
             agent.enabled = false;
             damageCol.enabled = false;
-
         }
+
         else
         {
+            isShooting = false;
             aud.PlayOneShot(hitSound);
-
-
-            
             anim.SetTrigger("Damage");
             destinationChosen = false;
-
-
             StartCoroutine(flashRed());
-            if (agent.isActiveAndEnabled)
-            {
-                agent.SetDestination(gameManager.instance.player.transform.position);
-            }
-            
+            agent.SetDestination(gameManager.instance.player.transform.position);
 
-            faceTarget();
         }
-        
     }
-
-
-
 
     IEnumerator flashRed()
     {
@@ -234,5 +398,4 @@ public class EnemyAI : MonoBehaviour, IDamage
         yield return new WaitForSeconds(0.1f);
         model.material.color = Color.white;
     }
-
 }

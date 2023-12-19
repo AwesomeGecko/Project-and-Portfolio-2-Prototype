@@ -2467,7 +2467,7 @@ MonoBehaviour:
   model: {fileID: 1125180650137316569}
   aud: {fileID: 6669982072310782887}
   damageCol: {fileID: 1181870137617099959}
-  HP: 5
+  HP: 15
   viewCone: 90
   speed: 1
   roamDist: 10
@@ -2476,7 +2476,7 @@ MonoBehaviour:
   targetFaceSpeed: 3
   bullet: {fileID: 3393345968891059192, guid: 8ad9da3d86fcb0b4b8d2949686ce9956, type: 3}
   shootRate: 0.7
-  shootSpeed: 0
+  shootSpeed: 1
   enemyshootPos: {fileID: 3353402849618054329}
   enemyshootPos2: {fileID: 0}
   hitSound: {fileID: 8300000, guid: 0aff9e712df58524e92b99abc49873b7, type: 3}
