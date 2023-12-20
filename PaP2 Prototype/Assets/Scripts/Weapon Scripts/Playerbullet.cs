@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class bullet : MonoBehaviour
+public class Playerbullet : MonoBehaviour
 {
     [SerializeField] Rigidbody rb;
 
-    [SerializeField] int damage;
-    [SerializeField] int destroyTime;
-    [SerializeField] int speed;
+    private int damage;
+    private int destroyTime;
+    private int speed;
     public ParticleSystem sparkParticles;
 
     // Start is called before the first frame update
@@ -25,28 +25,13 @@ public class bullet : MonoBehaviour
         }
         Destroy(gameObject, destroyTime);
     }
+    public void SetBulletProperties(int damage, int destroyTime, int speed)
+    {
+        this.damage = damage;
+        this.destroyTime = destroyTime;
+        this.speed = speed;
+    }
 
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.isTrigger)
-    //        return;
-        
-    //    if(rb.CompareTag("PlayerBullet"))
-    //    {
-    //        if(other.CompareTag("Player"))
-    //        {
-    //            return;
-    //        }
-    //    }
-
-    //    IDamage dmg = other.GetComponent<IDamage>();
-
-    //    if (dmg != null)
-    //    {
-    //        dmg.takeDamage(damage);
-    //    }
-    //    Destroy(gameObject);
-    //}
     private void OnCollisionEnter(Collision collision)
     {
         

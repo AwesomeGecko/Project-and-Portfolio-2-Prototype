@@ -2474,9 +2474,12 @@ MonoBehaviour:
   roamPauseTime: 3
   animSpeedTrans: 8
   targetFaceSpeed: 3
-  bullet: {fileID: 3393345968891059192, guid: 8ad9da3d86fcb0b4b8d2949686ce9956, type: 3}
-  shootRate: 0.7
-  shootSpeed: 1
+  EnemyBullet: {fileID: 3393345968891059192, guid: 8ad9da3d86fcb0b4b8d2949686ce9956, type: 3}
+  bulletDamage: 1
+  bulletDestroyTime: 1
+  bulletSpeed: 4
+  shootRate: 0.1
+  shootSpeed: 0.5
   enemyshootPos: {fileID: 3353402849618054329}
   enemyshootPos2: {fileID: 0}
   hitSound: {fileID: 8300000, guid: 0aff9e712df58524e92b99abc49873b7, type: 3}

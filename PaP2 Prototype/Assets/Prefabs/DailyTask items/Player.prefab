@@ -129,7 +129,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 5190971063148889619}
   aud: {fileID: 4268009355107710033}
-  HP: 20
+  HP: 30
   Stamina: 10
   playerSpeed: 10
   jumpHeight: 7.5
@@ -138,12 +138,14 @@ MonoBehaviour:
   crouchMod: 0.75
   crouchDist: 0.5
   gunList: []
-  bullet: {fileID: 5550751600062205222, guid: f2ebe8c562f11b3439d76c5a0b962c1d, type: 3}
+  Playerbullet: {fileID: 5550751600062205222, guid: f2ebe8c562f11b3439d76c5a0b962c1d, type: 3}
   shootPos: {fileID: 5615996055112551137}
   scopedShootPos: {fileID: 3625547189095083740}
-  shootDamage: 0
   bulletDestroyTime: 0
   shootRate: 0
+  PlayerBulletDamage: 0
+  PlayerBulletDestroyTime: 0
+  PlayerBulletSpeed: 0
   ammoCounter: 0
   maxAmmo: 0
   soundSteps:

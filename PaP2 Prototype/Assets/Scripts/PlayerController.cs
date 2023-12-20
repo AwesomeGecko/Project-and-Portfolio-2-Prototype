@@ -1,4 +1,3 @@
-
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -24,12 +23,14 @@ public class PlayerController : MonoBehaviour, IDamage
 
     [Header("Gun Stats")]
     [SerializeField] List<gunStats> gunList = new List<gunStats>();
-    [SerializeField] GameObject bullet;
+    [SerializeField] GameObject Playerbullet;
     [SerializeField] Transform shootPos;
-    [SerializeField] Transform scopedShootPos;
-    [SerializeField] int shootDamage;
+    [SerializeField] Transform scopedShootPos;    
     [SerializeField] int bulletDestroyTime;
     [SerializeField] float shootRate;
+    [SerializeField] int PlayerBulletDamage;
+    [SerializeField] int PlayerBulletDestroyTime;
+    [SerializeField] int PlayerBulletSpeed;
     [SerializeField] public int ammoCounter;
     [SerializeField] public int maxAmmo;
     private int gameManagerAmmo;
@@ -203,14 +204,19 @@ public class PlayerController : MonoBehaviour, IDamage
 
         gunStats currentGun = gunList[selectedGun];
 
+        GameObject PlayerBullet;
+
         if (isAiming)
         {
-            Instantiate(bullet, scopedShootPos.position, transform.rotation);
+            PlayerBullet = Instantiate(Playerbullet, scopedShootPos.position, transform.rotation);
+            
         }
         else
         {
-            Instantiate(bullet, shootPos.position, transform.rotation);
+            PlayerBullet =Instantiate(Playerbullet, shootPos.position, transform.rotation);
+            
         }
+        PlayerBullet.GetComponent<Playerbullet>().SetBulletProperties(PlayerBulletDamage, PlayerBulletDestroyTime, PlayerBulletSpeed);
 
         yield return new WaitForSeconds(shootRate);
         isShooting = false;
@@ -304,10 +310,12 @@ public class PlayerController : MonoBehaviour, IDamage
     {
         gunList.Add(gun);
         selectedGun = gunList.Count - 1;
-        gun.ammoCur = gun.magSize;
-        shootDamage = gun.shootDamage;
+        gun.ammoCur = gun.magSize;        
         shootDist = gun.shootDist;
         shootRate = gun.shootRate;
+        PlayerBulletDamage = gun.PlayerBulletDamage;
+        PlayerBulletDestroyTime = gun.PlayerBulletDestroyTime;
+        PlayerBulletSpeed = gun.PlayerBulletSpeed;
         ammoCounter = gun.magSize;
         maxAmmo = gun.ammoMax;
 
@@ -337,9 +345,11 @@ public class PlayerController : MonoBehaviour, IDamage
 
     void changeGun()
     {
-        shootDamage = gunList[selectedGun].shootDamage;
         shootDist = gunList[selectedGun].shootDist;
         shootRate = gunList[selectedGun].shootRate;
+        PlayerBulletDamage = gunList[selectedGun].PlayerBulletDamage;
+        PlayerBulletDestroyTime = gunList[selectedGun].PlayerBulletDestroyTime;
+        PlayerBulletSpeed = gunList[selectedGun].PlayerBulletSpeed;
         ammoCounter = gunList[selectedGun].ammoCur;
         maxAmmo = gunList[selectedGun].ammoMax;
 

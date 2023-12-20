@@ -8,9 +8,11 @@ using UnityEngine.UIElements;
 [CreateAssetMenu]
 public class gunStats : ScriptableObject
 {
-    public int shootDamage;
     public float shootRate;
     public int shootDist;
+    public int PlayerBulletDamage;
+    public int PlayerBulletDestroyTime;
+    public int PlayerBulletSpeed;
     public int ammoCur;
     public int ammoMax;
     public int magSize;
