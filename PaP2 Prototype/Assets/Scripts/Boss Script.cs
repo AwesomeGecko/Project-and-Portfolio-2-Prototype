@@ -27,7 +27,10 @@ public class BossScript : MonoBehaviour, IDamage
     [SerializeField] int targetFaceSpeed;
 
     [Header("----- Weapon -----")]
-    [SerializeField] GameObject bullet;
+    [SerializeField] GameObject EnemyBullet;
+    [SerializeField] int bulletDamage;
+    [SerializeField] int bulletDestroyTime;
+    [SerializeField] int bulletSpeed;
     [SerializeField] float shootRate;
     [SerializeField] float shootSpeed;
     [SerializeField] Transform shootPos;
@@ -229,12 +232,14 @@ public class BossScript : MonoBehaviour, IDamage
 
     public void CreateBullet()
     {
-        Instantiate(bullet, shootPos.position, transform.rotation);
-
-        if (gameObject.CompareTag("Big Robot"))
-        {
-            Instantiate(bullet, shootPos2.position, transform.rotation);
-        }
+        GameObject newBullet1 = Instantiate(EnemyBullet, shootPos.position, transform.rotation);
+        EnemyBullet enemyBullet1 = newBullet1.GetComponent<EnemyBullet>();
+        enemyBullet1.SetBulletProperties(bulletDamage, bulletDestroyTime, bulletSpeed);    
+        
+        GameObject newBullet2 = Instantiate(EnemyBullet, shootPos2.position, transform.rotation);
+        EnemyBullet enemyBullet2 = newBullet2.GetComponent<EnemyBullet>();
+        enemyBullet2.SetBulletProperties(bulletDamage, bulletDestroyTime, bulletSpeed);
+        
     }
 
     public void takeDamage(int amount)
