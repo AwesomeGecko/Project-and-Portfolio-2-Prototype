@@ -238,6 +238,7 @@ public class BossScript : MonoBehaviour, IDamage
         anim.SetTrigger("Shoot");
         yield return new WaitForSeconds(shootRate);
         isShooting = false;
+        anim.SetTrigger("StopShoot");
     }
 
     public void CreateBullet()
