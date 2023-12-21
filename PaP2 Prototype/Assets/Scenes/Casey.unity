@@ -541,6 +541,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6547731439817625755, guid: 415e8ce8c9de02143b1cd6917b11c526, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 7713944994834878593, guid: 415e8ce8c9de02143b1cd6917b11c526, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -611,10 +619,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1024829387841291182, guid: 377f6c14b7a4dfa449ea5656edf9e17c, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 4.655
-      objectReference: {fileID: 0}
     - target: {fileID: 4316255527383006322, guid: 377f6c14b7a4dfa449ea5656edf9e17c, type: 3}
       propertyPath: m_Name
       value: Big Mech
