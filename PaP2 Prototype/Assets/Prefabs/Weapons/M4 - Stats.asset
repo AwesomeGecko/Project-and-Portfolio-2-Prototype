@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89383eed46ec81644ac36e0524ce1bb1, type: 3}
   m_Name: M4 - Stats
   m_EditorClassIdentifier: 
-  shootDamage: 5
   shootRate: 0.1
   shootDist: 1000
+  PlayerBulletDamage: 5
+  PlayerBulletDestroyTime: 1
+  PlayerBulletSpeed: 40
   ammoCur: 30
   ammoMax: 150
   magSize: 30

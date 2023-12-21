@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89383eed46ec81644ac36e0524ce1bb1, type: 3}
   m_Name: Gun - Pistol
   m_EditorClassIdentifier: 
-  shootDamage: 2
   shootRate: 0.5
   shootDist: 20
+  PlayerBulletDamage: 2
+  PlayerBulletDestroyTime: 1
+  PlayerBulletSpeed: 20
   ammoCur: 10
   ammoMax: 30
   magSize: 10

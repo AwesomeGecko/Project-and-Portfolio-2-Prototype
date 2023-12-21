@@ -1424,7 +1424,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -1437,8 +1437,8 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0
-        functionName: ShootBigCanonB
+      - time: 0.011876484
+        functionName: CreateCanon_BBullet
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
@@ -1565,7 +1565,7 @@ ModelImporter:
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
-      cycleOffset: 0
+      cycleOffset: 3
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 1
@@ -1582,7 +1582,7 @@ ModelImporter:
       curves: []
       events:
       - time: 0
-        functionName: ShootSmallCanonA
+        functionName: CreateSmallCanon_ABullet
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
@@ -1709,7 +1709,7 @@ ModelImporter:
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
-      cycleOffset: 0
+      cycleOffset: 3
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 1
@@ -1726,7 +1726,7 @@ ModelImporter:
       curves: []
       events:
       - time: 0
-        functionName: ShootSmallCanonB
+        functionName: CreateSmallCanon_BBullet
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
