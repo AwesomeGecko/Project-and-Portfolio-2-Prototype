@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89383eed46ec81644ac36e0524ce1bb1, type: 3}
+  m_Name: M4 - Stats
+  m_EditorClassIdentifier: 
+  shootRate: 0.1
+  shootDist: 1000
+  PlayerBulletDamage: 5
+  PlayerBulletDestroyTime: 1
+  PlayerBulletSpeed: 40
+  ammoCur: 30
+  ammoMax: 150
+  magSize: 30
+  model: {fileID: 345920512106537666, guid: 58c681bc5af6ae647928ba488f20d76a, type: 3}
+  hitEffect: {fileID: 468260622339083660, guid: f8c505478bba5bf4dbdeaa85632801a6, type: 3}
+  shootSound: {fileID: 8300000, guid: 8581f806dddef8046b4942de05b897be, type: 3}
+  shootSoundVol: 0.25
+  shouldUseScope: 1
+  fieldOfView: 30
