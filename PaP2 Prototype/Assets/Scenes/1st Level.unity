@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18866083, g: 0.23022556, b: 0.19747028, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2902,9 +2902,17 @@ PrefabInstance:
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7683905187682868226, guid: 971e80226b27d9e46b3443522bc09c9c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8196278171391205238, guid: 971e80226b27d9e46b3443522bc09c9c, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8196278171391205238, guid: 971e80226b27d9e46b3443522bc09c9c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3772,9 +3780,17 @@ PrefabInstance:
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 180038350488080864, guid: 9695e19969864e443b09fa598231ed86, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4297471811893978683, guid: 9695e19969864e443b09fa598231ed86, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4297471811893978683, guid: 9695e19969864e443b09fa598231ed86, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4810664745738735938, guid: 9695e19969864e443b09fa598231ed86, type: 3}
       propertyPath: m_LocalScale.x
@@ -5782,6 +5798,10 @@ PrefabInstance:
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 266186855376765798, guid: 5de05c627842f5649a5a469b552247cb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 5116104859936993882, guid: 5de05c627842f5649a5a469b552247cb, type: 3}
       propertyPath: m_Name
       value: WallTech (3)
@@ -5793,6 +5813,10 @@ PrefabInstance:
     - target: {fileID: 6836374278703844295, guid: 5de05c627842f5649a5a469b552247cb, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6836374278703844295, guid: 5de05c627842f5649a5a469b552247cb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8891311670499289412, guid: 5de05c627842f5649a5a469b552247cb, type: 3}
       propertyPath: m_LocalScale.x
@@ -6898,6 +6922,10 @@ PrefabInstance:
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 266186855376765798, guid: 5de05c627842f5649a5a469b552247cb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 5116104859936993882, guid: 5de05c627842f5649a5a469b552247cb, type: 3}
       propertyPath: m_Name
       value: WallTech (2)
@@ -6909,6 +6937,10 @@ PrefabInstance:
     - target: {fileID: 6836374278703844295, guid: 5de05c627842f5649a5a469b552247cb, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6836374278703844295, guid: 5de05c627842f5649a5a469b552247cb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8891311670499289412, guid: 5de05c627842f5649a5a469b552247cb, type: 3}
       propertyPath: m_LocalScale.x
@@ -7614,6 +7646,10 @@ PrefabInstance:
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 266186855376765798, guid: 5de05c627842f5649a5a469b552247cb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 5116104859936993882, guid: 5de05c627842f5649a5a469b552247cb, type: 3}
       propertyPath: m_Name
       value: WallTech
@@ -7625,6 +7661,10 @@ PrefabInstance:
     - target: {fileID: 6836374278703844295, guid: 5de05c627842f5649a5a469b552247cb, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6836374278703844295, guid: 5de05c627842f5649a5a469b552247cb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8891311670499289412, guid: 5de05c627842f5649a5a469b552247cb, type: 3}
       propertyPath: m_LocalScale.y
@@ -9684,9 +9724,17 @@ PrefabInstance:
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7683905187682868226, guid: 971e80226b27d9e46b3443522bc09c9c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8196278171391205238, guid: 971e80226b27d9e46b3443522bc09c9c, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8196278171391205238, guid: 971e80226b27d9e46b3443522bc09c9c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -15162,9 +15210,17 @@ PrefabInstance:
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 180038350488080864, guid: 9695e19969864e443b09fa598231ed86, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4297471811893978683, guid: 9695e19969864e443b09fa598231ed86, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4297471811893978683, guid: 9695e19969864e443b09fa598231ed86, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4810664745738735938, guid: 9695e19969864e443b09fa598231ed86, type: 3}
       propertyPath: m_LocalScale.x
@@ -19510,9 +19566,17 @@ PrefabInstance:
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7683905187682868226, guid: 971e80226b27d9e46b3443522bc09c9c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8196278171391205238, guid: 971e80226b27d9e46b3443522bc09c9c, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8196278171391205238, guid: 971e80226b27d9e46b3443522bc09c9c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -19671,9 +19735,17 @@ PrefabInstance:
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6701831050605536892, guid: 560728cabe1683040add6a336e0cc67e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 7262876877528776941, guid: 560728cabe1683040add6a336e0cc67e, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7262876877528776941, guid: 560728cabe1683040add6a336e0cc67e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -21289,6 +21361,10 @@ PrefabInstance:
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 266186855376765798, guid: 5de05c627842f5649a5a469b552247cb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 5116104859936993882, guid: 5de05c627842f5649a5a469b552247cb, type: 3}
       propertyPath: m_Name
       value: WallTech
@@ -21300,6 +21376,10 @@ PrefabInstance:
     - target: {fileID: 6836374278703844295, guid: 5de05c627842f5649a5a469b552247cb, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6836374278703844295, guid: 5de05c627842f5649a5a469b552247cb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8891311670499289412, guid: 5de05c627842f5649a5a469b552247cb, type: 3}
       propertyPath: m_LocalScale.y
@@ -31929,9 +32009,17 @@ PrefabInstance:
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7683905187682868226, guid: 971e80226b27d9e46b3443522bc09c9c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8196278171391205238, guid: 971e80226b27d9e46b3443522bc09c9c, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8196278171391205238, guid: 971e80226b27d9e46b3443522bc09c9c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -34557,9 +34645,17 @@ PrefabInstance:
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7683905187682868226, guid: 971e80226b27d9e46b3443522bc09c9c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8196278171391205238, guid: 971e80226b27d9e46b3443522bc09c9c, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8196278171391205238, guid: 971e80226b27d9e46b3443522bc09c9c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -36468,9 +36564,17 @@ PrefabInstance:
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6701831050605536892, guid: 560728cabe1683040add6a336e0cc67e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 7262876877528776941, guid: 560728cabe1683040add6a336e0cc67e, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7262876877528776941, guid: 560728cabe1683040add6a336e0cc67e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -37018,9 +37122,17 @@ PrefabInstance:
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7683905187682868226, guid: 971e80226b27d9e46b3443522bc09c9c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8196278171391205238, guid: 971e80226b27d9e46b3443522bc09c9c, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8196278171391205238, guid: 971e80226b27d9e46b3443522bc09c9c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
