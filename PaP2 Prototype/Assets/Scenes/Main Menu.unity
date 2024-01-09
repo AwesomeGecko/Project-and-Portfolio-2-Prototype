@@ -450,7 +450,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Captian you're awake!
+  m_text: Captain you're awake!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 57103aa529bbf4149809af4fa3255228, type: 2}
   m_sharedMaterial: {fileID: -6991996955018838257, guid: 57103aa529bbf4149809af4fa3255228, type: 2}
