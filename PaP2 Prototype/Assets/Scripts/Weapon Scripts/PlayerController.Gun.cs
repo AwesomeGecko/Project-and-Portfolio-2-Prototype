@@ -35,10 +35,10 @@ public partial class PlayerController
             int bulletsNeeded = gunList[selectedGun].magSize - gunList[selectedGun].ammoCur;
 
             // Check if the player has enough bullets to reload
-            if (ammoCounter >= bulletsNeeded)
+            if (gunList[selectedGun].totalAmmo >= bulletsNeeded)
             {
                 // Subtract the bullets needed from player's total ammo
-                ammoCounter -= bulletsNeeded;
+                gunList[selectedGun].totalAmmo -= bulletsNeeded;
 
                 // Fill the gun's magazine with the remaining bullets in the total ammo
                 gunList[selectedGun].ammoCur = gunList[selectedGun].magSize;
@@ -49,16 +49,17 @@ public partial class PlayerController
             else
             {
                 // Check if there is any ammo left to reload
-                if (ammoCounter > 0)
+                if (gunList[selectedGun].totalAmmo > 0)
                 {
                     // Reload with the remaining ammo
-                    gunList[selectedGun].ammoCur += ammoCounter;
+                    gunList[selectedGun].ammoCur += gunList[selectedGun].totalAmmo;
 
                     // Reset total ammo to 0
-                    ammoCounter = 0;
+                    gunList[selectedGun].totalAmmo = 0;
 
                     // Update the UI
                     UpdatePlayerUI();
+                    
                 }
             }
         }
@@ -116,19 +117,25 @@ public partial class PlayerController
             Camera.main.fieldOfView = defaultFOV;
         }
     }
-    void changeGun()
-    {
-        shootDist = gunList[selectedGun].shootDist;
-        shootRate = gunList[selectedGun].shootRate;
-        PlayerBulletDamage = gunList[selectedGun].PlayerBulletDamage;
-        PlayerBulletDestroyTime = gunList[selectedGun].PlayerBulletDestroyTime;
-        PlayerBulletSpeed = gunList[selectedGun].PlayerBulletSpeed;
-        ammoCounter = gunList[selectedGun].ammoCur;
-        maxAmmo = gunList[selectedGun].ammoMax;
 
-        gunModel.GetComponent<MeshFilter>().sharedMesh = gunList[selectedGun].model.GetComponent<MeshFilter>().sharedMesh;
-        gunModel.GetComponent<MeshRenderer>().sharedMaterial = gunList[selectedGun].model.GetComponent<MeshRenderer>().sharedMaterial;
-        isShooting = false;
+    public void getGunStats(gunStats gun)
+    {
+        gunList.Add(gun);
+        selectedGun = gunList.Count - 1;
+
+        shootDist = gun.shootDist;
+        shootRate = gun.shootRate;
+        PlayerBulletDamage = gun.PlayerBulletDamage;
+        PlayerBulletDestroyTime = gun.PlayerBulletDestroyTime;
+        PlayerBulletSpeed = gun.PlayerBulletSpeed;
+        ammoCounter = gun.magSize;
+        maxAmmo = gun.ammoMax;
+        gun.totalAmmo = ammoCounter;
+
+        gunModel.GetComponent<MeshFilter>().sharedMesh = gun.model.GetComponent<MeshFilter>().sharedMesh;
+        gunModel.GetComponent<MeshRenderer>().sharedMaterial = gun.model.GetComponent<MeshRenderer>().sharedMaterial;
+
+        UpdatePlayerUI();
     }
 
     void selectGun()
@@ -148,23 +155,22 @@ public partial class PlayerController
         }
 
     }
-    public void getGunStats(gunStats gun)
+
+    void changeGun()
     {
-        gunList.Add(gun);
-        selectedGun = gunList.Count - 1;
-        gun.ammoCur = gun.magSize;
-        shootDist = gun.shootDist;
-        shootRate = gun.shootRate;
-        PlayerBulletDamage = gun.PlayerBulletDamage;
-        PlayerBulletDestroyTime = gun.PlayerBulletDestroyTime;
-        PlayerBulletSpeed = gun.PlayerBulletSpeed;
-        ammoCounter = gun.magSize;
-        maxAmmo = gun.ammoMax;
+        shootDist = gunList[selectedGun].shootDist;
+        shootRate = gunList[selectedGun].shootRate;
+        PlayerBulletDamage = gunList[selectedGun].PlayerBulletDamage;
+        PlayerBulletDestroyTime = gunList[selectedGun].PlayerBulletDestroyTime;
+        PlayerBulletSpeed = gunList[selectedGun].PlayerBulletSpeed;
 
-        gunModel.GetComponent<MeshFilter>().sharedMesh = gun.model.GetComponent<MeshFilter>().sharedMesh;
-        gunModel.GetComponent<MeshRenderer>().sharedMaterial = gun.model.GetComponent<MeshRenderer>().sharedMaterial;
+        ammoCounter = gunList[selectedGun].totalAmmo;
 
-        UpdatePlayerUI();
+        maxAmmo = gunList[selectedGun].ammoMax;
+
+        gunModel.GetComponent<MeshFilter>().sharedMesh = gunList[selectedGun].model.GetComponent<MeshFilter>().sharedMesh;
+        gunModel.GetComponent<MeshRenderer>().sharedMaterial = gunList[selectedGun].model.GetComponent<MeshRenderer>().sharedMaterial;
+        isShooting = false;
     }
     IEnumerator Shoot()
     {

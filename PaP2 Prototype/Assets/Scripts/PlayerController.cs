@@ -66,6 +66,7 @@ public partial class PlayerController : MonoBehaviour, IDamage
         if (defaultPistol != null)
         {
             getGunStats(defaultPistol);
+            gunList[selectedGun].ammoCur = gunList[selectedGun].magSize;
         }
         else
         {
@@ -248,7 +249,7 @@ public partial class PlayerController : MonoBehaviour, IDamage
         gameManager.instance.playerHPBar.fillAmount = (float)HP / HPOriginal;
         gameManager.instance.playerStaminaBar.fillAmount = Stamina / StaminaOrig;
         gameManager.instance.ammoCounter.text = gunList[selectedGun].ammoCur.ToString("0");
-        gameManager.instance.maxAmmoCounter.text = ammoCounter.ToString("0");
+        gameManager.instance.maxAmmoCounter.text = gunList[selectedGun].totalAmmo.ToString("0");
     }
 
 }
