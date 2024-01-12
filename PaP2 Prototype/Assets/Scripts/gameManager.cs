@@ -290,11 +290,11 @@ public class gameManager : MonoBehaviour
 
     public void maxItems()
     {
-        if (playerScript.ammoCounter >= playerScript.maxAmmo && isAmmo)
+        //refrencing players current gun ammo and mag size
+        if (playerScript.gunList[playerScript.selectedGun].totalAmmo >= playerScript.gunList[playerScript.selectedGun].magSize && isAmmo)
         {
             StartCoroutine(maxPickups());
             maxText.text = "Ammo Too Full";
-            playerScript.ammoCounter = playerScript.maxAmmo;
         }
         if (playerScript.HP >= playerScript.HPOriginal && isHP)
         {

@@ -19,10 +19,18 @@ public class interactableObject : MonoBehaviour {
     private bool isPickedUp = false;
     private float initialY;
 
+    private int ammoCur;
+    private int magSize;
+    private int maxAmmo;
+    private int ammoMax;
+    private int totalAmmo;
+    private int ammoReset;
+
     void Start()
     {
         initialY = transform.position.y;
         animator = GetComponent<Animator>();
+        ammoReset = ammoAmount;
     }
 
     public string GetItemName()
@@ -47,8 +55,10 @@ public class interactableObject : MonoBehaviour {
 
     public void interact()
     {
+
         if (Input.GetButtonDown("Interact") && playerInRange && gameManager.instance.onTarget)
         {
+            
             Debug.Log("Item Added to Inventory");
 
             if (ItemName == "Ammo")
@@ -92,20 +102,38 @@ public class interactableObject : MonoBehaviour {
         }
     }
 
+    public void getVariables()  
+    {
+        //not used like a method just for refferance so i dont get confused...
+        //DO NOT USE THESE VARIABLES, it wont work T_T use the gameManager refreance instead
+        ammoCur = gameManager.instance.playerScript.gunList[gameManager.instance.playerScript.selectedGun].ammoCur;
+        magSize = gameManager.instance.playerScript.gunList[gameManager.instance.playerScript.selectedGun].magSize;
+        maxAmmo = gameManager.instance.playerScript.maxAmmo;
+        totalAmmo = gameManager.instance.playerScript.gunList[gameManager.instance.playerScript.selectedGun].totalAmmo;
+        ammoMax = gameManager.instance.playerScript.gunList[gameManager.instance.playerScript.selectedGun].ammoMax;
+    }
+
     void ammoBox()
     {
         gameManager.instance.isAmmo = true;
-        if (gameManager.instance.playerScript.ammoCounter < gameManager.instance.playerScript.maxAmmo) //if current ammo is less than max
+        int bulletsNeeded = gameManager.instance.playerScript.gunList[gameManager.instance.playerScript.selectedGun].magSize - gameManager.instance.playerScript.gunList[gameManager.instance.playerScript.selectedGun].totalAmmo;
+
+        //if current ammo is less than max
+        if (gameManager.instance.playerScript.gunList[gameManager.instance.playerScript.selectedGun].totalAmmo < gameManager.instance.playerScript.gunList[gameManager.instance.playerScript.selectedGun].magSize)
         {
             StartCoroutine(openBox());
-            gameManager.instance.playerScript.ammoCounter += ammoAmount; //adds ammo
-
-            //Add the amount of ammo directly to the specific gun
-            gameManager.instance.playerScript.gunList[gameManager.instance.playerScript.selectedGun].totalAmmo += ammoAmount;
-
-            if (gameManager.instance.playerScript.ammoCounter >= gameManager.instance.playerScript.maxAmmo) //if current ammo is greater than max
+            if (gameManager.instance.playerScript.gunList[gameManager.instance.playerScript.selectedGun].totalAmmo + ammoAmount > gameManager.instance.playerScript.gunList[gameManager.instance.playerScript.selectedGun].magSize)
             {
-                gameManager.instance.playerScript.ammoCounter = gameManager.instance.playerScript.maxAmmo; //sets back to max
+                //Add the amount needed to the gun and none over ex: magSize = 10 ammoAmmount = 25
+                //subtracts magSize from totalAmmo to give propper refill
+                ammoAmount = bulletsNeeded;
+                gameManager.instance.playerScript.gunList[gameManager.instance.playerScript.selectedGun].totalAmmo += ammoAmount;
+                ammoAmount = ammoReset;
+            }
+            else 
+            {
+                //Add the amount of ammo directly to the specific gun magazine
+                gameManager.instance.playerScript.gunList[gameManager.instance.playerScript.selectedGun].totalAmmo += ammoAmount;
             }
         }
         else
@@ -113,6 +141,7 @@ public class interactableObject : MonoBehaviour {
             gameManager.instance.maxItems();
         }
         gameManager.instance.isAmmo = false;
+
     }
 
     void healthBox()
@@ -148,4 +177,6 @@ public class interactableObject : MonoBehaviour {
         animator.SetTrigger("isClosed");
         interactCollider.enabled = true;
     }
+
+    
 }
