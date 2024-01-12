@@ -27,6 +27,7 @@ public partial class PlayerController
 
     void Reload()
     {
+        InteractSound();
         // Check if the gun is not already full
         if (gunList[selectedGun].ammoCur < gunList[selectedGun].magSize)
         {
@@ -226,5 +227,14 @@ public partial class PlayerController
         isShooting = false;
         Destroy(currentMuzzleFlash.gameObject);
         UpdatePlayerUI();
+    }
+
+    void InteractSound()
+    {
+        if (aud && reloadSound != null)
+        {
+            float adjustedVolume = reloadSoundVol * gameManager.instance.aud.volume;
+            aud.PlayOneShot(reloadSound, adjustedVolume);
+        }
     }
 }

@@ -809,11 +809,11 @@ MonoBehaviour:
   isMuted: 0
   aud: {fileID: 5462683975940071110}
   winSound: {fileID: 8300000, guid: 59fd8f3376ee9834d9c98676af63e743, type: 3}
-  winSoundVol: 0.5
+  winSoundVol: 0.25
   loseSound: {fileID: 8300000, guid: 3f2d6477dfa5d6942be5c724618597ba, type: 3}
-  loseSoundVol: 0.5
+  loseSoundVol: 0.25
   pauseSound: {fileID: 8300000, guid: 5c2471fc85ca45b4687db8150f1afb92, type: 3}
-  pauseSoundVol: 0.5
+  pauseSoundVol: 0.25
 --- !u!114 &7213592768430537374
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -838,7 +838,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0

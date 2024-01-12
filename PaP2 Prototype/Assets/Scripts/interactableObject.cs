@@ -26,6 +26,12 @@ public class interactableObject : MonoBehaviour {
     private int totalAmmo;
     private int ammoReset;
 
+    // Audio
+    [Header("Audio")]
+    [SerializeField] public AudioSource aud;
+    public AudioClip interactSound;
+    [Range(0f, 1f)][SerializeField] float interactSoundVol;
+
     void Start()
     {
         initialY = transform.position.y;
@@ -60,6 +66,8 @@ public class interactableObject : MonoBehaviour {
         {
             
             Debug.Log("Item Added to Inventory");
+
+            InteractSound();
 
             if (ItemName == "Ammo")
             {
@@ -177,6 +185,15 @@ public class interactableObject : MonoBehaviour {
         animator.SetTrigger("isClosed");
         interactCollider.enabled = true;
     }
+
+    void InteractSound()
+    {
+        if(aud && interactSound != null)
+        {
+            float adjustedVolume = interactSoundVol * gameManager.instance.aud.volume;
+            aud.PlayOneShot(interactSound, adjustedVolume);
+        }
+    }    
 
     
 }
