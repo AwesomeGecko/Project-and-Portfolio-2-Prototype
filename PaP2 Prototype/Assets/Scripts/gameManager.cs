@@ -162,6 +162,10 @@ public class gameManager : MonoBehaviour
             {
                 youWin();
             }
+            else if (sceneName == "Samuel")
+            {
+                youWin();
+            }
         }
     }
 
