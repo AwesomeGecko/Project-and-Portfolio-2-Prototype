@@ -67,7 +67,7 @@ public class gameManager : MonoBehaviour
 
     // Audio
     [Header("Audio")]
-    [SerializeField] AudioSource aud;
+    [SerializeField] public AudioSource aud;
     public AudioClip winSound;
     [Range(0f, 1f)][SerializeField] float winSoundVol;
     public AudioClip loseSound;

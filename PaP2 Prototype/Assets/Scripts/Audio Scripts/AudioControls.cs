@@ -26,6 +26,7 @@ public class AudioControls : MonoBehaviour
     {
         volume = mainSlider.value;
         audioMixer.SetFloat("Main", Mathf.Log10(volume) * 20);
+        gameManager.instance.aud.volume = volume;
         PlayerPrefs.SetFloat("mainVolume", volume);
         
     }
@@ -42,6 +43,7 @@ public class AudioControls : MonoBehaviour
     {
         volume = sfxSlider.value;
         audioMixer.SetFloat("SFX", Mathf.Log10(volume) * 20);
+        gameManager.instance.aud.volume = volume;
         PlayerPrefs.SetFloat("sfxVolume", volume);
         
     }
