@@ -20,8 +20,8 @@ public partial class PlayerController : MonoBehaviour, IDamage
     [SerializeField] private float sprintSpeed;
     [SerializeField] float crouchMod;
     [SerializeField] float crouchDist;
-
-    
+    [SerializeField] float leanDist;
+    [SerializeField] float leanSpeed;
 
     [Header("Audio")]
     [SerializeField] AudioClip[] soundSteps;
@@ -49,8 +49,8 @@ public partial class PlayerController : MonoBehaviour, IDamage
 
 
     //Gun logic
-   
-   
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -115,6 +115,7 @@ public partial class PlayerController : MonoBehaviour, IDamage
     {
         RunCode();
         Crouch();
+        Lean();
 
         //Identical movement code in the lectures
         groundedPlayer = controller.isGrounded;
@@ -220,10 +221,34 @@ public partial class PlayerController : MonoBehaviour, IDamage
         }
     }
 
+    public void Lean()
+    {
+        Quaternion initialRot = transform.localRotation;
+        if (Input.GetButton("LeanLeft"))
+        {
+            Debug.Log("Leaning left");
+            Quaternion newRot = Quaternion.Euler(transform.localRotation.x * leanDist, transform.localRotation.y, transform.localRotation.z * leanDist); 
+            transform.localRotation = Quaternion.Slerp(transform.localRotation, newRot, Time.deltaTime * leanSpeed);
+        }
+        else if (Input.GetButton("LeanRight"))
+        {
+            Debug.Log("Leaning right");
+            Quaternion newRot = Quaternion.Euler(transform.localRotation.x * -leanDist, transform.localRotation.y, transform.localRotation.z * -leanDist);
+            transform.localRotation = Quaternion.Slerp(transform.localRotation, newRot, Time.deltaTime * leanSpeed);
+        }
+        else
+        {
+            transform.localRotation = Quaternion.Slerp(transform.localRotation, initialRot, Time.deltaTime * leanSpeed);
+        }
+    }
+
     IEnumerator Sprint()
     { 
         isRunning = true;
-        Stamina -= 1;
+        if(move != Vector3.zero)
+        {
+            Stamina -= 1;
+        }
         yield return new WaitForSeconds(0.8f);
         isRunning = false;
     }
