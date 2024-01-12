@@ -23,6 +23,7 @@ MonoBehaviour:
   totalAmmo: 30
   model: {fileID: 1791198492059627473, guid: e770888937ebba1498ff92ea65e424f5, type: 3}
   hitEffect: {fileID: 468260622339083660, guid: f8c505478bba5bf4dbdeaa85632801a6, type: 3}
+  muzzleFlashPrefab: {fileID: 6402671372185850169, guid: 0548e7359153c1145bf80b94f2698e6f, type: 3}
   shootSound: {fileID: 8300000, guid: 1b145bcffd767854fb0c71c37678ebaa, type: 3}
   shootSoundVol: 0.25
   shouldUseScope: 0

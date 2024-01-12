@@ -995,6 +995,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pistol Prefab
       objectReference: {fileID: 0}
+    - target: {fileID: 9140441638387773262, guid: d0ab6b7358c2fe04b8d2031aafcf6e08, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.0077
+      objectReference: {fileID: 0}
+    - target: {fileID: 9140441638387773262, guid: d0ab6b7358c2fe04b8d2031aafcf6e08, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.073
+      objectReference: {fileID: 0}
+    - target: {fileID: 9140441638387773262, guid: d0ab6b7358c2fe04b8d2031aafcf6e08, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.179
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
