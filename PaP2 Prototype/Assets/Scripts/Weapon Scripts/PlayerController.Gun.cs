@@ -220,8 +220,11 @@ public partial class PlayerController
         PlayerBullet.GetComponent<Playerbullet>().SetBulletProperties(currentGun.PlayerBulletDamage, currentGun.PlayerBulletDestroyTime, currentGun.PlayerBulletSpeed, bulletDirection);
 
         yield return new WaitForSeconds(shootRate);
-        Destroy(currentMuzzleFlash);
+
+
+
         isShooting = false;
+        Destroy(currentMuzzleFlash.gameObject);
         UpdatePlayerUI();
     }
 }
