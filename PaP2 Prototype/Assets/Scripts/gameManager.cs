@@ -127,13 +127,9 @@ public class gameManager : MonoBehaviour
         keysLeft.text = keysCollected.ToString("0");
     }
 
-    public void statePause(bool playPauseSound = true)
+    public void statePause()
     {
-        if(playPauseSound)
-        {
-            aud.PlayOneShot(pauseSound, pauseSoundVol);
-        }
-        //aud.PlayOneShot(pauseSound, pauseSoundVol);
+        aud.PlayOneShot(pauseSound, pauseSoundVol);
         isPaused = !isPaused;
         Time.timeScale = 0;
         Cursor.visible = true;
@@ -185,7 +181,7 @@ public class gameManager : MonoBehaviour
     public void youLose()
     {
         aud.PlayOneShot(loseSound, loseSoundVol);
-        statePause(false);
+        statePause();
         menuActive = menuLose;
         menuActive.SetActive(true);
     }
