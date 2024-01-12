@@ -115,7 +115,7 @@ public partial class PlayerController : MonoBehaviour, IDamage
     {
         RunCode();
         Crouch();
-        Lean();
+        //Lean();
 
         //Identical movement code in the lectures
         groundedPlayer = controller.isGrounded;
@@ -227,13 +227,13 @@ public partial class PlayerController : MonoBehaviour, IDamage
         if (Input.GetButton("LeanLeft"))
         {
             Debug.Log("Leaning left");
-            Quaternion newRot = Quaternion.Euler(transform.localRotation.x * leanDist, transform.localRotation.y, transform.localRotation.z * leanDist); 
+            Quaternion newRot = Quaternion.Euler(transform.localRotation.x, transform.localRotation.y, transform.localRotation.z + leanDist); 
             transform.localRotation = Quaternion.Slerp(transform.localRotation, newRot, Time.deltaTime * leanSpeed);
         }
         else if (Input.GetButton("LeanRight"))
         {
             Debug.Log("Leaning right");
-            Quaternion newRot = Quaternion.Euler(transform.localRotation.x * -leanDist, transform.localRotation.y, transform.localRotation.z * -leanDist);
+            Quaternion newRot = Quaternion.Euler(transform.localRotation.x, transform.localRotation.y, transform.localRotation.z - leanDist);
             transform.localRotation = Quaternion.Slerp(transform.localRotation, newRot, Time.deltaTime * leanSpeed);
         }
         else
