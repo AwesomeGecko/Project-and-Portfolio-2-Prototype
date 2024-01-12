@@ -64,7 +64,12 @@ public class gameManager : MonoBehaviour
     string sceneName;
     Scene currentScene;
 
-
+    // Carlos Reid
+    [Header("Audio")]
+    [SerializeField] AudioSource aud;
+    public AudioClip winSound;
+    public AudioClip loseSound;
+    // Carlos Reid
 
     // Start is called before the first frame update
     void Awake()
@@ -157,6 +162,9 @@ public class gameManager : MonoBehaviour
 
     public void youWin()
     {
+        //
+        aud.PlayOneShot(winSound);
+        //
         StartCoroutine(ShowMenuAfterDelay());
     }
 
@@ -170,6 +178,9 @@ public class gameManager : MonoBehaviour
 
     public void youLose()
     {
+        //
+        aud.PlayOneShot(loseSound);
+        //
         statePause();
         menuActive = menuLose;
         menuActive.SetActive(true);
