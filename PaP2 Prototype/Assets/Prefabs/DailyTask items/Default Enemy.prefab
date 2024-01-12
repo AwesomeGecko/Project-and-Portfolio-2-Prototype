@@ -251,7 +251,7 @@ MonoBehaviour:
   animSpeedTrans: 8
   targetFaceSpeed: 3
   EnemyBullet: {fileID: 3393345968891059192, guid: 8ad9da3d86fcb0b4b8d2949686ce9956, type: 3}
-  bulletDamage: 1
+  bulletDamage: 10
   bulletDestroyTime: 1
   bulletSpeed: 5
   shootRate: 0.5
@@ -260,6 +260,8 @@ MonoBehaviour:
   enemyshootPos2: {fileID: 0}
   hitSound: {fileID: 8300000, guid: 0aff9e712df58524e92b99abc49873b7, type: 3}
   deathSound: {fileID: 8300000, guid: aff1c3fe1d4099a46a3d3de76e377364, type: 3}
+  hitSoundVol: 0
+  deathSoundVol: 0
   mySpawner: {fileID: 0}
 --- !u!195 &8168814099955323348
 NavMeshAgent:

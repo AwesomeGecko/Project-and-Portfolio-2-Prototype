@@ -29008,6 +29008,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1129608868047368058, guid: 9b69089aee9fe684a9d6ee85b6cc9a6a, type: 3}
+      propertyPath: pauseSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 5c2471fc85ca45b4687db8150f1afb92, type: 3}
+    - target: {fileID: 1129608868047368058, guid: 9b69089aee9fe684a9d6ee85b6cc9a6a, type: 3}
+      propertyPath: loseSoundVol
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1129608868047368058, guid: 9b69089aee9fe684a9d6ee85b6cc9a6a, type: 3}
+      propertyPath: pauseSoundVol
+      value: 0.15
+      objectReference: {fileID: 0}
     - target: {fileID: 3526893395208009349, guid: 9b69089aee9fe684a9d6ee85b6cc9a6a, type: 3}
       propertyPath: m_Pivot.x
       value: 0

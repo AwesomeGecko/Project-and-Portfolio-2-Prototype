@@ -64,12 +64,15 @@ public class gameManager : MonoBehaviour
     string sceneName;
     Scene currentScene;
 
-    // Carlos Reid
+    // Audio
     [Header("Audio")]
     [SerializeField] AudioSource aud;
     public AudioClip winSound;
+    [Range(0f, 1f)][SerializeField] float winSoundVol;
     public AudioClip loseSound;
-    // Carlos Reid
+    [Range(0f, 1f)][SerializeField] float loseSoundVol;
+    public AudioClip pauseSound;
+    [Range(0f, 1f)][SerializeField] float pauseSoundVol;
 
     // Start is called before the first frame update
     void Awake()
@@ -124,8 +127,13 @@ public class gameManager : MonoBehaviour
         keysLeft.text = keysCollected.ToString("0");
     }
 
-    public void statePause()
+    public void statePause(bool playPauseSound = true)
     {
+        if(playPauseSound)
+        {
+            aud.PlayOneShot(pauseSound, pauseSoundVol);
+        }
+        //aud.PlayOneShot(pauseSound, pauseSoundVol);
         isPaused = !isPaused;
         Time.timeScale = 0;
         Cursor.visible = true;
@@ -162,9 +170,7 @@ public class gameManager : MonoBehaviour
 
     public void youWin()
     {
-        //
-        aud.PlayOneShot(winSound);
-        //
+        aud.PlayOneShot(winSound, winSoundVol);
         StartCoroutine(ShowMenuAfterDelay());
     }
 
@@ -178,10 +184,8 @@ public class gameManager : MonoBehaviour
 
     public void youLose()
     {
-        //
-        aud.PlayOneShot(loseSound);
-        //
-        statePause();
+        aud.PlayOneShot(loseSound, loseSoundVol);
+        statePause(false);
         menuActive = menuLose;
         menuActive.SetActive(true);
     }

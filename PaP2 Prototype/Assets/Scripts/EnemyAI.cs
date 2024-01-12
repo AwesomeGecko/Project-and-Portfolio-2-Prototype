@@ -42,6 +42,8 @@ public class EnemyAI : MonoBehaviour, IDamage
     [Header("----- Audio -----")]
     [SerializeField] AudioClip hitSound;
     [SerializeField] AudioClip deathSound;
+    [Range(0f, 1f)][SerializeField] float hitSoundVol;
+    [Range(0f, 1f)][SerializeField] float deathSoundVol;
 
     bool isShooting;
     bool PlayerInRange;
@@ -182,7 +184,7 @@ public class EnemyAI : MonoBehaviour, IDamage
         if (HP <= 0)
         {
             mySpawner.heyIDied();
-            aud.PlayOneShot(deathSound);
+            aud.PlayOneShot(deathSound, deathSoundVol);
             gameManager.instance.updateGameGoal(-1);
             anim.SetBool("Dead", true);
             agent.enabled = false;
@@ -192,7 +194,7 @@ public class EnemyAI : MonoBehaviour, IDamage
         else
         {
             isShooting = false;
-            aud.PlayOneShot(hitSound);
+            aud.PlayOneShot(hitSound, hitSoundVol);
             anim.SetTrigger("Damage");
             destinationChosen = false;
             StartCoroutine(flashRed());
