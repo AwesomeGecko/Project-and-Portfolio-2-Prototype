@@ -20,10 +20,14 @@ public class gunStats : ScriptableObject
 
     public GameObject model;
     public ParticleSystem hitEffect;
+
+    public ParticleSystem muzzleFlashPrefab;
+
     public AudioClip shootSound;
     [Range(0, 1)] public float shootSoundVol;
 
     public bool shouldUseScope;
     [Range(1, 120)] public float fieldOfView = 60f;
 
+    public TransformData barrelTip;
 }

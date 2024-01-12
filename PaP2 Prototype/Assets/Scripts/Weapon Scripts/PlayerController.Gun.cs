@@ -7,8 +7,6 @@ public partial class PlayerController
     [Header("Gun Stats")]
     [SerializeField] List<gunStats> gunList = new List<gunStats>();
     [SerializeField] GameObject Playerbullet;
-    [SerializeField] Transform shootPos;
-    [SerializeField] Transform scopedShootPos;
     [SerializeField] int bulletDestroyTime;
     [SerializeField] float shootRate;
     [SerializeField] int PlayerBulletDamage;
@@ -24,6 +22,7 @@ public partial class PlayerController
     int selectedGun;
     public Camera scopeIn;
     private int gameManagerAmmo;
+    private ParticleSystem currentMuzzleFlash;
 
 
     void Reload()
@@ -189,21 +188,39 @@ public partial class PlayerController
 
         gunStats currentGun = gunList[selectedGun];
 
+
         GameObject PlayerBullet;
 
-        if (isAiming)
-        {
-            PlayerBullet = Instantiate(Playerbullet, scopedShootPos.position, transform.rotation);
+        Vector3 spawnPos = gunModel.transform.TransformPoint(currentGun.barrelTip.localPosition);
+        Vector3 spawnScopedPos = isAiming? gunModel.transform.TransformPoint(currentGun.barrelTip.localPosition) : spawnPos;
+        Quaternion spawnRotation = isAiming? gunModel.transform.rotation : gunModel.transform.rotation;
 
-        }
-        else
-        {
-            PlayerBullet = Instantiate(Playerbullet, shootPos.position, transform.rotation);
+        //Get the center of the screen in viewport cooridinates (normalized)
+        Vector3 screenCenter = new Vector3(0.5f, 0.5f, 0f);
 
+        //Raycast from the camera center into the scene
+        Ray ray = Camera.main.ViewportPointToRay(screenCenter);
+        RaycastHit hit;
+
+        //Set the bullet direction
+        Vector3 bulletDirection = ray.direction;
+
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+        {
+            Vector3 targetPoint = hit.point;
+            bulletDirection = (targetPoint - spawnPos).normalized;
         }
-        PlayerBullet.GetComponent<Playerbullet>().SetBulletProperties(PlayerBulletDamage, PlayerBulletDestroyTime, PlayerBulletSpeed);
+
+        //Instantiate the player bullet with its adjusted locations based off of the gun model transform location
+        PlayerBullet = Instantiate(Playerbullet, isAiming ? spawnScopedPos : spawnPos, spawnRotation);
+
+        //Instantiate the muzzle flash particle effect system
+        currentMuzzleFlash = Instantiate(currentGun.muzzleFlashPrefab, spawnPos, spawnRotation);
+
+        PlayerBullet.GetComponent<Playerbullet>().SetBulletProperties(currentGun.PlayerBulletDamage, currentGun.PlayerBulletDestroyTime, currentGun.PlayerBulletSpeed, bulletDirection);
 
         yield return new WaitForSeconds(shootRate);
+        Destroy(currentMuzzleFlash);
         isShooting = false;
         UpdatePlayerUI();
     }

@@ -9,27 +9,40 @@ public class Playerbullet : MonoBehaviour
     private int damage;
     private int destroyTime;
     private int speed;
+    private Vector3 direction;
     public ParticleSystem sparkParticles;
 
     // Start is called before the first frame update
     void Start()
     {
-        //
-        if(rb.tag == "PlayerBullet")
+        rb = GetComponent<Rigidbody>();
+        
+        //Make sure rb is not null
+        if(rb != null )
         {
-            rb.velocity = Camera.main.transform.forward * speed;
-        }
-        else
-        {
-            rb.velocity = (gameManager.instance.player.transform.position - rb.transform.position) * speed;
-        }
+            if (rb.tag == "PlayerBullet")
+            {
+                rb.velocity = Camera.main.transform.forward * speed;
+            }
+            else
+            {
+                rb.velocity = (gameManager.instance.player.transform.position - rb.transform.position) * speed;
+            }
+        }               
+
         Destroy(gameObject, destroyTime);
     }
-    public void SetBulletProperties(int damage, int destroyTime, int speed)
+
+    public void SetBulletProperties(int damage, int destroyTime, int speed, Vector3 initialDirection)
     {
+        direction = initialDirection.normalized;
         this.damage = damage;
         this.destroyTime = destroyTime;
         this.speed = speed;
+    }
+    private void Update()
+    {
+        transform.Translate(direction * speed * Time.deltaTime, Space.World);
     }
 
     private void OnCollisionEnter(Collision collision)
