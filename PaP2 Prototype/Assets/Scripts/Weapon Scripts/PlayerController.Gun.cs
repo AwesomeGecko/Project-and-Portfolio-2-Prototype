@@ -5,7 +5,7 @@ using UnityEngine;
 public partial class PlayerController
 {
     [Header("Gun Stats")]
-    [SerializeField] List<gunStats> gunList = new List<gunStats>();
+    [SerializeField] public List<gunStats> gunList = new List<gunStats>();
     [SerializeField] GameObject Playerbullet;
     [SerializeField] int bulletDestroyTime;
     [SerializeField] float shootRate;
@@ -19,7 +19,7 @@ public partial class PlayerController
     [SerializeField] gunStats defaultPistol;
     private bool isAiming;
     private float defaultFOV;
-    int selectedGun;
+    public int selectedGun;
     public Camera scopeIn;
     private int gameManagerAmmo;
     private ParticleSystem currentMuzzleFlash;

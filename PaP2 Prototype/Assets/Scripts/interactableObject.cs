@@ -100,6 +100,9 @@ public class interactableObject : MonoBehaviour {
             StartCoroutine(openBox());
             gameManager.instance.playerScript.ammoCounter += ammoAmount; //adds ammo
 
+            //Add the amount of ammo directly to the specific gun
+            gameManager.instance.playerScript.gunList[gameManager.instance.playerScript.selectedGun].totalAmmo += ammoAmount;
+
             if (gameManager.instance.playerScript.ammoCounter >= gameManager.instance.playerScript.maxAmmo) //if current ammo is greater than max
             {
                 gameManager.instance.playerScript.ammoCounter = gameManager.instance.playerScript.maxAmmo; //sets back to max
