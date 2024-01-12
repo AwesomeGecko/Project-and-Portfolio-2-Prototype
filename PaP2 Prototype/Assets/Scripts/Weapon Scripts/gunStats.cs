@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.Jobs;
 using UnityEngine.UIElements;
+using static CombinedMeshInfo;
 
 [CreateAssetMenu]
 public class gunStats : ScriptableObject
@@ -29,5 +30,13 @@ public class gunStats : ScriptableObject
     public bool shouldUseScope;
     [Range(1, 120)] public float fieldOfView = 60f;
 
+    public Vector3 defaultRotationEulerAngles = new Vector3(0f, 0f, 0f);
+    public Vector3 defaultPositionOffset = new Vector3(0f, 0f, 0f);
+    public Quaternion defaultRotation => Quaternion.Euler(defaultRotationEulerAngles);
+
+    
+
     public TransformData barrelTip;
+
+    public List<CombinedMeshInfo> combinedMeshes;
 }

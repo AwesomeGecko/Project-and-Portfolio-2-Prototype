@@ -120,22 +120,102 @@ public partial class PlayerController
 
     public void getGunStats(gunStats gun)
     {
+        // Add the new gun to the gunList
         gunList.Add(gun);
+
+        // Set the selectedGun index to the newly added gun
         selectedGun = gunList.Count - 1;
 
+        // Assign gun stats to player variables
         shootDist = gun.shootDist;
         shootRate = gun.shootRate;
         PlayerBulletDamage = gun.PlayerBulletDamage;
         PlayerBulletDestroyTime = gun.PlayerBulletDestroyTime;
         PlayerBulletSpeed = gun.PlayerBulletSpeed;
+
+        // Initialize ammo variables
         ammoCounter = gun.magSize;
         maxAmmo = gun.ammoMax;
         gun.totalAmmo = ammoCounter;
 
-        gunModel.GetComponent<MeshFilter>().sharedMesh = gun.model.GetComponent<MeshFilter>().sharedMesh;
-        gunModel.GetComponent<MeshRenderer>().sharedMaterial = gun.model.GetComponent<MeshRenderer>().sharedMaterial;
+        // Check if the gun has multiple meshes
+        if (gun.combinedMeshes != null && gun.combinedMeshes.Count > 0)
+        {
+            CombineMeshes(gun.combinedMeshes);
+        }
+        else
+        {
+            // Assign gun model mesh and material to the player's gunModel
+            gunModel.GetComponent<MeshFilter>().sharedMesh = gun.model.GetComponent<MeshFilter>().sharedMesh;
+            gunModel.GetComponent<MeshRenderer>().sharedMaterial = gun.model.GetComponent<MeshRenderer>().sharedMaterial;
+        }
 
+        Debug.Log("Before Rotation: " + gunModel.transform.localRotation.eulerAngles);
+        gunModel.transform.localRotation = gunList[selectedGun].defaultRotation;
+        Debug.Log("After Rotation: " + gunModel.transform.localRotation.eulerAngles);
+
+        Debug.Log("Before Position: " + gunModel.transform.localPosition);
+        gunModel.transform.localPosition = gunList[selectedGun].defaultPositionOffset;
+        Debug.Log("After Position: " + gunModel.transform.localPosition);
+
+        // Update the player's UI
         UpdatePlayerUI();
+    }
+
+    private void CombineMeshes(List<CombinedMeshInfo> combinedMeshInfos)
+    {
+        // Combine the meshes into a single mesh
+        Mesh combinedMesh = CombineSubMeshes(combinedMeshInfos);
+
+        // Assign the combined mesh to the gun model's MeshFilter
+        gunModel.GetComponent<MeshFilter>().sharedMesh = combinedMesh;
+
+        // Combine materials and assign to MeshRenderer
+        gunModel.GetComponent<MeshRenderer>().sharedMaterials = CombineMaterials(combinedMeshInfos);
+    }
+
+    private Mesh CombineSubMeshes(List<CombinedMeshInfo> combinedMeshInfos)
+    {
+        CombineInstance[] combine = new CombineInstance[combinedMeshInfos.Count];
+
+        for (int i = 0; i < combinedMeshInfos.Count; i++)
+        {
+            combine[i].mesh = CombineMeshes(combinedMeshInfos[i].meshes);
+            combine[i].transform = Matrix4x4.identity;
+        }
+
+        Mesh combinedMesh = new Mesh();
+        combinedMesh.CombineMeshes(combine, true, true);
+
+        return combinedMesh;
+    }
+
+    private Mesh CombineMeshes(List<Mesh> meshes)
+    {
+        CombineInstance[] combine = new CombineInstance[meshes.Count];
+
+        for (int i = 0; i < meshes.Count; i++)
+        {
+            combine[i].mesh = meshes[i];
+            combine[i].transform = Matrix4x4.identity;
+        }
+
+        Mesh combinedMesh = new Mesh();
+        combinedMesh.CombineMeshes(combine, true, true);
+
+        return combinedMesh;
+    }
+
+    private Material[] CombineMaterials(List<CombinedMeshInfo> combinedMeshInfos)
+    {
+        List<Material> combinedMaterials = new List<Material>();
+
+        foreach (CombinedMeshInfo combinedMeshInfo in combinedMeshInfos)
+        {
+            combinedMaterials.AddRange(combinedMeshInfo.materials);
+        }
+
+        return combinedMaterials.ToArray();
     }
 
     void selectGun()
@@ -168,8 +248,28 @@ public partial class PlayerController
 
         maxAmmo = gunList[selectedGun].ammoMax;
 
-        gunModel.GetComponent<MeshFilter>().sharedMesh = gunList[selectedGun].model.GetComponent<MeshFilter>().sharedMesh;
-        gunModel.GetComponent<MeshRenderer>().sharedMaterial = gunList[selectedGun].model.GetComponent<MeshRenderer>().sharedMaterial;
+        // Check if the gun has multiple meshes
+        if (gunList[selectedGun].combinedMeshes != null && gunList[selectedGun].combinedMeshes.Count > 0)
+        {
+            CombineMeshes(gunList[selectedGun].combinedMeshes);
+        }
+        else
+        {
+            // Assign gun model mesh and material to the player's gunModel
+            gunModel.GetComponent<MeshFilter>().sharedMesh = gunList[selectedGun].model.GetComponent<MeshFilter>().sharedMesh;
+            gunModel.GetComponent<MeshRenderer>().sharedMaterial = gunList[selectedGun].model.GetComponent<MeshRenderer>().sharedMaterial;
+        }
+
+        // Set local rotation
+        gunModel.transform.localRotation = gunList[selectedGun].defaultRotation;
+
+        // Set local position using the selected gun's offset
+        gunModel.transform.localPosition = gunList[selectedGun].defaultPositionOffset;
+
+        Debug.Log("After Rotation: " + gunModel.transform.localRotation.eulerAngles);
+        Debug.Log("After Position: " + gunModel.transform.localPosition);
+
+
         isShooting = false;
     }
     IEnumerator Shoot()

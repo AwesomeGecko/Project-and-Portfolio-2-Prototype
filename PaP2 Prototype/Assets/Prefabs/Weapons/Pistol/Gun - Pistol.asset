@@ -29,3 +29,8 @@ MonoBehaviour:
   shouldUseScope: 0
   fieldOfView: 50
   barrelTip: {fileID: 11400000, guid: e15bd59457ad5eb44b4de3465312b97a, type: 2}
+  combinedMeshes:
+  - meshes:
+    - {fileID: -8050392602797321999, guid: 67f4b2ecf8ad67447b63e9c982fd1a1d, type: 3}
+    materials:
+    - {fileID: 2100000, guid: 660842db96fcfab4fa7f3e1dbe2c7c45, type: 2}

@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89383eed46ec81644ac36e0524ce1bb1, type: 3}
+  m_Name: Shotgun
+  m_EditorClassIdentifier: 
+  shootRate: 0.2
+  shootDist: 15
+  PlayerBulletDamage: 10
+  PlayerBulletDestroyTime: 1
+  PlayerBulletSpeed: 10
+  ammoCur: 14
+  ammoMax: 60
+  magSize: 14
+  totalAmmo: 14
+  model: {fileID: 2621355835108366118, guid: 45f28b553d25f984997d5d8c957461d4, type: 3}
+  hitEffect: {fileID: 468260622339083660, guid: f8c505478bba5bf4dbdeaa85632801a6, type: 3}
+  muzzleFlashPrefab: {fileID: 6402671372185850169, guid: 0548e7359153c1145bf80b94f2698e6f, type: 3}
+  shootSound: {fileID: 8300000, guid: ade03cc41862efe45a14c4802b87b026, type: 3}
+  shootSoundVol: 0.25
+  shouldUseScope: 0
+  fieldOfView: 60
+  defaultRotationEulerAngles: {x: -90, y: 0, z: -90}
+  defaultPositionOffset: {x: 0, y: 0, z: 0}
+  barrelTip: {fileID: 11400000, guid: bae3648158d815a45b54b25cf5d91d55, type: 2}
+  combinedMeshes:
+  - meshes:
+    - {fileID: -8302102485596996044, guid: 791ea89b5cd98774b8f9d1b5ba1d2dd3, type: 3}
+    - {fileID: 6894428203817054813, guid: 791ea89b5cd98774b8f9d1b5ba1d2dd3, type: 3}
+    materials:
+    - {fileID: 2100000, guid: 9bd8e08dfe92c3e47868f031120068df, type: 2}
+    - {fileID: 2100000, guid: f5be1521879edbe4897ac876c0f21c53, type: 2}
