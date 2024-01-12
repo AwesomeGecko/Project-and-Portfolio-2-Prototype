@@ -63,6 +63,7 @@ public class gameManager : MonoBehaviour
     public int keysCollected;
     string sceneName;
     Scene currentScene;
+    public bool isMuted;
 
     // Audio
     [Header("Audio")]
