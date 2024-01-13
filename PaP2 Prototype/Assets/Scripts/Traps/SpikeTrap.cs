@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class SpikeTrap : MonoBehaviour
 {
-    [SerializeField] int damageAmount;
+    [SerializeField] int dmgAmount;
     [SerializeField] float moveSpeed = 1.0f;
     [SerializeField] float maxHeight = 2.0f;
     [SerializeField] float minHeight = 0.5f;
@@ -24,10 +24,7 @@ public class SpikeTrap : MonoBehaviour
             PlayerController HP = other.GetComponent<PlayerController>();
             if (HP != null)
             {
-                HP.takeDamage(damageAmount);
-
-                // Disables the Trap
-                // gameObject.SetActive(false);
+                HP.takeDamage(dmgAmount);
             }
         }
     }
@@ -41,5 +38,10 @@ public class SpikeTrap : MonoBehaviour
         {
             retract = !retract;
         }
+    }
+
+    public void Deactivate()
+    {
+        gameObject.SetActive(false);
     }
 }
