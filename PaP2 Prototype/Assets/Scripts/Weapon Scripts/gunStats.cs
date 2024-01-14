@@ -6,9 +6,11 @@ using UnityEngine.Jobs;
 using UnityEngine.UIElements;
 using static CombinedMeshInfo;
 
-[CreateAssetMenu]
+[CreateAssetMenu(fileName = "GunStats", menuName = "Guns/GunStats", order = 0)]
 public class gunStats : ScriptableObject
 {
+    [Header("Basic Gun Information")]
+    public GameObject model;
     public float shootRate;
     public int shootDist;
     public int PlayerBulletDamage;
@@ -19,24 +21,30 @@ public class gunStats : ScriptableObject
     public int magSize;
     public int totalAmmo;
 
-    public GameObject model;
-    public ParticleSystem hitEffect;
-
-    public ParticleSystem muzzleFlashPrefab;
-
+    [Header("Sounds")]
     public AudioClip shootSound;
     [Range(0, 1)] public float shootSoundVol;
 
-    public bool shouldUseScope;
-    [Range(1, 120)] public float fieldOfView = 60f;
+    [Header("Particle Effects")]
+    public ParticleSystem hitEffect;
+    public ParticleSystem muzzleFlashPrefab;
+    
 
-    public Vector3 defaultRotationEulerAngles = new Vector3(0f, 0f, 0f);
-    public Vector3 defaultPositionOffset = new Vector3(0f, 0f, 0f);
-    public Quaternion defaultRotation => Quaternion.Euler(defaultRotationEulerAngles);
+    [Header("Field of View")]
+    [Range(1, 120)] public float fieldOfView = 60f;
 
     
 
-    public TransformData barrelTip;
-
+    [Header("Gun specific data")]
     public List<CombinedMeshInfo> combinedMeshes;
+    public bool shouldUseScope;
+    public bool isShotgun;
+    public TransformData barrelTip;
+    public int shotgunPelletCount;
+    public int shotgunPelletSpread;
+
+    public Vector3 defaultGunRotation = new Vector3(0f, 0f, 0f);
+
+    public Vector3 defaultGunPositionOffset = new Vector3(0f, 0f, 0f);
+    public Quaternion defaultRotation => Quaternion.Euler(defaultGunRotation);
 }

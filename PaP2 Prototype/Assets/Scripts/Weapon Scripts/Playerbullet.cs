@@ -17,18 +17,18 @@ public class Playerbullet : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         
-        //Make sure rb is not null
-        if(rb != null )
-        {
-            if (rb.tag == "PlayerBullet")
-            {
-                rb.velocity = Camera.main.transform.forward * speed;
-            }
-            else
-            {
-                rb.velocity = (gameManager.instance.player.transform.position - rb.transform.position) * speed;
-            }
-        }               
+        ////Make sure rb is not null
+        //if(rb != null )
+        //{
+        //    if (rb.tag == "PlayerBullet")
+        //    {
+        //        rb.velocity = Camera.main.transform.forward * speed;
+        //    }
+        //    else
+        //    {
+        //        rb.velocity = (gameManager.instance.player.transform.position - rb.transform.position) * speed;
+        //    }
+        //}
 
         Destroy(gameObject, destroyTime);
     }
@@ -39,6 +39,7 @@ public class Playerbullet : MonoBehaviour
         this.damage = damage;
         this.destroyTime = destroyTime;
         this.speed = speed;
+        Debug.Log("Bullet Direction in Playerbullet: " + direction);
     }
     private void Update()
     {
@@ -55,6 +56,10 @@ public class Playerbullet : MonoBehaviour
             {
                 return;
             }
+            //else if (collision.gameObject.CompareTag("PlayerBullet"))
+            //{
+            //    return;
+            //}
         }
         if (!collision.collider.isTrigger)
         {

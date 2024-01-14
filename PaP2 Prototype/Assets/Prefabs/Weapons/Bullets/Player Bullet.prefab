@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4776280774310833095}
   - component: {fileID: 1050691820125386319}
   - component: {fileID: -5998587980289654383}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player Bullet
   m_TagString: PlayerBullet
   m_Icon: {fileID: 0}
@@ -49,9 +49,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 4776280774310833095}
-  damage: 2
-  destroyTime: 1
-  speed: 50
   sparkParticles: {fileID: 7257651568562783922, guid: 8a2b77f102a3e4f4c9d2da152d35264a, type: 3}
 --- !u!135 &2555630399610944236
 SphereCollider:
@@ -66,8 +63,8 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
+    m_Bits: 256
+  m_LayerOverridePriority: 1
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
@@ -82,7 +79,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5550751600062205222}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 0.1
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -93,14 +90,14 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!96 &1050691820125386319
 TrailRenderer:
   serializedVersion: 3
@@ -227,8 +224,8 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
+    m_Bits: 256
+  m_LayerOverridePriority: 1
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1

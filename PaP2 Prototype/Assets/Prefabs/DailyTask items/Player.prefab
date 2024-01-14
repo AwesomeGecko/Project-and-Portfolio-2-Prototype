@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5615996055112551137}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Shoot Pos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3625547189095083740}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Scoped Shoot Pos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -78,7 +78,7 @@ GameObject:
   - component: {fileID: 6547731439817625755}
   - component: {fileID: 1941524770838689977}
   - component: {fileID: 4268009355107710033}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -137,6 +137,8 @@ MonoBehaviour:
   sprintSpeed: 15
   crouchMod: 0.75
   crouchDist: 0.5
+  leanDist: 8
+  leanSpeed: 3
   soundSteps:
   - {fileID: 8300000, guid: f6c214bca5e20274d958c0d78f78ca27, type: 3}
   - {fileID: 8300000, guid: 040b30653ed0e0a4092e135887dc40cd, type: 3}
@@ -251,7 +253,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -372,7 +374,7 @@ GameObject:
   - component: {fileID: 4531409513561699504}
   - component: {fileID: 6377505571970645536}
   - component: {fileID: 3214179458448273850}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Gun Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -475,7 +477,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1224337478795561345}
   - component: {fileID: 2987558489479936003}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: PostProcessing
   m_TagString: DamageScreen
   m_Icon: {fileID: 0}
@@ -528,7 +530,7 @@ GameObject:
   - component: {fileID: 8474668396254258026}
   - component: {fileID: 4652374320484402466}
   - component: {fileID: 542138008684099493}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}

@@ -118,50 +118,6 @@ public partial class PlayerController
         }
     }
 
-    public void getGunStats(gunStats gun)
-    {
-        // Add the new gun to the gunList
-        gunList.Add(gun);
-
-        // Set the selectedGun index to the newly added gun
-        selectedGun = gunList.Count - 1;
-
-        // Assign gun stats to player variables
-        shootDist = gun.shootDist;
-        shootRate = gun.shootRate;
-        PlayerBulletDamage = gun.PlayerBulletDamage;
-        PlayerBulletDestroyTime = gun.PlayerBulletDestroyTime;
-        PlayerBulletSpeed = gun.PlayerBulletSpeed;
-
-        // Initialize ammo variables
-        ammoCounter = gun.magSize;
-        maxAmmo = gun.ammoMax;
-        gun.totalAmmo = ammoCounter;
-
-        // Check if the gun has multiple meshes
-        if (gun.combinedMeshes != null && gun.combinedMeshes.Count > 0)
-        {
-            CombineMeshes(gun.combinedMeshes);
-        }
-        else
-        {
-            // Assign gun model mesh and material to the player's gunModel
-            gunModel.GetComponent<MeshFilter>().sharedMesh = gun.model.GetComponent<MeshFilter>().sharedMesh;
-            gunModel.GetComponent<MeshRenderer>().sharedMaterial = gun.model.GetComponent<MeshRenderer>().sharedMaterial;
-        }
-
-        Debug.Log("Before Rotation: " + gunModel.transform.localRotation.eulerAngles);
-        gunModel.transform.localRotation = gunList[selectedGun].defaultRotation;
-        Debug.Log("After Rotation: " + gunModel.transform.localRotation.eulerAngles);
-
-        Debug.Log("Before Position: " + gunModel.transform.localPosition);
-        gunModel.transform.localPosition = gunList[selectedGun].defaultPositionOffset;
-        Debug.Log("After Position: " + gunModel.transform.localPosition);
-
-        // Update the player's UI
-        UpdatePlayerUI();
-    }
-
     private void CombineMeshes(List<CombinedMeshInfo> combinedMeshInfos)
     {
         // Combine the meshes into a single mesh
@@ -170,8 +126,10 @@ public partial class PlayerController
         // Assign the combined mesh to the gun model's MeshFilter
         gunModel.GetComponent<MeshFilter>().sharedMesh = combinedMesh;
 
-        // Combine materials and assign to MeshRenderer
-        gunModel.GetComponent<MeshRenderer>().sharedMaterials = CombineMaterials(combinedMeshInfos);
+        // Assign a single material to MeshRenderer
+        Material combinedMaterial = combinedMeshInfos[0].materials[0]; // Assuming there's one material per mesh
+        gunModel.GetComponent<MeshRenderer>().sharedMaterial = combinedMaterial;
+
     }
 
     private Mesh CombineSubMeshes(List<CombinedMeshInfo> combinedMeshInfos)
@@ -206,16 +164,60 @@ public partial class PlayerController
         return combinedMesh;
     }
 
-    private Material[] CombineMaterials(List<CombinedMeshInfo> combinedMeshInfos)
+
+    public void getGunStats(gunStats gun)
     {
-        List<Material> combinedMaterials = new List<Material>();
+        // Add the new gun to the gunList
+        gunList.Add(gun);
 
-        foreach (CombinedMeshInfo combinedMeshInfo in combinedMeshInfos)
+        // Set the selectedGun index to the newly added gun
+        selectedGun = gunList.Count - 1;
+
+        // Assign gun stats to player variables
+        shootDist = gun.shootDist;
+        shootRate = gun.shootRate;
+        PlayerBulletDamage = gun.PlayerBulletDamage;
+        PlayerBulletDestroyTime = gun.PlayerBulletDestroyTime;
+        PlayerBulletSpeed = gun.PlayerBulletSpeed;
+
+        // Initialize ammo variables
+        ammoCounter = gun.magSize;
+        maxAmmo = gun.ammoMax;
+        gun.totalAmmo = ammoCounter;
+
+        // Check if the gun has a valid model
+        if (gun.model != null)
         {
-            combinedMaterials.AddRange(combinedMeshInfo.materials);
-        }
+            //// Instantiate the gun prefab from the scriptable object
+            //GameObject gunPrefab = Instantiate(gun.model, gunModel.transform.position, gunModel.transform.rotation, gunModel.transform);
 
-        return combinedMaterials.ToArray();
+            //// Adjust the gun's local position and rotation based on default values in the scriptable object
+            //gunPrefab.transform.localPosition = gun.defaultPositionOffset;
+            //gunPrefab.transform.localRotation = gun.defaultRotation;
+
+            // Check if the gun has multiple meshes
+            if (gun.combinedMeshes != null && gun.combinedMeshes.Count > 0)
+            {
+                CombineMeshes(gun.combinedMeshes);
+
+                // Assign the combined mesh to the MeshFilter
+                gunModel.GetComponent<MeshFilter>().sharedMesh = CombineSubMeshes(gun.combinedMeshes);
+            }
+            else
+            {
+                // Assign gun model mesh and material to the player's gunModel
+                gunModel.GetComponent<MeshFilter>().sharedMesh = gun.model.GetComponent<MeshFilter>().sharedMesh;
+                gunModel.GetComponent<MeshRenderer>().sharedMaterial = gun.model.GetComponent<MeshRenderer>().sharedMaterial;
+            }
+        }
+        // Set local rotation
+        gunModel.transform.localRotation = gun.defaultRotation;
+
+        // Set local position using the selected gun's offset
+        gunModel.transform.localPosition = gun.defaultGunPositionOffset;
+
+        // Update the player's UI
+        UpdatePlayerUI();
     }
 
     void selectGun()
@@ -259,16 +261,19 @@ public partial class PlayerController
             gunModel.GetComponent<MeshFilter>().sharedMesh = gunList[selectedGun].model.GetComponent<MeshFilter>().sharedMesh;
             gunModel.GetComponent<MeshRenderer>().sharedMaterial = gunList[selectedGun].model.GetComponent<MeshRenderer>().sharedMaterial;
         }
+        //// Instantiate the gun prefab from the scriptable object
+        //GameObject gunPrefab = Instantiate(gunList[selectedGun].model, gunModel.transform.position, gunModel.transform.rotation, gunModel.transform);
+
+        //// Adjust the gun's local position and rotation based on default values in the scriptable object
+        //gunPrefab.transform.localPosition = gunList[selectedGun].defaultPositionOffset;
+        //gunPrefab.transform.localRotation = gunList[selectedGun].defaultRotation;
+
 
         // Set local rotation
         gunModel.transform.localRotation = gunList[selectedGun].defaultRotation;
 
         // Set local position using the selected gun's offset
-        gunModel.transform.localPosition = gunList[selectedGun].defaultPositionOffset;
-
-        Debug.Log("After Rotation: " + gunModel.transform.localRotation.eulerAngles);
-        Debug.Log("After Position: " + gunModel.transform.localPosition);
-
+        gunModel.transform.localPosition = gunList[selectedGun].defaultGunPositionOffset;
 
         isShooting = false;
     }
@@ -296,6 +301,13 @@ public partial class PlayerController
         Vector3 spawnScopedPos = isAiming? gunModel.transform.TransformPoint(currentGun.barrelTip.localPosition) : spawnPos;
         Quaternion spawnRotation = isAiming? gunModel.transform.rotation : gunModel.transform.rotation;
 
+
+        //Have the ray cast ignore the player
+        int playerLayer = LayerMask.NameToLayer("Player"); //Get the name of player 
+
+        //Create the layer mask to ignore
+        int layerMask = ~(1 << playerLayer);
+
         //Get the center of the screen in viewport cooridinates (normalized)
         Vector3 screenCenter = new Vector3(0.5f, 0.5f, 0f);
 
@@ -306,23 +318,36 @@ public partial class PlayerController
         //Set the bullet direction
         Vector3 bulletDirection = ray.direction;
 
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
         {
             Vector3 targetPoint = hit.point;
             bulletDirection = (targetPoint - spawnPos).normalized;
         }
 
-        //Instantiate the player bullet with its adjusted locations based off of the gun model transform location
-        PlayerBullet = Instantiate(Playerbullet, isAiming ? spawnScopedPos : spawnPos, spawnRotation);
+        // Check if the currently selected gun is the shotgun
+        if (currentGun.isShotgun)
+        { 
+            for (int i = 0; i < currentGun.shotgunPelletCount; i++)
+            {
+                Vector3 spreadDirection = Quaternion.Euler(Random.Range(-currentGun.shotgunPelletSpread, currentGun.shotgunPelletSpread), Random.Range(-currentGun.shotgunPelletSpread, currentGun.shotgunPelletSpread),0f) * bulletDirection;
+                Quaternion spreadRotation = Quaternion.LookRotation(spreadDirection);
+                
+                PlayerBullet = Instantiate(Playerbullet, isAiming ? spawnScopedPos : spawnPos, spreadRotation);
+
+                PlayerBullet.GetComponent<Playerbullet>().SetBulletProperties(currentGun.PlayerBulletDamage, currentGun.PlayerBulletDestroyTime, currentGun.PlayerBulletSpeed, spreadDirection);
+            }
+        }
+        else
+        {
+            PlayerBullet = Instantiate(Playerbullet, isAiming ? spawnScopedPos : spawnPos, isAiming ? gunModel.transform.rotation : gunModel.transform.rotation);
+
+            PlayerBullet.GetComponent<Playerbullet>().SetBulletProperties(currentGun.PlayerBulletDamage, currentGun.PlayerBulletDestroyTime, currentGun.PlayerBulletSpeed, bulletDirection);
+        }
 
         //Instantiate the muzzle flash particle effect system
         currentMuzzleFlash = Instantiate(currentGun.muzzleFlashPrefab, spawnPos, spawnRotation);
 
-        PlayerBullet.GetComponent<Playerbullet>().SetBulletProperties(currentGun.PlayerBulletDamage, currentGun.PlayerBulletDestroyTime, currentGun.PlayerBulletSpeed, bulletDirection);
-
         yield return new WaitForSeconds(shootRate);
-
-
 
         isShooting = false;
         Destroy(currentMuzzleFlash.gameObject);

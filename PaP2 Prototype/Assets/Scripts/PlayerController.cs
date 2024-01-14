@@ -5,8 +5,6 @@ using UnityEngine;
 
 public partial class PlayerController : MonoBehaviour, IDamage
 {
-
-
     [Header("Components")]
     [SerializeField] CharacterController controller;
     [SerializeField] AudioSource aud;
@@ -46,9 +44,7 @@ public partial class PlayerController : MonoBehaviour, IDamage
     private bool isRunning;
     private bool isStaminaRestore;
     private float initialSpeed;
-
-
-    //Gun logic
+    
 
 
 
@@ -92,7 +88,7 @@ public partial class PlayerController : MonoBehaviour, IDamage
                 {
                     StartCoroutine(Shoot());
                 }
-                
+
                 selectGun();
 
                 if (Input.GetButtonDown("AimDownSight"))
@@ -104,7 +100,7 @@ public partial class PlayerController : MonoBehaviour, IDamage
                 {
                     Reload();
                 }
-
+                
             }
         }
             Movement();
@@ -278,5 +274,7 @@ public partial class PlayerController : MonoBehaviour, IDamage
         gameManager.instance.ammoCounter.text = gunList[selectedGun].ammoCur.ToString("0");
         gameManager.instance.maxAmmoCounter.text = gunList[selectedGun].totalAmmo.ToString("0");
     }
+
+
 
 }

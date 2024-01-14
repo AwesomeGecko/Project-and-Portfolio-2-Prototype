@@ -12,25 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89383eed46ec81644ac36e0524ce1bb1, type: 3}
   m_Name: Scifi-Pistol
   m_EditorClassIdentifier: 
+  model: {fileID: 1126165088178583906, guid: 6adcb44c659c4714d97bc9e4026e37a0, type: 3}
   shootRate: 0.5
   shootDist: 20
   PlayerBulletDamage: 2
   PlayerBulletDestroyTime: 1
   PlayerBulletSpeed: 20
-  ammoCur: 4
+  ammoCur: 10
   ammoMax: 30
   magSize: 10
   totalAmmo: 10
-  model: {fileID: 1126165088178583906, guid: 6adcb44c659c4714d97bc9e4026e37a0, type: 3}
-  hitEffect: {fileID: 468260622339083660, guid: f8c505478bba5bf4dbdeaa85632801a6, type: 3}
-  muzzleFlashPrefab: {fileID: 6402671372185850169, guid: 0548e7359153c1145bf80b94f2698e6f, type: 3}
   shootSound: {fileID: 8300000, guid: be64544bade297e4d872dd74c66256d2, type: 3}
   shootSoundVol: 0.25
-  shouldUseScope: 0
+  hitEffect: {fileID: 468260622339083660, guid: f8c505478bba5bf4dbdeaa85632801a6, type: 3}
+  muzzleFlashPrefab: {fileID: 6402671372185850169, guid: 0548e7359153c1145bf80b94f2698e6f, type: 3}
   fieldOfView: 60
-  defaultRotationEulerAngles: {x: -1.7, y: -0.7, z: 0}
-  defaultPositionOffset: {x: -5, y: -8, z: -5}
-  barrelTip: {fileID: 11400000, guid: dee914f2c4225934fbc1c12ed9279980, type: 2}
   combinedMeshes:
   - meshes:
     - {fileID: -5495902117074765545, guid: 2f31decfa42da0b499dc6b8c073fab99, type: 3}
@@ -52,3 +48,10 @@ MonoBehaviour:
     - {fileID: 3390558720134950976, guid: 2f31decfa42da0b499dc6b8c073fab99, type: 3}
     materials:
     - {fileID: 2100000, guid: ed4e505575c49f84487255eac109e997, type: 2}
+  shouldUseScope: 0
+  isShotgun: 0
+  barrelTip: {fileID: 11400000, guid: dee914f2c4225934fbc1c12ed9279980, type: 2}
+  shotgunPelletCount: 0
+  spreadAngle: 0
+  defaultGunRotation: {x: -1.7, y: -0.5, z: 0}
+  defaultGunPositionOffset: {x: 0, y: 0, z: 0}

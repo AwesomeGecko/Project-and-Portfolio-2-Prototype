@@ -1,19 +1,9 @@
 fileFormatVersion: 2
-guid: 791ea89b5cd98774b8f9d1b5ba1d2dd3
+guid: 67932769314d5274099479010536b95d
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: p1g2
-    second: {fileID: 2100000, guid: f5be1521879edbe4897ac876c0f21c53, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: p2g2
-    second: {fileID: 2100000, guid: 9bd8e08dfe92c3e47868f031120068df, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -45,7 +35,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 250
+    globalScale: 2.5
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1

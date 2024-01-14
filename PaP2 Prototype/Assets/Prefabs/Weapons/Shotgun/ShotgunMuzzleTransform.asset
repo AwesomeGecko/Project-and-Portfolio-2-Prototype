@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47dd78f7a9c88454db02a8574b0dd0f2, type: 3}
   m_Name: ShotgunMuzzleTransform
   m_EditorClassIdentifier: 
-  localPosition: {x: 0, y: 0, z: 0}
+  localPosition: {x: 0, y: 0, z: 0.4}
   localRotation: {x: 0, y: 0, z: 0}
