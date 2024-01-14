@@ -5,7 +5,7 @@ using UnityEngine;
 public partial class PlayerController
 {
     [Header("Gun Stats")]
-    [SerializeField] public List<gunStats> gunList = new List<gunStats>();
+    [SerializeField] public List<GunStats> gunList = new List<GunStats>();
     [SerializeField] GameObject Playerbullet;
     [SerializeField] int bulletDestroyTime;
     [SerializeField] float shootRate;
@@ -16,7 +16,7 @@ public partial class PlayerController
     [SerializeField] public int maxAmmo;
     [SerializeField] int shootDist;
     [SerializeField] GameObject gunModel;
-    [SerializeField] gunStats defaultPistol;
+    [SerializeField] GunStats defaultPistol;
     private bool isAiming;
     private float defaultFOV;
     public int selectedGun;
@@ -67,7 +67,7 @@ public partial class PlayerController
     void ToggleAimDownSights()
     {
         isAiming = !isAiming;
-        gunStats currentGun = gunList[selectedGun];
+        GunStats currentGun = gunList[selectedGun];
 
         //Adjust the camera properties
         if (isAiming)
@@ -165,7 +165,7 @@ public partial class PlayerController
     }
 
 
-    public void getGunStats(gunStats gun)
+    public void getGunStats(GunStats gun)
     {
         // Add the new gun to the gunList
         gunList.Add(gun);
@@ -292,7 +292,7 @@ public partial class PlayerController
 
         aud.PlayOneShot(gunList[selectedGun].shootSound, gunList[selectedGun].shootSoundVol);
 
-        gunStats currentGun = gunList[selectedGun];
+        GunStats currentGun = gunList[selectedGun];
 
 
         GameObject PlayerBullet;

@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 using static CombinedMeshInfo;
 
 [CreateAssetMenu(fileName = "GunStats", menuName = "Guns/GunStats", order = 0)]
-public class gunStats : ScriptableObject
+public class GunStats : ScriptableObject
 {
     [Header("Basic Gun Information")]
     public GameObject model;

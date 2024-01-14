@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GunScript : MonoBehaviour
+public class GunPickupScript : MonoBehaviour
 {
     
-    [SerializeField] gunStats gun;
+    [SerializeField] GunStats gun;
     bool triggerSet;
     // Start is called before the first frame update
     void Start()
