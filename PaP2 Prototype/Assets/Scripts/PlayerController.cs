@@ -8,6 +8,7 @@ public partial class PlayerController : MonoBehaviour, IDamage
     [Header("Components")]
     [SerializeField] CharacterController controller;
     [SerializeField] AudioSource aud;
+    //[SerializeField] Animator animator;
 
     [Header("Player Stats")]
     [SerializeField] public int HP;
@@ -43,9 +44,9 @@ public partial class PlayerController : MonoBehaviour, IDamage
     public float staminaRestoreSpeed;
     private bool isRunning;
     private bool isStaminaRestore;
-    private float initialSpeed;
-    
 
+    //Gun logic
+    private float initialSpeed;
 
 
     // Start is called before the first frame update
@@ -111,7 +112,6 @@ public partial class PlayerController : MonoBehaviour, IDamage
     {
         RunCode();
         Crouch();
-        //Lean();
 
         //Identical movement code in the lectures
         groundedPlayer = controller.isGrounded;
@@ -128,6 +128,15 @@ public partial class PlayerController : MonoBehaviour, IDamage
         }
 
         move = Input.GetAxis("Horizontal") * transform.right + Input.GetAxis("Vertical") * transform.forward;
+
+        if(Input.GetButtonDown("LeanLeft"))
+        {
+            StartCoroutine(LeanLeftRoutine());
+        }
+        else if(Input.GetButtonDown("LeanRight") && !gameManager.instance.onTarget)
+        {   
+            StartCoroutine(LeanRightRoutine());
+        }
 
         controller.Move(move * playerSpeed * Time.deltaTime);
 
@@ -217,25 +226,52 @@ public partial class PlayerController : MonoBehaviour, IDamage
         }
     }
 
-    public void Lean()
+    IEnumerator LeanLeftRoutine()
     {
-        Quaternion initialRot = transform.localRotation;
-        if (Input.GetButton("LeanLeft"))
+        float leanDuration = 0.5f;
+        float startTime = Time.time;
+        Quaternion initialRotation = transform.rotation;
+
+        while (Input.GetButton("LeanLeft"))
         {
-            Debug.Log("Leaning left");
-            Quaternion newRot = Quaternion.Euler(transform.localRotation.x, transform.localRotation.y, transform.localRotation.z + leanDist); 
-            transform.localRotation = Quaternion.Slerp(transform.localRotation, newRot, Time.deltaTime * leanSpeed);
+            float elapsedTime = Time.time - startTime;
+            float lerpFactor = Mathf.Clamp01(elapsedTime / leanDuration);
+
+            // Calculate the lean rotation on the local Z-axis
+            Quaternion leanRotation = Quaternion.Euler(0, 0, leanDist);
+
+            // Smoothly interpolate between the initial rotation and the lean rotation
+            transform.rotation = Quaternion.Slerp(initialRotation, initialRotation * leanRotation, lerpFactor);
+
+            yield return null;
         }
-        else if (Input.GetButton("LeanRight"))
+
+        // Reset rotation when the lean is released
+        transform.rotation = initialRotation;
+    }
+
+    IEnumerator LeanRightRoutine()
+    {
+        float leanDuration = 0.5f;
+        float startTime = Time.time;
+        Quaternion initialRotation = transform.rotation;
+
+        while (Input.GetButton("LeanRight"))
         {
-            Debug.Log("Leaning right");
-            Quaternion newRot = Quaternion.Euler(transform.localRotation.x, transform.localRotation.y, transform.localRotation.z - leanDist);
-            transform.localRotation = Quaternion.Slerp(transform.localRotation, newRot, Time.deltaTime * leanSpeed);
+            float elapsedTime = Time.time - startTime;
+            float lerpFactor = Mathf.Clamp01(elapsedTime / leanDuration);
+
+            // Calculate the lean rotation on the local Z-axis
+            Quaternion leanRotation = Quaternion.Euler(0, 0, -leanDist);
+
+            // Smoothly interpolate between the initial rotation and the lean rotation
+            transform.rotation = Quaternion.Slerp(initialRotation, initialRotation * leanRotation, lerpFactor);
+
+            yield return null;
         }
-        else
-        {
-            transform.localRotation = Quaternion.Slerp(transform.localRotation, initialRot, Time.deltaTime * leanSpeed);
-        }
+
+        // Reset rotation when the lean is released
+        transform.rotation = initialRotation;
     }
 
     IEnumerator Sprint()

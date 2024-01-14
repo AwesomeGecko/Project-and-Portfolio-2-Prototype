@@ -137,8 +137,8 @@ MonoBehaviour:
   sprintSpeed: 15
   crouchMod: 0.75
   crouchDist: 0.5
-  leanDist: 8
-  leanSpeed: 3
+  leanDist: 10
+  leanSpeed: 0.5
   soundSteps:
   - {fileID: 8300000, guid: f6c214bca5e20274d958c0d78f78ca27, type: 3}
   - {fileID: 8300000, guid: 040b30653ed0e0a4092e135887dc40cd, type: 3}
