@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89383eed46ec81644ac36e0524ce1bb1, type: 3}
   m_Name: M4 - Stats
   m_EditorClassIdentifier: 
+  model: {fileID: 345920512106537666, guid: 58c681bc5af6ae647928ba488f20d76a, type: 3}
   shootRate: 0.1
   shootDist: 1000
   PlayerBulletDamage: 5
@@ -20,12 +21,17 @@ MonoBehaviour:
   ammoCur: 30
   ammoMax: 150
   magSize: 30
-  totalAmmo: 0
-  model: {fileID: 345920512106537666, guid: 58c681bc5af6ae647928ba488f20d76a, type: 3}
-  hitEffect: {fileID: 468260622339083660, guid: f8c505478bba5bf4dbdeaa85632801a6, type: 3}
-  muzzleFlashPrefab: {fileID: 6402671372185850169, guid: 0548e7359153c1145bf80b94f2698e6f, type: 3}
+  totalAmmo: 30
   shootSound: {fileID: 8300000, guid: 8581f806dddef8046b4942de05b897be, type: 3}
   shootSoundVol: 0.25
-  shouldUseScope: 1
+  hitEffect: {fileID: 468260622339083660, guid: f8c505478bba5bf4dbdeaa85632801a6, type: 3}
+  muzzleFlashPrefab: {fileID: 6402671372185850169, guid: 0548e7359153c1145bf80b94f2698e6f, type: 3}
   fieldOfView: 30
+  combinedMeshes: []
+  shouldUseScope: 1
+  isShotgun: 0
   barrelTip: {fileID: 11400000, guid: 0c16855887b490d45961bf169830992b, type: 2}
+  shotgunPelletCount: 0
+  shotgunPelletSpread: 0
+  defaultGunRotation: {x: 0, y: 0, z: 0}
+  defaultGunPositionOffset: {x: 0, y: 0, z: 0}
