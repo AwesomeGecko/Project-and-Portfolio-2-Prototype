@@ -36,6 +36,8 @@ public partial class PlayerController : MonoBehaviour, IDamage
     private Vector3 crouchCameraDist;
     private bool isShooting;
     bool isPlayingSteps;
+    Quaternion initialRotation;
+    bool isLeaning;
 
     [Header("Gameplay Info")]
     public int HPOriginal;
@@ -129,13 +131,17 @@ public partial class PlayerController : MonoBehaviour, IDamage
 
         move = Input.GetAxis("Horizontal") * transform.right + Input.GetAxis("Vertical") * transform.forward;
 
-        if(Input.GetButtonDown("LeanLeft"))
+        //LEAN
+        if(Input.GetButtonDown("LeanLeft") || (Input.GetButtonDown("LeanRight") && !gameManager.instance.onTarget))
         {
-            StartCoroutine(LeanLeftRoutine());
+            initialRotation = transform.rotation;
+            Lean();
         }
-        else if(Input.GetButtonDown("LeanRight") && !gameManager.instance.onTarget)
-        {   
-            StartCoroutine(LeanRightRoutine());
+
+        if(Input.GetButtonUp("LeanLeft") || Input.GetButtonUp("LeanRight"))
+        {
+            Quaternion leanRotation = Quaternion.Euler(0, 0, leanDist);
+            transform.rotation = Quaternion.Euler(0f, transform.eulerAngles.y, 0f);
         }
 
         controller.Move(move * playerSpeed * Time.deltaTime);
@@ -226,52 +232,24 @@ public partial class PlayerController : MonoBehaviour, IDamage
         }
     }
 
-    IEnumerator LeanLeftRoutine()
+    void Lean()
     {
-        float leanDuration = 0.5f;
-        float startTime = Time.time;
-        Quaternion initialRotation = transform.rotation;
-
-        while (Input.GetButton("LeanLeft"))
+        if(Input.GetButtonDown("LeanLeft"))
         {
-            float elapsedTime = Time.time - startTime;
-            float lerpFactor = Mathf.Clamp01(elapsedTime / leanDuration);
-
             // Calculate the lean rotation on the local Z-axis
             Quaternion leanRotation = Quaternion.Euler(0, 0, leanDist);
 
             // Smoothly interpolate between the initial rotation and the lean rotation
-            transform.rotation = Quaternion.Slerp(initialRotation, initialRotation * leanRotation, lerpFactor);
-
-            yield return null;
+            transform.rotation = Quaternion.Lerp(initialRotation, initialRotation * leanRotation, leanSpeed);
         }
-
-        // Reset rotation when the lean is released
-        transform.rotation = initialRotation;
-    }
-
-    IEnumerator LeanRightRoutine()
-    {
-        float leanDuration = 0.5f;
-        float startTime = Time.time;
-        Quaternion initialRotation = transform.rotation;
-
-        while (Input.GetButton("LeanRight"))
+        if(Input.GetButtonDown("LeanRight"))
         {
-            float elapsedTime = Time.time - startTime;
-            float lerpFactor = Mathf.Clamp01(elapsedTime / leanDuration);
-
             // Calculate the lean rotation on the local Z-axis
             Quaternion leanRotation = Quaternion.Euler(0, 0, -leanDist);
 
             // Smoothly interpolate between the initial rotation and the lean rotation
-            transform.rotation = Quaternion.Slerp(initialRotation, initialRotation * leanRotation, lerpFactor);
-
-            yield return null;
+            transform.rotation = Quaternion.Lerp(initialRotation, initialRotation * leanRotation, leanSpeed);
         }
-
-        // Reset rotation when the lean is released
-        transform.rotation = initialRotation;
     }
 
     IEnumerator Sprint()
