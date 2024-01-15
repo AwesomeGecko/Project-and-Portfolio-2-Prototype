@@ -24,7 +24,7 @@ public class PlatformMover : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         timer += Time.deltaTime;
         float currPercentageOfProgress = timer / timeLeft;
@@ -52,4 +52,14 @@ public class PlatformMover : MonoBehaviour
         float distanceleft = Vector3.Distance(startPath.position, endPath.position);
         timeLeft = distanceleft / speed;
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        other.transform.SetParent(transform);
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        other.transform.SetParent(null);
+    }
+
 }
