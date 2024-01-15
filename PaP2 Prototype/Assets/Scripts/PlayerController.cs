@@ -26,8 +26,7 @@ public partial class PlayerController : MonoBehaviour, IDamage
     [SerializeField] AudioClip[] soundSteps;
     [Range(0f, 1f)][SerializeField] float soundStepsVol;
     [SerializeField] AudioClip playerHurt;
-    [SerializeField] AudioClip reloadSound;
-    [Range(0f, 1f)][SerializeField] float reloadSoundVol;
+    
 
     private Vector3 playerVelocity;
     private Vector3 move;

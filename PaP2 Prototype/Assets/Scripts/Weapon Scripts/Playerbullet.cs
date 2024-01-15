@@ -39,7 +39,7 @@ public class Playerbullet : MonoBehaviour
         this.damage = damage;
         this.destroyTime = destroyTime;
         this.speed = speed;
-        Debug.Log("Bullet Direction in Playerbullet: " + direction);
+        
     }
     private void Update()
     {

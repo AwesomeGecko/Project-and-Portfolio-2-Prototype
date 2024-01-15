@@ -6,8 +6,8 @@ using UnityEngine.Jobs;
 using UnityEngine.UIElements;
 using static CombinedMeshInfo;
 
-[CreateAssetMenu(fileName = "GunStats", menuName = "Guns/GunStats", order = 0)]
-public class GunStats : ScriptableObject
+[CreateAssetMenu(fileName = "GunSettings", menuName = "Guns/GunSettings", order = 0)]
+public class GunSettings : ScriptableObject
 {
     [Header("Basic Gun Information")]
     public GameObject model;
@@ -23,7 +23,10 @@ public class GunStats : ScriptableObject
 
     [Header("Sounds")]
     public AudioClip shootSound;
-    [Range(0, 1)] public float shootSoundVol;
+    [Range(0, 10)] public float shootSoundVol;
+    [Space]
+    public AudioClip reloadSound;
+    [Range(0, 10)] public float reloadSoundVol;
 
     [Header("Particle Effects")]
     public ParticleSystem hitEffect;
@@ -37,11 +40,15 @@ public class GunStats : ScriptableObject
 
     [Header("Gun specific data")]
     public List<CombinedMeshInfo> combinedMeshes;
+    [Space]
     public bool shouldUseScope;
+    [Space]
     public bool isShotgun;
-    public TransformData barrelTip;
+    [Space]
     public int shotgunPelletCount;
     public int shotgunPelletSpread;
+    [Space]
+    public TransformData barrelTip;
 
     public Vector3 defaultGunRotation = new Vector3(0f, 0f, 0f);
 

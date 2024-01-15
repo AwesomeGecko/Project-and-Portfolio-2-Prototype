@@ -5,7 +5,7 @@ using UnityEngine;
 public partial class PlayerController
 {
     [Header("Gun Stats")]
-    [SerializeField] public List<GunStats> gunList = new List<GunStats>();
+    [SerializeField] public List<GunSettings> gunList = new List<GunSettings>();
     [SerializeField] GameObject Playerbullet;
     [SerializeField] int bulletDestroyTime;
     [SerializeField] float shootRate;
@@ -16,7 +16,7 @@ public partial class PlayerController
     [SerializeField] public int maxAmmo;
     [SerializeField] int shootDist;
     [SerializeField] GameObject gunModel;
-    [SerializeField] GunStats defaultPistol;
+    [SerializeField] GunSettings defaultPistol;
     private bool isAiming;
     private float defaultFOV;
     public int selectedGun;
@@ -67,7 +67,7 @@ public partial class PlayerController
     void ToggleAimDownSights()
     {
         isAiming = !isAiming;
-        GunStats currentGun = gunList[selectedGun];
+        GunSettings currentGun = gunList[selectedGun];
 
         //Adjust the camera properties
         if (isAiming)
@@ -165,7 +165,7 @@ public partial class PlayerController
     }
 
 
-    public void getGunStats(GunStats gun)
+    public void getGunStats(GunSettings gun)
     {
         // Add the new gun to the gunList
         gunList.Add(gun);
@@ -292,7 +292,7 @@ public partial class PlayerController
 
         aud.PlayOneShot(gunList[selectedGun].shootSound, gunList[selectedGun].shootSoundVol);
 
-        GunStats currentGun = gunList[selectedGun];
+        GunSettings currentGun = gunList[selectedGun];
 
 
         GameObject PlayerBullet;
@@ -356,10 +356,12 @@ public partial class PlayerController
 
     void InteractSound()
     {
-        if (aud && reloadSound != null)
+        GunSettings currentGun = gunList[selectedGun];
+
+        if (aud && currentGun.reloadSound != null)
         {
-            float adjustedVolume = reloadSoundVol * gameManager.instance.aud.volume;
-            aud.PlayOneShot(reloadSound, adjustedVolume);
+            float adjustedVolume = currentGun.reloadSoundVol * gameManager.instance.aud.volume;
+            aud.PlayOneShot(currentGun.reloadSound, adjustedVolume);
         }
     }
 }

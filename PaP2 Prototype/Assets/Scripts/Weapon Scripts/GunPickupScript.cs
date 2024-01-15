@@ -5,7 +5,7 @@ using UnityEngine;
 public class GunPickupScript : MonoBehaviour
 {
     
-    [SerializeField] GunStats gun;
+    [SerializeField] GunSettings gun;
     bool triggerSet;
     // Start is called before the first frame update
     void Start()
