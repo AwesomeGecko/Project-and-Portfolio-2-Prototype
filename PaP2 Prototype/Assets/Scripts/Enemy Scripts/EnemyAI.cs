@@ -36,8 +36,8 @@ public class EnemyAI : MonoBehaviour, IDamage
     [SerializeField] int bulletSpeed;
     [SerializeField] float shootRate;
     [SerializeField] float shootSpeed;
-    [SerializeField] Transform enemyshootPos;
-    [SerializeField] Transform enemyshootPos2;
+    public Transform enemyshootPos;
+    //public Transform enemyshootPos2;
 
     [Header("----- Audio -----")]
     [SerializeField] AudioClip hitSound;
