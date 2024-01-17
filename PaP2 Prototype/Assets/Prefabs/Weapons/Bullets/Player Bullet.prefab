@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2114396514075753564}
   - component: {fileID: 2555630399610944236}
   - component: {fileID: 4776280774310833095}
+  - component: {fileID: 2081206634432917684}
   - component: {fileID: 1050691820125386319}
   - component: {fileID: -5998587980289654383}
   m_Layer: 8
@@ -43,7 +44,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5550751600062205222}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2f78067c8626da24382376cd0af04e2c, type: 3}
   m_Name: 
@@ -79,9 +80,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5550751600062205222}
   serializedVersion: 4
-  m_Mass: 0.1
+  m_Mass: 0.015
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0.5
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -93,11 +94,28 @@ Rigidbody:
     m_Bits: 256
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 2
+--- !u!114 &2081206634432917684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5550751600062205222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a7b6c1d07b637c44b3f32c63270610c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 0
+  <SpawnLocation>k__BackingField: {x: 0, y: 0, z: 0}
+  <SpawnVelocity>k__BackingField: {x: 0, y: 0, z: 0}
+  <Damage>k__BackingField: 0
+  sparkParticles: {fileID: 7257651568562783922, guid: 8a2b77f102a3e4f4c9d2da152d35264a, type: 3}
 --- !u!96 &1050691820125386319
 TrailRenderer:
   serializedVersion: 3

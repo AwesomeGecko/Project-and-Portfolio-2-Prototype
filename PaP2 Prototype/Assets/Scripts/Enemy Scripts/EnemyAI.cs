@@ -53,7 +53,7 @@ public class EnemyAI : MonoBehaviour, IDamage
     Vector3 startingPos;
     float stoppingDistanceOrig;
     public enemySpawn mySpawner;
-
+    private bool isDead = false;
 
     void Start()
     {
@@ -177,12 +177,16 @@ public class EnemyAI : MonoBehaviour, IDamage
 
     public void takeDamage(int amount)
     {
+        if (isDead)
+            return;
+
         HP -= amount;
 
         StopAllCoroutines();
 
         if (HP <= 0)
         {
+            isDead = true;
             mySpawner.heyIDied();
             aud.PlayOneShot(deathSound, deathSoundVol);
             gameManager.instance.updateGameGoal(-1);

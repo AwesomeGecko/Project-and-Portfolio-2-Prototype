@@ -14,7 +14,7 @@ public class GunSettings : ScriptableObject
     public float shootRate;
     public int shootDist;
     public int PlayerBulletDamage;
-    public int PlayerBulletDestroyTime;
+    
     public int PlayerBulletSpeed;
     public int ammoCur;
     public int ammoMax;

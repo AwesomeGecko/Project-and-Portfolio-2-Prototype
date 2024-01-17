@@ -66,7 +66,7 @@ public class BossScript : MonoBehaviour, IDamage
     private bool hasReturnedToSpawn75;
     private bool hasReturnedToSpawn50;
     private bool hasReturnedToSpawn25;
-
+    private bool isDead = false;
 
 
     // Start is called before the first frame update
@@ -290,12 +290,15 @@ public class BossScript : MonoBehaviour, IDamage
     {
         if (!isReturningToSpawn) // Check if the boss is not returning to spawn
         {
+            if (isDead)
+                return;
             HP -= amount;
 
             Debug.Log("Boss took damage. HP=" + HP);
 
             if (HP <= 0 && damageCol.enabled == true && agent.enabled == true)
             {
+                isDead = true;
                 mySpawner.heyIDied();
 
                 if (isShooting)

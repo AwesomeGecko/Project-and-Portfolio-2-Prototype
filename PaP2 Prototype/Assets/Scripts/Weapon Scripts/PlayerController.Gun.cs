@@ -7,10 +7,10 @@ public partial class PlayerController
     [Header("Gun Stats")]
     [SerializeField] public List<GunSettings> gunList = new List<GunSettings>();
     [SerializeField] GameObject Playerbullet;
-    [SerializeField] int bulletDestroyTime;
+    
     [SerializeField] float shootRate;
     [SerializeField] int PlayerBulletDamage;
-    [SerializeField] int PlayerBulletDestroyTime;
+    
     [SerializeField] int PlayerBulletSpeed;
     [SerializeField] public int ammoCounter;
     [SerializeField] public int maxAmmo;
@@ -27,7 +27,7 @@ public partial class PlayerController
 
     void Reload()
     {
-        InteractSound();
+        
         // Check if the gun is not already full
         if (gunList[selectedGun].ammoCur < gunList[selectedGun].magSize)
         {
@@ -59,9 +59,10 @@ public partial class PlayerController
 
                     // Update the UI
                     UpdatePlayerUI();
-                    
+
                 }
             }
+            InteractSound();
         }
     }
     void ToggleAimDownSights()
@@ -177,7 +178,7 @@ public partial class PlayerController
         shootDist = gun.shootDist;
         shootRate = gun.shootRate;
         PlayerBulletDamage = gun.PlayerBulletDamage;
-        PlayerBulletDestroyTime = gun.PlayerBulletDestroyTime;
+        
         PlayerBulletSpeed = gun.PlayerBulletSpeed;
 
         // Initialize ammo variables
@@ -243,7 +244,7 @@ public partial class PlayerController
         shootDist = gunList[selectedGun].shootDist;
         shootRate = gunList[selectedGun].shootRate;
         PlayerBulletDamage = gunList[selectedGun].PlayerBulletDamage;
-        PlayerBulletDestroyTime = gunList[selectedGun].PlayerBulletDestroyTime;
+        
         PlayerBulletSpeed = gunList[selectedGun].PlayerBulletSpeed;
 
         ammoCounter = gunList[selectedGun].totalAmmo;
@@ -279,7 +280,6 @@ public partial class PlayerController
     }
     IEnumerator Shoot()
     {
-
         isShooting = true;
 
         if (gunList[selectedGun].ammoCur <= 0)
@@ -294,57 +294,39 @@ public partial class PlayerController
 
         GunSettings currentGun = gunList[selectedGun];
 
-
-        GameObject PlayerBullet;
-
         Vector3 spawnPos = gunModel.transform.TransformPoint(currentGun.barrelTip.localPosition);
-        Vector3 spawnScopedPos = isAiming? gunModel.transform.TransformPoint(currentGun.barrelTip.localPosition) : spawnPos;
-        Quaternion spawnRotation = isAiming? gunModel.transform.rotation : gunModel.transform.rotation;
+        Vector3 spawnScopedPos = isAiming ? gunModel.transform.TransformPoint(currentGun.barrelTip.localPosition) : spawnPos;
+        Quaternion spawnRotation = isAiming ? gunModel.transform.rotation : gunModel.transform.rotation;
 
-
-        //Have the ray cast ignore the player
-        int playerLayer = LayerMask.NameToLayer("Player"); //Get the name of player 
-
-        //Create the layer mask to ignore
-        int layerMask = ~(1 << playerLayer);
-
-        //Get the center of the screen in viewport cooridinates (normalized)
-        Vector3 screenCenter = new Vector3(0.5f, 0.5f, 0f);
-
-        //Raycast from the camera center into the scene
-        Ray ray = Camera.main.ViewportPointToRay(screenCenter);
-        RaycastHit hit;
-
-        //Set the bullet direction
-        Vector3 bulletDirection = ray.direction;
-
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
-        {
-            Vector3 targetPoint = hit.point;
-            bulletDirection = (targetPoint - spawnPos).normalized;
-        }
+        Vector3 bulletDirection = CalculateBulletDirection();
 
         // Check if the currently selected gun is the shotgun
         if (currentGun.isShotgun)
-        { 
+        {
             for (int i = 0; i < currentGun.shotgunPelletCount; i++)
             {
-                Vector3 spreadDirection = Quaternion.Euler(Random.Range(-currentGun.shotgunPelletSpread, currentGun.shotgunPelletSpread), Random.Range(-currentGun.shotgunPelletSpread, currentGun.shotgunPelletSpread),0f) * bulletDirection;
-                Quaternion spreadRotation = Quaternion.LookRotation(spreadDirection);
-                
-                PlayerBullet = Instantiate(Playerbullet, isAiming ? spawnScopedPos : spawnPos, spreadRotation);
+                // Apply shotgun spread
+                Vector3 spreadDirection = Quaternion.Euler(Random.Range(-currentGun.shotgunPelletSpread, currentGun.shotgunPelletSpread), Random.Range(-currentGun.shotgunPelletSpread, currentGun.shotgunPelletSpread), 0f) * bulletDirection;
 
-                PlayerBullet.GetComponent<Playerbullet>().SetBulletProperties(currentGun.PlayerBulletDamage, currentGun.PlayerBulletDestroyTime, currentGun.PlayerBulletSpeed, spreadDirection);
+                Quaternion spreadRotation = Quaternion.LookRotation(bulletDirection);
+
+                // Instantiate the Bullet instance
+                Bullet bulletInstance = Instantiate(Playerbullet, isAiming ? spawnScopedPos : spawnPos, spreadRotation).GetComponent<Bullet>();
+
+                // Set Bullet properties
+                bulletInstance.Spawn(spreadDirection * currentGun.PlayerBulletSpeed, currentGun.PlayerBulletDamage);
             }
         }
         else
         {
-            PlayerBullet = Instantiate(Playerbullet, isAiming ? spawnScopedPos : spawnPos, isAiming ? gunModel.transform.rotation : gunModel.transform.rotation);
+            // Create a new Bullet instance
+            Bullet bulletInstance = Instantiate(Playerbullet, spawnScopedPos, spawnRotation).GetComponent<Bullet>();
 
-            PlayerBullet.GetComponent<Playerbullet>().SetBulletProperties(currentGun.PlayerBulletDamage, currentGun.PlayerBulletDestroyTime, currentGun.PlayerBulletSpeed, bulletDirection);
+            // Set Bullet properties
+            bulletInstance.Spawn(bulletDirection * currentGun.PlayerBulletSpeed, currentGun.PlayerBulletDamage);
         }
 
-        //Instantiate the muzzle flash particle effect system
+        // Instantiate the muzzle flash particle effect system
         currentMuzzleFlash = Instantiate(currentGun.muzzleFlashPrefab, spawnPos, spawnRotation);
 
         yield return new WaitForSeconds(shootRate);
@@ -352,6 +334,44 @@ public partial class PlayerController
         isShooting = false;
         Destroy(currentMuzzleFlash.gameObject);
         UpdatePlayerUI();
+
+        //For Future Implementation:
+
+        //This code could be used in a bool and toggle set by the player for automatic fire for guns with the automatic fire bool
+        // This code will instantiate the bullets at random transforms mimicking the recoil of automatic fire
+
+
+        //Vector3 bulletDirection = CalculateBulletDirection();
+        //Vector3 bulletDirection = Quaternion.Euler(Random.Range(-currentGun.bulletSpread, currentGun.bulletSpread), Random.Range(-currentGun.bulletSpread, currentGun.bulletSpread), 0f) * bulletDirection;
+        //Quaternion spreadRotation = Quaternion.LookRotation(bulletDirection);
+
+        //// Instantiate the Bullet instance
+        //Bullet bulletInstance = Instantiate(Playerbullet, isAiming ? spawnScopedPos : spawnPos, spreadRotation).GetComponent<Bullet>();
+
+        //// Set Bullet properties
+        //bulletInstance.Spawn(spreadDirection * currentGun.PlayerBulletSpeed, currentGun.PlayerBulletDamage);
+    }
+
+
+    // Calculate bullet direction based on the center of the screen
+    private Vector3 CalculateBulletDirection()
+    {
+        int playerLayer = LayerMask.NameToLayer("Player");
+        int layerMask = ~(1 << playerLayer);
+
+        Vector3 screenCenter = new Vector3(0.5f, 0.5f, 0f);
+        Ray ray = Camera.main.ViewportPointToRay(screenCenter);
+        RaycastHit hit;
+
+        Vector3 bulletDirection = ray.direction;
+
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
+        {
+            Vector3 targetPoint = hit.point;
+            bulletDirection = (targetPoint - gunModel.transform.position).normalized;
+        }
+
+        return bulletDirection;
     }
 
     void InteractSound()

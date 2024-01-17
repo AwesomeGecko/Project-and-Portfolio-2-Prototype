@@ -43,7 +43,8 @@ public class Playerbullet : MonoBehaviour
     }
     private void Update()
     {
-        transform.Translate(direction * speed * Time.deltaTime, Space.World);
+        rb.AddForce(direction * speed);
+        
     }
 
     private void OnCollisionEnter(Collision collision)
