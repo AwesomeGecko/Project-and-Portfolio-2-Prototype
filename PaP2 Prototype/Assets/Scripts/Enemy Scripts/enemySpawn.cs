@@ -41,16 +41,34 @@ public class enemySpawn : MonoBehaviour
 
         isSpawning = true;
 
-        int arrayPos = Random.Range(0, spawnPos.Length - 1);
-        GameObject objectClone = Instantiate(objectToSpawn, spawnPos[arrayPos].transform.position, spawnPos[arrayPos].transform.rotation);
-        objectClone.GetComponent<EnemyAI>().mySpawner = this;
+        Transform spawnPoint = GetRandomSpawnPoint();
 
-        spawnList.Add(objectClone);
-        spawnCount++;
+        if (!IsSpawnPointOccupied(spawnPoint.position))
+        {
+            int arrayPos = Random.Range(0, spawnPos.Length - 1);
+            GameObject objectClone = Instantiate(objectToSpawn, spawnPos[arrayPos].transform.position, spawnPos[arrayPos].transform.rotation);
+            objectClone.GetComponent<EnemyAI>().mySpawner = this;
 
+            spawnList.Add(objectClone);
+            spawnCount++;
+        }
+        
         yield return new WaitForSeconds(timeBetweenSpawns);
         isSpawning = false;
 
+    }
+
+    bool IsSpawnPointOccupied(Vector3 position)
+    {
+        // Check if there's already an enemy at the specified position
+        Collider[] colliders = Physics.OverlapSphere(position, 1.0f);
+
+        // If there are colliders (enemies or other objects), the spawn point is considered occupied
+        return colliders.Length > 0;
+    }
+    Transform GetRandomSpawnPoint()
+    {
+        return spawnPos[Random.Range(10, spawnPos.Length)];
     }
 
     private void OnTriggerEnter(Collider other)
