@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class LandMine : MonoBehaviour
@@ -12,10 +13,11 @@ public class LandMine : MonoBehaviour
     [Header("Audio")]
     [SerializeField] private AudioSource aud;
     [SerializeField] private AudioClip mineBeep;
+    [SerializeField] private AudioClip expSound;
 
     private bool isPlayerNear;
     private float timer;
-
+    
     // Update is called once per frame
     void Update()
     {
@@ -36,6 +38,16 @@ public class LandMine : MonoBehaviour
         {
             isPlayerNear = true;
             aud.PlayOneShot(mineBeep);
+            aud.PlayOneShot(expSound);
+        }
+        else if(other.CompareTag("PlayerBullet"))
+        {
+            isPlayerNear = false;
+            if(aud != null)
+            {
+                aud.PlayOneShot(expSound);
+            }
+            StartCoroutine(DeactivateAfterAudio());
         }
     }
 
@@ -51,10 +63,17 @@ public class LandMine : MonoBehaviour
     private void Detonate()
     {
         PlayerController HP = FindObjectOfType<PlayerController>();
-        if (HP != null)
+        if(HP != null)
         {
             HP.takeDamage(dmgAmount);
         }
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
+
+    private IEnumerator DeactivateAfterAudio()
+    {
+        yield return new WaitForSeconds(1.0f);
+        gameObject.SetActive(false);
+    }
+    
 }

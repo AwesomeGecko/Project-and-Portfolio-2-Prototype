@@ -48,10 +48,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d3e0e5cae49faa42b9aca6333e88e2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boomTimer: 1
+  boomTimer: 0.5
   dmgAmount: 10
   aud: {fileID: 5770627769007482400}
   mineBeep: {fileID: 8300000, guid: 4e4fa75aada6fd145823dd8ec67e1ff3, type: 3}
+  expSound: {fileID: 8300000, guid: f4fb92b874ee33e4faf3c5746c6cc316, type: 3}
 --- !u!33 &1911169203334254708
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -121,7 +122,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 3
+  m_Radius: 2
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
