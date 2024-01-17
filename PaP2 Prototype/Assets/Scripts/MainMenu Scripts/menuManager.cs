@@ -35,13 +35,8 @@ public class menuManager : MonoBehaviour
     {
         if (menuActive == menuCredits)
         {
-            StartCoroutine(spacebutton());
             spaceBarPressed();
             escPressed();
-        }
-        else 
-        {
-            fastForwardText.gameObject.SetActive(false);
         }
     }
 
@@ -99,6 +94,7 @@ public class menuManager : MonoBehaviour
         menuActive.SetActive(false);
         menuActive = menuCredits;
         menuActive.SetActive(true);
+        fastForwardText.gameObject.SetActive(true);
     }
 
     public void openExitMenu()
@@ -141,12 +137,7 @@ public class menuManager : MonoBehaviour
         if (Input.GetButton("Cancel"))
         {
             backBttn();
+            fastForwardText.gameObject.SetActive(false);
         }
-    }
-
-    IEnumerator spacebutton()
-    {
-        yield return new WaitForSeconds(2);
-        fastForwardText.gameObject.SetActive(true);
     }
 }
