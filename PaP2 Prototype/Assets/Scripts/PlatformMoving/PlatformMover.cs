@@ -2,11 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlatformMover : MonoBehaviour
 {
+    
 
-   [SerializeField] private PlatformPath platformPath;
+
+    [Header("Moving")]
+    [SerializeField] private PlatformPath platformPath;
     [SerializeField] private float speed;
     private int platformIndex;
 
@@ -26,17 +30,21 @@ public class PlatformMover : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        timer += Time.deltaTime;
-        float currPercentageOfProgress = timer / timeLeft;
-        currPercentageOfProgress = Mathf.SmoothStep(0, 1, currPercentageOfProgress);
-        transform.position = Vector3.Lerp(startPath.position, endPath.position, currPercentageOfProgress);
-        transform.rotation = Quaternion.Lerp(startPath.rotation, endPath.rotation, currPercentageOfProgress);
+       
+        
 
-        if (currPercentageOfProgress >= 1)
-        {
-            
-            NextPath();
-        }
+
+            timer += Time.deltaTime;
+            float currPercentageOfProgress = timer / timeLeft;
+            currPercentageOfProgress = Mathf.SmoothStep(0, 1, currPercentageOfProgress);
+            transform.position = Vector3.Lerp(startPath.position, endPath.position, currPercentageOfProgress);
+            transform.rotation = Quaternion.Lerp(startPath.rotation, endPath.rotation, currPercentageOfProgress);
+
+            if (currPercentageOfProgress >= 1)
+            {
+                NextPath();
+            }
+        
     }
 
     
@@ -46,11 +54,13 @@ public class PlatformMover : MonoBehaviour
         startPath = platformPath.GetPlatformPath(platformIndex);
         platformIndex = platformPath.GetNextPlatformIndex(platformIndex);
         endPath = platformPath.GetPlatformPath(platformIndex);
-
+        
         timer = 0;
 
-        float distanceleft = Vector3.Distance(startPath.position, endPath.position);
-        timeLeft = distanceleft / speed;
+            float distanceleft = Vector3.Distance(startPath.position, endPath.position);
+            timeLeft = distanceleft / speed;
+        
+        
     }
 
     private void OnTriggerEnter(Collider other)
