@@ -19,7 +19,12 @@ public class buttonFunctions : MonoBehaviour
 
     public void quit()
     {
-        Application.Quit();
+        SceneManager.LoadScene(0);
+    }
+
+    public void quitwarning()
+    {
+        gameManager.instance.quitMenu();
     }
 
     public void respawnPlayer()

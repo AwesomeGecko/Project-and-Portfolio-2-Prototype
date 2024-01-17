@@ -18,6 +18,7 @@ public class gameManager : MonoBehaviour
     [SerializeField] GameObject menuLose;
     [SerializeField] GameObject menuControls;
     [SerializeField] GameObject menuSettings;
+    [SerializeField] GameObject quitWarning;
 
     [Header("Interactive UI")]
     [SerializeField] public GameObject interactive;
@@ -230,6 +231,14 @@ public class gameManager : MonoBehaviour
         updateMenu();
         menuActive.SetActive(false);
         menuActive = menuControls;
+        menuActive.SetActive(true);
+    }
+
+    public void quitMenu()
+    {
+        updateMenu();
+        menuActive.SetActive(false);
+        menuActive = quitWarning;
         menuActive.SetActive(true);
     }
 
