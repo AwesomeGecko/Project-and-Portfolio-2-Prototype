@@ -3729,6 +3729,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Default Enemy Spawner
       objectReference: {fileID: 0}
+    - target: {fileID: 1204950251236133811, guid: 06654f7fb4a49ea469ebbe65a0f9097e, type: 3}
+      propertyPath: numToSpawn
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6804007705698481103, guid: 06654f7fb4a49ea469ebbe65a0f9097e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6804007705698481103, guid: 06654f7fb4a49ea469ebbe65a0f9097e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -17.95
+      objectReference: {fileID: 0}
     - target: {fileID: 8111512806103693233, guid: 06654f7fb4a49ea469ebbe65a0f9097e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -6.2699647

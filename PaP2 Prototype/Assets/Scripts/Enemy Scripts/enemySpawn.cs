@@ -41,19 +41,23 @@ public class enemySpawn : MonoBehaviour
 
         isSpawning = true;
 
-        Transform spawnPoint = GetRandomSpawnPoint();
+        //Transform spawnPoint = GetRandomSpawnPoint();
 
-        if (!IsSpawnPointOccupied(spawnPoint.position))
-        {
+        
             int arrayPos = Random.Range(0, spawnPos.Length - 1);
             GameObject objectClone = Instantiate(objectToSpawn, spawnPos[arrayPos].transform.position, spawnPos[arrayPos].transform.rotation);
             objectClone.GetComponent<EnemyAI>().mySpawner = this;
 
             spawnList.Add(objectClone);
             spawnCount++;
-        }
-        
-        yield return new WaitForSeconds(timeBetweenSpawns);
+
+        //if (!IsSpawnPointOccupied(spawnPoint.position))
+        //{
+
+        //}
+
+
+            yield return new WaitForSeconds(timeBetweenSpawns);
         isSpawning = false;
 
     }
