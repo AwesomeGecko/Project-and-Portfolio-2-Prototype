@@ -17,7 +17,7 @@ MonoBehaviour:
   shootDist: 15
   PlayerBulletDamage: 2
   PlayerBulletSpeed: 2
-  ammoCur: 6
+  ammoCur: 14
   ammoMax: 60
   magSize: 14
   totalAmmo: 14

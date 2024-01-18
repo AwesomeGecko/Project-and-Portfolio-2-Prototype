@@ -62,6 +62,7 @@ public class Bullet : MonoBehaviour
         OnCollision?.Invoke(this, null, objectsPenetrated);
         objectsPenetrated++;
         gameObject.SetActive(false); // Instead of destroying, just deactivate the GameObject
+        Destroy(gameObject);
     }
 
     private void OnDisable()
