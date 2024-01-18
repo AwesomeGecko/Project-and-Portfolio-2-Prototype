@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5972594891140791075}
   - component: {fileID: 4420449317417000154}
   m_Layer: 0
-  m_Name: SpikeTrap
+  m_Name: SpikeTrap (dmg)
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -55,10 +55,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa851fea392ab4448a43d1f673fcc2df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageAmount: 1
+  dmgAmount: 1
   moveSpeed: 1
-  maxHeight: 0.2
+  maxHeight: 0.5
   minHeight: -1
+  bleedAmt: 1
+  bleedOverTime: 3
 --- !u!23 &5972594891140791075
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -120,5 +122,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1, y: 2, z: 2}
   m_Center: {x: 0, y: 0, z: 0}

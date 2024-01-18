@@ -6,9 +6,11 @@ using UnityEngine;
 public class SpikeTrap : MonoBehaviour
 {
     [SerializeField] int dmgAmount;
-    [SerializeField] float moveSpeed = 1.0f;
-    [SerializeField] float maxHeight = 2.0f;
-    [SerializeField] float minHeight = 0.5f;
+    [SerializeField] float moveSpeed;
+    [SerializeField] float maxHeight;
+    [SerializeField] float minHeight;
+    [SerializeField] int bleedAmt;
+    [SerializeField] int bleedOverTime;
 
     private bool retract = true;
 
@@ -25,6 +27,8 @@ public class SpikeTrap : MonoBehaviour
             if (HP != null)
             {
                 HP.takeDamage(dmgAmount);
+                StartCoroutine(BleedOverTime(HP));
+                
             }
         }
     }
@@ -43,5 +47,16 @@ public class SpikeTrap : MonoBehaviour
     public void Deactivate()
     {
         gameObject.SetActive(false);
+    }
+
+    private IEnumerator BleedOverTime(PlayerController HP) // Bleed Damage Method
+    {
+        float timer = 0f;
+        while(timer < bleedOverTime)
+        {
+            HP.takeDamage(bleedAmt);
+            yield return new WaitForSeconds(1f);
+            timer += 1f;
+        }
     }
 }
