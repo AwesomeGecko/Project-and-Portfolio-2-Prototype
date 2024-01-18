@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System;
 
 public class menuManager : MonoBehaviour
 {
     public static menuManager instance;
+
+    
 
     [Header("Menus")]
     [SerializeField] GameObject menuActive;
@@ -58,6 +61,19 @@ public class menuManager : MonoBehaviour
     {
         SceneManager.LoadScene(1);
     }
+
+    //public void OnLoadButton()
+    //{
+    //    try
+    //    {
+    //        PlayerStats data = dataService.LoadData<PlayerStats>("/player-stats.json", EncryptionEnabled);
+    //        SceneManager.LoadScene(data.Level);
+    //    }
+    //    catch (Exception)
+    //    {
+    //        Debug.LogError($"Could not read file! Show something on the UI here!");
+    //    }
+    //}
 
     public void OnQuitButton()
     {

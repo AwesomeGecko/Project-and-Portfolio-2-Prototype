@@ -10,6 +10,7 @@ TagManager:
   - Pistol
   - Big Robot
   - TeleportPos
+  - Checkpoint_Alpha
   layers:
   - Default
   - TransparentFX
