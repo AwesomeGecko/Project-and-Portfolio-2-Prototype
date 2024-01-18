@@ -39,8 +39,8 @@ public partial class PlayerController : MonoBehaviour, IDamage
     private bool isShooting;
     bool isPlayingSteps;
     Quaternion initialRotation;
-    bool isLeaning;
     bool isSliding;
+    float slideMod;
 
     [Header("Gameplay Info")]
     public int HPOriginal;
@@ -118,7 +118,21 @@ public partial class PlayerController : MonoBehaviour, IDamage
     {
         RunCode();
         Crouch();
-        Slide();
+        
+        //SLIDING YEAH
+        if (Input.GetButton("Crouch"))
+        {
+            if (Input.GetButtonDown("Sprint"))
+            {
+                slideMod = 1; 
+            }
+            Slide();
+        }
+        else
+        {
+            slideMod = 0;
+            isSliding = false;
+        }
 
         //Identical movement code in the lectures
         groundedPlayer = controller.isGrounded;
@@ -228,15 +242,19 @@ public partial class PlayerController : MonoBehaviour, IDamage
 
     void Slide()
     {
-        if(Input.GetButton("Sprint") && Input.GetButton("Crouch") && Stamina > 0.2f)
+        if(slideMod > 0)
         {
             isSliding = true;
-            playerSpeed = slideSpeed;
-            controller.Move(transform.forward * playerSpeed * Time.deltaTime);
+            controller.Move(transform.forward * slideSpeed * Time.deltaTime * slideMod);
+            slideMod -= Time.deltaTime;
+            if(Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+            {
+                slideMod = 0;
+                isSliding = false;
+            }
         }
-        if(Input.GetButtonUp("Sprint") || Input.GetButtonUp("Crouch"))
+        else
         {
-            playerSpeed = initialSpeed;
             isSliding = false;
         }
     }
