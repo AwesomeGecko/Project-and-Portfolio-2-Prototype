@@ -12,6 +12,7 @@ public class PlatformMover : MonoBehaviour
     [Header("Moving")]
     [SerializeField] private PlatformPath platformPath;
     [SerializeField] private float speed;
+    [SerializeField] private bool SmoothStepOff;
     private int platformIndex;
 
     private Transform startPath;
@@ -36,7 +37,10 @@ public class PlatformMover : MonoBehaviour
 
             timer += Time.deltaTime;
             float currPercentageOfProgress = timer / timeLeft;
+        if (!SmoothStepOff)
+        {
             currPercentageOfProgress = Mathf.SmoothStep(0, 1, currPercentageOfProgress);
+        }
             transform.position = Vector3.Lerp(startPath.position, endPath.position, currPercentageOfProgress);
             transform.rotation = Quaternion.Lerp(startPath.rotation, endPath.rotation, currPercentageOfProgress);
 
