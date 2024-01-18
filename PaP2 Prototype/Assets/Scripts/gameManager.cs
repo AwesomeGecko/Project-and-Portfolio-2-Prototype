@@ -214,7 +214,7 @@ public class gameManager : MonoBehaviour, IDataPersistence
             {
                 onTarget = true;
 
-                interact_text.text = "Pick up [I] " + interactable.GetItemName();
+                interact_text.text = "Pick up [F] " + interactable.GetItemName();
                 interactive.SetActive(true);
                 
             }
