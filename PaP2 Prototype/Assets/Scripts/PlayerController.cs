@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public partial class PlayerController : MonoBehaviour, IDamage
 {
@@ -12,7 +13,7 @@ public partial class PlayerController : MonoBehaviour, IDamage
 
     [Header("Player Stats")]
     [SerializeField] public int HP;
-    [SerializeField] float Stamina;
+    [SerializeField] public float Stamina;
     [SerializeField] float playerSpeed;
     [SerializeField] float jumpHeight;
     [SerializeField] float gravityValue;
@@ -108,6 +109,8 @@ public partial class PlayerController : MonoBehaviour, IDamage
             Movement();
        
     }
+
+   
     
     void Movement()
     {
@@ -163,7 +166,7 @@ public partial class PlayerController : MonoBehaviour, IDamage
     IEnumerator PlaySteps()
     {
         isPlayingSteps = true;
-        aud.PlayOneShot(soundSteps[Random.Range(0, soundSteps.Length - 1)], soundStepsVol);
+        aud.PlayOneShot(soundSteps[UnityEngine.Random.Range(0, soundSteps.Length - 1)], soundStepsVol);
         if(!isRunning)
         {
             yield return new WaitForSeconds(0.5f);
@@ -276,7 +279,15 @@ public partial class PlayerController : MonoBehaviour, IDamage
         UpdatePlayerUI();
 
         controller.enabled = false;
-        transform.position = gameManager.instance.playerSpawnPos.transform.position;
+
+        //if (gameManager.instance.playerStats.Chapter == 0)
+        //{
+            transform.position = gameManager.instance.playerSpawnPos.transform.position;
+       // }
+       // else 
+       // {
+           // transform.position = gameManager.instance.Checkpoint_Alpha.transform.position;
+       // }
         controller.enabled = true;
     }
 

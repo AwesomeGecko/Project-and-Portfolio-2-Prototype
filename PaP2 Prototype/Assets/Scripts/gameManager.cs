@@ -5,8 +5,11 @@ using TMPro;
 using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
+using UnityEditor;
+using System.IO;
 
-public class gameManager : MonoBehaviour
+public class gameManager : MonoBehaviour, IDataPersistence
 {
     public static gameManager instance;
 
@@ -27,6 +30,7 @@ public class gameManager : MonoBehaviour
     [SerializeField] public TextMeshProUGUI maxText;
 
     [Header("Player")]
+    [SerializeField] public GameObject Checkpoint_Alpha;
     [SerializeField] public GameObject playerSpawnPos;
     [SerializeField] public GameObject TeleportPos;
     public GameObject player;
@@ -55,7 +59,7 @@ public class gameManager : MonoBehaviour
 
     [Header("Public variables")]
     public bool isPaused;
-    float timeScaleOrig;
+    public float timeScaleOrig;
     public int enemiesRemaining;
     public bool onTarget;
     public bool isAmmo;
@@ -65,6 +69,7 @@ public class gameManager : MonoBehaviour
     string sceneName;
     Scene currentScene;
     public bool isMuted;
+
 
     // Audio
     [Header("Audio")]
@@ -88,6 +93,7 @@ public class gameManager : MonoBehaviour
         cameraScript = cameraObject.GetComponent<CameraController>();
         playerSpawnPos = GameObject.FindWithTag("PlayerSpawnPos");
         TeleportPos = GameObject.FindWithTag("TeleportPos");
+        Checkpoint_Alpha = GameObject.FindWithTag("Checkpoint_Alpha");
         
 
         damageScreen = GameObject.FindWithTag("DamageScreen");
@@ -127,7 +133,9 @@ public class gameManager : MonoBehaviour
         }
         enemyCounter.text = enemiesRemaining.ToString("0");
         keysLeft.text = keysCollected.ToString("0");
+        
     }
+
 
     public void statePause()
     {
@@ -206,7 +214,7 @@ public class gameManager : MonoBehaviour
             {
                 onTarget = true;
 
-                interact_text.text = "Pick up [E] " + interactable.GetItemName();
+                interact_text.text = "Pick up [I] " + interactable.GetItemName();
                 interactive.SetActive(true);
                 
             }
@@ -329,5 +337,13 @@ public class gameManager : MonoBehaviour
         maxPickup.SetActive(false);
     }
 
-    
+    public void LoadData(GameData data)
+    {
+        keysCollected = data.KeyCount;
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.KeyCount = keysCollected;
+    }
 }

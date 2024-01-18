@@ -123,6 +123,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &41508433 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5412269248319039173, guid: 4d95f24375ba7ce418717db0bef9514c, type: 3}
+  m_PrefabInstance: {fileID: 1049987352}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fe3595b0455e434fbd4a9f30729c885, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &995441805
 GameObject:
   m_ObjectHideFlags: 0
@@ -223,9 +234,49 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 992390099747503138, guid: 4d95f24375ba7ce418717db0bef9514c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2718582926434182655, guid: 4d95f24375ba7ce418717db0bef9514c, type: 3}
       propertyPath: m_Name
       value: Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 3389709041193774271, guid: 4d95f24375ba7ce418717db0bef9514c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3389709041193774271, guid: 4d95f24375ba7ce418717db0bef9514c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3389709041193774271, guid: 4d95f24375ba7ce418717db0bef9514c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 41508433}
+    - target: {fileID: 3389709041193774271, guid: 4d95f24375ba7ce418717db0bef9514c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3389709041193774271, guid: 4d95f24375ba7ce418717db0bef9514c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnLoadButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 3389709041193774271, guid: 4d95f24375ba7ce418717db0bef9514c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: menuManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3389709041193774271, guid: 4d95f24375ba7ce418717db0bef9514c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4635432828491662253, guid: 4d95f24375ba7ce418717db0bef9514c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6452654052709162986, guid: 4d95f24375ba7ce418717db0bef9514c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8978340599242560396, guid: 4d95f24375ba7ce418717db0bef9514c, type: 3}
       propertyPath: m_Pivot.x

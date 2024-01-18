@@ -26,6 +26,7 @@ public class interactableObject : MonoBehaviour {
     private int totalAmmo;
     private int ammoReset;
 
+
     // Audio
     [Header("Audio")]
     [SerializeField] public AudioSource aud;
@@ -78,6 +79,11 @@ public class interactableObject : MonoBehaviour {
             if (ItemName == "Health")
             {
                 healthBox(); //opens and resets health box after time
+            }
+
+            if (ItemName == "Checkpoint")
+            {
+                giveCheckpoint(); //opens and resets checkpoint box after time
             }
 
             if (ItemName == "TP Key")
@@ -167,6 +173,12 @@ public class interactableObject : MonoBehaviour {
         }
         gameManager.instance.isHP = false;
 
+    }
+
+    void giveCheckpoint()
+    {
+        animator.SetTrigger("isOpen");
+        interactCollider.enabled = false;
     }
 
     void keyCollector()
