@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,8 +19,9 @@ public partial class PlayerController : MonoBehaviour, IDamage
     [SerializeField] float jumpHeight;
     [SerializeField] float gravityValue;
     [SerializeField] private float sprintSpeed;
-    [SerializeField] float crouchMod;
+    [SerializeField] float crouchSpeed;
     [SerializeField] float crouchDist;
+    [SerializeField] float slideSpeed;
     [SerializeField] float leanDist;
     [SerializeField] float leanSpeed;
 
@@ -38,6 +40,7 @@ public partial class PlayerController : MonoBehaviour, IDamage
     bool isPlayingSteps;
     Quaternion initialRotation;
     bool isLeaning;
+    bool isSliding;
 
     [Header("Gameplay Info")]
     public int HPOriginal;
@@ -77,7 +80,6 @@ public partial class PlayerController : MonoBehaviour, IDamage
         playerRespawn();
         int.TryParse(gameManager.instance.ammoCounter.text, out gameManagerAmmo);
         ammoCounter = gameManagerAmmo;
-        
     }
 
     // Update is called once per frame
@@ -116,6 +118,7 @@ public partial class PlayerController : MonoBehaviour, IDamage
     {
         RunCode();
         Crouch();
+        Slide();
 
         //Identical movement code in the lectures
         groundedPlayer = controller.isGrounded;
@@ -131,22 +134,12 @@ public partial class PlayerController : MonoBehaviour, IDamage
             jumpCount = 0;
         }
 
-        move = Input.GetAxis("Horizontal") * transform.right + Input.GetAxis("Vertical") * transform.forward;
-
-        //LEAN
-        if(Input.GetButtonDown("LeanLeft") || (Input.GetButtonDown("LeanRight") && !gameManager.instance.onTarget))
+        if (!isSliding)
         {
-            initialRotation = transform.rotation;
-            Lean();
-        }
+            move = Input.GetAxis("Horizontal") * transform.right + Input.GetAxis("Vertical") * transform.forward;
 
-        if(Input.GetButtonUp("LeanLeft") || Input.GetButtonUp("LeanRight"))
-        {
-            Quaternion leanRotation = Quaternion.Euler(0, 0, leanDist);
-            transform.rotation = Quaternion.Euler(0f, transform.eulerAngles.y, 0f);
+            controller.Move(move * playerSpeed * Time.deltaTime);
         }
-
-        controller.Move(move * playerSpeed * Time.deltaTime);
 
         if (Input.GetButtonDown("Jump") && jumpCount < 1)
         {
@@ -156,6 +149,19 @@ public partial class PlayerController : MonoBehaviour, IDamage
 
         playerVelocity.y += gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
+
+        //LEAN
+        if (Input.GetButtonDown("LeanLeft") || (Input.GetButtonDown("LeanRight") && !gameManager.instance.onTarget))
+        {
+            initialRotation = transform.rotation;
+            Lean();
+        }
+
+        if (Input.GetButtonUp("LeanLeft") || Input.GetButtonUp("LeanRight"))
+        {
+            Quaternion leanRotation = Quaternion.Euler(0, 0, leanDist);
+            transform.rotation = Quaternion.Euler(0f, transform.eulerAngles.y, 0f);
+        }
 
         if (!isStaminaRestore && !isRunning && Stamina < StaminaOrig)
         {
@@ -178,7 +184,6 @@ public partial class PlayerController : MonoBehaviour, IDamage
         isPlayingSteps = false;
     }
 
-
     public void teleportPlayer()
     {
         controller.enabled = false;
@@ -196,7 +201,8 @@ public partial class PlayerController : MonoBehaviour, IDamage
                 playerSpeed = sprintSpeed;
             }
         }
-        else
+        
+        if(Input.GetButtonUp("Sprint"))
         {
             playerSpeed = initialSpeed;
         }
@@ -209,28 +215,29 @@ public partial class PlayerController : MonoBehaviour, IDamage
         if (Input.GetButtonDown("Crouch"))
         {
             controller.height -= crouchDist;
-            playerSpeed *= crouchMod;
+            playerSpeed = crouchSpeed;
             Camera.main.transform.localPosition -= crouchCameraDist;
         }
         else if (Input.GetButtonUp("Crouch"))
         {
             controller.height += crouchDist;
-            playerSpeed /= crouchMod;
+            playerSpeed = initialSpeed;
             Camera.main.transform.localPosition += crouchCameraDist;
         }
     }
-    public void takeDamage(int amount)
+
+    void Slide()
     {
-        aud.PlayOneShot(playerHurt); // Plays sound effect immediately upon taking damage
-        HP -= amount;
-        UpdatePlayerUI();
-        if (HP <= 0)
+        if(Input.GetButton("Sprint") && Input.GetButton("Crouch") && Stamina > 0.2f)
         {
-            gameManager.instance.youLose();
+            isSliding = true;
+            playerSpeed = slideSpeed;
+            controller.Move(transform.forward * playerSpeed * Time.deltaTime);
         }
-        if (amount >= 1)
-        { 
-            gameManager.instance.damageIndicator();
+        if(Input.GetButtonUp("Sprint") || Input.GetButtonUp("Crouch"))
+        {
+            playerSpeed = initialSpeed;
+            isSliding = false;
         }
     }
 
@@ -257,7 +264,7 @@ public partial class PlayerController : MonoBehaviour, IDamage
     IEnumerator Sprint()
     { 
         isRunning = true;
-        if(move != Vector3.zero)
+        if(move != Vector3.zero || isSliding)
         {
             Stamina -= 1;
         }
@@ -271,6 +278,21 @@ public partial class PlayerController : MonoBehaviour, IDamage
         Stamina += 1;
         yield return new WaitForSeconds(staminaRestoreSpeed);
         isStaminaRestore = false;
+    }
+
+    public void takeDamage(int amount)
+    {
+        aud.PlayOneShot(playerHurt); // Plays sound effect immediately upon taking damage
+        HP -= amount;
+        UpdatePlayerUI();
+        if (HP <= 0)
+        {
+            gameManager.instance.youLose();
+        }
+        if (amount >= 1)
+        {
+            gameManager.instance.damageIndicator();
+        }
     }
 
     public void playerRespawn()
