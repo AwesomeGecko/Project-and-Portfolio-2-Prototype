@@ -51,6 +51,7 @@ public class LandMine : MonoBehaviour
         }
     }
 
+   /*
     private void OnTriggerExit(Collider other)
     {
         if(other.CompareTag("Player"))
@@ -59,6 +60,7 @@ public class LandMine : MonoBehaviour
             timer = 0f;
         }
     }
+   */
 
     private void Detonate()
     {
