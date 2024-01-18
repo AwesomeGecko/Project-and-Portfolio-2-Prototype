@@ -80,22 +80,24 @@ public partial class PlayerController
             //If the current gun wants the scope
             if (currentGun.shouldUseScope)
             {
-
-                //Enable the scope image overlay ontop of the main camera
-                gameManager.instance.Scope.gameObject.SetActive(true);
-
-                //Cull the gun out of screen
-                scopeIn.cullingMask = scopeIn.cullingMask & ~(1 << 7);
-
+                //Using Invoke enables the scope image overlay ontop of the main camera through a time delay
+                Invoke("ActivateM4Sight", 0.3f);
                 //Adjust the scope cameras FOV
                 Camera.main.fieldOfView = currentGun.fieldOfView;
+            }
+
+            //If the current gun is the shotgun use the shotgun sight
+            else if(currentGun.isShotgun)
+            {
+                //Using Invoke enables the shotgun sight ontop of the main camera through a time delay
+                Invoke("ActivateShotgunSight", 0.4f);
+                //Adjust the shotgun camera FOV
+                Camera.main.fieldOfView= currentGun.fieldOfView;
             }
             else
             {
                 //Deactivate the Scope image
                 gameManager.instance.Scope.gameObject.SetActive(false);
-
-
 
                 //Cull the gun back onto screen
                 scopeIn.cullingMask = scopeIn.cullingMask | (1 << 7);
@@ -114,9 +116,26 @@ public partial class PlayerController
             //Disable the scope camera
             gameManager.instance.Scope.gameObject.SetActive(false);
 
+            //Disable the shotgun sight
+            gameManager.instance.ShotgunSight.gameObject.SetActive(false);
+
             //Re-enable the main camera and set it to the default value
             Camera.main.fieldOfView = defaultFOV;
         }
+    }
+
+    //This method simply calls the UI image of the scope and sets it to true
+    void ActivateM4Sight()
+    {
+        gameManager.instance.Scope.gameObject.SetActive(true);
+        //Cull the gun out of screen by setting the gun model on a layer called weapon. Then the m4 will not be shown when the scope image is overlayed on the main camera.
+        scopeIn.cullingMask = scopeIn.cullingMask & ~(1 << 7);
+    }
+
+    //This method simply calls the UI image of the shotgun sight and sets it to true
+    void ActivateShotgunSight()
+    {
+        gameManager.instance.ShotgunSight.gameObject.SetActive(true);
     }
 
     private void CombineMeshes(List<CombinedMeshInfo> combinedMeshInfos)

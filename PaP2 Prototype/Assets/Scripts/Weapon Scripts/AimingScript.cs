@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AimingScript : MonoBehaviour
 {
-    public GameObject gunModel;
+    public GameObject gunHolder;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,13 +21,13 @@ public class AimingScript : MonoBehaviour
 
         if (Input.GetMouseButtonDown(1))
         {
-            gunModel.GetComponent<Animator>().Play("New State");
+            gunHolder.GetComponent<Animator>().Play("New State");
         }
     }
 
     void PlayAnimationWithSpeed(string ads, float speed)
     {
-        Animator animator = gunModel.GetComponent<Animator>();
+        Animator animator = gunHolder.GetComponent<Animator>();
         if(animator!= null)
         {
             animator.speed = speed;
