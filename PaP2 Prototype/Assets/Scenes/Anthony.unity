@@ -733,22 +733,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 681734634721804330, guid: 415e8ce8c9de02143b1cd6917b11c526, type: 3}
-      propertyPath: crouchMod
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 681734634721804330, guid: 415e8ce8c9de02143b1cd6917b11c526, type: 3}
-      propertyPath: crouchDist
-      value: 0.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 681734634721804330, guid: 415e8ce8c9de02143b1cd6917b11c526, type: 3}
-      propertyPath: slideSpeed
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 681734634721804330, guid: 415e8ce8c9de02143b1cd6917b11c526, type: 3}
-      propertyPath: crouchSpeed
-      value: 7.5
-      objectReference: {fileID: 0}
     - target: {fileID: 2032022834073519530, guid: 415e8ce8c9de02143b1cd6917b11c526, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.90720844
