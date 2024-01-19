@@ -29,7 +29,8 @@ public partial class PlayerController : MonoBehaviour, IDamage
     [SerializeField] AudioClip[] soundSteps;
     [Range(0f, 1f)][SerializeField] float soundStepsVol;
     [SerializeField] AudioClip playerHurt;
-    
+    [SerializeField] AudioClip playerDies;
+
 
     private Vector3 playerVelocity;
     private Vector3 move;
@@ -213,12 +214,18 @@ public partial class PlayerController : MonoBehaviour, IDamage
             {
                 StartCoroutine(Sprint());
                 playerSpeed = sprintSpeed;
+
+                // CR: Adjusts player footsteps louder/faster
+                soundStepsVol = 1.0f;
             }
         }
         
         if(Input.GetButtonUp("Sprint"))
         {
             playerSpeed = initialSpeed;
+
+            // CR: Reset back to original volume value
+            soundStepsVol = 0.5f;
         }
 
         UpdatePlayerUI();
@@ -231,12 +238,18 @@ public partial class PlayerController : MonoBehaviour, IDamage
             controller.height -= crouchDist;
             playerSpeed = crouchSpeed;
             Camera.main.transform.localPosition -= crouchCameraDist;
+
+            // CR: Adjusts player footsteps louder/faster
+            soundStepsVol = 0.2f;
         }
         else if (Input.GetButtonUp("Crouch"))
         {
             controller.height += crouchDist;
             playerSpeed = initialSpeed;
             Camera.main.transform.localPosition += crouchCameraDist;
+
+            // CR: Reset back to original volume value
+            soundStepsVol = 0.5f;
         }
     }
 
@@ -305,7 +318,8 @@ public partial class PlayerController : MonoBehaviour, IDamage
         UpdatePlayerUI();
         if (HP <= 0)
         {
-            gameManager.instance.youLose();
+            StartCoroutine(PlayerDiesAndLoses());
+            //gameManager.instance.youLose();
         }
         if (amount >= 1)
         {
@@ -339,6 +353,11 @@ public partial class PlayerController : MonoBehaviour, IDamage
         gameManager.instance.maxAmmoCounter.text = gunList[selectedGun].totalAmmo.ToString("0");
     }
 
-
+    public IEnumerator PlayerDiesAndLoses() // Has the player play death sfx first, waits a second and then calls youLose()
+    {
+        aud.PlayOneShot(playerDies);
+        yield return new WaitForSeconds(1.0f);
+        gameManager.instance.youLose();
+    }
 
 }
