@@ -11,12 +11,13 @@ public class LandMine : MonoBehaviour
     [SerializeField] public int dmgAmount;
 
     [Header("Audio")]
-    [SerializeField] private AudioSource aud;
-    [SerializeField] private AudioClip mineBeep;
-    [SerializeField] private AudioClip expSound;
+    [SerializeField] public AudioSource aud;
+    [SerializeField] public AudioClip mineBeep;
+    [SerializeField] public AudioClip expSound;
 
     private bool isPlayerNear;
     private float timer;
+    private static List<LandMine> mineTraps = new List<LandMine>();
     
     // Update is called once per frame
     void Update()
@@ -51,16 +52,15 @@ public class LandMine : MonoBehaviour
         }
     }
 
-   /*
-    private void OnTriggerExit(Collider other)
+    private void OnEnable()
     {
-        if(other.CompareTag("Player"))
-        {
-            isPlayerNear = false;
-            timer = 0f;
-        }
+        mineTraps.Add(this);
     }
-   */
+
+    private void OnDisable()
+    {
+        mineTraps.Remove(this);
+    }
 
     private void Detonate()
     {
@@ -78,4 +78,22 @@ public class LandMine : MonoBehaviour
         gameObject.SetActive(false);
     }
     
+    public static void SetListVolume(float volume)
+    {
+        foreach(LandMine mines in mineTraps)
+        {
+            if(mines != null)
+            {
+                mines.SetVolume(volume);
+            }
+        }
+    }
+
+    public void SetVolume(float volume)
+    {
+        if(aud != null)
+        {
+            aud.volume = volume;
+        }
+    }
 }

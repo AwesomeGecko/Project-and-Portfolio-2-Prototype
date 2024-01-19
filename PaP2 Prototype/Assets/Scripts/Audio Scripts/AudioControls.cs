@@ -14,6 +14,7 @@ public class AudioControls : MonoBehaviour
     [SerializeField] Slider musicSlider;
     [SerializeField] Slider sfxSlider;
 
+
     private float volume;
 
     public void Start()
@@ -27,8 +28,8 @@ public class AudioControls : MonoBehaviour
         volume = mainSlider.value;
         audioMixer.SetFloat("Main", Mathf.Log10(volume) * 20);
         gameManager.instance.aud.volume = volume;
+        LandMine.SetListVolume(volume);
         PlayerPrefs.SetFloat("mainVolume", volume);
-        
     }
 
     public void setMusicVolume()
@@ -44,8 +45,9 @@ public class AudioControls : MonoBehaviour
         volume = sfxSlider.value;
         audioMixer.SetFloat("SFX", Mathf.Log10(volume) * 20);
         gameManager.instance.aud.volume = volume;
+        LandMine.SetListVolume(volume);
         PlayerPrefs.SetFloat("sfxVolume", volume);
-        
+
     }
 
 
