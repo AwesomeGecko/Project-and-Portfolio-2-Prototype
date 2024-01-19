@@ -32,6 +32,8 @@ public class interactableObject : MonoBehaviour {
     [SerializeField] public AudioSource aud;
     public AudioClip interactSound;
     [Range(0f, 1f)][SerializeField] float interactSoundVol;
+    // CR
+    public AudioClip healthGain;
 
     void Start()
     {
@@ -166,6 +168,8 @@ public class interactableObject : MonoBehaviour {
         {
             StartCoroutine(openBox());
             gameManager.instance.playerScript.HP += healAmount;
+            // CR
+            aud.PlayOneShot(healthGain);
         }
         else
         {

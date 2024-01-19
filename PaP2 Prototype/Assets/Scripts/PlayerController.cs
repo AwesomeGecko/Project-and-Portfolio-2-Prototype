@@ -32,7 +32,8 @@ public partial class PlayerController : MonoBehaviour, IDamage
     [SerializeField] AudioClip playerHurt;
     [SerializeField] AudioClip playerDies; // CR
     [SerializeField] AudioClip lowHealth; // CR
-
+    [SerializeField] AudioClip staminaRestore; // CR
+    [Range(0f, 1f)][SerializeField] float staminaRestoreVol; // CR
 
     private Vector3 playerVelocity;
     private Vector3 move;
@@ -313,6 +314,7 @@ public partial class PlayerController : MonoBehaviour, IDamage
     IEnumerator RestoreStamina()
     {
         isStaminaRestore = true;
+        aud.PlayOneShot(staminaRestore, staminaRestoreVol);
         Stamina += 1;
         yield return new WaitForSeconds(staminaRestoreSpeed);
         isStaminaRestore = false;

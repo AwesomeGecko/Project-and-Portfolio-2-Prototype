@@ -81,6 +81,9 @@ public class gameManager : MonoBehaviour, IDataPersistence
     [Range(0f, 1f)][SerializeField] float loseSoundVol;
     public AudioClip pauseSound;
     [Range(0f, 1f)][SerializeField] float pauseSoundVol;
+    // CR
+    public AudioClip UIButtonForward;
+    public AudioClip UIButtonBack;
 
     // Start is called before the first frame update
     void Awake()
@@ -263,6 +266,8 @@ public class gameManager : MonoBehaviour, IDataPersistence
     {
         if (menuActive != null)
         {
+            // CR
+            aud.PlayOneShot(UIButtonForward);
             previousMenu = menuActive;
         }
     }
@@ -270,6 +275,7 @@ public class gameManager : MonoBehaviour, IDataPersistence
     public void backBttn()
     {
         menuActive.SetActive(false);
+        aud.PlayOneShot(UIButtonBack);
         menuActive = previousMenu;
         menuActive.SetActive(true);
     }

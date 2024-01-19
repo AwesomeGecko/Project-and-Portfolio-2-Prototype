@@ -13,7 +13,8 @@ public class AudioControls : MonoBehaviour
     [SerializeField] Slider mainSlider;
     [SerializeField] Slider musicSlider;
     [SerializeField] Slider sfxSlider;
-
+    
+    [SerializeField] ToggleTrap plate;
 
     private float volume;
 
@@ -29,6 +30,7 @@ public class AudioControls : MonoBehaviour
         audioMixer.SetFloat("Main", Mathf.Log10(volume) * 20);
         gameManager.instance.aud.volume = volume;
         LandMine.SetListVolume(volume);
+        AdjustPlateSound();
         PlayerPrefs.SetFloat("mainVolume", volume);
     }
 
@@ -46,6 +48,7 @@ public class AudioControls : MonoBehaviour
         audioMixer.SetFloat("SFX", Mathf.Log10(volume) * 20);
         gameManager.instance.aud.volume = volume;
         LandMine.SetListVolume(volume);
+        AdjustPlateSound();
         PlayerPrefs.SetFloat("sfxVolume", volume);
 
     }
@@ -92,6 +95,14 @@ public class AudioControls : MonoBehaviour
         else
         {
             LoadVolume();
+        }
+    }
+
+    public void AdjustPlateSound()
+    {
+        if(plate != null)
+        {
+            plate.SetVolume(volume);
         }
     }
 }

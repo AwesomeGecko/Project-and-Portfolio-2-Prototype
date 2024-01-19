@@ -103,6 +103,7 @@ MonoBehaviour:
   aud: {fileID: 8462645212754000984}
   interactSound: {fileID: 8300000, guid: e7bcfd68a53821449b261af012c180d1, type: 3}
   interactSoundVol: 0.5
+  healthGain: {fileID: 8300000, guid: 98b2eee188330b644919a7fc260fc81f, type: 3}
 --- !u!65 &2855300059232819885
 BoxCollider:
   m_ObjectHideFlags: 0
