@@ -339,7 +339,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -32.5}
+  m_AnchoredPosition: {x: 0, y: -32.500122}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &462248776912890798
@@ -952,6 +952,8 @@ MonoBehaviour:
   loseSoundVol: 0.5
   pauseSound: {fileID: 8300000, guid: 5c2471fc85ca45b4687db8150f1afb92, type: 3}
   pauseSoundVol: 0.15
+  UIButtonForward: {fileID: 8300000, guid: 595b28206ded5b342b5ea7e1b580108b, type: 3}
+  UIButtonBack: {fileID: 8300000, guid: bfe90ce5da337de49956cffc8125a2f4, type: 3}
 --- !u!114 &7213592768430537374
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4864,6 +4866,10 @@ MonoBehaviour:
   mainSlider: {fileID: 5851285816674698486}
   musicSlider: {fileID: 8703988580037867624}
   sfxSlider: {fileID: 3779648746281363273}
+  plates: []
+  doors:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!222 &6643397723518606636
 CanvasRenderer:
   m_ObjectHideFlags: 0

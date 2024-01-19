@@ -152,6 +152,8 @@ MonoBehaviour:
   playerHurt: {fileID: 8300000, guid: b37f1d3deb0bf83449775a151188c377, type: 3}
   playerDies: {fileID: 8300000, guid: 50c69d79e7000ab499aa45bedf36cd04, type: 3}
   lowHealth: {fileID: 8300000, guid: 2ac6c415babd8464fb3c0d150bfbb3c1, type: 3}
+  staminaRestore: {fileID: 8300000, guid: c89d51e960bc6b14d8dfe5ad4f8ccd9b, type: 3}
+  staminaRestoreVol: 0.15
   HPOriginal: 0
   staminaRunCost: 2
   staminaRestoreSpeed: 0.8

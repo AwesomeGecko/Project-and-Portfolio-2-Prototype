@@ -26,7 +26,7 @@ public class interactableObject : MonoBehaviour {
     private int totalAmmo;
     private int ammoReset;
 
-
+    
     // Audio
     [Header("Audio")]
     [SerializeField] public AudioSource aud;
@@ -94,6 +94,7 @@ public class interactableObject : MonoBehaviour {
                 keyCollector();
                 if (gameManager.instance.keysCollected == 3)
                 { 
+                    //Collect all 3 keys sound here
                     gameManager.instance.isTPOn = true;
                 }
             }
