@@ -129,7 +129,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 5190971063148889619}
   aud: {fileID: 4268009355107710033}
-  HP: 10
+  HP: 20
+  lowHP: 10
   Stamina: 10
   playerSpeed: 10
   jumpHeight: 7.5
@@ -150,6 +151,7 @@ MonoBehaviour:
   soundStepsVol: 0.5
   playerHurt: {fileID: 8300000, guid: b37f1d3deb0bf83449775a151188c377, type: 3}
   playerDies: {fileID: 8300000, guid: 50c69d79e7000ab499aa45bedf36cd04, type: 3}
+  lowHealth: {fileID: 8300000, guid: 2ac6c415babd8464fb3c0d150bfbb3c1, type: 3}
   HPOriginal: 0
   staminaRunCost: 2
   staminaRestoreSpeed: 0.8

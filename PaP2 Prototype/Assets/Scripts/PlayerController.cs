@@ -14,6 +14,7 @@ public partial class PlayerController : MonoBehaviour, IDamage
 
     [Header("Player Stats")]
     [SerializeField] public int HP;
+    [SerializeField] public int lowHP; // CR
     [SerializeField] public float Stamina;
     [SerializeField] float playerSpeed;
     [SerializeField] float jumpHeight;
@@ -29,7 +30,8 @@ public partial class PlayerController : MonoBehaviour, IDamage
     [SerializeField] AudioClip[] soundSteps;
     [Range(0f, 1f)][SerializeField] float soundStepsVol;
     [SerializeField] AudioClip playerHurt;
-    [SerializeField] AudioClip playerDies;
+    [SerializeField] AudioClip playerDies; // CR
+    [SerializeField] AudioClip lowHealth; // CR
 
 
     private Vector3 playerVelocity;
@@ -42,6 +44,7 @@ public partial class PlayerController : MonoBehaviour, IDamage
     Quaternion initialRotation;
     bool isSliding;
     float slideMod;
+    bool isLowHealth; // CR
 
     [Header("Gameplay Info")]
     public int HPOriginal;
@@ -110,7 +113,11 @@ public partial class PlayerController : MonoBehaviour, IDamage
             }
         }
             Movement();
-       
+       // CR
+        if(HP <= lowHP && !isLowHealth)
+        {
+            StartCoroutine(PlayHeartbeat());
+        }
     }
 
    
@@ -318,6 +325,7 @@ public partial class PlayerController : MonoBehaviour, IDamage
         UpdatePlayerUI();
         if (HP <= 0)
         {
+            // CR
             StartCoroutine(PlayerDiesAndLoses());
             //gameManager.instance.youLose();
         }
@@ -353,6 +361,7 @@ public partial class PlayerController : MonoBehaviour, IDamage
         gameManager.instance.maxAmmoCounter.text = gunList[selectedGun].totalAmmo.ToString("0");
     }
 
+    // CR Method
     public IEnumerator PlayerDiesAndLoses() // Has the player play death sfx first, waits a second and then calls youLose()
     {
         aud.PlayOneShot(playerDies);
@@ -360,4 +369,15 @@ public partial class PlayerController : MonoBehaviour, IDamage
         gameManager.instance.youLose();
     }
 
+    // CR Method
+    public IEnumerator PlayHeartbeat()
+    {
+        isLowHealth = true;
+        while(HP <= lowHP) // Adjust if needed depending on actual Player HP value. lowHealth sfx loops until HP is restored past lowHP limit.
+        {
+            aud.PlayOneShot(lowHealth);
+            yield return new WaitForSeconds(1.0f);
+        }
+        isLowHealth = false;
+    }
 }
