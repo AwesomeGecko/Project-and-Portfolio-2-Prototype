@@ -24,7 +24,7 @@ public class GunPickupScript : MonoBehaviour
         {
             triggerSet = true;
             //give the stats to the player
-            gameManager.instance.playerScript.getGunStats(gun);
+            gameManager.instance.playerGunControls.getGunStats(gun);
             Destroy(gameObject);
         }
     }

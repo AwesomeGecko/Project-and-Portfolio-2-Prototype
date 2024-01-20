@@ -54,7 +54,7 @@ public partial class PlayerController : MonoBehaviour, IDamage, IDataPersistence
     public float staminaRestoreSpeed;
     private bool isRunning;
     private bool isStaminaRestore;
-
+    private PlayerGunControls PlayerGunControls;
     //Gun logic
     private float initialSpeed;
 
@@ -69,55 +69,55 @@ public partial class PlayerController : MonoBehaviour, IDamage, IDataPersistence
         StaminaOrig = Stamina;
         initialSpeed = playerSpeed;
 
-        //Default field of view for the player
-        defaultFOV = Camera.main.fieldOfView;
+        ////Default field of view for the player
+        //PlayerGunControls.defaultFOV = Camera.main.fieldOfView;
 
-        if (defaultPistol != null)
-        {
-            getGunStats(defaultPistol);
-            gunList[selectedGun].ammoCur = gunList[selectedGun].magSize;
-        }
-        else
-        {
-            Debug.LogError("Default pistol scriptable object is not assigned in the Unity Editor.");
-        }
+        //if (PlayerGunControls.defaultPistol != null)
+        //{
+        //    PlayerGunControls.getGunStats(PlayerGunControls.defaultPistol);
+        //    PlayerGunControls.gunList[PlayerGunControls.selectedGun].ammoCur = PlayerGunControls.gunList[PlayerGunControls.selectedGun].magSize;
+        //}
+        //else
+        //{
+        //    Debug.LogError("Default pistol scriptable object is not assigned in the Unity Editor.");
+        //}
 
         playerRespawn();
-        int.TryParse(gameManager.instance.ammoCounter.text, out gameManagerAmmo);
-        ammoCounter = gameManagerAmmo;
+       // int.TryParse(gameManager.instance.ammoCounter.text, out PlayerGunControls.gameManagerAmmo);
+       //PlayerGunControls.ammoCounter = PlayerGunControls.gameManagerAmmo;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!gameManager.instance.isPaused)
-        {
-            if (gunList.Count > 0)
-            {
-                if (Input.GetButton("Fire1") && !isShooting)
-                {
-                    StartCoroutine(Shoot());
-                }
+        //if (!gameManager.instance.isPaused)
+        //{
+        //    if (PlayerGunControls.gunList.Count > 0)
+        //    {
+        //        if (Input.GetButton("Fire1") && !isShooting)
+        //        {
+        //            StartCoroutine(PlayerGunControls.Shoot());
+        //        }
 
-                selectGun();
+        //        PlayerGunControls.selectGun();
 
-                if (Input.GetButtonDown("AimDownSight"))
-                {
-                    ToggleAimDownSights();
-                }
+        //        if (Input.GetButtonDown("AimDownSight"))
+        //        {
+        //            PlayerGunControls.ToggleAimDownSights();
+        //        }
 
-                if (Input.GetButtonDown("Reload"))
-                {
-                    Reload();
-                }
+        //        if (Input.GetButtonDown("Reload"))
+        //        {
+        //            PlayerGunControls.Reload();
+        //        }
                 
-            }
-        }
+        //    }
+        //}
             Movement();
        // CR
         if(HP <= lowHP && !isLowHealth)
         {
-            StartCoroutine(PlayHeartbeat());
+           StartCoroutine(PlayHeartbeat());
         }
     }
 
@@ -380,8 +380,8 @@ public partial class PlayerController : MonoBehaviour, IDamage, IDataPersistence
     {
         gameManager.instance.playerHPBar.fillAmount = (float)HP / HPOriginal;
         gameManager.instance.playerStaminaBar.fillAmount = Stamina / StaminaOrig;
-        gameManager.instance.ammoCounter.text = gunList[selectedGun].ammoCur.ToString("0");
-        gameManager.instance.maxAmmoCounter.text = gunList[selectedGun].totalAmmo.ToString("0");
+        //gameManager.instance.ammoCounter.text = PlayerGunControls.gunList[PlayerGunControls.selectedGun].ammoCur.ToString("0");
+        //gameManager.instance.maxAmmoCounter.text = PlayerGunControls.gunList[PlayerGunControls.selectedGun].totalAmmo.ToString("0");
     }
 
     // CR Method

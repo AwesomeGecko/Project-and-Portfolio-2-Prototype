@@ -126,35 +126,35 @@ public class interactableObject : MonoBehaviour {
     {
         //not used like a method just for refferance so i dont get confused...
         //DO NOT USE THESE VARIABLES, it wont work T_T use the gameManager refreance instead
-        ammoCur = gameManager.instance.playerScript.gunList[gameManager.instance.playerScript.selectedGun].ammoCur;
-        magSize = gameManager.instance.playerScript.gunList[gameManager.instance.playerScript.selectedGun].magSize;
-        maxAmmo = gameManager.instance.playerScript.maxAmmo;
-        totalAmmo = gameManager.instance.playerScript.gunList[gameManager.instance.playerScript.selectedGun].totalAmmo;
-        ammoMax = gameManager.instance.playerScript.gunList[gameManager.instance.playerScript.selectedGun].ammoMax;
+        ammoCur = gameManager.instance.playerGunControls.gunList[gameManager.instance.playerGunControls.selectedGun].ammoCur;
+        magSize = gameManager.instance.playerGunControls.gunList[gameManager.instance.playerGunControls.selectedGun].magSize;
+        maxAmmo = gameManager.instance.playerGunControls.maxAmmo;
+        totalAmmo = gameManager.instance.playerGunControls.gunList[gameManager.instance.playerGunControls.selectedGun].totalAmmo;
+        ammoMax = gameManager.instance.playerGunControls.gunList[gameManager.instance.playerGunControls.selectedGun].ammoMax;
     }
 
     void ammoBox()
     {
         gameManager.instance.isAmmo = true;
-        int bulletsNeeded = gameManager.instance.playerScript.gunList[gameManager.instance.playerScript.selectedGun].magSize - gameManager.instance.playerScript.gunList[gameManager.instance.playerScript.selectedGun].totalAmmo;
+        int bulletsNeeded = gameManager.instance.playerGunControls.gunList[gameManager.instance.playerGunControls.selectedGun].magSize - gameManager.instance.playerGunControls.gunList[gameManager.instance.playerGunControls.selectedGun].totalAmmo;
 
         //if current ammo is less than max
-        if (gameManager.instance.playerScript.gunList[gameManager.instance.playerScript.selectedGun].totalAmmo < gameManager.instance.playerScript.gunList[gameManager.instance.playerScript.selectedGun].magSize)
+        if (gameManager.instance.playerGunControls.gunList[gameManager.instance.playerGunControls.selectedGun].totalAmmo < gameManager.instance.playerGunControls.gunList[gameManager.instance.playerGunControls.selectedGun].magSize)
         {
             StartCoroutine(openBox());
-            if (gameManager.instance.playerScript.gunList[gameManager.instance.playerScript.selectedGun].totalAmmo + ammoAmount > gameManager.instance.playerScript.gunList[gameManager.instance.playerScript.selectedGun].magSize)
+            if (gameManager.instance.playerGunControls.gunList[gameManager.instance.playerGunControls.selectedGun].totalAmmo + ammoAmount > gameManager.instance.playerGunControls.gunList[gameManager.instance.playerGunControls.selectedGun].magSize)
             {
                 //Add the amount needed to the gun and none over ex: magSize = 10 ammoAmmount = 25
                 //subtracts magSize from totalAmmo to give propper refill
                 ammoAmount = bulletsNeeded;
-                gameManager.instance.playerScript.gunList[gameManager.instance.playerScript.selectedGun].totalAmmo += ammoAmount;
+                gameManager.instance.playerGunControls.gunList[gameManager.instance.playerGunControls.selectedGun].totalAmmo += ammoAmount;
                 gameManager.instance.maxText.text = $"Ammo Given {ammoAmount}";
                 ammoAmount = ammoReset;
             }
             else 
             {
                 //Add the amount of ammo directly to the specific gun magazine
-                gameManager.instance.playerScript.gunList[gameManager.instance.playerScript.selectedGun].totalAmmo += ammoAmount;
+                gameManager.instance.playerGunControls.gunList[gameManager.instance.playerGunControls.selectedGun].totalAmmo += ammoAmount;
                 gameManager.instance.maxText.text = $"Ammo Given {ammoAmount}";
             }
             gameManager.instance.runText();
