@@ -67,8 +67,10 @@ public class interactableObject : MonoBehaviour {
 
         if (Input.GetButtonDown("Interact") && playerInRange && gameManager.instance.onTarget)
         {
-            
-            Debug.Log("Item Added to Inventory");
+            if (gameManager.instance.DebugLogs)
+            {
+                Debug.Log("Added item to inventory!");
+            }
 
             InteractSound();
 

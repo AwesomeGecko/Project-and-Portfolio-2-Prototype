@@ -5308,6 +5308,8 @@ MonoBehaviour:
   particles: {fileID: 5156649881774574293}
   playerInRange: 0
   isTeleporterOn: 0
+  keyCounter: 0
+  sceneName: 2nd Level
 --- !u!135 &8292145781905718755
 SphereCollider:
   m_ObjectHideFlags: 0

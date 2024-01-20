@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public partial class PlayerController : MonoBehaviour, IDamage
+public partial class PlayerController : MonoBehaviour, IDamage, IDataPersistence
 {
     [Header("Components")]
     [SerializeField] CharacterController controller;
@@ -121,8 +121,21 @@ public partial class PlayerController : MonoBehaviour, IDamage
         }
     }
 
-   
-    
+    public void LoadData(GameData data)
+    {
+        transform.position = data.playerPosition;
+        HP = data.Health;
+        Stamina = data.Stamina;
+    }
+
+    public void SaveData(GameData data)
+    {
+        data.playerPosition = transform.position;
+        data.Health = HP;
+        data.Stamina = Stamina;
+    }
+
+
     void Movement()
     {
         RunCode();
