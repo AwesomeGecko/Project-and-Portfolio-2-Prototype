@@ -16,6 +16,8 @@ public class teleporterScript : MonoBehaviour
     public bool playerInRange;
     public bool isTeleporterOn;
     public int keyCounter;
+    private DataPersistenceManager dataPersistenceManager;
+    public string sceneName;
 
     private void Start()
     {
@@ -37,7 +39,9 @@ public class teleporterScript : MonoBehaviour
         aud.loop = false;
         aud.Play();
         StartCoroutine(LoadSceneAfterSFX(changeScene.length));
+        SceneManager.LoadScene(sceneName);
     }
+
 
     void turnOnTeleporter()
     {

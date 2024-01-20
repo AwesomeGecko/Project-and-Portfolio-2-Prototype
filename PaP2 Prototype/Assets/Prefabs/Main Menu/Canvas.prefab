@@ -329,7 +329,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1183952924072051179}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5412269248319039173}
+        m_TargetAssemblyTypeName: menuManager, Assembly-CSharp
+        m_MethodName: OnLoadGameClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &435974950348425379
 GameObject:
   m_ObjectHideFlags: 0
@@ -2960,10 +2972,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -4218,6 +4230,10 @@ MonoBehaviour:
   menuCredits: {fileID: 6452654052709162986}
   menuExit: {fileID: 8253177350213405496}
   menuLoadNew: {fileID: 992390099747503138}
+  LoadGameButton: {fileID: 3389709041193774271}
+  LoadGameText: {fileID: 1503893213190138559}
+  NewGameButton: {fileID: 1016671256451957808}
+  NewGameText: {fileID: 1282801214381540627}
   fastForwardText: {fileID: 6445829990913608974}
   credits: {fileID: 6236689660092376744}
 --- !u!1 &4165625354908146597
@@ -9133,7 +9149,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 5412269248319039173}
         m_TargetAssemblyTypeName: menuManager, Assembly-CSharp
-        m_MethodName: backStory
+        m_MethodName: OnNewGameClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10182,6 +10198,7 @@ MonoBehaviour:
   mainSlider: {fileID: 9121252299001441550}
   musicSlider: {fileID: 1088605732927197770}
   sfxSlider: {fileID: 976154897624548525}
+  plate: {fileID: 0}
 --- !u!222 &8717405168286390279
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10668,9 +10685,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f07c0f3b90e27b74b8bcd792415d8b08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  muted: {fileID: 21300000, guid: 93e6e8dc7e9ccb945a1adc8e5a8f5fe2, type: 3}
-  unmuted: {fileID: 21300000, guid: fd0b90ca72c3d8b408d625dcdd9c0951, type: 3}
-  muteButtn: {fileID: 3139305329883699190}
+  sprite1: {fileID: 0}
+  sprite2: {fileID: 0}
+  image: {fileID: 0}
+  toggled: 0
 --- !u!114 &3139305329883699190
 MonoBehaviour:
   m_ObjectHideFlags: 0

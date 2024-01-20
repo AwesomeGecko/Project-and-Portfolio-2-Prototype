@@ -7,9 +7,10 @@ public class MuteButtons : MonoBehaviour
 {
 
     [Header("-----Mute Images-----")]
-    [SerializeField] Sprite muted;
-    [SerializeField] Sprite unmuted;
-    [SerializeField] Image muteButtn;
+    [SerializeField] Sprite sprite1;
+    [SerializeField] Sprite sprite2;
+    [SerializeField] Image image;
+    public bool toggled;
 
     // Start is called before the first frame update
     void Start()
@@ -27,14 +28,15 @@ public class MuteButtons : MonoBehaviour
     {
         if (!gameManager.instance.isMuted)
         {
-            muteButtn.sprite = muted;
+            image.sprite = sprite2;
             gameManager.instance.isMuted = true;
         }
         else
         {
-            muteButtn.sprite = unmuted;
+            image.sprite = sprite1;
             gameManager.instance.isMuted = false;
         }
     }
+
 
 }

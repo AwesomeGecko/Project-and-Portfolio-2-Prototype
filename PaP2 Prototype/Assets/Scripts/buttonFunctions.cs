@@ -54,6 +54,11 @@ public class buttonFunctions : MonoBehaviour
         gameManager.instance.stateUnpause();
     }
 
+    public void SavedData()
+    {
+        gameManager.instance.openSavedScreen();
+    }
+
     public void savePlayer()
     {
         
