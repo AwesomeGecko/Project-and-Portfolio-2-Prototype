@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class interactableObject : MonoBehaviour {
 
+    [SerializeField] private string id;
+    [ContextMenu("Generate guid for id")]
+    private void GenerateGuid()
+    { 
+        id = System.Guid.NewGuid().ToString();
+    }
+
     public bool playerInRange;
     public string ItemName;
     private int ammoAmount = 25;

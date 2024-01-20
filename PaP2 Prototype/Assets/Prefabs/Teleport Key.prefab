@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd5d7a0c18822a949a26a1bc27e24a5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 8b6fc617-b94c-429a-9ab4-9b8ef842583f
   playerInRange: 0
   ItemName: TP Key
   interactCollider: {fileID: 5521525804322306583}
@@ -56,6 +57,10 @@ MonoBehaviour:
   bounceSpeed: 1
   despawnDelay: 0.5
   delayBeforeEffects: 1
+  aud: {fileID: 0}
+  interactSound: {fileID: 0}
+  interactSoundVol: 0
+  healthGain: {fileID: 0}
 --- !u!33 &2983991947335018585
 MeshFilter:
   m_ObjectHideFlags: 0
