@@ -25,6 +25,7 @@ public class interactableObject : MonoBehaviour {
     private int ammoMax;
     private int totalAmmo;
     private int ammoReset;
+    
 
     
     // Audio
@@ -147,13 +148,16 @@ public class interactableObject : MonoBehaviour {
                 //subtracts magSize from totalAmmo to give propper refill
                 ammoAmount = bulletsNeeded;
                 gameManager.instance.playerScript.gunList[gameManager.instance.playerScript.selectedGun].totalAmmo += ammoAmount;
+                gameManager.instance.maxText.text = $"Ammo Given {ammoAmount}";
                 ammoAmount = ammoReset;
             }
             else 
             {
                 //Add the amount of ammo directly to the specific gun magazine
                 gameManager.instance.playerScript.gunList[gameManager.instance.playerScript.selectedGun].totalAmmo += ammoAmount;
+                gameManager.instance.maxText.text = $"Ammo Given {ammoAmount}";
             }
+            gameManager.instance.runText();
         }
         else
         {
@@ -171,6 +175,8 @@ public class interactableObject : MonoBehaviour {
         {
             StartCoroutine(openBox());
             gameManager.instance.playerScript.HP += healAmount;
+            gameManager.instance.maxText.text = $"Healed by {healAmount}";
+            gameManager.instance.runText();
             // CR
             aud.PlayOneShot(healthGain);
         }
@@ -190,10 +196,19 @@ public class interactableObject : MonoBehaviour {
 
     void keyCollector()
     {
-        gameManager.instance.maxText.text = "Key Collected";
-        gameManager.instance.runText();
-        gameManager.instance.keysCollected++;
-        Destroy(gameObject);
+        if (gameManager.instance.keysRemain > 0)
+        {
+            gameManager.instance.keysRemain--;
+            gameManager.instance.keysCollected++;
+            gameManager.instance.maxText.text = $"Keys remain {gameManager.instance.keysRemain}";
+            gameManager.instance.runText();
+            Destroy(gameObject);
+        }
+        else
+        {
+            gameManager.instance.maxText.text = "Teleporter is open";
+            gameManager.instance.runText();
+        }
     }
 
     IEnumerator openBox()

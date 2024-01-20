@@ -78,6 +78,7 @@ public class gameManager : MonoBehaviour, IDataPersistence
     public bool isMuted;
 
     public bool isDev;
+    public int keysRemain = 3;
 
 
 

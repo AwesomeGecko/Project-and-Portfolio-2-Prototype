@@ -4774,6 +4774,7 @@ MonoBehaviour:
   keysCollected: 0
   isMuted: 0
   isDev: 0
+  keysRemain: 3
   aud: {fileID: 5216475069583815945}
   winSound: {fileID: 8300000, guid: 59fd8f3376ee9834d9c98676af63e743, type: 3}
   winSoundVol: 0.25
@@ -8015,7 +8016,9 @@ MonoBehaviour:
   mainSlider: {fileID: 2868198964133798403}
   musicSlider: {fileID: 4693173153249023076}
   sfxSlider: {fileID: 2899806819482537905}
-  plate: {fileID: 0}
+  plates: []
+  doors: []
+  teleporter: {fileID: 0}
 --- !u!222 &554195455225436511
 CanvasRenderer:
   m_ObjectHideFlags: 0
