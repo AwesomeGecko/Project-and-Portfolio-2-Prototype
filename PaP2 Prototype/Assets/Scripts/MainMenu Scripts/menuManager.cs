@@ -79,12 +79,12 @@ public class menuManager : MonoBehaviour
         DisableMenuButtons();
         //Creates new game
         DataPersistenceManager.instance.NewGame();
-        SceneManager.LoadSceneAsync(1);
+        //SceneManager.LoadSceneAsync(1);
     }
     public void OnLoadGameClicked() 
     {
         DisableMenuButtons();
-        SceneManager.LoadSceneAsync(1);
+        //SceneManager.LoadSceneAsync(1);
     }
 
     private void DisableMenuButtons()

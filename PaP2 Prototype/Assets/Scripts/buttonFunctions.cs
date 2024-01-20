@@ -19,7 +19,7 @@ public class buttonFunctions : MonoBehaviour
 
     public void quit()
     {
-        SceneManager.LoadScene(0);
+        //SceneManager.LoadScene(0);
         Time.timeScale = gameManager.instance.timeScaleOrig;
     }
 
