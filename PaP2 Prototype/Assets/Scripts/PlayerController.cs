@@ -146,7 +146,8 @@ public partial class PlayerController : MonoBehaviour, IDamage, IDataPersistence
         {
             if (Input.GetButtonDown("Sprint"))
             {
-                slideMod = 1; 
+                slideMod = 1;
+                Stamina -= 1;
             }
             Slide();
         }
@@ -240,13 +241,17 @@ public partial class PlayerController : MonoBehaviour, IDamage, IDataPersistence
                 soundStepsVol = 1.0f;
             }
         }
-        
-        if(Input.GetButtonUp("Sprint"))
+        else
         {
             playerSpeed = initialSpeed;
 
             // CR: Reset back to original volume value
             soundStepsVol = 0.5f;
+        }
+        
+        if(Input.GetButtonUp("Sprint"))
+        {
+            
         }
 
         UpdatePlayerUI();
@@ -326,11 +331,14 @@ public partial class PlayerController : MonoBehaviour, IDamage, IDataPersistence
 
     IEnumerator RestoreStamina()
     {
-        isStaminaRestore = true;
-        aud.PlayOneShot(staminaRestore, staminaRestoreVol);
-        Stamina += 1;
-        yield return new WaitForSeconds(staminaRestoreSpeed);
-        isStaminaRestore = false;
+        if (!Input.GetButton("Sprint"))
+        {
+            isStaminaRestore = true;
+            aud.PlayOneShot(staminaRestore, staminaRestoreVol);
+            Stamina += 1;
+            yield return new WaitForSeconds(staminaRestoreSpeed);
+            isStaminaRestore = false;
+        }
     }
 
     public void takeDamage(int amount)
