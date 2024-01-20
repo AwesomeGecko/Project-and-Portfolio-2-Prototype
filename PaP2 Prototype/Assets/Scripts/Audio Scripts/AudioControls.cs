@@ -14,6 +14,11 @@ public class AudioControls : MonoBehaviour
     [SerializeField] Slider musicSlider;
     [SerializeField] Slider sfxSlider;
 
+    [Header("Object Audio")]
+    [SerializeField] List<ToggleTrap> plates;
+    [SerializeField] List<autoDoors> doors;
+    [SerializeField] teleporterScript teleporter;
+
     private float volume;
 
     public void Start()
@@ -27,8 +32,11 @@ public class AudioControls : MonoBehaviour
         volume = mainSlider.value;
         audioMixer.SetFloat("Main", Mathf.Log10(volume) * 20);
         gameManager.instance.aud.volume = volume;
+        LandMine.SetListVolume(volume);
+        AdjustPlateSound();
+        AdjustDoorSound();
+        AdjustTeleporterSound();
         PlayerPrefs.SetFloat("mainVolume", volume);
-        
     }
 
     public void setMusicVolume()
@@ -44,8 +52,12 @@ public class AudioControls : MonoBehaviour
         volume = sfxSlider.value;
         audioMixer.SetFloat("SFX", Mathf.Log10(volume) * 20);
         gameManager.instance.aud.volume = volume;
+        LandMine.SetListVolume(volume);
+        AdjustPlateSound();
+        AdjustDoorSound();
+        AdjustTeleporterSound();
         PlayerPrefs.SetFloat("sfxVolume", volume);
-        
+
     }
 
 
@@ -92,4 +104,37 @@ public class AudioControls : MonoBehaviour
             LoadVolume();
         }
     }
+
+    public void AdjustPlateSound()
+    {
+        foreach (ToggleTrap plate in plates)
+        {
+            if (plate != null)
+            {
+                plate.SetVolume(volume);
+            }
+        }
+    }
+    
+    
+    public void AdjustDoorSound()
+    {
+        foreach(autoDoors door in doors)
+        {
+            if (door != null)
+            {
+                door.SetVolume(volume);
+            }
+        }
+    }
+    
+    public void AdjustTeleporterSound()
+    {
+        if (teleporter != null)
+        {
+            teleporter.SetVolume(volume);
+        }
+    }
+    
+
 }

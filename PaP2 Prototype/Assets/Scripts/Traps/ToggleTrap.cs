@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class ToggleTrap : MonoBehaviour
 {
+    [Header("Enter Traps To Turn Off Here")]
     [SerializeField] List<GameObject> trapList = new List<GameObject>();
+
+    [Header("Audio")]
+    [SerializeField] AudioSource aud;
+    [SerializeField] public AudioClip plateActivated;
     
     private void OnTriggerEnter(Collider other)
     {
@@ -13,6 +18,7 @@ public class ToggleTrap : MonoBehaviour
 
     private void TurnOffTraps()
     {
+        aud.PlayOneShot(plateActivated);
         foreach(GameObject trap in trapList)
         {
             SpikeTrap spike = trap.GetComponent<SpikeTrap>();
@@ -25,6 +31,13 @@ public class ToggleTrap : MonoBehaviour
             {
                 laser.Deactivate();
             }
+        }
+    }
+    public void SetVolume(float volume)
+    {
+        if(aud != null)
+        {
+            aud.volume = volume;
         }
     }
 }

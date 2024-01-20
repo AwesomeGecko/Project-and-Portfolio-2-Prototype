@@ -20,6 +20,7 @@ public class buttonFunctions : MonoBehaviour
     public void quit()
     {
         SceneManager.LoadScene(0);
+        Time.timeScale = gameManager.instance.timeScaleOrig;
     }
 
     public void quitwarning()
@@ -51,5 +52,20 @@ public class buttonFunctions : MonoBehaviour
     public void play()
     {
         gameManager.instance.stateUnpause();
+    }
+
+    public void SavedData()
+    {
+        gameManager.instance.openSavedScreen();
+    }
+
+    public void savePlayer()
+    {
+        
+    }
+
+    public void LoadPlayer()
+    {
+         
     }
 }

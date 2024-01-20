@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System;
+using UnityEngine.UI;
 
 public class menuManager : MonoBehaviour
 {
     public static menuManager instance;
+
+    
 
     [Header("Menus")]
     [SerializeField] GameObject menuActive;
@@ -19,13 +23,23 @@ public class menuManager : MonoBehaviour
     [SerializeField] GameObject menuExit;
     [SerializeField] GameObject menuLoadNew;
 
-    [Header("Menus")]
+    [SerializeField] private Button LoadGameButton;
+    [SerializeField] TextMeshProUGUI LoadGameText;
+    [SerializeField] private Button NewGameButton;
+    [SerializeField] TextMeshProUGUI NewGameText;
+
+    [Header("Credits Info")]
     [SerializeField] TextMeshProUGUI fastForwardText;
     [SerializeField] Animator credits;
 
     // Start is called before the first frame update
     void Start()
     {
+        if (!DataPersistenceManager.instance.HasGameData())
+        { 
+            LoadGameButton.interactable = false;
+            LoadGameText.alpha = 0.5f;
+        }
         menuActive = menuMain;
         fastForwardText.gameObject.SetActive(false);
     }
@@ -57,6 +71,27 @@ public class menuManager : MonoBehaviour
     public void OnPlayButton()
     {
         SceneManager.LoadScene(1);
+    }
+
+    public void OnLoadGameClicked() 
+    {
+        DisableMenuButtons();
+        DataPersistenceManager.instance.SaveGame();
+        SceneManager.LoadSceneAsync(1);
+    }
+
+    public void OnNewGameClicked()
+    {
+        DisableMenuButtons();
+        //Creates new game
+        DataPersistenceManager.instance.NewGame();
+        SceneManager.LoadSceneAsync(1);
+    }
+
+    private void DisableMenuButtons()
+    { 
+        LoadGameButton.interactable = false;
+        NewGameButton.interactable = false;
     }
 
     public void OnQuitButton()

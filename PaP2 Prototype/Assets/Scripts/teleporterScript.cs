@@ -8,9 +8,16 @@ public class teleporterScript : MonoBehaviour
 {
     [SerializeField] ParticleSystem particles;
 
+    [Header("Audio")]
+    [SerializeField] AudioSource aud;
+    [SerializeField] AudioClip idleTeleport;
+    [SerializeField] AudioClip changeScene;
+
     public bool playerInRange;
     public bool isTeleporterOn;
     public int keyCounter;
+    private DataPersistenceManager dataPersistenceManager;
+    public string sceneName;
 
     private void Start()
     {
@@ -27,8 +34,14 @@ public class teleporterScript : MonoBehaviour
 
     void teleport()
     {
-        SceneManager.LoadScene(2);
+        // CR
+        aud.clip = changeScene;
+        aud.loop = false;
+        aud.Play();
+        StartCoroutine(LoadSceneAfterSFX(changeScene.length));
+        SceneManager.LoadScene(sceneName);
     }
+
 
     void turnOnTeleporter()
     {
@@ -36,10 +49,19 @@ public class teleporterScript : MonoBehaviour
         if (isTeleporterOn)
         {
             particles.Play();
+            // CR
+            if(!aud.isPlaying)
+            {
+                aud.clip = idleTeleport;
+                aud.loop = true;
+                aud.Play();
+            }
         }
         else if(!isTeleporterOn)
         {
             particles.Pause();
+            // CR
+            aud.Stop();
         }
     }
 
@@ -73,4 +95,19 @@ public class teleporterScript : MonoBehaviour
             playerInRange = false;
         }
     }
+
+    private IEnumerator LoadSceneAfterSFX(float delayAmt)
+    {
+        yield return new WaitForSeconds(delayAmt);
+        SceneManager.LoadScene(2);
+    }
+    
+    public void SetVolume(float volume)
+    {
+        if (aud != null)
+        {
+            aud.volume = volume;
+        }
+    }
+    
 }

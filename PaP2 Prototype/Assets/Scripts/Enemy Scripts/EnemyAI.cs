@@ -7,7 +7,6 @@ using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour, IDamage
 {
-
     [Header("----- Components -----")]
     [SerializeField] NavMeshAgent agent;
     [SerializeField] Rigidbody rb;

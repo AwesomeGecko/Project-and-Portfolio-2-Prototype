@@ -3,7 +3,8 @@ guid: 30afab3de013cd24ab61310c1a42e987
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - gunHolder: {fileID: 145938922686590712, guid: 56e96d7e41c56a54a987bc616f748d5e, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

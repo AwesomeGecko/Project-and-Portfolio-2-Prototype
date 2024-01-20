@@ -50,8 +50,9 @@ public class GunSettings : ScriptableObject
     [Space]
     public TransformData barrelTip;
 
-    public Vector3 defaultGunRotation = new Vector3(0f, 0f, 0f);
+    public Vector3 defaultGunRotation = new Vector3(0.000f, 0.000f, 0.000f);
 
-    public Vector3 defaultGunPositionOffset = new Vector3(0f, 0f, 0f);
+    public Vector3 defaultGunPositionOffset = new Vector3(0.000f, 0.000f, 0.000f);
     public Quaternion defaultRotation => Quaternion.Euler(defaultGunRotation);
+
 }

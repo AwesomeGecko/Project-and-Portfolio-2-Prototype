@@ -39,12 +39,11 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        DisableBullet(); // Disable the bullet immediately upon collision
-
         if (collision.collider.CompareTag("PlayerBullet"))
         {
             return; // Ignore collisions with other player bullets
         }
+        DisableBullet(); // Disable the bullet immediately upon collision
 
         // Instantiate the spark particle system at the collision point
         Instantiate(sparkParticles, collision.contacts[0].point, Quaternion.identity);
@@ -62,6 +61,7 @@ public class Bullet : MonoBehaviour
         OnCollision?.Invoke(this, null, objectsPenetrated);
         objectsPenetrated++;
         gameObject.SetActive(false); // Instead of destroying, just deactivate the GameObject
+        Destroy(gameObject);
     }
 
     private void OnDisable()

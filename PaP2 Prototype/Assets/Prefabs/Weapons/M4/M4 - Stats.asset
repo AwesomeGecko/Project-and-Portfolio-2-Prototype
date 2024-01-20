@@ -35,4 +35,4 @@ MonoBehaviour:
   shotgunPelletSpread: 0
   barrelTip: {fileID: 11400000, guid: 0c16855887b490d45961bf169830992b, type: 2}
   defaultGunRotation: {x: 0, y: 0, z: 0}
-  defaultGunPositionOffset: {x: 0, y: 0, z: 0}
+  defaultGunPositionOffset: {x: 0, y: -0.03, z: 0}

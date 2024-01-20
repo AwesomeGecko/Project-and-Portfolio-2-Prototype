@@ -2481,9 +2481,10 @@ MonoBehaviour:
   shootRate: 0.1
   shootSpeed: 0.5
   enemyshootPos: {fileID: 3353402849618054329}
-  enemyshootPos2: {fileID: 0}
   hitSound: {fileID: 8300000, guid: 0aff9e712df58524e92b99abc49873b7, type: 3}
   deathSound: {fileID: 8300000, guid: aff1c3fe1d4099a46a3d3de76e377364, type: 3}
+  hitSoundVol: 1
+  deathSoundVol: 1
   mySpawner: {fileID: 0}
 --- !u!95 &3818056906370351630
 Animator:

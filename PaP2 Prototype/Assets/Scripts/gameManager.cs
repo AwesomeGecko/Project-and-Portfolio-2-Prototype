@@ -5,10 +5,15 @@ using TMPro;
 using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
+using UnityEditor;
+using System.IO;
 
-public class gameManager : MonoBehaviour
+public class gameManager : MonoBehaviour, IDataPersistence
 {
     public static gameManager instance;
+
+    public bool DebugLogs;
 
     [Header("Menus")]
     [SerializeField] GameObject menuActive;
@@ -19,14 +24,16 @@ public class gameManager : MonoBehaviour
     [SerializeField] GameObject menuControls;
     [SerializeField] GameObject menuSettings;
     [SerializeField] GameObject quitWarning;
+    [SerializeField] GameObject SavedDataDev;
 
     [Header("Interactive UI")]
     [SerializeField] public GameObject interactive;
-    [SerializeField] public  TextMeshProUGUI interact_text;
+    [SerializeField] public TextMeshProUGUI interact_text;
     [SerializeField] public GameObject maxPickup;
     [SerializeField] public TextMeshProUGUI maxText;
 
     [Header("Player")]
+    [SerializeField] public GameObject Checkpoint_Alpha;
     [SerializeField] public GameObject playerSpawnPos;
     [SerializeField] public GameObject TeleportPos;
     public GameObject player;
@@ -42,11 +49,15 @@ public class gameManager : MonoBehaviour
     [SerializeField] public Image playerStaminaBar;
     [SerializeField] public Image Scope;
     [SerializeField] public Image Crosshair;
+    [SerializeField] public Image ShotgunSight;
+    [SerializeField] public Image DevSavedDSata;
+    [SerializeField] public TextMeshProUGUI DevSavedDSataText;
     [SerializeField] public TextMeshProUGUI ammoCounter;
     [SerializeField] public TextMeshProUGUI maxAmmoCounter;
     [SerializeField] public TextMeshProUGUI gunName;
     [SerializeField] public TextMeshProUGUI enemyCounter;
     [SerializeField] public TextMeshProUGUI keysLeft;
+    [SerializeField] public TextMeshProUGUI SavedDataText;
 
     [Header("Scripts")]
     public PlayerController playerScript;
@@ -55,7 +66,7 @@ public class gameManager : MonoBehaviour
 
     [Header("Public variables")]
     public bool isPaused;
-    float timeScaleOrig;
+    public float timeScaleOrig;
     public int enemiesRemaining;
     public bool onTarget;
     public bool isAmmo;
@@ -66,6 +77,12 @@ public class gameManager : MonoBehaviour
     Scene currentScene;
     public bool isMuted;
 
+    public bool isDev;
+    public int keysRemain = 3;
+
+
+
+
     // Audio
     [Header("Audio")]
     [SerializeField] public AudioSource aud;
@@ -75,6 +92,10 @@ public class gameManager : MonoBehaviour
     [Range(0f, 1f)][SerializeField] float loseSoundVol;
     public AudioClip pauseSound;
     [Range(0f, 1f)][SerializeField] float pauseSoundVol;
+    // CR
+    public AudioClip UIButtonForward;
+    public AudioClip UIButtonBack;
+    [Range(0f, 3f)][SerializeField] float buttonClickVolume;
 
     // Start is called before the first frame update
     void Awake()
@@ -88,7 +109,8 @@ public class gameManager : MonoBehaviour
         cameraScript = cameraObject.GetComponent<CameraController>();
         playerSpawnPos = GameObject.FindWithTag("PlayerSpawnPos");
         TeleportPos = GameObject.FindWithTag("TeleportPos");
-        
+        Checkpoint_Alpha = GameObject.FindWithTag("Checkpoint_Alpha");
+
 
         damageScreen = GameObject.FindWithTag("DamageScreen");
         volume = damageScreen.GetComponent<PostProcessVolume>();
@@ -107,6 +129,8 @@ public class gameManager : MonoBehaviour
         currentScene = SceneManager.GetActiveScene();
         sceneName = currentScene.name;
 
+        DevSavedDSata.enabled = false;
+        DevSavedDSataText.enabled = false;
     }
 
     // Update is called once per frame
@@ -127,7 +151,18 @@ public class gameManager : MonoBehaviour
         }
         enemyCounter.text = enemiesRemaining.ToString("0");
         keysLeft.text = keysCollected.ToString("0");
+
+
+        if (Input.GetKey(KeyCode.LeftControl))
+        {
+            if (Input.GetKeyUp(KeyCode.X))
+            {
+                DebugLogs = !DebugLogs;
+                debugScreen();
+            }
+        }
     }
+
 
     public void statePause()
     {
@@ -151,7 +186,7 @@ public class gameManager : MonoBehaviour
 
     public void updateGameGoal(int amount)
     {
-        
+
         enemiesRemaining += amount;
         if (enemiesRemaining <= 0)
         {
@@ -206,9 +241,9 @@ public class gameManager : MonoBehaviour
             {
                 onTarget = true;
 
-                interact_text.text = "Pick up [E] " + interactable.GetItemName();
+                interact_text.text = "Pick up [F] " + interactable.GetItemName();
                 interactive.SetActive(true);
-                
+
             }
             else
             {
@@ -221,7 +256,7 @@ public class gameManager : MonoBehaviour
         {
             onTarget = false;
             interactive.SetActive(false);
-            
+
         }
     }
 
@@ -250,10 +285,34 @@ public class gameManager : MonoBehaviour
         menuActive.SetActive(true);
     }
 
+    public void debugScreen()
+    {
+        if (DebugLogs == true)
+        {
+            DevSavedDSata.enabled = true;
+            DevSavedDSataText.enabled = true;
+        }
+        if (DebugLogs == false)
+        {
+            DevSavedDSata.enabled = false;
+            DevSavedDSataText.enabled = false;
+        }
+    }
+
+    public void openSavedScreen()
+    {
+        updateMenu();
+        menuActive.SetActive(false);
+        menuActive = SavedDataDev;
+        menuActive.SetActive(true);
+    }
+
     public void updateMenu()
     {
         if (menuActive != null)
         {
+            // CR
+            aud.PlayOneShot(UIButtonForward, buttonClickVolume);
             previousMenu = menuActive;
         }
     }
@@ -261,6 +320,7 @@ public class gameManager : MonoBehaviour
     public void backBttn()
     {
         menuActive.SetActive(false);
+        aud.PlayOneShot(UIButtonBack, buttonClickVolume);
         menuActive = previousMenu;
         menuActive.SetActive(true);
     }
@@ -329,5 +389,13 @@ public class gameManager : MonoBehaviour
         maxPickup.SetActive(false);
     }
 
-    
+    public void LoadData(GameData data)
+    {
+        keysCollected = data.KeyCount;
+    }
+
+    public void SaveData(GameData data)
+    {
+        data.KeyCount = keysCollected;
+    }
 }

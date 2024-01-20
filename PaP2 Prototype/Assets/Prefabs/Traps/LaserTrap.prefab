@@ -56,6 +56,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dmgAmount: 1
+  burnAmt: 2
+  burnOverTime: 3
+  pointToPoint: 1
+  startPoint: {x: -294.1129, y: 3, z: -13.40242}
+  endPoint: {x: -295.1129, y: 3, z: -13.40242}
+  movingSpeed: 5
 --- !u!23 &4099574311513292211
 MeshRenderer:
   m_ObjectHideFlags: 0
