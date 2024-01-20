@@ -17,6 +17,7 @@ public class MeleeAttack : MonoBehaviour
     {
         if(Input.GetButtonDown("Melee"))
         {
+            anim.speed = 1.5f;
             anim.Play("MeleeAttack");
         }
 
