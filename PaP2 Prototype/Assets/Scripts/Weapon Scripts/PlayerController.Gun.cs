@@ -383,8 +383,8 @@ public partial class PlayerController
         RaycastHit hit;
 
         Vector3 bulletDirection = ray.direction;
-
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
+        //(ray, out hit, Mathf.Infinity, layerMask)
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask, QueryTriggerInteraction.Ignore))
         {
             Vector3 targetPoint = hit.point;
             bulletDirection = (targetPoint - gunModel.transform.position).normalized;
