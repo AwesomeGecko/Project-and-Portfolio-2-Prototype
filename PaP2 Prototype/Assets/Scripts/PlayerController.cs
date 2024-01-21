@@ -59,6 +59,21 @@ public partial class PlayerController : MonoBehaviour, IDamage, IDataPersistence
     private float initialSpeed;
 
 
+    public void LoadData(GameData data)
+    {
+        transform.position = data.playerPosition;
+        HP = data.Health;
+        Stamina = data.Stamina;
+    }
+
+    public void SaveData(GameData data)
+    {
+        data.playerPosition = transform.position;
+        data.Health = HP;
+        data.Stamina = Stamina;
+    }
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -85,6 +100,7 @@ public partial class PlayerController : MonoBehaviour, IDamage, IDataPersistence
         playerRespawn();
         int.TryParse(gameManager.instance.ammoCounter.text, out gameManagerAmmo);
         ammoCounter = gameManagerAmmo;
+        UpdatePlayerUI();
     }
 
     // Update is called once per frame
@@ -119,21 +135,9 @@ public partial class PlayerController : MonoBehaviour, IDamage, IDataPersistence
         {
             StartCoroutine(PlayHeartbeat());
         }
+        
     }
 
-    public void LoadData(GameData data)
-    {
-        transform.position = data.playerPosition;
-        HP = data.Health;
-        Stamina = data.Stamina;
-    }
-
-    public void SaveData(GameData data)
-    {
-        data.playerPosition = transform.position;
-        data.Health = HP;
-        data.Stamina = Stamina;
-    }
 
 
     void Movement()
@@ -382,6 +386,11 @@ public partial class PlayerController : MonoBehaviour, IDamage, IDataPersistence
         gameManager.instance.playerStaminaBar.fillAmount = Stamina / StaminaOrig;
         gameManager.instance.ammoCounter.text = gunList[selectedGun].ammoCur.ToString("0");
         gameManager.instance.maxAmmoCounter.text = gunList[selectedGun].totalAmmo.ToString("0");
+    }
+
+    public void UpdateStats()
+    {
+        
     }
 
     // CR Method
