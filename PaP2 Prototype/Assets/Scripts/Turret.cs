@@ -33,7 +33,7 @@ public class Turret : MonoBehaviour
     [SerializeField] int targetFaceSpeed;
     bool isShooting;
     [SerializeField] Animator anim;
-    public bool PlayerInRange;
+    public static bool turnOff;
     // Start is called before the first frame update
     void Start()
     {
@@ -44,9 +44,10 @@ public class Turret : MonoBehaviour
     void Update()
     {
 
-        
+        if (!turnOff)
+        {
             canSeePlayer();
-        
+        }
        
     }
     void canSeePlayer()
@@ -140,7 +141,10 @@ public class Turret : MonoBehaviour
        enemyBottomBullet.SetBulletProperties(bulletDamage, bulletDestroyTime, bulletSpeed);
 
     }
-    
+    public static void setSwitch(bool t)
+    {
+        turnOff = t;
+    }
     
     
     public void OnTriggerEnter(Collider other)
