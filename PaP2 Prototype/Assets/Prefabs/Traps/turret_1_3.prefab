@@ -970,7 +970,7 @@ MonoBehaviour:
   turretLeftBottom: {fileID: 7302960212902242891}
   turretRightBottom: {fileID: 5106571859497541451}
   aimPoint: {fileID: 8519092258074968649}
-  colliderRadius: 46
+  colliderRadius: 30
   bulletDamage: 1
   bulletDestroyTime: 1
   bulletSpeed: 1

@@ -147,7 +147,7 @@ public class Turret : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            PlayerInRange = true;
+           
             anim.SetBool("PlayerInRange", true);
         }
         
@@ -159,7 +159,7 @@ public class Turret : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            PlayerInRange = false;
+            
             anim.SetBool("PlayerInRange", false);
         }
     }
