@@ -55,8 +55,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c8bf60339f8d6a4eb16e872bae6386b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dmgAmount: 1
-  burnAmt: 2
+  dmgAmount: 2
+  burnAmt: 1
   burnOverTime: 3
   pointToPoint: 1
   startPoint: {x: -294.1129, y: 3, z: -13.40242}

@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boomTimer: 0.5
-  dmgAmount: 10
+  dmgAmount: 5
   aud: {fileID: 5770627769007482400}
   mineBeep: {fileID: 8300000, guid: 4e4fa75aada6fd145823dd8ec67e1ff3, type: 3}
   expSound: {fileID: 8300000, guid: f4fb92b874ee33e4faf3c5746c6cc316, type: 3}
@@ -123,7 +123,7 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 2
-  m_Height: 2
+  m_Height: 5
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!82 &5770627769007482400
