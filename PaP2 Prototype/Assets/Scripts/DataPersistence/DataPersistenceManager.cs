@@ -6,21 +6,28 @@ using UnityEngine.SceneManagement;
 public class DataPersistenceManager : MonoBehaviour
 {
     [Header("Debugging")]
-    [SerializeField] private bool initializeDataIfNull = false;
+    //[SerializeField] private bool initializeDataIfNull = false;
 
     [Header("File Storage Config")]
     [SerializeField] private string fileName;
  
     [SerializeField] private bool useEncryption;
 
+    [Header("Auto Save")]
+    [SerializeField] private float autoSaveTimeSeconds = 60f;
+
     private GameData gameData;
     private List<IDataPersistence> dataPersistenceObjects;
 
     private FileDataHandler dataHandler;
+
+    private Coroutine autoSaveCoroutine;
     public static DataPersistenceManager instance { get; private set; }
 
     private void Awake()
     {
+        //initializeDataIfNull = true;
+
         if (instance != null)
         {
             Debug.LogError("Found more than one Data Manager in the scene. I will destroy the newest one!");
@@ -37,18 +44,33 @@ public class DataPersistenceManager : MonoBehaviour
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
+        SceneManager.sceneUnloaded += OnSceneUnloaded;
     }
 
     private void OnDisable()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
+        SceneManager.sceneUnloaded -= OnSceneUnloaded;
     }
 
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        
+        Debug.Log("Loaded Scene method called!");
         dataPersistenceObjects = FindAllDataPersistenceObjects();
         LoadGame();
+
+        //start autoSaving after loading the scene
+        if (autoSaveCoroutine != null)
+        { 
+            StopCoroutine(AutoSave());
+        }
+        autoSaveCoroutine = StartCoroutine(AutoSave());
+    }
+
+    public void OnSceneUnloaded(Scene scene)
+    {
+        Debug.Log("Unloaded Scene method called!");
+        SaveGame();
     }
 
 
@@ -61,11 +83,6 @@ public class DataPersistenceManager : MonoBehaviour
     {
         //loads any saved data from a file using the data handler
         gameData = dataHandler.Load();
-
-        if (gameData == null && initializeDataIfNull)
-        { 
-            NewGame();
-        }
 
         //if no data can be loaded, dont continue
         if (this.gameData == null)
@@ -120,4 +137,13 @@ public class DataPersistenceManager : MonoBehaviour
         return gameData != null;
     }
 
+    private IEnumerator AutoSave()
+    { 
+        while (true) 
+        {
+            yield return new WaitForSeconds(autoSaveTimeSeconds);
+            SaveGame();
+            Debug.Log("Auto Saved!");
+        }
+    }
 }

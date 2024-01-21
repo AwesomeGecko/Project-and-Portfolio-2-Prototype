@@ -1,8 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class interactableObject : MonoBehaviour {
+
+    [SerializeField] private string id;
+    [ContextMenu("Generate guid for id")]
+    private void GenerateGuid()
+    {
+        id = System.Guid.NewGuid().ToString();
+    }
 
     public bool playerInRange;
     public string ItemName;
@@ -25,9 +33,10 @@ public class interactableObject : MonoBehaviour {
     private int ammoMax;
     private int totalAmmo;
     private int ammoReset;
-    
+    private bool keyCollected = false;
 
-    
+
+
     // Audio
     [Header("Audio")]
     [SerializeField] public AudioSource aud;
@@ -93,13 +102,16 @@ public class interactableObject : MonoBehaviour {
 
             if (ItemName == "TP Key")
             {
-                //used to turn on teleporter
-                keyCollector();
-                if (gameManager.instance.keysCollected == 3)
+                if (!keyCollected)
                 { 
-                    //Collect all 3 keys sound here
-                    gameManager.instance.isTPOn = true;
+                    keyCollector();
+                    if (gameManager.instance.keysCollected == 3)
+                    { 
+                        //Collect all 3 keys sound here
+                        gameManager.instance.isTPOn = true;
+                    }
                 }
+                //used to turn on teleporter
             }
 
         }

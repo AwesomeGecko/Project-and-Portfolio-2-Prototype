@@ -16,8 +16,7 @@ public class Turret : MonoBehaviour
     float playerDirMount;
 
     
-    public Transform turrHeadTrans;
-    public Transform turrMountTrans;
+    
     
 
     [SerializeField] float shootRate;
@@ -43,7 +42,7 @@ public class Turret : MonoBehaviour
     {
        // playerDir = Vector3(gameManager.instance.player.transform.position.x - turretMount.transform.position.x, turretMount.transform.position.y, turretMount.transform.position.z);
         playerDir = gameManager.instance.player.transform.position - aimPoint.position;
-
+        
 
         float angleToPlayer = Vector3.Angle(playerDir, transform.forward);
 
@@ -81,7 +80,7 @@ public class Turret : MonoBehaviour
 
         Vector3 playerTemp = gameManager.instance.player.transform.position - turretHead.transform.position;
         Quaternion target = Quaternion.LookRotation(playerTemp);
-        turretHead.transform.rotation = Quaternion.Slerp(turrHeadTrans.rotation, target, targetFaceSpeed * Time.deltaTime);
+        turretHead.transform.rotation = Quaternion.Slerp(turretHead.transform.rotation, target, targetFaceSpeed * Time.deltaTime);
         
        // Quaternion midRot = Quaternion.Euler(-90f, 0f, -target.eulerAngles.z);
         //turrMountTrans.rotation = Quaternion.Slerp(turrMountTrans.rotation, midRot, targetFaceSpeed * Time.deltaTime);
