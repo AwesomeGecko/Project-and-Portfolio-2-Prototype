@@ -3,26 +3,33 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Turret : MonoBehaviour
+public class Turret : MonoBehaviour, IDamage
 {
 
     [Header("Turret Models")]
     [SerializeField] GameObject turretMount;
     [SerializeField] GameObject turretHead;
+    [SerializeField] Transform turretLeftTop;
+    [SerializeField] Transform turretRightTop;
+    [SerializeField] Transform turretLeftBottom;
+    [SerializeField] Transform turretRightBottom;
     [Space]
     [SerializeField] Transform aimPoint;
+    [SerializeField] int bulletDamage;
+    [SerializeField] int bulletDestroyTime;
+    [SerializeField] int bulletSpeed;
     [SerializeField] int viewCone;
     Vector3 playerDir;
     float playerDirMount;
 
-    
-    
-    
 
+
+
+    [SerializeField] GameObject EnemyBullet;
     [SerializeField] float shootRate;
     [SerializeField] int targetFaceSpeed;
     bool isShooting;
-    //[SerializeField] Animator anim;
+    [SerializeField] Animator anim;
     bool PlayerInRange;
     // Start is called before the first frame update
     void Start()
@@ -55,10 +62,10 @@ public class Turret : MonoBehaviour
             if (hit.collider.CompareTag("Player") /*&& angleToPlayer <= viewCone*/)
             {
                 faceTarget();
-                //if (!isShooting)
-                //{
-                //    StartCoroutine(shoot());
-                //}
+                if (!isShooting)
+                {
+                    StartCoroutine(shoot());
+                }
                 
             }
         }
@@ -69,8 +76,11 @@ public class Turret : MonoBehaviour
     IEnumerator shoot()
     {
         isShooting = true;
-      //  anim.SetTrigger("Shoot");
+        anim.SetTrigger("Shoot");
+        
         yield return new WaitForSeconds(shootRate);
+       
+
         isShooting = false;
 
     }
@@ -90,6 +100,26 @@ public class Turret : MonoBehaviour
        // turretMount.transform.rotation = Quaternion.Euler(rot.ro);
       
     }
+    public void CreateLeftBullets()
+    {
+        GameObject newTopBullet = Instantiate(EnemyBullet, turretLeftTop.position, transform.rotation);
+        GameObject newBottomBullet = Instantiate(EnemyBullet, turretLeftBottom.position, transform.rotation);
+        EnemyBullet enemyTopBullet = newTopBullet.GetComponent<EnemyBullet>();
+        EnemyBullet enemyBottomBullet = newBottomBullet.GetComponent<EnemyBullet>();
+        enemyTopBullet.SetBulletProperties(bulletDamage, bulletDestroyTime, bulletSpeed);
+        enemyBottomBullet.SetBulletProperties(10, bulletDestroyTime, bulletSpeed);
+
+    }
+    public void CreateRightBullets()
+    {
+        GameObject newTopBullet = Instantiate(EnemyBullet, turretRightTop.position, transform.rotation);
+        GameObject newBottomBullet = Instantiate(EnemyBullet, turretRightBottom.position, transform.rotation);
+        EnemyBullet enemyTopBullet = newTopBullet.GetComponent<EnemyBullet>();
+        EnemyBullet enemyBottomBullet = newBottomBullet.GetComponent<EnemyBullet>();
+        enemyTopBullet.SetBulletProperties(10, bulletDestroyTime, bulletSpeed);
+        enemyBottomBullet.SetBulletProperties(10, bulletDestroyTime, bulletSpeed);
+
+    }
 
     public void OnTriggerEnter(Collider other)
     {
@@ -105,5 +135,10 @@ public class Turret : MonoBehaviour
         {
             PlayerInRange = false;
         }
+    }
+
+    public void takeDamage(int amount)
+    {
+        
     }
 }
