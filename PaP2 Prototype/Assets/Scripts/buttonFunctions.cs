@@ -61,7 +61,7 @@ public class buttonFunctions : MonoBehaviour
 
     public void savePlayer()
     {
-        
+        DataPersistenceManager.instance.SaveGame();
     }
 
     public void LoadPlayer()

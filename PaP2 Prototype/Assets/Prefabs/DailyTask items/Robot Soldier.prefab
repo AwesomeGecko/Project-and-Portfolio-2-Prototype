@@ -2467,7 +2467,7 @@ MonoBehaviour:
   model: {fileID: 1125180650137316569}
   aud: {fileID: 6669982072310782887}
   damageCol: {fileID: 1181870137617099959}
-  HP: 15
+  HP: 30
   viewCone: 90
   speed: 1
   roamDist: 10
