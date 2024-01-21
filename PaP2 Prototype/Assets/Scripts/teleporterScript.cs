@@ -99,7 +99,7 @@ public class teleporterScript : MonoBehaviour
     private IEnumerator LoadSceneAfterSFX(float delayAmt)
     {
         yield return new WaitForSeconds(delayAmt);
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(sceneName);
     }
     
     public void SetVolume(float volume)
