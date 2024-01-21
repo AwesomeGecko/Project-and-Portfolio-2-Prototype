@@ -352,6 +352,7 @@ public partial class PlayerController : MonoBehaviour, IDamage, IDataPersistence
         UpdatePlayerUI();
         if (HP <= 0)
         {
+            
             // CR
             StartCoroutine(PlayerDiesAndLoses());
             //gameManager.instance.youLose();
@@ -368,6 +369,7 @@ public partial class PlayerController : MonoBehaviour, IDamage, IDataPersistence
         UpdatePlayerUI();
 
         controller.enabled = false;
+
 
         //if (gameManager.instance.playerStats.Chapter == 0)
         //{

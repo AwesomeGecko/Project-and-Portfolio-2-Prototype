@@ -390,7 +390,7 @@ Transform:
   m_GameObject: {fileID: 4208119570923143567}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.005, y: -0.378, z: 3.337}
+  m_LocalPosition: {x: 0.005, y: -0.378, z: 3.92}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -504,7 +504,7 @@ Transform:
   m_GameObject: {fileID: 4681620745908799639}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.005, y: -0.378, z: 3.337}
+  m_LocalPosition: {x: 0.005, y: -0.38, z: 3.63}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -706,7 +706,7 @@ Transform:
   m_GameObject: {fileID: 8144842656294113144}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.005, y: 0.378, z: 3.337}
+  m_LocalPosition: {x: 0.005, y: 0.378, z: 3.83}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -820,7 +820,7 @@ Transform:
   m_GameObject: {fileID: 8854213875837685540}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.005, y: 0.378, z: 3.337}
+  m_LocalPosition: {x: 0.005, y: 0.378, z: 3.66}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -962,6 +962,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a21950beeb57f443adb559cff38c9e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tr: {fileID: 4969168783241427824}
   turretMount: {fileID: 7358169665846217091}
   turretHead: {fileID: 8854299012785728648}
   turretLeftTop: {fileID: 4316795628572492380}
@@ -969,14 +970,16 @@ MonoBehaviour:
   turretLeftBottom: {fileID: 7302960212902242891}
   turretRightBottom: {fileID: 5106571859497541451}
   aimPoint: {fileID: 8519092258074968649}
-  bulletDamage: 20
-  bulletDestroyTime: 20
-  bulletSpeed: 20
+  colliderRadius: 46
+  bulletDamage: 1
+  bulletDestroyTime: 1
+  bulletSpeed: 1
   viewCone: 360
-  EnemyBullet: {fileID: 3393345968891059192, guid: 8ad9da3d86fcb0b4b8d2949686ce9956, type: 3}
+  Bullet: {fileID: 3393345968891059192, guid: 8ad9da3d86fcb0b4b8d2949686ce9956, type: 3}
   shootRate: 0
   targetFaceSpeed: 10
   anim: {fileID: 3200558516096664717}
+  PlayerInRange: 0
 --- !u!135 &2648095363319954224
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -996,8 +999,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 45
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 46
+  m_Center: {x: 35, y: 15, z: -10}
 --- !u!95 &3200558516096664717
 Animator:
   serializedVersion: 5

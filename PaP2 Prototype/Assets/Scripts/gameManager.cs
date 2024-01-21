@@ -221,6 +221,7 @@ public class gameManager : MonoBehaviour, IDataPersistence
 
     public void youLose()
     {
+        
         aud.PlayOneShot(loseSound, loseSoundVol);
         statePause();
         menuActive = menuLose;
