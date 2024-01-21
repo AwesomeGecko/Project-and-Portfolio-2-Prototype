@@ -205,6 +205,10 @@ public partial class PlayerController
         maxAmmo = gun.ammoMax;
         gun.totalAmmo = ammoCounter;
 
+        //for saving
+        ammoToSave = gun.magSize;
+        maxAmmoToSave = gun.totalAmmo;
+
         // Check if the gun has a valid model
         if (gun.model != null)
         {
@@ -267,8 +271,12 @@ public partial class PlayerController
         PlayerBulletSpeed = gunList[selectedGun].PlayerBulletSpeed;
 
         ammoCounter = gunList[selectedGun].totalAmmo;
-
         maxAmmo = gunList[selectedGun].ammoMax;
+
+        //for saving
+        ammoToSave = gunList[selectedGun].magSize;
+        maxAmmoToSave = gunList[selectedGun].totalAmmo;
+
 
         // Check if the gun has multiple meshes
         if (gunList[selectedGun].combinedMeshes != null && gunList[selectedGun].combinedMeshes.Count > 0)

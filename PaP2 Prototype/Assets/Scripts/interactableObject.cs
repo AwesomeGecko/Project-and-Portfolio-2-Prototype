@@ -33,7 +33,6 @@ public class interactableObject : MonoBehaviour {
     private int ammoMax;
     private int totalAmmo;
     private int ammoReset;
-    private bool keyCollected = false;
 
 
 
@@ -102,15 +101,14 @@ public class interactableObject : MonoBehaviour {
 
             if (ItemName == "TP Key")
             {
-                if (!keyCollected)
-                { 
-                    keyCollector();
-                    if (gameManager.instance.keysCollected == 3)
-                    { 
-                        //Collect all 3 keys sound here
-                        gameManager.instance.isTPOn = true;
-                    }
+
+                keyCollector();
+                if (gameManager.instance.keysCollected == 3)
+                {
+                    //Collect all 3 keys sound here
+                    gameManager.instance.isTPOn = true;
                 }
+
                 //used to turn on teleporter
             }
 

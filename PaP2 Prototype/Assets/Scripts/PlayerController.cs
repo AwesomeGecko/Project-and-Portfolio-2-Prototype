@@ -55,6 +55,9 @@ public partial class PlayerController : MonoBehaviour, IDamage, IDataPersistence
     private bool isRunning;
     private bool isStaminaRestore;
 
+    public int ammoToSave;
+    public int maxAmmoToSave;
+
     //Gun logic
     private float initialSpeed;
 
@@ -64,13 +67,17 @@ public partial class PlayerController : MonoBehaviour, IDamage, IDataPersistence
         transform.position = data.playerPosition;
         HP = data.Health;
         Stamina = data.Stamina;
-    }
+        ammoToSave = data.ammo;
+        maxAmmoToSave = data.maxAmmo;
+}
 
     public void SaveData(GameData data)
     {
         data.playerPosition = transform.position;
         data.Health = HP;
         data.Stamina = Stamina;
+        data.ammo = ammoToSave;
+        data.maxAmmo = maxAmmoToSave;
     }
 
 

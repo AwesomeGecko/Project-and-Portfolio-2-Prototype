@@ -13,13 +13,13 @@ public class menuManager : MonoBehaviour
     
 
     [Header("Menus")]
-    [SerializeField] GameObject menuActive;
+    [SerializeField] public GameObject menuActive;
     [SerializeField] GameObject menuPrevious;
     [SerializeField] GameObject menuMain;
     [SerializeField] GameObject menuBackStory;
     [SerializeField] GameObject menuControls;
     [SerializeField] GameObject menuSettings;
-    [SerializeField] GameObject menuCredits;
+    [SerializeField] public GameObject menuCredits;
     [SerializeField] GameObject menuExit;
     [SerializeField] GameObject menuLoadNew;
 
@@ -31,6 +31,7 @@ public class menuManager : MonoBehaviour
     [Header("Credits Info")]
     [SerializeField] TextMeshProUGUI fastForwardText;
     [SerializeField] Animator credits;
+    [SerializeField] public bool isCreditsOpen;
 
     // Start is called before the first frame update
     void Start()
@@ -40,7 +41,17 @@ public class menuManager : MonoBehaviour
             LoadGameButton.interactable = false;
             LoadGameText.alpha = 0.5f;
         }
-        menuActive = menuMain;
+
+        if (!isCreditsOpen)
+        {
+            menuActive = menuMain;
+            menuActive.SetActive(true);
+        }
+        else 
+        {
+            menuActive = menuCredits;
+            menuActive.SetActive(true);
+        }
         fastForwardText.gameObject.SetActive(false);
     }
 
@@ -52,6 +63,8 @@ public class menuManager : MonoBehaviour
             spaceBarPressed();
             escPressed();
         }
+
+        
     }
 
     public void MainMenu()
@@ -174,4 +187,18 @@ public class menuManager : MonoBehaviour
             fastForwardText.gameObject.SetActive(false);
         }
     }
+
+    //public void StartCredits()
+    //{
+    //    StartCoroutine(CreditsMenuOpen());
+    //}
+
+    //private IEnumerator CreditsMenuOpen()
+    //{
+    //    Debug.Log("start credits");
+    //    yield return new WaitForSecondsRealtime(42f);
+    //    MainMenu();
+    //    isCreditsOpen = false;
+    //    Debug.Log("end credits");
+    //}
 }
