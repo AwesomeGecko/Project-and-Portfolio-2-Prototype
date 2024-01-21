@@ -25,7 +25,15 @@ public class EnemyBullet : MonoBehaviour
     }
 
     private void OnCollisionEnter(Collision collision)
-    {        
+    {
+
+        if (rb.CompareTag("EnemyBullet"))
+        {
+            if (collision.gameObject.CompareTag("EnemyBullet"))
+            {
+                return;
+            }
+        }
         if (!collision.collider.isTrigger)
         {
             // Instantiate the spark particle system at the collision point

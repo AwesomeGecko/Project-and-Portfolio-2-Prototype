@@ -17,6 +17,11 @@ public class buttonFunctions : MonoBehaviour
         gameManager.instance.stateUnpause();
     }
 
+    public void Win()
+    {
+        SceneManager.LoadScene(sceneName: "Credits");
+    }
+
     public void quit()
     {
         SceneManager.LoadScene(0);
@@ -61,7 +66,7 @@ public class buttonFunctions : MonoBehaviour
 
     public void savePlayer()
     {
-        
+        DataPersistenceManager.instance.SaveGame();
     }
 
     public void LoadPlayer()

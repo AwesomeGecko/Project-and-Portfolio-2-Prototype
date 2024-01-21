@@ -256,7 +256,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 5190971063148889619}
   aud: {fileID: 4268009355107710033}
-  HP: 20
+  HP: 40
   lowHP: 10
   Stamina: 10
   playerSpeed: 10

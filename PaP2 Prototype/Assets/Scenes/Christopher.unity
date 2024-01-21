@@ -937,6 +937,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd5d7a0c18822a949a26a1bc27e24a5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 
   playerInRange: 0
   ItemName: Health
   interactCollider: {fileID: 0}

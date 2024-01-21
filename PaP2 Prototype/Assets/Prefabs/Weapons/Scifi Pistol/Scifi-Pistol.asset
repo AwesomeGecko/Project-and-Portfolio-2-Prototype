@@ -16,7 +16,7 @@ MonoBehaviour:
   GunPickupPrefab: {fileID: 1126165088178583906, guid: 6adcb44c659c4714d97bc9e4026e37a0, type: 3}
   shootRate: 0.5
   shootDist: 20
-  PlayerBulletDamage: 2
+  PlayerBulletDamage: 3
   PlayerBulletSpeed: 2
   ammoCur: 10
   ammoMax: 30

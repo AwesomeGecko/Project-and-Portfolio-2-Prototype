@@ -50,8 +50,6 @@ public class gameManager : MonoBehaviour, IDataPersistence
     [SerializeField] public Image Scope;
     [SerializeField] public Image Crosshair;
     [SerializeField] public Image ShotgunSight;
-    [SerializeField] public Image DevSavedDSata;
-    [SerializeField] public TextMeshProUGUI DevSavedDSataText;
     [SerializeField] public TextMeshProUGUI ammoCounter;
     [SerializeField] public TextMeshProUGUI maxAmmoCounter;
     [SerializeField] public TextMeshProUGUI gunName;
@@ -131,8 +129,6 @@ public class gameManager : MonoBehaviour, IDataPersistence
         currentScene = SceneManager.GetActiveScene();
         sceneName = currentScene.name;
 
-        DevSavedDSata.enabled = false;
-        DevSavedDSataText.enabled = false;
     }
 
     // Update is called once per frame
@@ -160,7 +156,6 @@ public class gameManager : MonoBehaviour, IDataPersistence
             if (Input.GetKeyUp(KeyCode.X))
             {
                 DebugLogs = !DebugLogs;
-                debugScreen();
             }
         }
     }
@@ -192,7 +187,7 @@ public class gameManager : MonoBehaviour, IDataPersistence
         enemiesRemaining += amount;
         if (enemiesRemaining <= 0)
         {
-            if (sceneName == "2nd Level")
+            if (sceneName == "Boss Level")
             {
                 youWin();
             }
@@ -223,6 +218,7 @@ public class gameManager : MonoBehaviour, IDataPersistence
 
     public void youLose()
     {
+        
         aud.PlayOneShot(loseSound, loseSoundVol);
         statePause();
         menuActive = menuLose;
@@ -285,20 +281,6 @@ public class gameManager : MonoBehaviour, IDataPersistence
         menuActive.SetActive(false);
         menuActive = menuSettings;
         menuActive.SetActive(true);
-    }
-
-    public void debugScreen()
-    {
-        if (DebugLogs == true)
-        {
-            DevSavedDSata.enabled = true;
-            DevSavedDSataText.enabled = true;
-        }
-        if (DebugLogs == false)
-        {
-            DevSavedDSata.enabled = false;
-            DevSavedDSataText.enabled = false;
-        }
     }
 
     public void openSavedScreen()
@@ -393,11 +375,11 @@ public class gameManager : MonoBehaviour, IDataPersistence
 
     public void LoadData(GameData data)
     {
-        keysCollected = data.KeyCount;
+
     }
 
     public void SaveData(GameData data)
     {
-        data.KeyCount = keysCollected;
+
     }
 }
