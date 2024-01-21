@@ -190,7 +190,7 @@ public class gameManager : MonoBehaviour, IDataPersistence
         enemiesRemaining += amount;
         if (enemiesRemaining <= 0)
         {
-            if (sceneName == "2nd Level")
+            if (sceneName == "Boss Level")
             {
                 youWin();
             }
