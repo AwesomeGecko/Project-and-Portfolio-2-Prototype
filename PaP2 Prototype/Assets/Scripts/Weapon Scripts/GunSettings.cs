@@ -11,6 +11,8 @@ public class GunSettings : ScriptableObject
 {
     [Header("Basic Gun Information")]
     public GameObject model;
+
+    public GameObject GunPickupPrefab;
     public float shootRate;
     public int shootDist;
     public int PlayerBulletDamage;

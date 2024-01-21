@@ -13,14 +13,15 @@ MonoBehaviour:
   m_Name: Gun - Pistol
   m_EditorClassIdentifier: 
   model: {fileID: 2110456051912792520, guid: 8a38f3607c2758746b5d3e790adba597, type: 3}
+  GunPickupPrefab: {fileID: 2110456051912792520, guid: d0ab6b7358c2fe04b8d2031aafcf6e08, type: 3}
   shootRate: 0.5
   shootDist: 20
   PlayerBulletDamage: 2
   PlayerBulletSpeed: 2
-  ammoCur: 6
+  ammoCur: 10
   ammoMax: 30
   magSize: 10
-  totalAmmo: 0
+  totalAmmo: 10
   shootSound: {fileID: 8300000, guid: be64544bade297e4d872dd74c66256d2, type: 3}
   shootSoundVol: 0.25
   reloadSound: {fileID: 8300000, guid: 0750d4716bc6e984ca12fc704bee4edb, type: 3}

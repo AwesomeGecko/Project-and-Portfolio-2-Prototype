@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Scifi-Pistol
   m_EditorClassIdentifier: 
   model: {fileID: 1126165088178583906, guid: 7138ab785f1cda543b0c5c317697386f, type: 3}
+  GunPickupPrefab: {fileID: 1126165088178583906, guid: 6adcb44c659c4714d97bc9e4026e37a0, type: 3}
   shootRate: 0.5
   shootDist: 20
   PlayerBulletDamage: 2

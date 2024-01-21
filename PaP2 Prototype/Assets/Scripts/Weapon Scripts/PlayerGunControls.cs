@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerGunControls : MonoBehaviour
@@ -241,7 +242,7 @@ public class PlayerGunControls : MonoBehaviour
 
     public void getGunStats(GunSettings gun)
     {  
-        if (gunList.Count <= 1)
+        if (gunList.Count < 2)
         {
             // Check if there is an existing gunPrefab
             if (gunLocation.childCount > 0)
@@ -369,6 +370,42 @@ public class PlayerGunControls : MonoBehaviour
         UpdatePlayerUI();
 
         isShooting = false;
+    }
+    public void SwapGuns()
+    {
+        Debug.Log("Player gun controls script swap guns called");
+
+        if (gunList.Count > 1 && selectedGun >= 0 && selectedGun < gunList.Count)
+        {
+            Debug.Log("prompt player to swap");
+            // Drop the current gun
+            DropGun(gunList[selectedGun]);
+        }
+    }
+
+    private void DropGun(GunSettings gun)
+    {
+        gunList.RemoveAt(selectedGun);
+            Transform hands = gunLocation.GetChild(0);
+            hands.gameObject.SetActive(false);
+
+            UpdatePlayerUI();
+
+            // Instantiate a dropped version of the gun prefab slightly above the ground
+            Vector3 dropPosition = gunLocation.position; // You can adjust Vector3.up as needed
+            GameObject droppedGun = Instantiate(gunList[selectedGun].GunPickupPrefab, dropPosition, gunLocation.rotation);
+
+            // Set the droppedGun to active
+            droppedGun.SetActive(true);
+
+            //// Optional: Apply force to simulate the gun falling
+            //Rigidbody gunRigidbody = droppedGun.GetComponent<Rigidbody>();
+            //if (gunRigidbody != null)
+            //{
+            //    // Adjust the force as needed
+            //    gunRigidbody.AddForce(Vector3.down * 5f, ForceMode.Impulse);
+            //}
+        
     }
 
     IEnumerator Shoot()

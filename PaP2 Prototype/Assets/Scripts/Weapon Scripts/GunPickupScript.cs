@@ -32,14 +32,15 @@ public class GunPickupScript : MonoBehaviour
     {
         if (Input.GetButtonDown("Interact") && playerInRange)
         {
-            if (gunControl.gunList.Count <= 1)
+            if (gunControl.gunList.Count < 2)
             {
                 PickUpGun();
             }
             else
             {
                 Debug.Log("SwapGuns");
-                
+                gameManager.instance.playerGunControls.SwapGuns();
+                PickUpGun();
             }
         }
     }

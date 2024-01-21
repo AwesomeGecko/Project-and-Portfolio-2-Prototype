@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: M4 - Stats
   m_EditorClassIdentifier: 
   model: {fileID: 345920512106537666, guid: 58c681bc5af6ae647928ba488f20d76a, type: 3}
+  GunPickupPrefab: {fileID: 345920512106537666, guid: 412e792a4c340074bbae4c165381c400, type: 3}
   shootRate: 0.1
   shootDist: 1000
   PlayerBulletDamage: 5

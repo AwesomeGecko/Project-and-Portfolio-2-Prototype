@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: M16 - Stats
   m_EditorClassIdentifier: 
   model: {fileID: 5077851567838869929, guid: 12734d56cdb743a42bf80b3022e49211, type: 3}
+  GunPickupPrefab: {fileID: 5077851567838869929, guid: c84852018a342ac48983d95272e6abba, type: 3}
   shootRate: 0.2
   shootDist: 200
   PlayerBulletDamage: 3

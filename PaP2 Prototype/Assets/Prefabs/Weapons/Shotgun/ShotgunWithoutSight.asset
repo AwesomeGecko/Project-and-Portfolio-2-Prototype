@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: ShotgunWithoutSight
   m_EditorClassIdentifier: 
   model: {fileID: 5615887470228577060, guid: 598a774e00f31224ea4829b200d4135c, type: 3}
+  GunPickupPrefab: {fileID: 5615887470228577060, guid: cb5488e20d737c44bb70c63992f7abc4, type: 3}
   shootRate: 0.2
   shootDist: 15
   PlayerBulletDamage: 2
