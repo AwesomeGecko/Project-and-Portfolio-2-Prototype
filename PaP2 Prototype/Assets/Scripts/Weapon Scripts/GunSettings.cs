@@ -30,7 +30,7 @@ public class GunSettings : ScriptableObject
 
     [Header("Particle Effects")]
     public ParticleSystem hitEffect;
-    public ParticleSystem muzzleFlashPrefab;
+    public ParticleSystem muzzleFlash;
     
 
     [Header("Field of View")]

@@ -7,8 +7,9 @@ public class PlayerGunControls : MonoBehaviour
 
     [Header("Gun Stats")]
     [SerializeField] public List<GunSettings> gunList = new List<GunSettings>();
+    [SerializeField] public List<GameObject> gunPrefabList = new List<GameObject>();
     [SerializeField] GameObject Playerbullet;
-
+    [SerializeField] Transform BackPack;
     [SerializeField] float shootRate;
     [SerializeField] int PlayerBulletDamage;
 
@@ -16,7 +17,7 @@ public class PlayerGunControls : MonoBehaviour
     [SerializeField] public int ammoCounter;
     [SerializeField] public int maxAmmo;
     [SerializeField] int shootDist;
-    [SerializeField] GameObject gunModel;
+    [SerializeField] Transform gunLocation;
     [SerializeField] public GunSettings defaultPistol;
     private bool isAiming;
     public float defaultFOV;
@@ -191,55 +192,64 @@ public class PlayerGunControls : MonoBehaviour
         gameManager.instance.ShotgunSight.gameObject.SetActive(true);
     }
 
-    private void CombineMeshes(List<CombinedMeshInfo> combinedMeshInfos)
-    {
-        // Combine the meshes into a single mesh
-        Mesh combinedMesh = CombineSubMeshes(combinedMeshInfos);
+    //private void CombineMeshes(List<CombinedMeshInfo> combinedMeshInfos)
+    //{
+    //    // Combine the meshes into a single mesh
+    //    Mesh combinedMesh = CombineSubMeshes(combinedMeshInfos);
 
-        // Assign the combined mesh to the gun model's MeshFilter
-        gunModel.GetComponent<MeshFilter>().sharedMesh = combinedMesh;
+    //    // Assign the combined mesh to the gun model's MeshFilter
+    //    gunModel.GetComponent<MeshFilter>().sharedMesh = combinedMesh;
 
-        // Assign a single material to MeshRenderer
-        Material combinedMaterial = combinedMeshInfos[0].materials[0]; // Assuming there's one material per mesh
-        gunModel.GetComponent<MeshRenderer>().sharedMaterial = combinedMaterial;
+    //    // Assign a single material to MeshRenderer
+    //    Material combinedMaterial = combinedMeshInfos[0].materials[0]; // Assuming there's one material per mesh
+    //    gunModel.GetComponent<MeshRenderer>().sharedMaterial = combinedMaterial;
 
-    }
+    //}
 
-    private Mesh CombineSubMeshes(List<CombinedMeshInfo> combinedMeshInfos)
-    {
-        CombineInstance[] combine = new CombineInstance[combinedMeshInfos.Count];
+    //private Mesh CombineSubMeshes(List<CombinedMeshInfo> combinedMeshInfos)
+    //{
+    //    CombineInstance[] combine = new CombineInstance[combinedMeshInfos.Count];
 
-        for (int i = 0; i < combinedMeshInfos.Count; i++)
-        {
-            combine[i].mesh = CombineMeshes(combinedMeshInfos[i].meshes);
-            combine[i].transform = Matrix4x4.identity;
-        }
+    //    for (int i = 0; i < combinedMeshInfos.Count; i++)
+    //    {
+    //        combine[i].mesh = CombineMeshes(combinedMeshInfos[i].meshes);
+    //        combine[i].transform = Matrix4x4.identity;
+    //    }
 
-        Mesh combinedMesh = new Mesh();
-        combinedMesh.CombineMeshes(combine, true, true);
+    //    Mesh combinedMesh = new Mesh();
+    //    combinedMesh.CombineMeshes(combine, true, true);
 
-        return combinedMesh;
-    }
+    //    return combinedMesh;
+    //}
 
-    private Mesh CombineMeshes(List<Mesh> meshes)
-    {
-        CombineInstance[] combine = new CombineInstance[meshes.Count];
+    //private Mesh CombineMeshes(List<Mesh> meshes)
+    //{
+    //    CombineInstance[] combine = new CombineInstance[meshes.Count];
 
-        for (int i = 0; i < meshes.Count; i++)
-        {
-            combine[i].mesh = meshes[i];
-            combine[i].transform = Matrix4x4.identity;
-        }
+    //    for (int i = 0; i < meshes.Count; i++)
+    //    {
+    //        combine[i].mesh = meshes[i];
+    //        combine[i].transform = Matrix4x4.identity;
+    //    }
 
-        Mesh combinedMesh = new Mesh();
-        combinedMesh.CombineMeshes(combine, true, true);
+    //    Mesh combinedMesh = new Mesh();
+    //    combinedMesh.CombineMeshes(combine, true, true);
 
-        return combinedMesh;
-    }
+    //    return combinedMesh;
+    //}
 
 
     public void getGunStats(GunSettings gun)
     {
+        // Check if there is an existing gunPrefab
+        if (gunLocation.childCount > 0)
+        {
+            // Move the existing gun to the backpack
+            Transform existingGun = gunLocation.GetChild(0);
+            existingGun.SetParent(BackPack);
+            existingGun.gameObject.SetActive(false);
+        }
+        
         // Add the new gun to the gunList
         gunList.Add(gun);
 
@@ -261,33 +271,33 @@ public class PlayerGunControls : MonoBehaviour
         // Check if the gun has a valid model
         if (gun.model != null)
         {
-            //// Instantiate the gun prefab from the scriptable object
-            //GameObject gunPrefab = Instantiate(gun.model, gunModel.transform.position, gunModel.transform.rotation, gunModel.transform);
+            // Instantiate the gun prefab from the scriptable object
+            GameObject gunPrefab = Instantiate(gun.model, gunLocation.position, gunLocation.rotation, gunLocation);
 
-            //// Adjust the gun's local position and rotation based on default values in the scriptable object
-            //gunPrefab.transform.localPosition = gun.defaultPositionOffset;
-            //gunPrefab.transform.localRotation = gun.defaultRotation;
+            // Adjust the gun's local position and rotation based on default values in the scriptable object
+            gunPrefab.transform.localPosition = gun.defaultGunPositionOffset;
+            gunPrefab.transform.localRotation = gun.defaultRotation;
 
-            // Check if the gun has multiple meshes
-            if (gun.combinedMeshes != null && gun.combinedMeshes.Count > 0)
-            {
-                CombineMeshes(gun.combinedMeshes);
+            //// Check if the gun has multiple meshes
+            //if (gun.combinedMeshes != null && gun.combinedMeshes.Count > 0)
+            //{
+            //    CombineMeshes(gun.combinedMeshes);
 
-                // Assign the combined mesh to the MeshFilter
-                gunModel.GetComponent<MeshFilter>().sharedMesh = CombineSubMeshes(gun.combinedMeshes);
-            }
-            else
-            {
-                // Assign gun model mesh and material to the player's gunModel
-                gunModel.GetComponent<MeshFilter>().sharedMesh = gun.model.GetComponent<MeshFilter>().sharedMesh;
-                gunModel.GetComponent<MeshRenderer>().sharedMaterial = gun.model.GetComponent<MeshRenderer>().sharedMaterial;
-            }
+            //    // Assign the combined mesh to the MeshFilter
+            //    gunModel.GetComponent<MeshFilter>().sharedMesh = CombineSubMeshes(gun.combinedMeshes);
+            //}
+            //else
+            //{
+            //    // Assign gun model mesh and material to the player's gunModel
+            //    gunModel.GetComponent<MeshFilter>().sharedMesh = gun.model.GetComponent<MeshFilter>().sharedMesh;
+            //    gunModel.GetComponent<MeshRenderer>().sharedMaterial = gun.model.GetComponent<MeshRenderer>().sharedMaterial;
+            //}
         }
         // Set local rotation
-        gunModel.transform.localRotation = gun.defaultRotation;
+        gunLocation.localRotation = gun.defaultRotation;
 
         // Set local position using the selected gun's offset
-        gunModel.transform.localPosition = gun.defaultGunPositionOffset;
+        gunLocation.localPosition = gun.defaultGunPositionOffset;
 
         // Update the player's UI
         UpdatePlayerUI();
@@ -299,6 +309,7 @@ public class PlayerGunControls : MonoBehaviour
         {
             if (Input.GetAxis("Mouse ScrollWheel") > 0 && selectedGun < gunList.Count - 1)
             {
+                
                 selectedGun++;
                 changeGun();
             }
@@ -313,6 +324,17 @@ public class PlayerGunControls : MonoBehaviour
 
     void changeGun()
     {
+        
+        // Deactivate the current gun
+        if (gunLocation.childCount > 0)
+        {
+            Transform currentGun = gunLocation.GetChild(0);
+            currentGun.gameObject.SetActive(false);
+            // Move the current gun to the backpack
+            currentGun.SetParent(BackPack);
+        }
+
+        // Use selectedGunIndex to access the gun in gunList
         shootDist = gunList[selectedGun].shootDist;
         shootRate = gunList[selectedGun].shootRate;
         PlayerBulletDamage = gunList[selectedGun].PlayerBulletDamage;
@@ -323,30 +345,21 @@ public class PlayerGunControls : MonoBehaviour
 
         maxAmmo = gunList[selectedGun].ammoMax;
 
-        // Check if the gun has multiple meshes
-        if (gunList[selectedGun].combinedMeshes != null && gunList[selectedGun].combinedMeshes.Count > 0)
+        // Move the gun from the backpack to the player's hands
+        if (BackPack.childCount > 0)
         {
-            CombineMeshes(gunList[selectedGun].combinedMeshes);
+            Transform nextGun = BackPack.GetChild(0);
+            nextGun.SetParent(gunLocation);
+            nextGun.gameObject.SetActive(true);
+            // Adjust the gun's local position and rotation based on default values in the scriptable object
+            nextGun.localPosition = gunList[selectedGun].defaultGunPositionOffset;
+            nextGun.localRotation = gunList[selectedGun].defaultRotation;
+
+            // Set local rotation and position of gunLocation
+            gunLocation.localRotation = gunList[selectedGun].defaultRotation;
+            gunLocation.localPosition = gunList[selectedGun].defaultGunPositionOffset;
         }
-        else
-        {
-            // Assign gun model mesh and material to the player's gunModel
-            gunModel.GetComponent<MeshFilter>().sharedMesh = gunList[selectedGun].model.GetComponent<MeshFilter>().sharedMesh;
-            gunModel.GetComponent<MeshRenderer>().sharedMaterial = gunList[selectedGun].model.GetComponent<MeshRenderer>().sharedMaterial;
-        }
-        //// Instantiate the gun prefab from the scriptable object
-        //GameObject gunPrefab = Instantiate(gunList[selectedGun].model, gunModel.transform.position, gunModel.transform.rotation, gunModel.transform);
-
-        //// Adjust the gun's local position and rotation based on default values in the scriptable object
-        //gunPrefab.transform.localPosition = gunList[selectedGun].defaultPositionOffset;
-        //gunPrefab.transform.localRotation = gunList[selectedGun].defaultRotation;
-
-
-        // Set local rotation
-        gunModel.transform.localRotation = gunList[selectedGun].defaultRotation;
-
-        // Set local position using the selected gun's offset
-        gunModel.transform.localPosition = gunList[selectedGun].defaultGunPositionOffset;
+        UpdatePlayerUI();
 
         isShooting = false;
     }
@@ -366,9 +379,9 @@ public class PlayerGunControls : MonoBehaviour
 
         GunSettings currentGun = gunList[selectedGun];
 
-        Vector3 spawnPos = gunModel.transform.TransformPoint(currentGun.barrelTip.localPosition);
-        Vector3 spawnScopedPos = isAiming ? gunModel.transform.TransformPoint(currentGun.barrelTip.localPosition) : spawnPos;
-        Quaternion spawnRotation = isAiming ? gunModel.transform.rotation : gunModel.transform.rotation;
+        Vector3 spawnPos = gunLocation.transform.TransformPoint(currentGun.barrelTip.localPosition);
+        Vector3 spawnScopedPos = isAiming ? gunLocation.transform.TransformPoint(currentGun.barrelTip.localPosition) : spawnPos;
+        Quaternion spawnRotation = isAiming ? gunLocation.transform.rotation : gunLocation.transform.rotation;
 
         Vector3 bulletDirection = CalculateBulletDirection();
 
@@ -397,15 +410,15 @@ public class PlayerGunControls : MonoBehaviour
             // Set Bullet properties
             bulletInstance.Spawn(bulletDirection * currentGun.PlayerBulletSpeed, currentGun.PlayerBulletDamage);
         }
-
+        UpdatePlayerUI();
         // Instantiate the muzzle flash particle effect system
-        currentMuzzleFlash = Instantiate(currentGun.muzzleFlashPrefab, spawnPos, spawnRotation);
+        currentMuzzleFlash = Instantiate(currentGun.muzzleFlash, spawnPos, spawnRotation);
 
         yield return new WaitForSeconds(shootRate);
 
         isShooting = false;
         Destroy(currentMuzzleFlash.gameObject);
-        UpdatePlayerUI();
+        
 
         //For Future Implementation:
 
@@ -440,7 +453,7 @@ public class PlayerGunControls : MonoBehaviour
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask, QueryTriggerInteraction.Ignore))
         {
             Vector3 targetPoint = hit.point;
-            bulletDirection = (targetPoint - gunModel.transform.position).normalized;
+            bulletDirection = (targetPoint - gunLocation.transform.position).normalized;
         }
 
         return bulletDirection;

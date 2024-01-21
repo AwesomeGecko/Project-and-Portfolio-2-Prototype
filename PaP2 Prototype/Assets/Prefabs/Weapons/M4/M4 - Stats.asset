@@ -26,7 +26,7 @@ MonoBehaviour:
   reloadSound: {fileID: 8300000, guid: 0750d4716bc6e984ca12fc704bee4edb, type: 3}
   reloadSoundVol: 2.06
   hitEffect: {fileID: 468260622339083660, guid: f8c505478bba5bf4dbdeaa85632801a6, type: 3}
-  muzzleFlashPrefab: {fileID: 6402671372185850169, guid: 0548e7359153c1145bf80b94f2698e6f, type: 3}
+  muzzleFlash: {fileID: 6402671372185850169, guid: 0548e7359153c1145bf80b94f2698e6f, type: 3}
   fieldOfView: 30
   combinedMeshes: []
   shouldUseScope: 1

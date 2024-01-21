@@ -12,21 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89383eed46ec81644ac36e0524ce1bb1, type: 3}
   m_Name: Gun - Pistol
   m_EditorClassIdentifier: 
-  model: {fileID: 2110456051912792520, guid: d0ab6b7358c2fe04b8d2031aafcf6e08, type: 3}
+  model: {fileID: 2110456051912792520, guid: 8a38f3607c2758746b5d3e790adba597, type: 3}
   shootRate: 0.5
   shootDist: 20
   PlayerBulletDamage: 2
   PlayerBulletSpeed: 2
-  ammoCur: 10
+  ammoCur: 6
   ammoMax: 30
   magSize: 10
-  totalAmmo: 10
+  totalAmmo: 0
   shootSound: {fileID: 8300000, guid: be64544bade297e4d872dd74c66256d2, type: 3}
   shootSoundVol: 0.25
   reloadSound: {fileID: 8300000, guid: 0750d4716bc6e984ca12fc704bee4edb, type: 3}
   reloadSoundVol: 2.01
   hitEffect: {fileID: 468260622339083660, guid: f8c505478bba5bf4dbdeaa85632801a6, type: 3}
-  muzzleFlashPrefab: {fileID: 6402671372185850169, guid: 0548e7359153c1145bf80b94f2698e6f, type: 3}
+  muzzleFlash: {fileID: 6402671372185850169, guid: 0548e7359153c1145bf80b94f2698e6f, type: 3}
   fieldOfView: 50
   combinedMeshes:
   - meshes:
