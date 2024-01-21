@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PlayerGunControls : MonoBehaviour
@@ -7,7 +8,7 @@ public class PlayerGunControls : MonoBehaviour
 
     [Header("Gun Stats")]
     [SerializeField] public List<GunSettings> gunList = new List<GunSettings>();
-    [SerializeField] public List<GameObject> gunPrefabList = new List<GameObject>();
+    private GameObject droppedGunPrefab;
     [SerializeField] GameObject Playerbullet;
     [SerializeField] Transform BackPack;
     [SerializeField] float shootRate;
@@ -238,69 +239,75 @@ public class PlayerGunControls : MonoBehaviour
     //    return combinedMesh;
     //}
 
-
     public void getGunStats(GunSettings gun)
-    {
-        // Check if there is an existing gunPrefab
-        if (gunLocation.childCount > 0)
+    {  
+        if (gunList.Count <= 1)
         {
-            // Move the existing gun to the backpack
-            Transform existingGun = gunLocation.GetChild(0);
-            existingGun.SetParent(BackPack);
-            existingGun.gameObject.SetActive(false);
+            // Check if there is an existing gunPrefab
+            if (gunLocation.childCount > 0)
+            {
+                // Move the existing gun to the backpack
+                Transform existingGun = gunLocation.GetChild(0);
+                existingGun.SetParent(BackPack);
+                existingGun.gameObject.SetActive(false);
+            }
+            // Add the new gun to the gunList
+            gunList.Add(gun);
+
+            // Set the selectedGun index to the newly added gun
+            selectedGun = gunList.Count - 1;
+
+            // Assign gun stats to player variables
+            shootDist = gun.shootDist;
+            shootRate = gun.shootRate;
+            PlayerBulletDamage = gun.PlayerBulletDamage;
+
+            PlayerBulletSpeed = gun.PlayerBulletSpeed;
+
+            // Initialize ammo variables
+            ammoCounter = gun.magSize;
+            maxAmmo = gun.ammoMax;
+            gun.totalAmmo = ammoCounter;
+
+            // Check if the gun has a valid model
+            if (gun.model != null)
+            {
+                // Instantiate the gun prefab from the scriptable object
+                GameObject gunPrefab = Instantiate(gun.model, gunLocation.position, gunLocation.rotation, gunLocation);
+
+                // Adjust the gun's local position and rotation based on default values in the scriptable object
+                gunPrefab.transform.localPosition = gun.defaultGunPositionOffset;
+                gunPrefab.transform.localRotation = gun.defaultRotation;
+
+                //// Check if the gun has multiple meshes
+                //if (gun.combinedMeshes != null && gun.combinedMeshes.Count > 0)
+                //{
+                //    CombineMeshes(gun.combinedMeshes);
+
+                //    // Assign the combined mesh to the MeshFilter
+                //    gunModel.GetComponent<MeshFilter>().sharedMesh = CombineSubMeshes(gun.combinedMeshes);
+                //}
+                //else
+                //{
+                //    // Assign gun model mesh and material to the player's gunModel
+                //    gunModel.GetComponent<MeshFilter>().sharedMesh = gun.model.GetComponent<MeshFilter>().sharedMesh;
+                //    gunModel.GetComponent<MeshRenderer>().sharedMaterial = gun.model.GetComponent<MeshRenderer>().sharedMaterial;
+                //}
+            }
+            // Set local rotation
+            gunLocation.localRotation = gun.defaultRotation;
+
+            // Set local position using the selected gun's offset
+            gunLocation.localPosition = gun.defaultGunPositionOffset;
+
+            // Update the player's UI
+            UpdatePlayerUI();
         }
-        
-        // Add the new gun to the gunList
-        gunList.Add(gun);
-
-        // Set the selectedGun index to the newly added gun
-        selectedGun = gunList.Count - 1;
-
-        // Assign gun stats to player variables
-        shootDist = gun.shootDist;
-        shootRate = gun.shootRate;
-        PlayerBulletDamage = gun.PlayerBulletDamage;
-
-        PlayerBulletSpeed = gun.PlayerBulletSpeed;
-
-        // Initialize ammo variables
-        ammoCounter = gun.magSize;
-        maxAmmo = gun.ammoMax;
-        gun.totalAmmo = ammoCounter;
-
-        // Check if the gun has a valid model
-        if (gun.model != null)
+        else
         {
-            // Instantiate the gun prefab from the scriptable object
-            GameObject gunPrefab = Instantiate(gun.model, gunLocation.position, gunLocation.rotation, gunLocation);
-
-            // Adjust the gun's local position and rotation based on default values in the scriptable object
-            gunPrefab.transform.localPosition = gun.defaultGunPositionOffset;
-            gunPrefab.transform.localRotation = gun.defaultRotation;
-
-            //// Check if the gun has multiple meshes
-            //if (gun.combinedMeshes != null && gun.combinedMeshes.Count > 0)
-            //{
-            //    CombineMeshes(gun.combinedMeshes);
-
-            //    // Assign the combined mesh to the MeshFilter
-            //    gunModel.GetComponent<MeshFilter>().sharedMesh = CombineSubMeshes(gun.combinedMeshes);
-            //}
-            //else
-            //{
-            //    // Assign gun model mesh and material to the player's gunModel
-            //    gunModel.GetComponent<MeshFilter>().sharedMesh = gun.model.GetComponent<MeshFilter>().sharedMesh;
-            //    gunModel.GetComponent<MeshRenderer>().sharedMaterial = gun.model.GetComponent<MeshRenderer>().sharedMaterial;
-            //}
+            Debug.Log("Inventory is full");
         }
-        // Set local rotation
-        gunLocation.localRotation = gun.defaultRotation;
-
-        // Set local position using the selected gun's offset
-        gunLocation.localPosition = gun.defaultGunPositionOffset;
-
-        // Update the player's UI
-        UpdatePlayerUI();
+       
     }
 
     public void selectGun()
@@ -363,6 +370,7 @@ public class PlayerGunControls : MonoBehaviour
 
         isShooting = false;
     }
+
     IEnumerator Shoot()
     {
         isShooting = true;
