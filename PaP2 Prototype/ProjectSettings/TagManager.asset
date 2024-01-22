@@ -4,19 +4,14 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - EnemyBullet
+  - PlayerSpawnPos
+  - TurretGenerator
   - PlayerBullet
   - DamageScreen
-  - PlayerSpawnPos
   - Pistol
-  - Big Robot
-  - TeleportPos
   - Checkpoint_Alpha
-  - EnemyBullet
-<<<<<<< Updated upstream
-  - Boss Spawner
-=======
-  - TurretGenerator
->>>>>>> Stashed changes
+  - Big Robot
   layers:
   - Default
   - TransparentFX
