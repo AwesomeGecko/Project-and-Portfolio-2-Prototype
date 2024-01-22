@@ -2,7 +2,7 @@ using System.Collections;
 using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-using UnityEditor.PackageManager.Requests;
+
 using UnityEngine;
 
 public class Turret : MonoBehaviour
@@ -18,6 +18,7 @@ public class Turret : MonoBehaviour
     [SerializeField] Transform turretRightBottom;
     [Space]
     [SerializeField] Transform aimPoint;
+    [SerializeField] Transform gen;
     [SerializeField] int colliderRadius;
     [SerializeField] int bulletDamage;
     [SerializeField] int bulletDestroyTime;
@@ -25,7 +26,7 @@ public class Turret : MonoBehaviour
     [SerializeField] int viewCone;
     Vector3 playerDir;
     float playerDirMount;
-   
+    Vector3 generatorDir;
 
 
     [SerializeField] GameObject Bullet;
@@ -44,16 +45,16 @@ public class Turret : MonoBehaviour
     void Update()
     {
 
-        if (!turnOff)
-        {
+        
             canSeePlayer();
-        }
+        
        
     }
     void canSeePlayer()
     {
        // playerDir = Vector3(gameManager.instance.player.transform.position.x - turretMount.transform.position.x, turretMount.transform.position.y, turretMount.transform.position.z);
         playerDir = gameManager.instance.player.transform.position - aimPoint.position;
+        generatorDir = gen.position - aimPoint.position;
 
         
         if (Math.Abs(playerDir.x) >= colliderRadius || Math.Abs(playerDir.y) >= colliderRadius || Math.Abs(playerDir.z) >= colliderRadius)
@@ -63,14 +64,18 @@ public class Turret : MonoBehaviour
         }
 
         float angleToPlayer = Vector3.Angle(playerDir, transform.forward);
+        float angleToGen = Vector3.Angle(generatorDir, transform.forward);
 
         Debug.DrawRay(aimPoint.position, playerDir);
+        Debug.DrawRay(aimPoint.position, generatorDir);
 
         RaycastHit hit;
+        RaycastHit genHit;
 
+        Physics.Raycast(aimPoint.position, generatorDir, out genHit);
         if (Physics.Raycast(aimPoint.position, playerDir, out hit))
         {
-            if (hit.collider.CompareTag("Player")/*&& angleToPlayer <= viewCone*/)
+            if (hit.collider.CompareTag("Player") && genHit.collider.CompareTag("TurretGenerator")/*&& angleToPlayer <= viewCone*/)
             {
                 faceTarget();
                 
@@ -141,32 +146,10 @@ public class Turret : MonoBehaviour
        enemyBottomBullet.SetBulletProperties(bulletDamage, bulletDestroyTime, bulletSpeed);
 
     }
-    public static void setSwitch(bool t)
-    {
-        turnOff = t;
-    }
     
     
-    public void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-           
-            anim.SetBool("PlayerInRange", true);
-        }
-        
-        
-    }
     
-
-    public void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            
-            anim.SetBool("PlayerInRange", false);
-        }
-    }
+  
 
     
 }

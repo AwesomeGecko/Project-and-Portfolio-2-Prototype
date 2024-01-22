@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 using System;
 using UnityEditor;
 using System.IO;
+using JetBrains.Annotations;
 
 public class gameManager : MonoBehaviour, IDataPersistence
 {
@@ -46,6 +47,8 @@ public class gameManager : MonoBehaviour, IDataPersistence
 
     [Header("UI")]
     [SerializeField] public Image playerHPBar;
+    [SerializeField] public Image BossHPBar;
+    [SerializeField] public GameObject BossUI;
     [SerializeField] public Image playerStaminaBar;
     [SerializeField] public Image Scope;
     [SerializeField] public Image Crosshair;
@@ -56,6 +59,8 @@ public class gameManager : MonoBehaviour, IDataPersistence
     [SerializeField] public TextMeshProUGUI enemyCounter;
     [SerializeField] public TextMeshProUGUI keysLeft;
     [SerializeField] public TextMeshProUGUI SavedDataText;
+
+    
 
     [Header("Scripts")]
     public PlayerController playerScript;
@@ -79,6 +84,9 @@ public class gameManager : MonoBehaviour, IDataPersistence
     public bool isDev;
     public int keysRemain = 3;
 
+    public string CheckForBoss;
+    
+
 
 
 
@@ -99,6 +107,17 @@ public class gameManager : MonoBehaviour, IDataPersistence
     // Start is called before the first frame update
     void Awake()
     {
+        GameObject BossCheck = GameObject.FindWithTag("Boss Spawner");
+
+        if (BossCheck != null)
+        {
+            BossUI.SetActive(true);
+        }
+        else
+        {
+            BossUI.SetActive(false);
+        }
+
         instance = this;
         onTarget = false;
         timeScaleOrig = Time.timeScale;

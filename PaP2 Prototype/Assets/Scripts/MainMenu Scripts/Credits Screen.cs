@@ -1,24 +1,41 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CreditsScreen : MonoBehaviour
 {
-    public static CreditsScreen instance;
+    [SerializeField] Animator credits;
 
-    
+    private void Update()
+    {
+        spaceBarPressed();
+        escapePresed();
+    }
+
+    public void spaceBarPressed()
+    {
+        if (Input.GetButton("Jump"))
+        {
+            credits.speed = 2.5f;
+        }
+        else
+        {
+            credits.speed = 0.8f;
+        }
+    }
+
+    public void escapePresed()
+    {
+        if (Input.GetButtonDown("Cancel"))
+        {
+            SceneManager.LoadScene("Main Menu");
+        }
+    }
 
     public void StartCredits()
     {
-        StartCoroutine(CreditsMenuOpen());
+        SceneManager.LoadScene("Main Menu");
     }
 
-    private IEnumerator CreditsMenuOpen()
-    {
-        Debug.Log("start credits");
-        menuManager.instance.MainMenu();
-        yield return new WaitForSecondsRealtime(42f);
-        menuManager.instance.isCreditsOpen = false;
-        Debug.Log("end credits");
-    }
 }
