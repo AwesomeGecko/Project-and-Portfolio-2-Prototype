@@ -69,8 +69,8 @@ public class buttonFunctions : MonoBehaviour
         DataPersistenceManager.instance.SaveGame();
     }
 
-    public void LoadPlayer()
+    public void MainMenu()
     {
-         
+        SceneManager.LoadScene("Main Menu");
     }
 }
