@@ -19,7 +19,9 @@ public class buttonFunctions : MonoBehaviour
 
     public void Win()
     {
-        SceneManager.LoadScene(sceneName: "Credits");
+        SceneManager.LoadScene("Credits");
+        Time.timeScale = gameManager.instance.timeScaleOrig;
+        Cursor.visible = true;
     }
 
     public void quit()
