@@ -59,23 +59,23 @@ public partial class PlayerController : MonoBehaviour, IDamage, IDataPersistence
     private float initialSpeed;
     private bool isDead = false;
     //
-    public void LoadData(GameData data)
-    {
-        transform.position = data.playerPosition;
-        HP = data.Health;
-        Stamina = data.Stamina;
-        ammoToSave = data.ammo;
-        maxAmmoToSave = data.maxAmmo;
-}
+//    public void LoadData(GameData data)
+//    {
+//        transform.position = data.playerPosition;
+//        HP = data.Health;
+//        Stamina = data.Stamina;
+//        ammoToSave = data.ammo;
+//        maxAmmoToSave = data.maxAmmo;
+//}
 
-    public void SaveData(GameData data)
-    {
-        data.playerPosition = transform.position;
-        data.Health = HP;
-        data.Stamina = Stamina;
-        data.ammo = ammoToSave;
-        data.maxAmmo = maxAmmoToSave;
-    }
+//    public void SaveData(GameData data)
+//    {
+//        data.playerPosition = transform.position;
+//        data.Health = HP;
+//        data.Stamina = Stamina;
+//        data.ammo = ammoToSave;
+//        data.maxAmmo = maxAmmoToSave;
+//    }
 
 
     // Start is called before the first frame update

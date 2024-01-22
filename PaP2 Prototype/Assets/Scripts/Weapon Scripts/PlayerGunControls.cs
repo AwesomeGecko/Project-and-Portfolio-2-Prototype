@@ -385,27 +385,28 @@ public class PlayerGunControls : MonoBehaviour
 
     private void DropGun(GunSettings gun)
     {
-            gunList.RemoveAt(selectedGun);
+           
             Transform hands = gunLocation.GetChild(0);
-            hands.gameObject.SetActive(false);
-
-            UpdatePlayerUI();
-
-            // Instantiate a dropped version of the gun prefab slightly above the ground
-            Vector3 dropPosition = gunLocation.position; // You can adjust Vector3.up as needed
-            GameObject droppedGun = Instantiate(gunList[selectedGun].GunPickupPrefab, dropPosition, gunLocation.rotation);
-
-            // Set the droppedGun to active
-            droppedGun.SetActive(true);
-
-            //// Optional: Apply force to simulate the gun falling
-            //Rigidbody gunRigidbody = droppedGun.GetComponent<Rigidbody>();
-            //if (gunRigidbody != null)
-            //{
-            //    // Adjust the force as needed
-            //    gunRigidbody.AddForce(Vector3.down * 5f, ForceMode.Impulse);
-            //}
         
+
+        UpdatePlayerUI();
+
+        // Instantiate a dropped version of the gun prefab slightly above the ground
+        Vector3 dropPosition = gunLocation.position; // You can adjust Vector3.up as needed
+        GameObject droppedGun = Instantiate(gunList[selectedGun].GunPickupPrefab, dropPosition, gunLocation.rotation);
+        gunList.RemoveAt(selectedGun);
+        Destroy(hands.gameObject);
+        // Set the droppedGun to active
+        droppedGun.SetActive(true);
+
+        //// Optional: Apply force to simulate the gun falling
+        //Rigidbody gunRigidbody = droppedGun.GetComponent<Rigidbody>();
+        //if (gunRigidbody != null)
+        //{
+        //    // Adjust the force as needed
+        //    gunRigidbody.AddForce(Vector3.down * .001f, ForceMode.Impulse);
+        //}
+
     }
 
     IEnumerator Shoot()
