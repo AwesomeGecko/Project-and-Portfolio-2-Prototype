@@ -12,6 +12,8 @@ TagManager:
   - Pistol
   - Checkpoint_Alpha
   - Big Robot
+  - Boss Spawner
+  - TeleportPos
   layers:
   - Default
   - TransparentFX
