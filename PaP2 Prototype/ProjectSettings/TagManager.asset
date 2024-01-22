@@ -12,6 +12,7 @@ TagManager:
   - TeleportPos
   - Checkpoint_Alpha
   - EnemyBullet
+  - Boss Spawner
   layers:
   - Default
   - TransparentFX
