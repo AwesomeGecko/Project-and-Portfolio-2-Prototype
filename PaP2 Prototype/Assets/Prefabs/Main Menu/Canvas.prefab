@@ -4249,6 +4249,7 @@ MonoBehaviour:
   NewGameText: {fileID: 1282801214381540627}
   fastForwardText: {fileID: 6445829990913608974}
   credits: {fileID: 6236689660092376744}
+  isCreditsOpen: 0
 --- !u!1 &4165625354908146597
 GameObject:
   m_ObjectHideFlags: 0

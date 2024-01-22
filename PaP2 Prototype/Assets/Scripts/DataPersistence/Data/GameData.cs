@@ -7,7 +7,6 @@ public class GameData
 {
     [Header("player stats")]
     public Vector3 playerPosition;
-    public int KeyCount;
     public int Health;
     public float Stamina;
     public float playerSpeed;
@@ -19,6 +18,8 @@ public class GameData
     public float slideSpeed;
     public float leanDist;
     public float leanSpeed;
+    public int ammo;
+    public int maxAmmo;
 
     public Dictionary<string, bool> KeysCollected;
 
@@ -27,7 +28,6 @@ public class GameData
     public GameData()
     {
         playerPosition = Vector3.zero;
-        KeyCount = 0;
         Health = 30;
         Stamina = 10;
         playerSpeed = 10;
@@ -39,8 +39,6 @@ public class GameData
         slideSpeed = 12f;
         leanDist = 10f;
         leanSpeed = 0.5f;
-
-        KeysCollected = new Dictionary<string, bool>();
 
     }
 }

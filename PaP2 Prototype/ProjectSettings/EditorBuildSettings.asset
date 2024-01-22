@@ -14,10 +14,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/2nd Level.unity
     guid: 972b41b34cf99fb469079de2ae3ab024
+  - enabled: 1
+    path: Assets/Scenes/Credits.unity
+    guid: 00dff57e163c84e4fa3dea6827096e32
   - enabled: 0
     path: Assets/Unity Download/TransitionsPlus/Demos/Scene Loading/Main Scene.unity
     guid: 66fe5cf05ff1d4725a553058aa61e45a
   - enabled: 0
     path: Assets/Unity Download/TransitionsPlus/Demos/Scene Loading/Second Scene.unity
     guid: 446755d44cff44f1495d039b060ea905
+  - enabled: 1
+    path: Assets/Scenes/Boss Level.unity
+    guid: 1e18959a215d75e4d8db182919b0cde7
   m_configObjects: {}
