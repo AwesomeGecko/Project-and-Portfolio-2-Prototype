@@ -4763,6 +4763,7 @@ MonoBehaviour:
   SavedDataText: {fileID: 174740044596212409}
   playerScript: {fileID: 0}
   cameraScript: {fileID: 0}
+  playerGunControls: {fileID: 0}
   isPaused: 0
   timeScaleOrig: 0
   enemiesRemaining: 0

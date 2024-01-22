@@ -385,7 +385,7 @@ public class PlayerGunControls : MonoBehaviour
 
     private void DropGun(GunSettings gun)
     {
-        gunList.RemoveAt(selectedGun);
+            gunList.RemoveAt(selectedGun);
             Transform hands = gunLocation.GetChild(0);
             hands.gameObject.SetActive(false);
 
