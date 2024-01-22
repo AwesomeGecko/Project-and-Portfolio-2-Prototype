@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+//using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.AI;
 
+[RequireComponent(typeof(NavMeshAgent))]
 
 public class EnemyAI : MonoBehaviour, IDamage
 {
@@ -14,9 +16,20 @@ public class EnemyAI : MonoBehaviour, IDamage
     [SerializeField] Transform headPos;
     [SerializeField] Animator anim;
     [SerializeField] Renderer model;
-
     [SerializeField] AudioSource aud;
     [SerializeField] Collider damageCol;
+
+    [Header("----- Behavior -----")]
+    public LayerMask HidableLayers;
+    public EnemyLOS LOSChecker;
+    [Range(-1, 1)]
+    [Tooltip("Lower is a better Hiding spot")]
+    public float HideSensitivity = 0;
+
+    private Coroutine MovementCoroutine;
+    private Collider[] Colliders = new Collider[10];
+
+
 
 
     [Header("----- Enemy Stat -----")]
@@ -56,6 +69,10 @@ public class EnemyAI : MonoBehaviour, IDamage
 
     void Start()
     {
+        agent = GetComponent<NavMeshAgent>();
+
+        LOSChecker.OnGainSight += HandleGainSight;
+        LOSChecker.OnLoseSight += HandleLoseSight;
 
         startingPos = transform.position;
         stoppingDistanceOrig = agent.stoppingDistance;
@@ -138,6 +155,72 @@ public class EnemyAI : MonoBehaviour, IDamage
     {
         Quaternion rot = Quaternion.LookRotation(new Vector3(playerDir.x, transform.position.y, playerDir.z));
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * targetFaceSpeed);
+    }
+
+    private void HandleGainSight(Transform Target)
+    {
+        if(MovementCoroutine != null)
+        {
+            StopCoroutine(roam());
+        }
+
+        MovementCoroutine = StartCoroutine(Hide(Target));
+    }
+
+    private void HandleLoseSight(Transform Target)
+    {
+        if (MovementCoroutine != null)
+        {
+            StopCoroutine(roam());
+        }
+    }
+
+    private IEnumerator Hide(Transform Target)
+    {
+        while (true)
+        {
+            int hits = Physics.OverlapSphereNonAlloc(agent.transform.position, LOSChecker.Collider.radius, Colliders, HidableLayers);
+
+            for (int i = 0; i < hits; i++)
+            {
+                if (NavMesh.SamplePosition(Colliders[i].transform.position, out NavMeshHit hit, 2f, agent.areaMask))
+                {
+                    if (!NavMesh.FindClosestEdge(hit.position, out hit, agent.areaMask))
+                    {
+                        Debug.LogError($"Unable to find edge close to {hit.position}");
+                    }
+
+                    if (Vector3.Dot(hit.normal, (Target.position - hit.position).normalized) < HideSensitivity)
+                    {
+                        agent.SetDestination(hit.position);
+                        break;
+                    }
+
+                    else
+                    {   //Second check for hidable position
+                        if (NavMesh.SamplePosition(Colliders[i].transform.position - (Target.position - hit.position) * 10, out NavMeshHit hit2, 2f, agent.areaMask))
+                        {
+                            if (!NavMesh.FindClosestEdge(hit.position, out hit2, agent.areaMask))
+                            {
+                                Debug.LogError($"Unable to find edge close to {hit2.position} (second attempt)");
+                            }
+
+                            if (Vector3.Dot(hit2.normal, (Target.position - hit2.position).normalized) < HideSensitivity)
+                            {
+                                agent.SetDestination(hit2.position);
+                                break;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    Debug.LogError($"Unable to find NavMesh near object {Colliders[i].name} at {Colliders[i].transform.position}");
+                }
+            }
+
+            yield return null;
+        }
     }
 
     public void OnTriggerEnter(Collider other)

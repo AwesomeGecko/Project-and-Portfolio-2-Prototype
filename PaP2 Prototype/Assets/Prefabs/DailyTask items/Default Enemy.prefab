@@ -243,6 +243,11 @@ MonoBehaviour:
   model: {fileID: 5119316622872894172}
   aud: {fileID: 116684600365427839}
   damageCol: {fileID: 6982621685235441029}
+  HidableLayers:
+    serializedVersion: 2
+    m_Bits: 1
+  LOSChecker: {fileID: 0}
+  HideSensitivity: 0
   HP: 15
   viewCone: 90
   speed: 1
