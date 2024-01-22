@@ -46,6 +46,7 @@ public class gameManager : MonoBehaviour, IDataPersistence
 
     [Header("UI")]
     [SerializeField] public Image playerHPBar;
+    [SerializeField] public Image BossHPBar;
     [SerializeField] public Image playerStaminaBar;
     [SerializeField] public Image Scope;
     [SerializeField] public Image Crosshair;
@@ -56,6 +57,8 @@ public class gameManager : MonoBehaviour, IDataPersistence
     [SerializeField] public TextMeshProUGUI enemyCounter;
     [SerializeField] public TextMeshProUGUI keysLeft;
     [SerializeField] public TextMeshProUGUI SavedDataText;
+
+    
 
     [Header("Scripts")]
     public PlayerController playerScript;
