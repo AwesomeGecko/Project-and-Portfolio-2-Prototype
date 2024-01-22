@@ -41,8 +41,6 @@ public class interactableObject : MonoBehaviour {
     [SerializeField] public AudioSource aud;
     public AudioClip interactSound;
     [Range(0f, 1f)][SerializeField] float interactSoundVol;
-    // CR
-    public AudioClip healthGain;
 
     void Start()
     {
@@ -145,14 +143,15 @@ public class interactableObject : MonoBehaviour {
 
     void ammoBox()
     {
+       
         gameManager.instance.isAmmo = true;
-        int bulletsNeeded = gameManager.instance.playerScript.gunList[gameManager.instance.playerScript.selectedGun].magSize - gameManager.instance.playerScript.gunList[gameManager.instance.playerScript.selectedGun].totalAmmo;
+        int bulletsNeeded = gameManager.instance.playerScript.gunList[gameManager.instance.playerScript.selectedGun].magSize - gameManager.instance.playerScript.gunList[gameManager.instance.playerScript.selectedGun].ammoCur;
 
         //if current ammo is less than max
-        if (gameManager.instance.playerScript.gunList[gameManager.instance.playerScript.selectedGun].totalAmmo < gameManager.instance.playerScript.gunList[gameManager.instance.playerScript.selectedGun].magSize)
+        if (gameManager.instance.playerScript.gunList[gameManager.instance.playerScript.selectedGun].totalAmmo < gameManager.instance.playerScript.gunList[gameManager.instance.playerScript.selectedGun].ammoMax)
         {
             StartCoroutine(openBox());
-            if (gameManager.instance.playerScript.gunList[gameManager.instance.playerScript.selectedGun].totalAmmo + ammoAmount > gameManager.instance.playerScript.gunList[gameManager.instance.playerScript.selectedGun].magSize)
+            if (gameManager.instance.playerScript.gunList[gameManager.instance.playerScript.selectedGun].totalAmmo + ammoAmount > gameManager.instance.playerScript.gunList[gameManager.instance.playerScript.selectedGun].ammoMax)
             {
                 //Add the amount needed to the gun and none over ex: magSize = 10 ammoAmmount = 25
                 //subtracts magSize from totalAmmo to give propper refill
@@ -187,8 +186,6 @@ public class interactableObject : MonoBehaviour {
             gameManager.instance.playerScript.HP += healAmount;
             gameManager.instance.maxText.text = $"Healed by {healAmount}";
             gameManager.instance.runText();
-            // CR
-            aud.PlayOneShot(healthGain);
         }
         else
         {
