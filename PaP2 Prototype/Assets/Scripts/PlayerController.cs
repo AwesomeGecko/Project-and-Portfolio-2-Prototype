@@ -60,7 +60,7 @@ public partial class PlayerController : MonoBehaviour, IDamage, IDataPersistence
 
     //Gun logic
     private float initialSpeed;
-
+    private bool isDead = false;
     //
     public void LoadData(GameData data)
     {
@@ -354,12 +354,15 @@ public partial class PlayerController : MonoBehaviour, IDamage, IDataPersistence
 
     public void takeDamage(int amount)
     {
+        if (isDead)
+            return;
+
         aud.PlayOneShot(playerHurt); // Plays sound effect immediately upon taking damage
         HP -= amount;
         UpdatePlayerUI();
         if (HP <= 0)
         {
-            
+            isDead = true;
             // CR
             StartCoroutine(PlayerDiesAndLoses());
             //gameManager.instance.youLose();
@@ -372,6 +375,7 @@ public partial class PlayerController : MonoBehaviour, IDamage, IDataPersistence
 
     public void playerRespawn()
     {
+        isDead = false;
         HP = HPOriginal;
         UpdatePlayerUI();
 
