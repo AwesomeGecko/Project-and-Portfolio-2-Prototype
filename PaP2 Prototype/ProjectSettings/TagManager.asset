@@ -12,7 +12,11 @@ TagManager:
   - TeleportPos
   - Checkpoint_Alpha
   - EnemyBullet
+<<<<<<< Updated upstream
   - Boss Spawner
+=======
+  - TurretGenerator
+>>>>>>> Stashed changes
   layers:
   - Default
   - TransparentFX
