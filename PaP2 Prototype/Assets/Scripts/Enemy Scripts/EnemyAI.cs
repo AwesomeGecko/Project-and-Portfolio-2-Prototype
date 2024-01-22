@@ -130,7 +130,7 @@ public class EnemyAI : MonoBehaviour, IDamage
         {
             if (hit.collider.CompareTag("Player") && angleToPlayer <= viewCone)
             {
-                agent.SetDestination(gameManager.instance.player.transform.position);
+                //agent.SetDestination(gameManager.instance.player.transform.position);
 
                 if (!isShooting)
                 {
@@ -193,6 +193,8 @@ public class EnemyAI : MonoBehaviour, IDamage
                     if (Vector3.Dot(hit.normal, (Target.position - hit.position).normalized) < HideSensitivity)
                     {
                         agent.SetDestination(hit.position);
+
+                        canSeePlayer();
                         break;
                     }
 
