@@ -65,6 +65,7 @@ public class gameManager : MonoBehaviour, IDataPersistence
     [Header("Scripts")]
     public PlayerController playerScript;
     public CameraController cameraScript;
+    public PlayerGunControls playerGunControls;
 
 
     [Header("Public variables")]
@@ -124,6 +125,7 @@ public class gameManager : MonoBehaviour, IDataPersistence
         cameraObject = GameObject.FindWithTag("MainCamera");
         playerScript = player.GetComponent<PlayerController>();
         cameraScript = cameraObject.GetComponent<CameraController>();
+        playerGunControls = player.GetComponent<PlayerGunControls>();
         playerSpawnPos = GameObject.FindWithTag("PlayerSpawnPos");
         TeleportPos = GameObject.FindWithTag("TeleportPos");
         Checkpoint_Alpha = GameObject.FindWithTag("Checkpoint_Alpha");
@@ -366,7 +368,7 @@ public class gameManager : MonoBehaviour, IDataPersistence
     public void maxItems()
     {
         //refrencing players current gun ammo and mag size
-        if (playerScript.gunList[playerScript.selectedGun].totalAmmo >= playerScript.gunList[playerScript.selectedGun].magSize && isAmmo)
+        if (playerGunControls.gunList[playerGunControls.selectedGun].PlayerTotalAmmo >= playerGunControls.gunList[playerGunControls.selectedGun].MaxGunAmmo && isAmmo)
         {
             StartCoroutine(maxPickups());
             maxText.text = "Ammo Too Full";
