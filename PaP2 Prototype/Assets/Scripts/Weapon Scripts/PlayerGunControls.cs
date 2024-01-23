@@ -142,8 +142,16 @@ public class PlayerGunControls : MonoBehaviour
                 //Adjust the shotgun camera FOV
                 Camera.main.fieldOfView = currentGun.fieldOfView;
             }
+            else if (currentGun.isAssaultRifle)
+            {
+                //Using Invoke enables the assault rifle sight ontop of the main camera through a time delay
+                Invoke("ActivateAssaultRifleSight", 0.3f);
+                //Adjust the scope cameras FOV
+                Camera.main.fieldOfView = currentGun.fieldOfView;
+            }
             else
             {
+                
                 //Deactivate the Scope image
                 gameManager.instance.Scope.gameObject.SetActive(false);
 
@@ -155,17 +163,21 @@ public class PlayerGunControls : MonoBehaviour
         }
         else
         {
+            DeActivateAssaultRifleSight();
             //Enable the main crosshairs
-            gameManager.instance.Crosshair.gameObject.SetActive(true);
-
-            //Cull the gun onto screen
-            scopeIn.cullingMask = scopeIn.cullingMask | (1 << 7);
+            gameManager.instance.Crosshair.gameObject.SetActive(true); 
 
             //Disable the scope camera
             gameManager.instance.Scope.gameObject.SetActive(false);
 
             //Disable the shotgun sight
             gameManager.instance.ShotgunSight.gameObject.SetActive(false);
+
+            //Disable the Assualt rifle sight
+            gameManager.instance.AssaultRifleSight.gameObject.SetActive(false);
+
+            //Cull the gun onto screen
+            scopeIn.cullingMask = scopeIn.cullingMask | (1 << 7);
 
             //Re-enable the main camera and set it to the default value
             Camera.main.fieldOfView = defaultFOV;
@@ -186,52 +198,31 @@ public class PlayerGunControls : MonoBehaviour
         gameManager.instance.ShotgunSight.gameObject.SetActive(true);
     }
 
-    //private void CombineMeshes(List<CombinedMeshInfo> combinedMeshInfos)
-    //{
-    //    // Combine the meshes into a single mesh
-    //    Mesh combinedMesh = CombineSubMeshes(combinedMeshInfos);
+    //This method is to use the assault rifle UI sight.
+    void ActivateAssaultRifleSight()
+    {
+        // Set local rotation
+        gunLocation.localRotation = gunList[selectedGun].ADSRotation;
 
-    //    // Assign the combined mesh to the gun model's MeshFilter
-    //    gunModel.GetComponent<MeshFilter>().sharedMesh = combinedMesh;
+        // Set local position using the selected gun's offset
+        gunLocation.localPosition = gunList[selectedGun].ADSGunPositionOffset;
 
-    //    // Assign a single material to MeshRenderer
-    //    Material combinedMaterial = combinedMeshInfos[0].materials[0]; // Assuming there's one material per mesh
-    //    gunModel.GetComponent<MeshRenderer>().sharedMaterial = combinedMaterial;
+        gameManager.instance.AssaultRifleSight.gameObject.SetActive(true);
+        scopeIn.cullingMask = scopeIn.cullingMask & ~(1 << 7);
 
-    //}
+    }
 
-    //private Mesh CombineSubMeshes(List<CombinedMeshInfo> combinedMeshInfos)
-    //{
-    //    CombineInstance[] combine = new CombineInstance[combinedMeshInfos.Count];
+    void DeActivateAssaultRifleSight()
+    {
+        // Set local rotation
+        gunLocation.localRotation = gunList[selectedGun].defaultRotation;
 
-    //    for (int i = 0; i < combinedMeshInfos.Count; i++)
-    //    {
-    //        combine[i].mesh = CombineMeshes(combinedMeshInfos[i].meshes);
-    //        combine[i].transform = Matrix4x4.identity;
-    //    }
+        // Set local position using the selected gun's default offset
+        Vector3 targetPosition = gunList[selectedGun].defaultGunPositionOffset;
 
-    //    Mesh combinedMesh = new Mesh();
-    //    combinedMesh.CombineMeshes(combine, true, true);
-
-    //    return combinedMesh;
-    //}
-
-    //private Mesh CombineMeshes(List<Mesh> meshes)
-    //{
-    //    CombineInstance[] combine = new CombineInstance[meshes.Count];
-
-    //    for (int i = 0; i < meshes.Count; i++)
-    //    {
-    //        combine[i].mesh = meshes[i];
-    //        combine[i].transform = Matrix4x4.identity;
-    //    }
-
-    //    Mesh combinedMesh = new Mesh();
-    //    combinedMesh.CombineMeshes(combine, true, true);
-
-    //    return combinedMesh;
-    //}
-
+        // Set the gun's position instantly without lerping for debugging
+        gunLocation.localPosition = targetPosition;
+    }
     public void getGunStats(GunSettings gun)
     {  
         if (gunList.Count < 2)
@@ -258,7 +249,7 @@ public class PlayerGunControls : MonoBehaviour
             PlayerBulletSpeed = gun.PlayerBulletSpeed;
 
             //// Initialize ammo variables
-            ammoCounter = gun.MagSize;
+            gun.AmmoInMag = gun.MagSize;
 
             if(gun.isdefaultPistol)
             {
@@ -280,20 +271,6 @@ public class PlayerGunControls : MonoBehaviour
                 gunPrefab.transform.localPosition = gun.defaultGunPositionOffset;
                 gunPrefab.transform.localRotation = gun.defaultRotation;
 
-                //// Check if the gun has multiple meshes
-                //if (gun.combinedMeshes != null && gun.combinedMeshes.Count > 0)
-                //{
-                //    CombineMeshes(gun.combinedMeshes);
-
-                //    // Assign the combined mesh to the MeshFilter
-                //    gunModel.GetComponent<MeshFilter>().sharedMesh = CombineSubMeshes(gun.combinedMeshes);
-                //}
-                //else
-                //{
-                //    // Assign gun model mesh and material to the player's gunModel
-                //    gunModel.GetComponent<MeshFilter>().sharedMesh = gun.model.GetComponent<MeshFilter>().sharedMesh;
-                //    gunModel.GetComponent<MeshRenderer>().sharedMaterial = gun.model.GetComponent<MeshRenderer>().sharedMaterial;
-                //}
             }
             // Set local rotation
             gunLocation.localRotation = gun.defaultRotation;
@@ -347,11 +324,7 @@ public class PlayerGunControls : MonoBehaviour
         shootRate = gunList[selectedGun].shootRate;
         PlayerBulletDamage = gunList[selectedGun].PlayerBulletDamage;
 
-        //PlayerBulletSpeed = gunList[selectedGun].PlayerBulletSpeed;
-
-        //ammoCounter = gunList[selectedGun].PlayerTotalAmmo;
-
-        //maxAmmo = gunList[selectedGun].MaxGunAmmo;
+        PlayerBulletSpeed = gunList[selectedGun].PlayerBulletSpeed;
 
         // Move the gun from the backpack to the player's hands
         if (BackPack.childCount > 0)

@@ -18,10 +18,10 @@ MonoBehaviour:
   shootDist: 20
   PlayerBulletDamage: 3
   PlayerBulletSpeed: 2
-  AmmoInMag: 20
+  AmmoInMag: 13
   MaxGunAmmo: 60
   MagSize: 20
-  PlayerTotalAmmo: 0
+  PlayerTotalAmmo: 5
   shootSound: {fileID: 8300000, guid: be64544bade297e4d872dd74c66256d2, type: 3}
   shootSoundVol: 0.25
   reloadSound: {fileID: 8300000, guid: 0750d4716bc6e984ca12fc704bee4edb, type: 3}
@@ -29,31 +29,11 @@ MonoBehaviour:
   hitEffect: {fileID: 468260622339083660, guid: f8c505478bba5bf4dbdeaa85632801a6, type: 3}
   muzzleFlash: {fileID: 6402671372185850169, guid: 0548e7359153c1145bf80b94f2698e6f, type: 3}
   fieldOfView: 60
-  combinedMeshes:
-  - meshes:
-    - {fileID: -5495902117074765545, guid: 2f31decfa42da0b499dc6b8c073fab99, type: 3}
-    - {fileID: 4493585093827132993, guid: 2f31decfa42da0b499dc6b8c073fab99, type: 3}
-    - {fileID: -1550514412580984892, guid: 2f31decfa42da0b499dc6b8c073fab99, type: 3}
-    - {fileID: -8678823145569952518, guid: 2f31decfa42da0b499dc6b8c073fab99, type: 3}
-    - {fileID: -5053925668127403250, guid: 2f31decfa42da0b499dc6b8c073fab99, type: 3}
-    - {fileID: 2212009239438826721, guid: 2f31decfa42da0b499dc6b8c073fab99, type: 3}
-    - {fileID: -2228417370725966487, guid: 2f31decfa42da0b499dc6b8c073fab99, type: 3}
-    - {fileID: -3329902420748629119, guid: 2f31decfa42da0b499dc6b8c073fab99, type: 3}
-    - {fileID: 8552134717624371188, guid: 2f31decfa42da0b499dc6b8c073fab99, type: 3}
-    - {fileID: -2477511411847689622, guid: 2f31decfa42da0b499dc6b8c073fab99, type: 3}
-    - {fileID: 8385836491182413749, guid: 2f31decfa42da0b499dc6b8c073fab99, type: 3}
-    - {fileID: -153830957423991239, guid: 2f31decfa42da0b499dc6b8c073fab99, type: 3}
-    - {fileID: 1879900250216117662, guid: 2f31decfa42da0b499dc6b8c073fab99, type: 3}
-    - {fileID: -7387706064836869012, guid: 2f31decfa42da0b499dc6b8c073fab99, type: 3}
-    - {fileID: 8691780276856062721, guid: 2f31decfa42da0b499dc6b8c073fab99, type: 3}
-    - {fileID: 6239881831769578202, guid: 2f31decfa42da0b499dc6b8c073fab99, type: 3}
-    - {fileID: 3390558720134950976, guid: 2f31decfa42da0b499dc6b8c073fab99, type: 3}
-    materials:
-    - {fileID: 2100000, guid: ed4e505575c49f84487255eac109e997, type: 2}
+  isdefaultPistol: 0
   shouldUseScope: 0
   isShotgun: 0
   shotgunPelletCount: 0
   shotgunPelletSpread: 0
   barrelTip: {fileID: 11400000, guid: dee914f2c4225934fbc1c12ed9279980, type: 2}
-  defaultGunRotation: {x: -1.7, y: -0.5, z: 0}
-  defaultGunPositionOffset: {x: 0, y: 0, z: 0}
+  defaultGunRotation: {x: -0.09, y: 0.013, z: 0}
+  defaultGunPositionOffset: {x: 0.003555, y: -0.005, z: 0}

@@ -18,7 +18,7 @@ MonoBehaviour:
   shootDist: 200
   PlayerBulletDamage: 3
   PlayerBulletSpeed: 3
-  AmmoInMag: 30
+  AmmoInMag: 15
   MaxGunAmmo: 120
   MagSize: 30
   PlayerTotalAmmo: 0
@@ -29,11 +29,11 @@ MonoBehaviour:
   hitEffect: {fileID: 468260622339083660, guid: f8c505478bba5bf4dbdeaa85632801a6, type: 3}
   muzzleFlash: {fileID: 6402671372185850169, guid: 0548e7359153c1145bf80b94f2698e6f, type: 3}
   fieldOfView: 42
-  combinedMeshes: []
+  isdefaultPistol: 0
   shouldUseScope: 0
   isShotgun: 0
   shotgunPelletCount: 0
   shotgunPelletSpread: 0
   barrelTip: {fileID: 11400000, guid: 9f6e8684ff29275489c290e58626f6e6, type: 2}
-  defaultGunRotation: {x: 0, y: 0, z: 0}
-  defaultGunPositionOffset: {x: 0, y: 0, z: 0}
+  defaultGunRotation: {x: 0.8, y: 0, z: 0}
+  defaultGunPositionOffset: {x: 0, y: -0.0025, z: 0}

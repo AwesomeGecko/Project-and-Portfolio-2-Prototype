@@ -53,6 +53,7 @@ public class gameManager : MonoBehaviour, IDataPersistence
     [SerializeField] public Image Scope;
     [SerializeField] public Image Crosshair;
     [SerializeField] public Image ShotgunSight;
+    [SerializeField] public Image AssaultRifleSight;
     [SerializeField] public TextMeshProUGUI ammoCounter;
     [SerializeField] public TextMeshProUGUI maxAmmoCounter;
     [SerializeField] public TextMeshProUGUI gunName;

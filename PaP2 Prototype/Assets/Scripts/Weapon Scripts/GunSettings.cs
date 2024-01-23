@@ -48,6 +48,8 @@ public class GunSettings : ScriptableObject
     [Space]
     public bool isShotgun;
     [Space]
+    public bool isAssaultRifle;
+    [Space]
     public int shotgunPelletCount;
     public int shotgunPelletSpread;
     [Space]
@@ -57,5 +59,9 @@ public class GunSettings : ScriptableObject
 
     public Vector3 defaultGunPositionOffset = new Vector3(0.000f, 0.000f, 0.000f);
     public Quaternion defaultRotation => Quaternion.Euler(defaultGunRotation);
+    [Space]
+    public Vector3 ADSGunRotation = new Vector3(0.000f, 0.000f, 0.000f);
 
+    public Vector3 ADSGunPositionOffset = new Vector3(0.000f, 0.000f, 0.000f);
+    public Quaternion ADSRotation => Quaternion.Euler(ADSGunRotation);
 }
