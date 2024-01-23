@@ -18,10 +18,10 @@ public class GunSettings : ScriptableObject
     public int PlayerBulletDamage;
     
     public int PlayerBulletSpeed;
-    public int ammoCur;
-    public int ammoMax;
-    public int magSize;
-    public int totalAmmo;
+    public int AmmoInMag;
+    public int MaxGunAmmo;
+    public int MagSize;
+    public int PlayerTotalAmmo;
 
     [Header("Sounds")]
     public AudioClip shootSound;
@@ -41,7 +41,8 @@ public class GunSettings : ScriptableObject
     
 
     [Header("Gun specific data")]
-    public List<CombinedMeshInfo> combinedMeshes;
+
+    public bool isdefaultPistol;
     [Space]
     public bool shouldUseScope;
     [Space]

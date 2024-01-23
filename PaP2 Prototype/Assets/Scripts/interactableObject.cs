@@ -134,36 +134,36 @@ public class interactableObject : MonoBehaviour {
     {
         //not used like a method just for refferance so i dont get confused...
         //DO NOT USE THESE VARIABLES, it wont work T_T use the gameManager refreance instead
-        ammoCur = gameManager.instance.playerGunControls.gunList[gameManager.instance.playerGunControls.selectedGun].ammoCur;
-        magSize = gameManager.instance.playerGunControls.gunList[gameManager.instance.playerGunControls.selectedGun].magSize;
+        ammoCur = gameManager.instance.playerGunControls.gunList[gameManager.instance.playerGunControls.selectedGun].AmmoInMag;
+        magSize = gameManager.instance.playerGunControls.gunList[gameManager.instance.playerGunControls.selectedGun].MagSize;
         maxAmmo = gameManager.instance.playerGunControls.maxAmmo;
-        totalAmmo = gameManager.instance.playerGunControls.gunList[gameManager.instance.playerGunControls.selectedGun].totalAmmo;
-        ammoMax = gameManager.instance.playerGunControls.gunList[gameManager.instance.playerGunControls.selectedGun].ammoMax;
+        totalAmmo = gameManager.instance.playerGunControls.gunList[gameManager.instance.playerGunControls.selectedGun].PlayerTotalAmmo;
+        ammoMax = gameManager.instance.playerGunControls.gunList[gameManager.instance.playerGunControls.selectedGun].MaxGunAmmo;
     }
 
     void ammoBox()
     {
        
         gameManager.instance.isAmmo = true;
-        int bulletsNeeded = gameManager.instance.playerGunControls.gunList[gameManager.instance.playerGunControls.selectedGun].magSize - gameManager.instance.playerGunControls.gunList[gameManager.instance.playerGunControls.selectedGun].totalAmmo;
+        int bulletsNeeded = gameManager.instance.playerGunControls.gunList[gameManager.instance.playerGunControls.selectedGun].MagSize - gameManager.instance.playerGunControls.gunList[gameManager.instance.playerGunControls.selectedGun].PlayerTotalAmmo;
 
         //if current ammo is less than max
-        if (gameManager.instance.playerGunControls.gunList[gameManager.instance.playerGunControls.selectedGun].totalAmmo < gameManager.instance.playerGunControls.gunList[gameManager.instance.playerGunControls.selectedGun].magSize)
+        if (gameManager.instance.playerGunControls.gunList[gameManager.instance.playerGunControls.selectedGun].PlayerTotalAmmo < gameManager.instance.playerGunControls.gunList[gameManager.instance.playerGunControls.selectedGun].MaxGunAmmo)
         {
             StartCoroutine(openBox());
-            if (gameManager.instance.playerGunControls.gunList[gameManager.instance.playerGunControls.selectedGun].totalAmmo + ammoAmount > gameManager.instance.playerGunControls.gunList[gameManager.instance.playerGunControls.selectedGun].magSize)
+            if (gameManager.instance.playerGunControls.gunList[gameManager.instance.playerGunControls.selectedGun].PlayerTotalAmmo + ammoAmount > gameManager.instance.playerGunControls.gunList[gameManager.instance.playerGunControls.selectedGun].MaxGunAmmo)
             {
                 //Add the amount needed to the gun and none over ex: magSize = 10 ammoAmmount = 25
                 //subtracts magSize from totalAmmo to give propper refill
                 ammoAmount = bulletsNeeded;
-                gameManager.instance.playerGunControls.gunList[gameManager.instance.playerGunControls.selectedGun].totalAmmo += ammoAmount;
+                gameManager.instance.playerGunControls.gunList[gameManager.instance.playerGunControls.selectedGun].PlayerTotalAmmo += ammoAmount;
                 gameManager.instance.maxText.text = $"Ammo Given {ammoAmount}";
                 ammoAmount = ammoReset;
             }
             else 
             {
                 //Add the amount of ammo directly to the specific gun magazine
-                gameManager.instance.playerGunControls.gunList[gameManager.instance.playerGunControls.selectedGun].totalAmmo += ammoAmount;
+                gameManager.instance.playerGunControls.gunList[gameManager.instance.playerGunControls.selectedGun].PlayerTotalAmmo += ammoAmount;
                 gameManager.instance.maxText.text = $"Ammo Given {ammoAmount}";
             }
             gameManager.instance.runText();
@@ -173,7 +173,7 @@ public class interactableObject : MonoBehaviour {
             gameManager.instance.maxItems();
         }
         gameManager.instance.isAmmo = false;
-
+        gameManager.instance.playerGunControls.UpdatePlayerUI();
     }
 
     void healthBox()

@@ -105,7 +105,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 67f4b2ecf8ad67447b63e9c982fd1a1d, type: 3}
       propertyPath: m_Name
-      value: Pistol Prefab
+      value: Pistol Pickup Prefab
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -126,6 +126,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 67f4b2ecf8ad67447b63e9c982fd1a1d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4208186165908626497}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 67f4b2ecf8ad67447b63e9c982fd1a1d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2038390984322115475}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 67f4b2ecf8ad67447b63e9c982fd1a1d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 645223345407378910}
   m_SourcePrefab: {fileID: 100100000, guid: 67f4b2ecf8ad67447b63e9c982fd1a1d, type: 3}
 --- !u!4 &1585839039878366066 stripped
 Transform:
@@ -221,3 +227,51 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: -0.018560976, z: 0.024498299}
+--- !u!65 &2038390984322115475
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2110456051912792520}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 127
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 768
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 0.2, z: 1}
+  m_Center: {x: 0, y: -1, z: 0}
+--- !u!54 &645223345407378910
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2110456051912792520}
+  serializedVersion: 4
+  m_Mass: 0.2
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0

@@ -36,15 +36,7 @@ public class PlayerGunControls : MonoBehaviour
         //Default field of view for the player
         defaultFOV = Camera.main.fieldOfView;
 
-        if (defaultPistol != null)
-        {
-            getGunStats(defaultPistol);
-            gunList[selectedGun].ammoCur = gunList[selectedGun].magSize;
-        }
-        else
-        {
-            Debug.LogError("Default pistol scriptable object is not assigned in the Unity Editor.");
-        }
+        getGunStats(defaultPistol);
 
         int.TryParse(gameManager.instance.ammoCounter.text, out gameManagerAmmo);
         ammoCounter = gameManagerAmmo;
@@ -85,19 +77,19 @@ public class PlayerGunControls : MonoBehaviour
     {
 
         // Check if the gun is not already full
-        if (gunList[selectedGun].ammoCur < gunList[selectedGun].magSize)
+        if (gunList[selectedGun].AmmoInMag < gunList[selectedGun].MagSize)
         {
             // Calculate the number of bullets needed to fill the magazine
-            int bulletsNeeded = gunList[selectedGun].magSize - gunList[selectedGun].ammoCur;
+            int bulletsNeeded = gunList[selectedGun].MagSize - gunList[selectedGun].AmmoInMag;
 
             // Check if the player has enough bullets to reload
-            if (gunList[selectedGun].totalAmmo >= bulletsNeeded)
+            if (gunList[selectedGun].PlayerTotalAmmo >= bulletsNeeded)
             {
                 // Subtract the bullets needed from player's total ammo
-                gunList[selectedGun].totalAmmo -= bulletsNeeded;
+                gunList[selectedGun].PlayerTotalAmmo -= bulletsNeeded;
 
                 // Fill the gun's magazine with the remaining bullets in the total ammo
-                gunList[selectedGun].ammoCur = gunList[selectedGun].magSize;
+                gunList[selectedGun].AmmoInMag = gunList[selectedGun].MagSize;
 
                 // Update the UI
                 UpdatePlayerUI();
@@ -105,13 +97,13 @@ public class PlayerGunControls : MonoBehaviour
             else
             {
                 // Check if there is any ammo left to reload
-                if (gunList[selectedGun].totalAmmo > 0)
+                if (gunList[selectedGun].PlayerTotalAmmo > 0)
                 {
                     // Reload with the remaining ammo
-                    gunList[selectedGun].ammoCur += gunList[selectedGun].totalAmmo;
+                    gunList[selectedGun].AmmoInMag += gunList[selectedGun].PlayerTotalAmmo;
 
                     // Reset total ammo to 0
-                    gunList[selectedGun].totalAmmo = 0;
+                    gunList[selectedGun].PlayerTotalAmmo = 0;
 
                     // Update the UI
                    UpdatePlayerUI();
@@ -265,10 +257,18 @@ public class PlayerGunControls : MonoBehaviour
 
             PlayerBulletSpeed = gun.PlayerBulletSpeed;
 
-            // Initialize ammo variables
-            ammoCounter = gun.magSize;
-            maxAmmo = gun.ammoMax;
-            gun.totalAmmo = ammoCounter;
+            //// Initialize ammo variables
+            ammoCounter = gun.MagSize;
+
+            if(gun.isdefaultPistol)
+            {
+                
+                gunList[selectedGun].PlayerTotalAmmo = gunList[selectedGun].MagSize;
+            }
+            else
+            {
+                gunList[selectedGun].PlayerTotalAmmo = 0;
+            }
 
             // Check if the gun has a valid model
             if (gun.model != null)
@@ -347,11 +347,11 @@ public class PlayerGunControls : MonoBehaviour
         shootRate = gunList[selectedGun].shootRate;
         PlayerBulletDamage = gunList[selectedGun].PlayerBulletDamage;
 
-        PlayerBulletSpeed = gunList[selectedGun].PlayerBulletSpeed;
+        //PlayerBulletSpeed = gunList[selectedGun].PlayerBulletSpeed;
 
-        ammoCounter = gunList[selectedGun].totalAmmo;
+        //ammoCounter = gunList[selectedGun].PlayerTotalAmmo;
 
-        maxAmmo = gunList[selectedGun].ammoMax;
+        //maxAmmo = gunList[selectedGun].MaxGunAmmo;
 
         // Move the gun from the backpack to the player's hands
         if (BackPack.childCount > 0)
@@ -393,19 +393,32 @@ public class PlayerGunControls : MonoBehaviour
 
         // Instantiate a dropped version of the gun prefab slightly above the ground
         Vector3 dropPosition = gunLocation.position; // You can adjust Vector3.up as needed
-        GameObject droppedGun = Instantiate(gunList[selectedGun].GunPickupPrefab, dropPosition, gunLocation.rotation);
+        GameObject droppedGun = Instantiate(gunList[selectedGun].GunPickupPrefab, dropPosition, Quaternion.identity);
         gunList.RemoveAt(selectedGun);
         Destroy(hands.gameObject);
         // Set the droppedGun to active
         droppedGun.SetActive(true);
 
-        //// Optional: Apply force to simulate the gun falling
-        //Rigidbody gunRigidbody = droppedGun.GetComponent<Rigidbody>();
-        //if (gunRigidbody != null)
-        //{
-        //    // Adjust the force as needed
-        //    gunRigidbody.AddForce(Vector3.down * .001f, ForceMode.Impulse);
-        //}
+        // Optional: Apply force to simulate the gun falling
+        Rigidbody gunRigidbody = droppedGun.GetComponent<Rigidbody>();
+        if (gunRigidbody != null)
+        {
+            // Get the player's rotation
+            Quaternion playerRotation = gunLocation.rotation;
+           
+            // Use Quaternion.Euler to convert euler angles to a quaternion
+            Quaternion forwardRotation = Quaternion.Euler(0f, playerRotation.eulerAngles.y, 0f);
+
+            //Set the bounce direction <><> Dont forget to set the rigid body to interpolate otherwise no bounce in Unity
+            Vector3 bounceDirection = forwardRotation * Vector3.forward;
+           
+            // Adjust the force as needed
+            float bounceForceMagnitude = 100f; // Adjust the magnitude as needed
+            Vector3 bounceForce = (bounceForceMagnitude * bounceDirection) * Time.deltaTime;
+
+            // Apply the force to the Rigidbody
+            gunRigidbody.AddForce(bounceForce, ForceMode.Impulse);
+        }
 
     }
 
@@ -413,13 +426,13 @@ public class PlayerGunControls : MonoBehaviour
     {
         isShooting = true;
 
-        if (gunList[selectedGun].ammoCur <= 0)
+        if (gunList[selectedGun].AmmoInMag <= 0)
         {
             isShooting = false;
             yield break;
         }
 
-        gunList[selectedGun].ammoCur--;
+        gunList[selectedGun].AmmoInMag--;
 
         aud.PlayOneShot(gunList[selectedGun].shootSound, gunList[selectedGun].shootSoundVol);
 
@@ -505,9 +518,9 @@ public class PlayerGunControls : MonoBehaviour
         return bulletDirection;
     }
 
-    void UpdatePlayerUI()
+    public void UpdatePlayerUI()
     {
-        gameManager.instance.ammoCounter.text = gunList[selectedGun].ammoCur.ToString("0");
-        gameManager.instance.maxAmmoCounter.text = gunList[selectedGun].totalAmmo.ToString("0");
+        gameManager.instance.ammoCounter.text = gunList[selectedGun].AmmoInMag.ToString("0");
+        gameManager.instance.maxAmmoCounter.text = gunList[selectedGun].PlayerTotalAmmo.ToString("0");
     }
 }

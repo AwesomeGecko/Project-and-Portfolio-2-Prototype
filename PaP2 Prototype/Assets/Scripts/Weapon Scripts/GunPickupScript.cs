@@ -18,11 +18,6 @@ public class GunPickupScript : MonoBehaviour
         {
             // Get the PlayerGunControls script from the player GameObject
             gunControl = player.GetComponent<PlayerGunControls>();
-
-            if (gunControl != null)
-            {
-                gun.ammoCur = gun.magSize;
-            }
         }   
     }
 
@@ -67,21 +62,4 @@ public class GunPickupScript : MonoBehaviour
             playerInRange = false;
         }
     }
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (gunControl.gunList.Count <= 1)
-    //    {
-    //        if (other.CompareTag("Player") && !triggerSet)
-    //        {
-    //            triggerSet = true;
-    //            //give the stats to the player
-    //            gameManager.instance.playerGunControls.getGunStats(gun);
-    //            Destroy(gameObject);
-    //        }
-    //    }
-    //    else
-    //    {
-    //        Debug.Log("you can not pick me up");
-    //    }
-    //}
 }
