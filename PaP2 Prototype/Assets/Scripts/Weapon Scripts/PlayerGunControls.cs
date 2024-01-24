@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class PlayerGunControls : MonoBehaviour
 {
@@ -21,7 +22,7 @@ public class PlayerGunControls : MonoBehaviour
     [SerializeField] int shootDist;
     [SerializeField] Transform gunLocation;
     [SerializeField] public GunSettings defaultPistol;
-    private bool isAiming;
+    public bool isAiming;
     public float defaultFOV;
     public int selectedGun;
     private bool isShooting;
@@ -31,6 +32,14 @@ public class PlayerGunControls : MonoBehaviour
     private PlayerController playerController;
     [SerializeField] AudioSource aud;
 
+    
+    public Bullet BulletPrefab;
+
+    private BulletPool BulletPool;
+
+    public Vector3 spawnPos;
+    public Vector3 spawnScopedPos;
+    public Quaternion spawnRotation;
     void Start()
     {
         //Default field of view for the player
@@ -40,6 +49,8 @@ public class PlayerGunControls : MonoBehaviour
 
         int.TryParse(gameManager.instance.ammoCounter.text, out gameManagerAmmo);
         ammoCounter = gameManagerAmmo;
+
+        BulletPool = GetComponent<BulletPool>();
     }
 
     // Update is called once per frame
@@ -395,9 +406,48 @@ public class PlayerGunControls : MonoBehaviour
 
     }
 
+    private Bullet CreateBullet()
+    {
+        // Check if BulletPrefab is assigned in the Unity Editor
+        if (BulletPrefab == null)
+        {
+            
+            return null;
+        }
+        
+        // Instantiate the bullet prefab
+        Bullet bullet = Instantiate(BulletPrefab, isAiming ? spawnScopedPos : spawnPos, spawnRotation);
+
+        // Check if instantiation was successful
+        if (bullet == null)
+        {
+           
+            return null;
+        }
+
+        // Additional initialization
+        Rigidbody rigidbody = bullet.GetComponent<Rigidbody>();
+
+        // Check if Rigidbody component is present
+        if (rigidbody == null)
+        {
+            
+            return null;
+        }
+
+        rigidbody.mass = gunList[selectedGun].BulletWeight;
+
+        return bullet;
+    }
+
     IEnumerator Shoot()
     {
         isShooting = true;
+
+        //Debug.Log("Before BulletPool.Get()");
+        //Bullet bullet = BulletPool.Get();
+        //Debug.Log("After BulletPool.Get()");
+        //bullet.gameObject.SetActive(true);
 
         if (gunList[selectedGun].AmmoInMag <= 0)
         {
@@ -405,18 +455,19 @@ public class PlayerGunControls : MonoBehaviour
             yield break;
         }
 
-        gunList[selectedGun].AmmoInMag--;
+        
 
+        //muzzleFlash.Play();
         aud.PlayOneShot(gunList[selectedGun].shootSound, gunList[selectedGun].shootSoundVol);
 
         GunSettings currentGun = gunList[selectedGun];
 
-        Vector3 spawnPos = gunLocation.transform.TransformPoint(currentGun.barrelTip.localPosition);
-        Vector3 spawnScopedPos = isAiming ? gunLocation.transform.TransformPoint(currentGun.barrelTip.localPosition) : spawnPos;
-        Quaternion spawnRotation = isAiming ? gunLocation.transform.rotation : gunLocation.transform.rotation;
+        spawnPos = gunLocation.transform.TransformPoint(currentGun.barrelTip.localPosition);
+        spawnScopedPos = isAiming ? gunLocation.transform.TransformPoint(currentGun.barrelTip.localPosition) : spawnPos;
+        spawnRotation = isAiming ? gunLocation.transform.rotation : gunLocation.transform.rotation;
 
         Vector3 bulletDirection = CalculateBulletDirection();
-
+        
         // Check if the currently selected gun is the shotgun
         if (currentGun.isShotgun)
         {
@@ -436,21 +487,33 @@ public class PlayerGunControls : MonoBehaviour
         }
         else
         {
-            // Create a new Bullet instance
-            Bullet bulletInstance = Instantiate(Playerbullet, spawnScopedPos, spawnRotation).GetComponent<Bullet>();
+            //Bullet bullet = CreateBullet();
 
-            // Set Bullet properties
-            bulletInstance.Spawn(bulletDirection * currentGun.PlayerBulletSpeed, currentGun.PlayerBulletDamage);
+            Bullet bullet = BulletPool.pool.Get();
+            
+            //bullet.transform.SetPositionAndRotation(isAiming ? spawnScopedPos : spawnPos, spawnRotation);
+         
+
+            //// Instantiate the Bullet instance
+            //Bullet bulletInstance = Instantiate(Playerbullet, isAiming ? spawnScopedPos : spawnPos, spawnRotation).GetComponent<Bullet>();
+
+            //// Set Bullet properties
+            bullet.Spawn(bulletDirection * currentGun.PlayerBulletSpeed, currentGun.PlayerBulletDamage);
         }
+
+        gunList[selectedGun].AmmoInMag--;
+
         UpdatePlayerUI();
         // Instantiate the muzzle flash particle effect system
-        currentMuzzleFlash = Instantiate(currentGun.muzzleFlash, spawnPos, spawnRotation);
+        //currentMuzzleFlash = Instantiate(currentGun.muzzleFlash, spawnPos, spawnRotation);
 
         yield return new WaitForSeconds(shootRate);
 
         isShooting = false;
-        Destroy(currentMuzzleFlash.gameObject);
-        
+
+
+        //Destroy(currentMuzzleFlash.gameObject);
+
 
         //For Future Implementation:
 

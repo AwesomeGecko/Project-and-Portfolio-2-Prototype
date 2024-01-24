@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Pool;
 
   [RequireComponent(typeof(Rigidbody))]
 public class Bullet : MonoBehaviour
@@ -18,9 +19,16 @@ public class Bullet : MonoBehaviour
     public event CollisionEvent OnCollision;
     public ParticleSystem sparkParticles;
 
+    private ObjectPool<Bullet> _pool;
+
     private void Awake()
     {
           Rigidbody = GetComponent<Rigidbody>();
+    }
+
+    private void OnEnable()
+    {
+       
     }
 
     public void Spawn(Vector3 spawnForce, int damage)
@@ -28,7 +36,7 @@ public class Bullet : MonoBehaviour
         objectsPenetrated = 0;
         transform.forward = spawnForce.normalized;
         Rigidbody.AddForce(spawnForce, ForceMode.Impulse); // Use ForceMode.Impulse for instant velocity change
-        StartCoroutine(DelayedDisable(2));
+        
         this.damage = damage; // Set the damage property
     }
     private IEnumerator DelayedDisable(float time)
@@ -58,17 +66,27 @@ public class Bullet : MonoBehaviour
 
     private void DisableBullet()
     {
+        Debug.Log($"Bullet Velocity before release: {Rigidbody.velocity}");
+
         OnCollision?.Invoke(this, null, objectsPenetrated);
         objectsPenetrated++;
-        gameObject.SetActive(false); // Instead of destroying, just deactivate the GameObject
-        Destroy(gameObject);
+        /*gameObject.SetActive(false);*/ // Instead of destroying, just deactivate the GameObject
+        //Destroy(gameObject);
+        _pool.Release(this);
+        Debug.Log($"Bullet Velocity after release: {Rigidbody.velocity}");
     }
 
     private void OnDisable()
     {
           StopAllCoroutines();
-          Rigidbody.velocity = Vector3.zero;
-          Rigidbody.angularVelocity = Vector3.zero;
+        Rigidbody.velocity = Vector3.zero;
+        Debug.Log($"Bullet Velocity on Disable: {Rigidbody.velocity}");
+        Rigidbody.angularVelocity = Vector3.zero;
           OnCollision = null;
     }
-  }
+
+    public void SetPool(ObjectPool<Bullet> pool)
+    {
+        _pool = pool;
+    }
+}

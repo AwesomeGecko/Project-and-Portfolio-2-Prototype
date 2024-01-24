@@ -23,6 +23,8 @@ public class GunSettings : ScriptableObject
     public int MagSize;
     public int PlayerTotalAmmo;
 
+    public float BulletWeight = 0.1f;
+
     [Header("Sounds")]
     public AudioClip shootSound;
     [Range(0, 10)] public float shootSoundVol;
@@ -32,7 +34,7 @@ public class GunSettings : ScriptableObject
 
     [Header("Particle Effects")]
     public ParticleSystem hitEffect;
-    public ParticleSystem muzzleFlash;
+    //public ParticleSystem muzzleFlash;
     
 
     [Header("Field of View")]

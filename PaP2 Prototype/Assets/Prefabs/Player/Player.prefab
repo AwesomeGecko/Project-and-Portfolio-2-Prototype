@@ -176,6 +176,7 @@ GameObject:
   - component: {fileID: 6547731439817625755}
   - component: {fileID: 1941524770838689977}
   - component: {fileID: 4268009355107710033}
+  - component: {fileID: 2239565627077295806}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -237,11 +238,16 @@ MonoBehaviour:
   shootDist: 0
   gunLocation: {fileID: 6000765930483488672}
   defaultPistol: {fileID: 11400000, guid: b622e77337d8b8141acab1f561c0b35b, type: 2}
+  isAiming: 0
   defaultFOV: 0
   selectedGun: 0
   scopeIn: {fileID: 6951981033588707834}
   gameManagerAmmo: 0
   aud: {fileID: 4268009355107710033}
+  BulletPrefab: {fileID: 2081206634432917684, guid: f2ebe8c562f11b3439d76c5a0b962c1d, type: 3}
+  spawnPos: {x: 0, y: 0, z: 0}
+  spawnScopedPos: {x: 0, y: 0, z: 0}
+  spawnRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &681734634721804330
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -479,6 +485,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2239565627077295806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2983655738157960448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 269437d556dc29043875d93d1ffb11ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5920228921839368666
 GameObject:
   m_ObjectHideFlags: 0
