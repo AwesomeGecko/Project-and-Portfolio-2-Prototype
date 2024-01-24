@@ -7,12 +7,14 @@ public class BulletPool : MonoBehaviour
 {
     public ObjectPool<Bullet> pool;
     private PlayerGunControls gunControls;
+    private TrailRenderer bulletTrail;
 
    
     private void Start()
     {
         gunControls = GetComponent<PlayerGunControls>();
         pool = new ObjectPool<Bullet> (CreateBullet, TakeFromPool, ReturnToPool, DestroyInPool, true, 100, 100);
+        
        
     }
 
@@ -35,13 +37,6 @@ public class BulletPool : MonoBehaviour
         bullet.Rigidbody.velocity = Vector3.zero;
 
         bullet.gameObject.SetActive(true);
-
-        TrailRenderer bulletTrail = bullet.GetComponent<TrailRenderer>();
-        if (bulletTrail != null)
-        {
-            bulletTrail.enabled = true;
-        }
-        
     }
 
 
@@ -51,7 +46,7 @@ public class BulletPool : MonoBehaviour
 
         bullet.gameObject.SetActive(false);
 
-        TrailRenderer bulletTrail = bullet.GetComponent<TrailRenderer>();
+        bulletTrail = bullet.GetComponent<TrailRenderer>();
         if (bulletTrail != null)
         {
             bulletTrail.enabled = false;

@@ -499,6 +499,11 @@ public class PlayerGunControls : MonoBehaviour
 
             //// Set Bullet properties
             bullet.Spawn(bulletDirection * currentGun.PlayerBulletSpeed, currentGun.PlayerBulletDamage);
+            TrailRenderer bulletTrail = bullet.GetComponent<TrailRenderer>();
+            if (bulletTrail != null)
+            {
+                bulletTrail.enabled = true;
+            }
         }
 
         gunList[selectedGun].AmmoInMag--;
