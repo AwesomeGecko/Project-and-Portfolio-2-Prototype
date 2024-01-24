@@ -6,7 +6,7 @@ using UnityEngine.Pool;
   [RequireComponent(typeof(Rigidbody))]
 public class Bullet : MonoBehaviour
 {
-    private int objectsPenetrated;
+   
     [SerializeField] private int damage; // Serialized for inspection, but can be set programmatically
     public Rigidbody Rigidbody { get; private set; }
     [field: SerializeField] public Vector3 SpawnLocation { get; private set; }
@@ -14,7 +14,7 @@ public class Bullet : MonoBehaviour
     [field: SerializeField] public Vector3 SpawnVelocity { get; private set; }
     [field: SerializeField] public int Damage { get; private set; }
 
-    public delegate void CollisionEvent(Bullet Bullet, Collision Collision, int ObjectsPenetrated);
+    public delegate void CollisionEvent(Bullet Bullet, Collision Collision);
 
     public event CollisionEvent OnCollision;
     public ParticleSystem sparkParticles;
@@ -28,12 +28,12 @@ public class Bullet : MonoBehaviour
 
     private void OnEnable()
     {
-       
+        StartCoroutine(DelayedDisable(1));
     }
 
     public void Spawn(Vector3 spawnForce, int damage)
     {
-        objectsPenetrated = 0;
+        
         transform.forward = spawnForce.normalized;
         Rigidbody.AddForce(spawnForce, ForceMode.Impulse); // Use ForceMode.Impulse for instant velocity change
         
@@ -66,21 +66,18 @@ public class Bullet : MonoBehaviour
 
     private void DisableBullet()
     {
-        Debug.Log($"Bullet Velocity before release: {Rigidbody.velocity}");
+        
 
-        OnCollision?.Invoke(this, null, objectsPenetrated);
-        objectsPenetrated++;
-        /*gameObject.SetActive(false);*/ // Instead of destroying, just deactivate the GameObject
-        //Destroy(gameObject);
+        OnCollision?.Invoke(this, null);
+        
         _pool.Release(this);
-        Debug.Log($"Bullet Velocity after release: {Rigidbody.velocity}");
+       
     }
 
     private void OnDisable()
     {
           StopAllCoroutines();
         Rigidbody.velocity = Vector3.zero;
-        Debug.Log($"Bullet Velocity on Disable: {Rigidbody.velocity}");
         Rigidbody.angularVelocity = Vector3.zero;
           OnCollision = null;
     }

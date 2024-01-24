@@ -444,11 +444,6 @@ public class PlayerGunControls : MonoBehaviour
     {
         isShooting = true;
 
-        //Debug.Log("Before BulletPool.Get()");
-        //Bullet bullet = BulletPool.Get();
-        //Debug.Log("After BulletPool.Get()");
-        //bullet.gameObject.SetActive(true);
-
         if (gunList[selectedGun].AmmoInMag <= 0)
         {
             isShooting = false;
@@ -478,25 +473,24 @@ public class PlayerGunControls : MonoBehaviour
 
                 Quaternion spreadRotation = Quaternion.LookRotation(bulletDirection);
 
-                // Instantiate the Bullet instance
-                Bullet bulletInstance = Instantiate(Playerbullet, isAiming ? spawnScopedPos : spawnPos, spreadRotation).GetComponent<Bullet>();
+               //Get the bullets from the pool
+                Bullet bullet = BulletPool.pool.Get();
 
                 // Set Bullet properties
-                bulletInstance.Spawn(spreadDirection * currentGun.PlayerBulletSpeed, currentGun.PlayerBulletDamage);
+                bullet.Spawn(spreadDirection * currentGun.PlayerBulletSpeed, currentGun.PlayerBulletDamage);
+                TrailRenderer bulletTrail = bullet.GetComponent<TrailRenderer>();
+                if (bulletTrail != null)
+                {
+                    bulletTrail.enabled = true;
+                }
             }
         }
         else
         {
-            //Bullet bullet = CreateBullet();
-
+            
+            //Get the bullet from the pool
             Bullet bullet = BulletPool.pool.Get();
             
-            //bullet.transform.SetPositionAndRotation(isAiming ? spawnScopedPos : spawnPos, spawnRotation);
-         
-
-            //// Instantiate the Bullet instance
-            //Bullet bulletInstance = Instantiate(Playerbullet, isAiming ? spawnScopedPos : spawnPos, spawnRotation).GetComponent<Bullet>();
-
             //// Set Bullet properties
             bullet.Spawn(bulletDirection * currentGun.PlayerBulletSpeed, currentGun.PlayerBulletDamage);
             TrailRenderer bulletTrail = bullet.GetComponent<TrailRenderer>();
@@ -516,8 +510,6 @@ public class PlayerGunControls : MonoBehaviour
 
         isShooting = false;
 
-
-        //Destroy(currentMuzzleFlash.gameObject);
 
 
         //For Future Implementation:
