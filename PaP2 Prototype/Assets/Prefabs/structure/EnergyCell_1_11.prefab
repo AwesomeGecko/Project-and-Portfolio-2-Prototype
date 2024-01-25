@@ -92,8 +92,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4621365106963734}
-  - component: {fileID: 2188273547003234809}
-  - component: {fileID: 6083970033330091928}
   - component: {fileID: 5162577778683968302}
   m_Layer: 0
   m_Name: EnergyCell_1_11
@@ -112,7 +110,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -55.50673, y: -0.35, z: -5.3346753}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4030767164409076}
@@ -121,41 +119,6 @@ Transform:
   - {fileID: 4987946447041188}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &2188273547003234809
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1046760486798050}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.2, y: 0.44, z: 0.2}
-  m_Center: {x: 0, y: 0.2, z: 0}
---- !u!114 &6083970033330091928
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1046760486798050}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9a9752bfc0cb324097d08767b3badfd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  turretGen: {fileID: 1046760486798050}
-  waitTime: 10
 --- !u!65 &5162577778683968302
 BoxCollider:
   m_ObjectHideFlags: 0
