@@ -8,6 +8,9 @@ public class Lights : MonoBehaviour
     public float Offcount;
     new Light light;
 
+   [SerializeField] bool IfObjectiveLight;
+    bool completelyOff;
+
     float count;
 
     
@@ -23,19 +26,34 @@ public class Lights : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (count <= 0 && !light.enabled)
+        if (!completelyOff)
         {
-            light.enabled = true;
-            count = Offcount;
-            
-        }
-        else if (count <= 0 && light.enabled)
-        {
-            light.enabled = false;
-            count = Oncount;
-           
-        }
-        count -= Time.deltaTime;
+            if (count <= 0 && !light.enabled)
+            {
+                light.enabled = true;
+                count = Offcount;
 
+            }
+            else if (count <= 0 && light.enabled)
+            {
+                light.enabled = false;
+                count = Oncount;
+
+            }
+            count -= Time.deltaTime;
+        }
+
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (IfObjectiveLight)
+        {
+            if(other.CompareTag("Player"))
+            {
+                completelyOff = true;
+                light.enabled = false;
+            }
+        }
     }
 }
