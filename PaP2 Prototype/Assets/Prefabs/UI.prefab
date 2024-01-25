@@ -5143,6 +5143,9 @@ MonoBehaviour:
   enemyCounter: {fileID: 4245932657271446743}
   keysLeft: {fileID: 6320388024430697211}
   SavedDataText: {fileID: 174740044596212409}
+  Mute: {fileID: 21300000, guid: 93e6e8dc7e9ccb945a1adc8e5a8f5fe2, type: 3}
+  UnMute: {fileID: 21300000, guid: fd0b90ca72c3d8b408d625dcdd9c0951, type: 3}
+  image: {fileID: 686778648663260884}
   playerScript: {fileID: 0}
   cameraScript: {fileID: 0}
   playerGunControls: {fileID: 0}
@@ -5154,10 +5157,11 @@ MonoBehaviour:
   isHP: 0
   isTPOn: 0
   keysCollected: 0
-  isMuted: 0
   isDev: 0
   keysRemain: 3
   CheckForBoss: 
+  Level: 0
+  isMuted: 0
   aud: {fileID: 5216475069583815945}
   winSound: {fileID: 8300000, guid: 59fd8f3376ee9834d9c98676af63e743, type: 3}
   winSoundVol: 0.25
@@ -6708,7 +6712,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2684837201085154203}
   - component: {fileID: 5808760969315291463}
-  - component: {fileID: 7488410350053214580}
   - component: {fileID: 686778648663260884}
   - component: {fileID: 6224961103050243829}
   m_Layer: 5
@@ -6745,22 +6748,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4456869347997975149}
   m_CullTransparentMesh: 1
---- !u!114 &7488410350053214580
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4456869347997975149}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f07c0f3b90e27b74b8bcd792415d8b08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprite1: {fileID: 21300000, guid: fd0b90ca72c3d8b408d625dcdd9c0951, type: 3}
-  sprite2: {fileID: 21300000, guid: 93e6e8dc7e9ccb945a1adc8e5a8f5fe2, type: 3}
-  image: {fileID: 686778648663260884}
-  toggled: 0
 --- !u!114 &686778648663260884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6835,21 +6822,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7488410350053214580}
-        m_TargetAssemblyTypeName: MuteButtons, Assembly-CSharp
+      - m_Target: {fileID: 2452298167773979430}
+        m_TargetAssemblyTypeName: gameManager, Assembly-CSharp
         m_MethodName: muteSounds
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 7226266897608281075}
-        m_TargetAssemblyTypeName: AudioControls, Assembly-CSharp
-        m_MethodName: checkMuted
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8091,7 +8066,7 @@ GameObject:
   - component: {fileID: 3344169888121365094}
   m_Layer: 5
   m_Name: SettingsMenu
-  m_TagString: Untagged
+  m_TagString: Audio
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8133,7 +8108,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: e5be003068f40a348b4a0174226c24de, type: 2}
-  muteButtons: {fileID: 0}
+  muteButtons: {fileID: 6224961103050243829}
   mainSlider: {fileID: 2868198964133798403}
   musicSlider: {fileID: 4693173153249023076}
   sfxSlider: {fileID: 2899806819482537905}
@@ -8149,6 +8124,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   teleporter: {fileID: 0}
+  isMuted: 0
 --- !u!222 &554195455225436511
 CanvasRenderer:
   m_ObjectHideFlags: 0

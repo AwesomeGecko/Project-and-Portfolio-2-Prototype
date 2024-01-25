@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.SceneManagement;
+using TransitionsPlus;
 public class DataPersistenceManager : MonoBehaviour
 {
     [Header("Debugging")]
@@ -117,6 +118,7 @@ public class DataPersistenceManager : MonoBehaviour
         
         //saves data to the file
         dataHandler.Save(gameData);
+        
     }
 
     private void OnApplicationQuit()
@@ -131,6 +133,10 @@ public class DataPersistenceManager : MonoBehaviour
         return new List<IDataPersistence>(dataPersistenceObjects);
     }
 
+    public int PlayerLevel()
+    {
+        return gameData.level;
+    }
 
     public bool HasGameData()
     { 

@@ -14,6 +14,7 @@ TagManager:
   - Big Robot
   - Boss Spawner
   - TeleportPos
+  - Audio
   layers:
   - Default
   - TransparentFX

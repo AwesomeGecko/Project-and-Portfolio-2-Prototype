@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class GameData
@@ -21,6 +22,13 @@ public class GameData
     public int ammo;
     public int maxAmmo;
 
+    [Header("Audio")]
+    public float mainSlider;
+    public float musicSlider;
+    public float sfxSlider;
+    public bool isMuted;
+    public int level;
+
     public Dictionary<string, bool> KeysCollected;
 
     //values defined here is default values
@@ -28,6 +36,7 @@ public class GameData
     public GameData()
     {
         playerPosition = Vector3.zero;
+        level = 0;
         Health = 30;
         Stamina = 10;
         playerSpeed = 10;
@@ -40,5 +49,10 @@ public class GameData
         leanDist = 10f;
         leanSpeed = 0.5f;
 
+        //Audio
+        mainSlider = 1f;
+        musicSlider = 0.5f;
+        sfxSlider = 0.5f;
+        isMuted = false;
     }
 }

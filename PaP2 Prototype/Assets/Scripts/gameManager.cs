@@ -65,7 +65,11 @@ public class gameManager : MonoBehaviour, IDataPersistence
     [SerializeField] public TextMeshProUGUI keysLeft;
     [SerializeField] public TextMeshProUGUI SavedDataText;
 
-    
+    [Header("-----Mute Images-----")]
+    [SerializeField] Sprite Mute;
+    [SerializeField] Sprite UnMute;
+    [SerializeField] Image image;
+
 
     [Header("Scripts")]
     public PlayerController playerScript;
@@ -84,12 +88,13 @@ public class gameManager : MonoBehaviour, IDataPersistence
     public int keysCollected;
     string sceneName;
     Scene currentScene;
-    public bool isMuted;
 
     public bool isDev;
     public int keysRemain = 3;
 
     public string CheckForBoss;
+    public int Level;
+    public bool isMuted;
     
 
 
@@ -193,6 +198,15 @@ public class gameManager : MonoBehaviour, IDataPersistence
         Cursor.visible = true;
         //optional \/\/\/
         Cursor.lockState = CursorLockMode.Confined;
+    }
+
+    public void stateStillPaused()
+    {
+        Time.timeScale = timeScaleOrig;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Confined;
+        menuActive.SetActive(false);
+        menuActive = null;
     }
 
     public void stateUnpause()
@@ -400,14 +414,30 @@ public class gameManager : MonoBehaviour, IDataPersistence
         maxPickup.SetActive(false);
     }
 
+    public void muteSounds()
+    {
+        if (!AudioControls.instance.isMuted)
+        {
+            image.sprite = Mute;
+            AudioControls.instance.isMuted = true;
+            AudioControls.instance.Muted();
+        }
+        else
+        {
+            image.sprite = UnMute;
+            AudioControls.instance.isMuted = false;
+            AudioControls.instance.Muted();
+        }
+    }
+
     public void LoadData(GameData data)
     {
-
+        data.level = Level;
     }
 
     public void SaveData(GameData data)
     {
-
+        Level = data.level;
     }
     public void UpdateGunIcon(Sprite gunIcon, Image targetImage)
     {
