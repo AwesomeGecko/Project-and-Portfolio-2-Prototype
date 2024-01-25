@@ -54,6 +54,10 @@ public class gameManager : MonoBehaviour, IDataPersistence
     [SerializeField] public Image Crosshair;
     [SerializeField] public Image ShotgunSight;
     [SerializeField] public Image AssaultRifleSight;
+    [SerializeField] public Image GunIconHandsBackground;
+    [SerializeField] public Image GunIconHands;
+    [SerializeField] public Image GunIconBackPackBackground;
+    [SerializeField] public Image GunIconBackPack;
     [SerializeField] public TextMeshProUGUI ammoCounter;
     [SerializeField] public TextMeshProUGUI maxAmmoCounter;
     [SerializeField] public TextMeshProUGUI gunName;
@@ -404,5 +408,9 @@ public class gameManager : MonoBehaviour, IDataPersistence
     public void SaveData(GameData data)
     {
 
+    }
+    public void UpdateGunIcon(Sprite gunIcon, Image targetImage)
+    {
+        targetImage.sprite = gunIcon;
     }
 }

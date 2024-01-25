@@ -25,14 +25,15 @@ public class PlayerGunControls : MonoBehaviour
     public bool isAiming;
     public float defaultFOV;
     public int selectedGun;
+    private int InBackPack;
     private bool isShooting;
     public Camera scopeIn;
     public int gameManagerAmmo;
-    private ParticleSystem currentMuzzleFlash;
     private PlayerController playerController;
     [SerializeField] AudioSource aud;
 
-    
+    private GameObject gunPrefab;
+    private ParticleSystem MuzzleFlash;
     public Bullet BulletPrefab;
 
     private BulletPool BulletPool;
@@ -86,7 +87,7 @@ public class PlayerGunControls : MonoBehaviour
 
     public void Reload()
     {
-
+        
         // Check if the gun is not already full
         if (gunList[selectedGun].AmmoInMag < gunList[selectedGun].MagSize)
         {
@@ -104,24 +105,28 @@ public class PlayerGunControls : MonoBehaviour
 
                 // Update the UI
                 UpdatePlayerUI();
+
+                aud.PlayOneShot(gunList[selectedGun].reloadSound, gunList[selectedGun].reloadSoundVol);
             }
-            else
+            else if (gunList[selectedGun].PlayerTotalAmmo > 0)
             {
-                // Check if there is any ammo left to reload
-                if (gunList[selectedGun].PlayerTotalAmmo > 0)
-                {
-                    // Reload with the remaining ammo
-                    gunList[selectedGun].AmmoInMag += gunList[selectedGun].PlayerTotalAmmo;
 
-                    // Reset total ammo to 0
-                    gunList[selectedGun].PlayerTotalAmmo = 0;
+                // Reload with the remaining ammo
+                gunList[selectedGun].AmmoInMag += gunList[selectedGun].PlayerTotalAmmo;
 
-                    // Update the UI
-                   UpdatePlayerUI();
+                // Reset total ammo to 0
+                gunList[selectedGun].PlayerTotalAmmo = 0;
 
-                }
+                // Update the UI
+                UpdatePlayerUI();
+
+                aud.PlayOneShot(gunList[selectedGun].reloadSound, gunList[selectedGun].reloadSoundVol);
             }
-            aud.PlayOneShot(gunList[selectedGun].reloadSound, gunList[selectedGun].reloadSoundVol);
+            else if (gunList[selectedGun].AmmoInMag == 0 && gunList[selectedGun].PlayerTotalAmmo == 0)
+            {
+                Debug.Log("Show out of ammo UI for a few seconds");
+            }
+            
         }
     }
     public void ToggleAimDownSights()
@@ -276,12 +281,12 @@ public class PlayerGunControls : MonoBehaviour
             if (gun.model != null)
             {
                 // Instantiate the gun prefab from the scriptable object
-                GameObject gunPrefab = Instantiate(gun.model, gunLocation.position, gunLocation.rotation, gunLocation);
-
+                gunPrefab = Instantiate(gun.model, gunLocation.position, gunLocation.rotation, gunLocation);
+                gunPrefab.name = gun.model.name;
                 // Adjust the gun's local position and rotation based on default values in the scriptable object
                 gunPrefab.transform.localPosition = gun.defaultGunPositionOffset;
                 gunPrefab.transform.localRotation = gun.defaultRotation;
-
+                MuzzleFlash = gunPrefab.GetComponentInChildren<ParticleSystem>();
             }
             // Set local rotation
             gunLocation.localRotation = gun.defaultRotation;
@@ -315,7 +320,7 @@ public class PlayerGunControls : MonoBehaviour
                 changeGun();
             }
         }
-
+        
     }
 
     void changeGun()
@@ -349,15 +354,14 @@ public class PlayerGunControls : MonoBehaviour
 
             // Set local rotation and position of gunLocation
             gunLocation.localRotation = gunList[selectedGun].defaultRotation;
-            gunLocation.localPosition = gunList[selectedGun].defaultGunPositionOffset;
-        }
+            gunLocation.localPosition = gunList[selectedGun].defaultGunPositionOffset;         
+        }           
         UpdatePlayerUI();
 
         isShooting = false;
     }
     public void SwapGuns()
     {
-        Debug.Log("Player gun controls script swap guns called");
 
         if (gunList.Count > 1 && selectedGun >= 0 && selectedGun < gunList.Count)
         {
@@ -404,40 +408,6 @@ public class PlayerGunControls : MonoBehaviour
             gunRigidbody.AddForce(bounceForce, ForceMode.Impulse);
         }
 
-    }
-
-    private Bullet CreateBullet()
-    {
-        // Check if BulletPrefab is assigned in the Unity Editor
-        if (BulletPrefab == null)
-        {
-            
-            return null;
-        }
-        
-        // Instantiate the bullet prefab
-        Bullet bullet = Instantiate(BulletPrefab, isAiming ? spawnScopedPos : spawnPos, spawnRotation);
-
-        // Check if instantiation was successful
-        if (bullet == null)
-        {
-           
-            return null;
-        }
-
-        // Additional initialization
-        Rigidbody rigidbody = bullet.GetComponent<Rigidbody>();
-
-        // Check if Rigidbody component is present
-        if (rigidbody == null)
-        {
-            
-            return null;
-        }
-
-        rigidbody.mass = gunList[selectedGun].BulletWeight;
-
-        return bullet;
     }
 
     IEnumerator Shoot()
@@ -504,7 +474,7 @@ public class PlayerGunControls : MonoBehaviour
 
         UpdatePlayerUI();
         // Instantiate the muzzle flash particle effect system
-        //currentMuzzleFlash = Instantiate(currentGun.muzzleFlash, spawnPos, spawnRotation);
+        MuzzleFlash.Play();
 
         yield return new WaitForSeconds(shootRate);
 
@@ -555,5 +525,26 @@ public class PlayerGunControls : MonoBehaviour
     {
         gameManager.instance.ammoCounter.text = gunList[selectedGun].AmmoInMag.ToString("0");
         gameManager.instance.maxAmmoCounter.text = gunList[selectedGun].PlayerTotalAmmo.ToString("0");
+        gameManager.instance.gunName.text = gunList[selectedGun].GunName.ToString();
+        if(gunList.Count > 0)
+        {
+            if (gunLocation.childCount > 0)
+            {
+                gameManager.instance.GunIconHandsBackground.gameObject.SetActive(true);
+                gameManager.instance.UpdateGunIcon(gunList[selectedGun].gunIcon, gameManager.instance.GunIconHands);
+            }
+            
+            if (BackPack.childCount > 0)
+            {
+                int backpackIndex = (selectedGun + 1) % gunList.Count;
+                gameManager.instance.GunIconBackPackBackground.gameObject.SetActive(true);
+                gameManager.instance.UpdateGunIcon(gunList[backpackIndex].gunIcon, gameManager.instance.GunIconBackPack);
+            }
+            else if (BackPack.childCount < 0)
+            {
+                gameManager.instance.GunIconBackPackBackground.gameObject.SetActive(false);
+                gameManager.instance.GunIconBackPack.enabled = false;
+            }
+        }
     }
 }

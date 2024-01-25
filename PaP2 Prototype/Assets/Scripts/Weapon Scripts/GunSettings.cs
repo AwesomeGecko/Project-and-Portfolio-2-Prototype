@@ -11,8 +11,9 @@ public class GunSettings : ScriptableObject
 {
     [Header("Basic Gun Information")]
     public GameObject model;
-
+    public string GunName;
     public GameObject GunPickupPrefab;
+    public Sprite gunIcon;
     public float shootRate;
     public int shootDist;
     public int PlayerBulletDamage;
@@ -34,7 +35,6 @@ public class GunSettings : ScriptableObject
 
     [Header("Particle Effects")]
     public ParticleSystem hitEffect;
-    //public ParticleSystem muzzleFlash;
     
 
     [Header("Field of View")]

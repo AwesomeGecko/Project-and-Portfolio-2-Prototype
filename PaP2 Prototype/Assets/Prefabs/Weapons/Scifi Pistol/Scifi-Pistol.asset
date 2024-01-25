@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Scifi-Pistol
   m_EditorClassIdentifier: 
   model: {fileID: 1126165088178583906, guid: 7138ab785f1cda543b0c5c317697386f, type: 3}
+  GunName: Upgraded Pistol
   GunPickupPrefab: {fileID: 1126165088178583906, guid: 6adcb44c659c4714d97bc9e4026e37a0, type: 3}
+  gunIcon: {fileID: 21300000, guid: 5b6d651f89a1d8448ac48813fd11d294, type: 3}
   shootRate: 0.5
   shootDist: 20
   PlayerBulletDamage: 3
@@ -22,18 +24,21 @@ MonoBehaviour:
   MaxGunAmmo: 60
   MagSize: 20
   PlayerTotalAmmo: 5
+  BulletWeight: 0.1
   shootSound: {fileID: 8300000, guid: be64544bade297e4d872dd74c66256d2, type: 3}
   shootSoundVol: 0.25
   reloadSound: {fileID: 8300000, guid: 0750d4716bc6e984ca12fc704bee4edb, type: 3}
   reloadSoundVol: 2.01
   hitEffect: {fileID: 468260622339083660, guid: f8c505478bba5bf4dbdeaa85632801a6, type: 3}
-  muzzleFlash: {fileID: 6402671372185850169, guid: 0548e7359153c1145bf80b94f2698e6f, type: 3}
   fieldOfView: 60
   isdefaultPistol: 0
   shouldUseScope: 0
   isShotgun: 0
+  isAssaultRifle: 0
   shotgunPelletCount: 0
   shotgunPelletSpread: 0
   barrelTip: {fileID: 11400000, guid: dee914f2c4225934fbc1c12ed9279980, type: 2}
   defaultGunRotation: {x: -0.09, y: 0.013, z: 0}
   defaultGunPositionOffset: {x: 0.003555, y: -0.005, z: 0}
+  ADSGunRotation: {x: 0, y: 0, z: 0}
+  ADSGunPositionOffset: {x: 0, y: 0, z: 0}
