@@ -73,6 +73,8 @@ public class buttonFunctions : MonoBehaviour
 
     public void MainMenu()
     {
+        savePlayer();
+        gameManager.instance.stateStillPaused();
         SceneManager.LoadScene("Main Menu");
     }
 }

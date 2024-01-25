@@ -5,14 +5,12 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using System;
 using UnityEngine.UI;
+using TransitionsPlus;
 
-public class menuManager : MonoBehaviour
+public class menuManager : MonoBehaviour, IDataPersistence
 {
-    public static menuManager instance;
-
-    
-
     [Header("Menus")]
+    [SerializeField] public float SkyBoxSpeed;
     [SerializeField] public GameObject menuActive;
     [SerializeField] GameObject menuPrevious;
     [SerializeField] public GameObject menuMain;
@@ -31,6 +29,18 @@ public class menuManager : MonoBehaviour
     [Header("Credits Info")]
     [SerializeField] Animator credits;
     [SerializeField] public bool isCreditsOpen;
+
+    [Header("Audio")]
+    [SerializeField] public AudioSource aud;
+    public AudioClip mainSound;
+
+    [Header("-----Mute Images-----")]
+    [SerializeField] Sprite Mute;
+    [SerializeField] Sprite UnMute;
+    [SerializeField] Image image;
+
+    public bool isMuted;
+    public int Level;
 
     // Start is called before the first frame update
     void Start()
@@ -51,6 +61,17 @@ public class menuManager : MonoBehaviour
             menuActive = menuCredits;
             menuActive.SetActive(true);
         }
+
+        if (!isMuted)
+        {
+            image.sprite = UnMute;
+            isMuted = false;
+        }
+        else
+        {
+            image.sprite = Mute;
+            isMuted = true;
+        }
     }
 
     // Update is called once per frame
@@ -61,9 +82,29 @@ public class menuManager : MonoBehaviour
             spaceBarPressed();
             escapePresed();
         }
-
+        RenderSettings.skybox.SetFloat("_Rotation", Time.time * SkyBoxSpeed);
         
     }
+
+    public void muteSounds()
+    {
+
+        if (!AudioControls.instance.isMuted)
+        {
+            image.sprite = Mute;
+            AudioControls.instance.isMuted = true;
+            isMuted = AudioControls.instance.isMuted;
+            AudioControls.instance.Muted();
+        }
+        else
+        {
+            image.sprite = UnMute;
+            AudioControls.instance.isMuted = false;
+            isMuted = AudioControls.instance.isMuted;
+            AudioControls.instance.Muted();
+        }
+    }
+
 
     public void MainMenu()
     {
@@ -178,17 +219,14 @@ public class menuManager : MonoBehaviour
         MainMenu();
     }
 
-    //public void StartCredits()
-    //{
-    //    StartCoroutine(CreditsMenuOpen());
-    //}
 
-    //private IEnumerator CreditsMenuOpen()
-    //{
-    //    Debug.Log("start credits");
-    //    yield return new WaitForSecondsRealtime(42f);
-    //    MainMenu();
-    //    isCreditsOpen = false;
-    //    Debug.Log("end credits");
-    //}
+    public void LoadData(GameData data)
+    {
+        Level = data.level;
+    }
+
+    public void SaveData(GameData data)
+    {
+        data.level = Level;
+    }
 }

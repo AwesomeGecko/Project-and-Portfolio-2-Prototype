@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
 
     [Header("Player Stats")]
     [SerializeField] public int HP;
+    [SerializeField] public int SavedHP;
     [SerializeField] public int lowHP; // CR
     [SerializeField] public float Stamina;
     [SerializeField] float playerSpeed;
@@ -64,7 +65,6 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
         HPOriginal = HP;
         StaminaOrig = Stamina;
         initialSpeed = playerSpeed;
-
         playerRespawn();
     }
 
@@ -81,16 +81,16 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
 
     public void LoadData(GameData data)
     {
-        transform.position = data.playerPosition;
-        HP = data.Health;
+        SavedHP = data.Health;
         Stamina = data.Stamina;
+        HP = SavedHP;
     }
 
     public void SaveData(GameData data)
     {
-        data.playerPosition = transform.position;
-        data.Health = HP;
+        data.Health = SavedHP;
         data.Stamina = Stamina;
+        SavedHP = HP;
     }
 
 
