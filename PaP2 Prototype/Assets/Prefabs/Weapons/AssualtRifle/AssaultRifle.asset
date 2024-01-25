@@ -13,27 +13,32 @@ MonoBehaviour:
   m_Name: AssaultRifle
   m_EditorClassIdentifier: 
   model: {fileID: 7311499048630827495, guid: b2ab02015cb8aba49be0bd3cd97630b1, type: 3}
+  GunName: Upgraded Scar
   GunPickupPrefab: {fileID: 7311499048630827495, guid: 660bfc028d01fb84c8b43322eeb38814, type: 3}
+  gunIcon: {fileID: 21300000, guid: d7885a64ee436394ab388ccf79c91272, type: 3}
   shootRate: 0.1
   shootDist: 1000
   PlayerBulletDamage: 6
   PlayerBulletSpeed: 3
-  AmmoInMag: 40
+  AmmoInMag: 27
   MaxGunAmmo: 180
   MagSize: 40
   PlayerTotalAmmo: 0
+  BulletWeight: 0.1
   shootSound: {fileID: 8300000, guid: e196615aab553a14ab4e1aeb462c195c, type: 3}
   shootSoundVol: 1.66
   reloadSound: {fileID: 8300000, guid: 0750d4716bc6e984ca12fc704bee4edb, type: 3}
   reloadSoundVol: 1.47
   hitEffect: {fileID: 468260622339083660, guid: f8c505478bba5bf4dbdeaa85632801a6, type: 3}
-  muzzleFlash: {fileID: 6402671372185850169, guid: 0548e7359153c1145bf80b94f2698e6f, type: 3}
-  fieldOfView: 60
-  combinedMeshes: []
+  fieldOfView: 30
+  isdefaultPistol: 0
   shouldUseScope: 0
   isShotgun: 0
+  isAssaultRifle: 1
   shotgunPelletCount: 0
   shotgunPelletSpread: 0
   barrelTip: {fileID: 11400000, guid: 15d0e2f0e618b974d867d050f989dac9, type: 2}
   defaultGunRotation: {x: 0, y: 0, z: 0}
-  defaultGunPositionOffset: {x: 0, y: 0, z: 0}
+  defaultGunPositionOffset: {x: 0, y: 0, z: -0.003}
+  ADSGunRotation: {x: 0, y: 0, z: 0}
+  ADSGunPositionOffset: {x: 0, y: 0, z: -0.25}

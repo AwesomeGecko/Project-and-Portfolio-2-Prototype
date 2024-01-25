@@ -5,12 +5,11 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public partial class PlayerController : MonoBehaviour, IDamage, IDataPersistence
+public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
 {
     [Header("Components")]
     [SerializeField] CharacterController controller;
     [SerializeField] AudioSource aud;
-    //[SerializeField] Animator animator;
 
     [Header("Player Stats")]
     [SerializeField] public int HP;
@@ -40,7 +39,6 @@ public partial class PlayerController : MonoBehaviour, IDamage, IDataPersistence
     private bool groundedPlayer;
     private int jumpCount;
     private Vector3 crouchCameraDist;
-    private bool isShooting;
     bool isPlayingSteps;
     Quaternion initialRotation;
     bool isSliding;
@@ -54,84 +52,25 @@ public partial class PlayerController : MonoBehaviour, IDamage, IDataPersistence
     public float staminaRestoreSpeed;
     private bool isRunning;
     private bool isStaminaRestore;
-    private PlayerGunControls PlayerGunControls;
+
     //Gun logic
     private float initialSpeed;
     private bool isDead = false;
-    //
-//    public void LoadData(GameData data)
-//    {
-//        transform.position = data.playerPosition;
-//        HP = data.Health;
-//        Stamina = data.Stamina;
-//        ammoToSave = data.ammo;
-//        maxAmmoToSave = data.maxAmmo;
-//}
-
-//    public void SaveData(GameData data)
-//    {
-//        data.playerPosition = transform.position;
-//        data.Health = HP;
-//        data.Stamina = Stamina;
-//        data.ammo = ammoToSave;
-//        data.maxAmmo = maxAmmoToSave;
-//    }
-
 
     // Start is called before the first frame update
     void Start()
     {
-        //EquipGun(currentGunIndex);
-
         crouchCameraDist = new Vector3(0, crouchDist / 2, 0);
         HPOriginal = HP;
         StaminaOrig = Stamina;
         initialSpeed = playerSpeed;
 
-        ////Default field of view for the player
-        //PlayerGunControls.defaultFOV = Camera.main.fieldOfView;
-
-        //if (PlayerGunControls.defaultPistol != null)
-        //{
-        //    PlayerGunControls.getGunStats(PlayerGunControls.defaultPistol);
-        //    PlayerGunControls.gunList[PlayerGunControls.selectedGun].ammoCur = PlayerGunControls.gunList[PlayerGunControls.selectedGun].magSize;
-        //}
-        //else
-        //{
-        //    Debug.LogError("Default pistol scriptable object is not assigned in the Unity Editor.");
-        //}
-
         playerRespawn();
-       // int.TryParse(gameManager.instance.ammoCounter.text, out PlayerGunControls.gameManagerAmmo);
-       //PlayerGunControls.ammoCounter = PlayerGunControls.gameManagerAmmo;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //if (!gameManager.instance.isPaused)
-        //{
-        //    if (PlayerGunControls.gunList.Count > 0)
-        //    {
-        //        if (Input.GetButton("Fire1") && !isShooting)
-        //        {
-        //            StartCoroutine(PlayerGunControls.Shoot());
-        //        }
-
-        //        PlayerGunControls.selectGun();
-
-        //        if (Input.GetButtonDown("AimDownSight"))
-        //        {
-        //            PlayerGunControls.ToggleAimDownSights();
-        //        }
-
-        //        if (Input.GetButtonDown("Reload"))
-        //        {
-        //            PlayerGunControls.Reload();
-        //        }
-                
-        //    }
-        //}
             Movement();
        // CR
         if(HP <= lowHP && !isLowHealth)
@@ -404,8 +343,6 @@ public partial class PlayerController : MonoBehaviour, IDamage, IDataPersistence
     {
         gameManager.instance.playerHPBar.fillAmount = (float)HP / HPOriginal;
         gameManager.instance.playerStaminaBar.fillAmount = Stamina / StaminaOrig;
-        //gameManager.instance.ammoCounter.text = PlayerGunControls.gunList[PlayerGunControls.selectedGun].ammoCur.ToString("0");
-        //gameManager.instance.maxAmmoCounter.text = PlayerGunControls.gunList[PlayerGunControls.selectedGun].totalAmmo.ToString("0");
     }
 
     // CR Method

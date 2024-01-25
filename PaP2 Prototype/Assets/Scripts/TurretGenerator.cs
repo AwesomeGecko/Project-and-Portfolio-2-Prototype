@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class TurretGenerator : MonoBehaviour
 {
-    [SerializeField] public GameObject turretGen;
-    
+    [SerializeField] public GameObject power;
+    [SerializeField]  public  Collider col;
     [SerializeField] int waitTime;
     
     // Start is called before the first frame update
@@ -20,25 +20,26 @@ public class TurretGenerator : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision other)
     {
-        if (other.CompareTag("PlayerBullet"))
+        if (other.gameObject.CompareTag("PlayerBullet"))
         {
             StartCoroutine(TurnOffTur());
         }
     }
     IEnumerator TurnOffTur()
     {
-        turretGen.SetActive(false);
+        power.SetActive(false);
+        col.enabled = false;
         
 
 
 
         yield return new WaitForSeconds(waitTime);
 
-        turretGen.SetActive(true);
+        col.enabled = true;
 
-       
+        power.SetActive(true);
 
 
 

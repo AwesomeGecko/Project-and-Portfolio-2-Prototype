@@ -249,10 +249,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: M4 Pickup Prefab
       objectReference: {fileID: 0}
-    - target: {fileID: 486784585774079166, guid: 412e792a4c340074bbae4c165381c400, type: 3}
-      propertyPath: m_Interpolate
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1118903112624633976, guid: 412e792a4c340074bbae4c165381c400, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.514

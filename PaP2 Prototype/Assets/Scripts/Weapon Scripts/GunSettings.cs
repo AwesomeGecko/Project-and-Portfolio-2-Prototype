@@ -11,8 +11,9 @@ public class GunSettings : ScriptableObject
 {
     [Header("Basic Gun Information")]
     public GameObject model;
-
+    public string GunName;
     public GameObject GunPickupPrefab;
+    public Sprite gunIcon;
     public float shootRate;
     public int shootDist;
     public int PlayerBulletDamage;
@@ -23,6 +24,8 @@ public class GunSettings : ScriptableObject
     public int MagSize;
     public int PlayerTotalAmmo;
 
+    public float BulletWeight = 0.1f;
+
     [Header("Sounds")]
     public AudioClip shootSound;
     [Range(0, 10)] public float shootSoundVol;
@@ -32,7 +35,6 @@ public class GunSettings : ScriptableObject
 
     [Header("Particle Effects")]
     public ParticleSystem hitEffect;
-    public ParticleSystem muzzleFlash;
     
 
     [Header("Field of View")]
@@ -48,6 +50,8 @@ public class GunSettings : ScriptableObject
     [Space]
     public bool isShotgun;
     [Space]
+    public bool isAssaultRifle;
+    [Space]
     public int shotgunPelletCount;
     public int shotgunPelletSpread;
     [Space]
@@ -57,5 +61,9 @@ public class GunSettings : ScriptableObject
 
     public Vector3 defaultGunPositionOffset = new Vector3(0.000f, 0.000f, 0.000f);
     public Quaternion defaultRotation => Quaternion.Euler(defaultGunRotation);
+    [Space]
+    public Vector3 ADSGunRotation = new Vector3(0.000f, 0.000f, 0.000f);
 
+    public Vector3 ADSGunPositionOffset = new Vector3(0.000f, 0.000f, 0.000f);
+    public Quaternion ADSRotation => Quaternion.Euler(ADSGunRotation);
 }

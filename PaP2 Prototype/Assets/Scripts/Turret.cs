@@ -112,8 +112,8 @@ public class Turret : MonoBehaviour
     void faceTarget()
     {
 
-       // turretHead.transform.LookAt( gameManager.instance.player.transform.position);
-
+        // turretHead.transform.LookAt( gameManager.instance.player.transform.position);
+        anim.SetBool("PlayerInRange", true);
         Vector3 playerTemp = gameManager.instance.player.transform.position - turretHead.transform.position;
         Quaternion target = Quaternion.LookRotation(playerTemp);
         turretHead.transform.rotation = Quaternion.Slerp(turretHead.transform.rotation, target, targetFaceSpeed * Time.deltaTime);

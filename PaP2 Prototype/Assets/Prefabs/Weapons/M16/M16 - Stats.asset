@@ -13,27 +13,32 @@ MonoBehaviour:
   m_Name: M16 - Stats
   m_EditorClassIdentifier: 
   model: {fileID: 5077851567838869929, guid: 12734d56cdb743a42bf80b3022e49211, type: 3}
+  GunName: M16
   GunPickupPrefab: {fileID: 5077851567838869929, guid: c84852018a342ac48983d95272e6abba, type: 3}
+  gunIcon: {fileID: 21300000, guid: 8cbe2c55da50a2249ba7d603c9375673, type: 3}
   shootRate: 0.2
   shootDist: 200
   PlayerBulletDamage: 3
   PlayerBulletSpeed: 3
-  AmmoInMag: 30
+  AmmoInMag: 15
   MaxGunAmmo: 120
   MagSize: 30
   PlayerTotalAmmo: 0
+  BulletWeight: 0.1
   shootSound: {fileID: 8300000, guid: 1b145bcffd767854fb0c71c37678ebaa, type: 3}
   shootSoundVol: 0.25
   reloadSound: {fileID: 8300000, guid: 0750d4716bc6e984ca12fc704bee4edb, type: 3}
   reloadSoundVol: 2.22
   hitEffect: {fileID: 468260622339083660, guid: f8c505478bba5bf4dbdeaa85632801a6, type: 3}
-  muzzleFlash: {fileID: 6402671372185850169, guid: 0548e7359153c1145bf80b94f2698e6f, type: 3}
   fieldOfView: 42
-  combinedMeshes: []
+  isdefaultPistol: 0
   shouldUseScope: 0
   isShotgun: 0
+  isAssaultRifle: 0
   shotgunPelletCount: 0
   shotgunPelletSpread: 0
   barrelTip: {fileID: 11400000, guid: 9f6e8684ff29275489c290e58626f6e6, type: 2}
-  defaultGunRotation: {x: 0, y: 0, z: 0}
-  defaultGunPositionOffset: {x: 0, y: 0, z: 0}
+  defaultGunRotation: {x: 0.8, y: 0, z: 0}
+  defaultGunPositionOffset: {x: 0, y: -0.0025, z: 0}
+  ADSGunRotation: {x: 0, y: 0, z: 0}
+  ADSGunPositionOffset: {x: 0, y: 0, z: 0}

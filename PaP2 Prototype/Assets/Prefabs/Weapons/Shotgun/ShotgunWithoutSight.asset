@@ -13,32 +13,32 @@ MonoBehaviour:
   m_Name: ShotgunWithoutSight
   m_EditorClassIdentifier: 
   model: {fileID: 5615887470228577060, guid: 598a774e00f31224ea4829b200d4135c, type: 3}
+  GunName: Shotgun
   GunPickupPrefab: {fileID: 5615887470228577060, guid: cb5488e20d737c44bb70c63992f7abc4, type: 3}
-  shootRate: 0.2
+  gunIcon: {fileID: 21300000, guid: 5dd0d1d77da256b48b8810af8cb3cceb, type: 3}
+  shootRate: 0.75
   shootDist: 15
-  PlayerBulletDamage: 2
+  PlayerBulletDamage: 1
   PlayerBulletSpeed: 2
-  AmmoInMag: 14
+  AmmoInMag: 9
   MaxGunAmmo: 56
   MagSize: 14
   PlayerTotalAmmo: 0
+  BulletWeight: 0.1
   shootSound: {fileID: 8300000, guid: e87fb2e782bcac14d82191fa02c2c841, type: 3}
   shootSoundVol: 0.25
   reloadSound: {fileID: 8300000, guid: e1d79f4a0c7873742babc5f6e9ff800e, type: 3}
   reloadSoundVol: 2.22
   hitEffect: {fileID: 468260622339083660, guid: f8c505478bba5bf4dbdeaa85632801a6, type: 3}
-  muzzleFlash: {fileID: 6402671372185850169, guid: 0548e7359153c1145bf80b94f2698e6f, type: 3}
   fieldOfView: 45.7
-  combinedMeshes:
-  - meshes:
-    - {fileID: 1703241411215988251, guid: 67fc1e705b25798408c6ab2ccc30f3f2, type: 3}
-    - {fileID: 4417416544865723448, guid: 67fc1e705b25798408c6ab2ccc30f3f2, type: 3}
-    materials:
-    - {fileID: -8821092018038709585, guid: 67fc1e705b25798408c6ab2ccc30f3f2, type: 3}
+  isdefaultPistol: 0
   shouldUseScope: 0
   isShotgun: 1
+  isAssaultRifle: 0
   shotgunPelletCount: 10
   shotgunPelletSpread: 4
   barrelTip: {fileID: 11400000, guid: bae3648158d815a45b54b25cf5d91d55, type: 2}
   defaultGunRotation: {x: 0.5, y: 0, z: 0}
   defaultGunPositionOffset: {x: 0.0115, y: -0.0035, z: 0}
+  ADSGunRotation: {x: 0, y: 0, z: 0}
+  ADSGunPositionOffset: {x: 0, y: 0, z: 0}
