@@ -47,6 +47,7 @@ public class interactableObject : MonoBehaviour {
         initialY = transform.position.y;
         animator = GetComponent<Animator>();
         ammoReset = ammoAmount;
+        aud = GetComponent<AudioSource>();
     }
 
     public string GetItemName()
@@ -81,10 +82,10 @@ public class interactableObject : MonoBehaviour {
 
             InteractSound();
 
+
             if (ItemName == "Ammo")
             {
                 ammoBox(); //opens and resets ammo box after time
-                
             }
 
             if (ItemName == "Health")
@@ -99,14 +100,14 @@ public class interactableObject : MonoBehaviour {
 
             if (ItemName == "TP Key")
             {
-
+                
                 keyCollector();
                 if (gameManager.instance.keysCollected == 3)
                 {
                     //Collect all 3 keys sound here
                     gameManager.instance.isTPOn = true;
                 }
-
+                Destroy(gameObject);
                 //used to turn on teleporter
             }
 
@@ -209,7 +210,7 @@ public class interactableObject : MonoBehaviour {
             gameManager.instance.keysCollected++;
             gameManager.instance.maxText.text = $"Keys remain {gameManager.instance.keysRemain}";
             gameManager.instance.runText();
-            Destroy(gameObject);
+            
         }
         else
         {
@@ -233,6 +234,7 @@ public class interactableObject : MonoBehaviour {
         {
             float adjustedVolume = interactSoundVol * gameManager.instance.aud.volume;
             aud.PlayOneShot(interactSound, adjustedVolume);
+            AudioSource.PlayClipAtPoint(interactSound, transform.position);
         }
     }    
 
