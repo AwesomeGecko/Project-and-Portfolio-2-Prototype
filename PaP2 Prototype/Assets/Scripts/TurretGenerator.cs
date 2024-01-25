@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class TurretGenerator : MonoBehaviour
 {
-    [SerializeField] Animator anim;
+    [SerializeField] public GameObject turretGen;
+    
     [SerializeField] int waitTime;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -27,14 +29,14 @@ public class TurretGenerator : MonoBehaviour
     }
     IEnumerator TurnOffTur()
     {
-        Turret.setSwitch(true);
+        turretGen.SetActive(false);
         
 
 
 
         yield return new WaitForSeconds(waitTime);
 
-        Turret.setSwitch(false);
+        turretGen.SetActive(true);
 
        
 

@@ -54,31 +54,28 @@ public partial class PlayerController : MonoBehaviour, IDamage, IDataPersistence
     public float staminaRestoreSpeed;
     private bool isRunning;
     private bool isStaminaRestore;
-
-    public int ammoToSave;
-    public int maxAmmoToSave;
-
+    private PlayerGunControls PlayerGunControls;
     //Gun logic
     private float initialSpeed;
+    private bool isDead = false;
+    //
+//    public void LoadData(GameData data)
+//    {
+//        transform.position = data.playerPosition;
+//        HP = data.Health;
+//        Stamina = data.Stamina;
+//        ammoToSave = data.ammo;
+//        maxAmmoToSave = data.maxAmmo;
+//}
 
-
-    public void LoadData(GameData data)
-    {
-        transform.position = data.playerPosition;
-        HP = data.Health;
-        Stamina = data.Stamina;
-        ammoToSave = data.ammo;
-        maxAmmoToSave = data.maxAmmo;
-}
-
-    public void SaveData(GameData data)
-    {
-        data.playerPosition = transform.position;
-        data.Health = HP;
-        data.Stamina = Stamina;
-        data.ammo = ammoToSave;
-        data.maxAmmo = maxAmmoToSave;
-    }
+//    public void SaveData(GameData data)
+//    {
+//        data.playerPosition = transform.position;
+//        data.Health = HP;
+//        data.Stamina = Stamina;
+//        data.ammo = ammoToSave;
+//        data.maxAmmo = maxAmmoToSave;
+//    }
 
 
     // Start is called before the first frame update
@@ -91,60 +88,71 @@ public partial class PlayerController : MonoBehaviour, IDamage, IDataPersistence
         StaminaOrig = Stamina;
         initialSpeed = playerSpeed;
 
-        //Default field of view for the player
-        defaultFOV = Camera.main.fieldOfView;
+        ////Default field of view for the player
+        //PlayerGunControls.defaultFOV = Camera.main.fieldOfView;
 
-        if (defaultPistol != null)
-        {
-            getGunStats(defaultPistol);
-            gunList[selectedGun].ammoCur = gunList[selectedGun].magSize;
-        }
-        else
-        {
-            Debug.LogError("Default pistol scriptable object is not assigned in the Unity Editor.");
-        }
+        //if (PlayerGunControls.defaultPistol != null)
+        //{
+        //    PlayerGunControls.getGunStats(PlayerGunControls.defaultPistol);
+        //    PlayerGunControls.gunList[PlayerGunControls.selectedGun].ammoCur = PlayerGunControls.gunList[PlayerGunControls.selectedGun].magSize;
+        //}
+        //else
+        //{
+        //    Debug.LogError("Default pistol scriptable object is not assigned in the Unity Editor.");
+        //}
 
         playerRespawn();
-        int.TryParse(gameManager.instance.ammoCounter.text, out gameManagerAmmo);
-        ammoCounter = gameManagerAmmo;
-        UpdatePlayerUI();
+       // int.TryParse(gameManager.instance.ammoCounter.text, out PlayerGunControls.gameManagerAmmo);
+       //PlayerGunControls.ammoCounter = PlayerGunControls.gameManagerAmmo;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!gameManager.instance.isPaused)
-        {
-            if (gunList.Count > 0)
-            {
-                if (Input.GetButton("Fire1") && !isShooting)
-                {
-                    StartCoroutine(Shoot());
-                }
+        //if (!gameManager.instance.isPaused)
+        //{
+        //    if (PlayerGunControls.gunList.Count > 0)
+        //    {
+        //        if (Input.GetButton("Fire1") && !isShooting)
+        //        {
+        //            StartCoroutine(PlayerGunControls.Shoot());
+        //        }
 
-                selectGun();
+        //        PlayerGunControls.selectGun();
 
-                if (Input.GetButtonDown("AimDownSight"))
-                {
-                    ToggleAimDownSights();
-                }
+        //        if (Input.GetButtonDown("AimDownSight"))
+        //        {
+        //            PlayerGunControls.ToggleAimDownSights();
+        //        }
 
-                if (Input.GetButtonDown("Reload"))
-                {
-                    Reload();
-                }
+        //        if (Input.GetButtonDown("Reload"))
+        //        {
+        //            PlayerGunControls.Reload();
+        //        }
                 
-            }
-        }
+        //    }
+        //}
             Movement();
        // CR
         if(HP <= lowHP && !isLowHealth)
         {
-            StartCoroutine(PlayHeartbeat());
+           StartCoroutine(PlayHeartbeat());
         }
-        
     }
 
+    public void LoadData(GameData data)
+    {
+        transform.position = data.playerPosition;
+        HP = data.Health;
+        Stamina = data.Stamina;
+    }
+
+    public void SaveData(GameData data)
+    {
+        data.playerPosition = transform.position;
+        data.Health = HP;
+        data.Stamina = Stamina;
+    }
 
 
     void Movement()
@@ -354,12 +362,15 @@ public partial class PlayerController : MonoBehaviour, IDamage, IDataPersistence
 
     public void takeDamage(int amount)
     {
+        if (isDead)
+            return;
+
         aud.PlayOneShot(playerHurt); // Plays sound effect immediately upon taking damage
         HP -= amount;
         UpdatePlayerUI();
         if (HP <= 0)
         {
-            
+            isDead = true;
             // CR
             StartCoroutine(PlayerDiesAndLoses());
             //gameManager.instance.youLose();
@@ -372,11 +383,11 @@ public partial class PlayerController : MonoBehaviour, IDamage, IDataPersistence
 
     public void playerRespawn()
     {
+        isDead = false;
         HP = HPOriginal;
         UpdatePlayerUI();
 
         controller.enabled = false;
-
 
         //if (gameManager.instance.playerStats.Chapter == 0)
         //{
@@ -393,13 +404,8 @@ public partial class PlayerController : MonoBehaviour, IDamage, IDataPersistence
     {
         gameManager.instance.playerHPBar.fillAmount = (float)HP / HPOriginal;
         gameManager.instance.playerStaminaBar.fillAmount = Stamina / StaminaOrig;
-        gameManager.instance.ammoCounter.text = gunList[selectedGun].ammoCur.ToString("0");
-        gameManager.instance.maxAmmoCounter.text = gunList[selectedGun].totalAmmo.ToString("0");
-    }
-
-    public void UpdateStats()
-    {
-        
+        //gameManager.instance.ammoCounter.text = PlayerGunControls.gunList[PlayerGunControls.selectedGun].ammoCur.ToString("0");
+        //gameManager.instance.maxAmmoCounter.text = PlayerGunControls.gunList[PlayerGunControls.selectedGun].totalAmmo.ToString("0");
     }
 
     // CR Method

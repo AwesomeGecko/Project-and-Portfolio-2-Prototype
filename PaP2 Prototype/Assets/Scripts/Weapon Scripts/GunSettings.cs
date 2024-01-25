@@ -11,15 +11,17 @@ public class GunSettings : ScriptableObject
 {
     [Header("Basic Gun Information")]
     public GameObject model;
+
+    public GameObject GunPickupPrefab;
     public float shootRate;
     public int shootDist;
     public int PlayerBulletDamage;
     
     public int PlayerBulletSpeed;
-    public int ammoCur;
-    public int ammoMax;
-    public int magSize;
-    public int totalAmmo;
+    public int AmmoInMag;
+    public int MaxGunAmmo;
+    public int MagSize;
+    public int PlayerTotalAmmo;
 
     [Header("Sounds")]
     public AudioClip shootSound;
@@ -30,7 +32,7 @@ public class GunSettings : ScriptableObject
 
     [Header("Particle Effects")]
     public ParticleSystem hitEffect;
-    public ParticleSystem muzzleFlashPrefab;
+    public ParticleSystem muzzleFlash;
     
 
     [Header("Field of View")]
@@ -39,7 +41,8 @@ public class GunSettings : ScriptableObject
     
 
     [Header("Gun specific data")]
-    public List<CombinedMeshInfo> combinedMeshes;
+
+    public bool isdefaultPistol;
     [Space]
     public bool shouldUseScope;
     [Space]

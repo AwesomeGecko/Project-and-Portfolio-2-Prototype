@@ -13,20 +13,21 @@ MonoBehaviour:
   m_Name: ShotgunWithoutSight
   m_EditorClassIdentifier: 
   model: {fileID: 5615887470228577060, guid: 598a774e00f31224ea4829b200d4135c, type: 3}
+  GunPickupPrefab: {fileID: 5615887470228577060, guid: cb5488e20d737c44bb70c63992f7abc4, type: 3}
   shootRate: 0.2
   shootDist: 15
   PlayerBulletDamage: 2
   PlayerBulletSpeed: 2
-  ammoCur: 9
-  ammoMax: 60
-  magSize: 14
-  totalAmmo: 14
+  AmmoInMag: 14
+  MaxGunAmmo: 56
+  MagSize: 14
+  PlayerTotalAmmo: 0
   shootSound: {fileID: 8300000, guid: e87fb2e782bcac14d82191fa02c2c841, type: 3}
   shootSoundVol: 0.25
   reloadSound: {fileID: 8300000, guid: e1d79f4a0c7873742babc5f6e9ff800e, type: 3}
   reloadSoundVol: 2.22
   hitEffect: {fileID: 468260622339083660, guid: f8c505478bba5bf4dbdeaa85632801a6, type: 3}
-  muzzleFlashPrefab: {fileID: 6402671372185850169, guid: 0548e7359153c1145bf80b94f2698e6f, type: 3}
+  muzzleFlash: {fileID: 6402671372185850169, guid: 0548e7359153c1145bf80b94f2698e6f, type: 3}
   fieldOfView: 45.7
   combinedMeshes:
   - meshes:
@@ -40,4 +41,4 @@ MonoBehaviour:
   shotgunPelletSpread: 4
   barrelTip: {fileID: 11400000, guid: bae3648158d815a45b54b25cf5d91d55, type: 2}
   defaultGunRotation: {x: 0.5, y: 0, z: 0}
-  defaultGunPositionOffset: {x: 0.023, y: -0.005, z: 0}
+  defaultGunPositionOffset: {x: 0.0115, y: -0.0035, z: 0}

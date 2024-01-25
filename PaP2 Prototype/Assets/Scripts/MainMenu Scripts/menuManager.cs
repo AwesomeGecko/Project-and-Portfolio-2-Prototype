@@ -15,7 +15,7 @@ public class menuManager : MonoBehaviour
     [Header("Menus")]
     [SerializeField] public GameObject menuActive;
     [SerializeField] GameObject menuPrevious;
-    [SerializeField] GameObject menuMain;
+    [SerializeField] public GameObject menuMain;
     [SerializeField] GameObject menuBackStory;
     [SerializeField] GameObject menuControls;
     [SerializeField] GameObject menuSettings;
@@ -29,7 +29,6 @@ public class menuManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI NewGameText;
 
     [Header("Credits Info")]
-    [SerializeField] TextMeshProUGUI fastForwardText;
     [SerializeField] Animator credits;
     [SerializeField] public bool isCreditsOpen;
 
@@ -52,7 +51,6 @@ public class menuManager : MonoBehaviour
             menuActive = menuCredits;
             menuActive.SetActive(true);
         }
-        fastForwardText.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -61,7 +59,7 @@ public class menuManager : MonoBehaviour
         if (menuActive == menuCredits)
         {
             spaceBarPressed();
-            escPressed();
+            escapePresed();
         }
 
         
@@ -137,11 +135,7 @@ public class menuManager : MonoBehaviour
 
     public void openCredits()
     {
-        updateMenu();
-        menuActive.SetActive(false);
-        menuActive = menuCredits;
-        menuActive.SetActive(true);
-        fastForwardText.gameObject.SetActive(true);
+        SceneManager.LoadScene("Credits");
     }
 
     public void openExitMenu()
@@ -179,13 +173,9 @@ public class menuManager : MonoBehaviour
         }
     }
 
-    public void escPressed()
+    public void escapePresed()
     {
-        if (Input.GetButton("Cancel"))
-        {
-            backBttn();
-            fastForwardText.gameObject.SetActive(false);
-        }
+        MainMenu();
     }
 
     //public void StartCredits()

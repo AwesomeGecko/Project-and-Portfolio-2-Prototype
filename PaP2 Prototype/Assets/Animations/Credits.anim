@@ -121,7 +121,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 39.983334
-    functionName: MainMenu
+    functionName: StartCredits
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 using System;
 using UnityEditor;
 using System.IO;
+using JetBrains.Annotations;
 
 public class gameManager : MonoBehaviour, IDataPersistence
 {
@@ -46,6 +47,8 @@ public class gameManager : MonoBehaviour, IDataPersistence
 
     [Header("UI")]
     [SerializeField] public Image playerHPBar;
+    [SerializeField] public Image BossHPBar;
+    [SerializeField] public GameObject BossUI;
     [SerializeField] public Image playerStaminaBar;
     [SerializeField] public Image Scope;
     [SerializeField] public Image Crosshair;
@@ -57,9 +60,12 @@ public class gameManager : MonoBehaviour, IDataPersistence
     [SerializeField] public TextMeshProUGUI keysLeft;
     [SerializeField] public TextMeshProUGUI SavedDataText;
 
+    
+
     [Header("Scripts")]
     public PlayerController playerScript;
     public CameraController cameraScript;
+    public PlayerGunControls playerGunControls;
 
 
     [Header("Public variables")]
@@ -77,6 +83,9 @@ public class gameManager : MonoBehaviour, IDataPersistence
 
     public bool isDev;
     public int keysRemain = 3;
+
+    public string CheckForBoss;
+    
 
 
 
@@ -98,6 +107,17 @@ public class gameManager : MonoBehaviour, IDataPersistence
     // Start is called before the first frame update
     void Awake()
     {
+        GameObject BossCheck = GameObject.FindWithTag("Boss Spawner");
+
+        if (BossCheck != null)
+        {
+            BossUI.SetActive(true);
+        }
+        else
+        {
+            BossUI.SetActive(false);
+        }
+
         instance = this;
         onTarget = false;
         timeScaleOrig = Time.timeScale;
@@ -105,6 +125,7 @@ public class gameManager : MonoBehaviour, IDataPersistence
         cameraObject = GameObject.FindWithTag("MainCamera");
         playerScript = player.GetComponent<PlayerController>();
         cameraScript = cameraObject.GetComponent<CameraController>();
+        playerGunControls = player.GetComponent<PlayerGunControls>();
         playerSpawnPos = GameObject.FindWithTag("PlayerSpawnPos");
         TeleportPos = GameObject.FindWithTag("TeleportPos");
         Checkpoint_Alpha = GameObject.FindWithTag("Checkpoint_Alpha");
@@ -347,7 +368,7 @@ public class gameManager : MonoBehaviour, IDataPersistence
     public void maxItems()
     {
         //refrencing players current gun ammo and mag size
-        if (playerScript.gunList[playerScript.selectedGun].totalAmmo >= playerScript.gunList[playerScript.selectedGun].magSize && isAmmo)
+        if (playerGunControls.gunList[playerGunControls.selectedGun].PlayerTotalAmmo >= playerGunControls.gunList[playerGunControls.selectedGun].MaxGunAmmo && isAmmo)
         {
             StartCoroutine(maxPickups());
             maxText.text = "Ammo Too Full";

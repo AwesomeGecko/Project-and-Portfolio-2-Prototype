@@ -52,8 +52,6 @@ public class BossScript : MonoBehaviour, IDamage
     [Header("----- Boss State -----")]
     
     bool isReturningToSpawn;
-    
-
     bool isShooting;
     bool PlayerInRange;
     bool destinationChosen;
@@ -109,6 +107,7 @@ public class BossScript : MonoBehaviour, IDamage
         // Disable damage and shooting
         PlayerInRange = false;
         damageCol.enabled = false;
+        anim.ResetTrigger("Shoot");
 
         Debug.Log("Initial Position: " + startingPos);
 
@@ -294,6 +293,8 @@ public class BossScript : MonoBehaviour, IDamage
                 return;
             HP -= amount;
 
+            UpdateBossHP();
+
             Debug.Log("Boss took damage. HP=" + HP);
 
             if (HP <= 0 && damageCol.enabled == true && agent.enabled == true)
@@ -340,7 +341,13 @@ public class BossScript : MonoBehaviour, IDamage
                 }
             }
         }
-    }    
+    }  
+
+    public void UpdateBossHP()
+    {
+        gameManager.instance.BossHPBar.fillAmount = (float)HP / startingHP;
+    }
+
     void normalDamage()
     {
         Debug.Log("NormalDamage triggered.");
