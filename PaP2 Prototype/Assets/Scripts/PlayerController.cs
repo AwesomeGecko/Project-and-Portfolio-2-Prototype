@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
     [SerializeField] float slideSpeed;
     [SerializeField] float leanDist;
     [SerializeField] float leanSpeed;
+    [SerializeField] float cameraMoveDist;
 
     [Header("Audio")]
     [SerializeField] AudioClip[] soundSteps;
@@ -156,6 +157,7 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
         {
             Quaternion leanRotation = Quaternion.Euler(0, 0, leanDist);
             transform.rotation = Quaternion.Euler(0f, transform.eulerAngles.y, 0f);
+            Camera.main.transform.position = transform.position + Vector3.up;
         }
 
         if (!isStaminaRestore && !isRunning && Stamina < StaminaOrig)
@@ -261,6 +263,7 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
         if(Input.GetButtonDown("LeanLeft"))
         {
             // Calculate the lean rotation on the local Z-axis
+            Camera.main.transform.position -= Camera.main.transform.right * cameraMoveDist;
             Quaternion leanRotation = Quaternion.Euler(0, 0, leanDist);
 
             // Smoothly interpolate between the initial rotation and the lean rotation
@@ -269,6 +272,7 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
         if(Input.GetButtonDown("LeanRight"))
         {
             // Calculate the lean rotation on the local Z-axis
+            Camera.main.transform.position += Camera.main.transform.right * cameraMoveDist;
             Quaternion leanRotation = Quaternion.Euler(0, 0, -leanDist);
 
             // Smoothly interpolate between the initial rotation and the lean rotation
