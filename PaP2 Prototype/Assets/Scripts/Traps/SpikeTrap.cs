@@ -14,6 +14,11 @@ public class SpikeTrap : MonoBehaviour
 
     private bool retract = true;
 
+    private void Start()
+    {
+        maxHeight += transform.position.y;
+        minHeight += transform.position.y;
+    }
     private void Update()
     {
         TrapActive();
