@@ -72,8 +72,8 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
     // Update is called once per frame
     void Update()
     {
-            Movement();
-       // CR
+        Movement();
+        // CR
         if(HP <= lowHP && !isLowHealth)
         {
            StartCoroutine(PlayHeartbeat());
@@ -207,11 +207,6 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
 
             // CR: Reset back to original volume value
             soundStepsVol = 0.5f;
-        }
-        
-        if(Input.GetButtonUp("Sprint"))
-        {
-            
         }
 
         UpdatePlayerUI();

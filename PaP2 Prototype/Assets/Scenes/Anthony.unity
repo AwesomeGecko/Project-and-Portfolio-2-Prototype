@@ -1060,6 +1060,10 @@ PrefabInstance:
       value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 681734634721804330, guid: 415e8ce8c9de02143b1cd6917b11c526, type: 3}
+      propertyPath: leanSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 681734634721804330, guid: 415e8ce8c9de02143b1cd6917b11c526, type: 3}
       propertyPath: cameraMoveDist
       value: 0.75
       objectReference: {fileID: 0}
