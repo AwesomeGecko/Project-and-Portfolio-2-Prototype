@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2239529676969927564}
   - component: {fileID: 980133370636621841}
   m_Layer: 0
-  m_Name: Cube.008
+  m_Name: Magazine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -126,7 +126,7 @@ GameObject:
   - component: {fileID: 5289432134615076387}
   - component: {fileID: 4350999969975030524}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -208,6 +208,7 @@ GameObject:
   - component: {fileID: 354413841362510808}
   - component: {fileID: 8576805756660763622}
   - component: {fileID: 2031190165118701572}
+  - component: {fileID: 3689196541392704544}
   m_Layer: 0
   m_Name: Scifi-Pistol Prefab
   m_TagString: Untagged
@@ -223,8 +224,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1126165088178583906}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.5908, z: 4.2112}
+  m_LocalRotation: {x: -0.00078539544, y: -0.0026179901, z: -0.0000020561652, w: 0.9999963}
+  m_LocalPosition: {x: 0.003555, y: -0.014, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -312,6 +313,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!95 &3689196541392704544
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1126165088178583906}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3fc8fe6d7d66ece47aac63e525879f4f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1627718003808769105
 GameObject:
   m_ObjectHideFlags: 0
@@ -324,7 +346,7 @@ GameObject:
   - component: {fileID: 8653877819388976265}
   - component: {fileID: 2886434691747275893}
   m_Layer: 0
-  m_Name: Cube.004
+  m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -407,7 +429,7 @@ GameObject:
   - component: {fileID: 8563280188767331096}
   - component: {fileID: 8625690872693468493}
   m_Layer: 0
-  m_Name: Cube.003
+  m_Name: Slide
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -490,7 +512,7 @@ GameObject:
   - component: {fileID: 4875574772300565320}
   - component: {fileID: 8468805554716775249}
   m_Layer: 0
-  m_Name: Cube.010
+  m_Name: SlideRelease
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -573,7 +595,7 @@ GameObject:
   - component: {fileID: 8996837377258830024}
   - component: {fileID: 8026705156818950344}
   m_Layer: 0
-  m_Name: Cylinder.002
+  m_Name: Bullet3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -656,7 +678,7 @@ GameObject:
   - component: {fileID: 4640764996494613841}
   - component: {fileID: 7134202160710649371}
   m_Layer: 0
-  m_Name: Cylinder.005
+  m_Name: Bullet2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -739,7 +761,7 @@ GameObject:
   - component: {fileID: 5961876949121892145}
   - component: {fileID: 1206581518981557655}
   m_Layer: 0
-  m_Name: Cube.025
+  m_Name: FireDots
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -822,7 +844,7 @@ GameObject:
   - component: {fileID: 116082541234946252}
   - component: {fileID: 1639575493366927134}
   m_Layer: 0
-  m_Name: Cube.009
+  m_Name: Hammer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -905,7 +927,7 @@ GameObject:
   - component: {fileID: 8644698479624377713}
   - component: {fileID: 7317497663577853312}
   m_Layer: 0
-  m_Name: Cube.005
+  m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -988,7 +1010,7 @@ GameObject:
   - component: {fileID: 7705126222139904217}
   - component: {fileID: 4078152744905666742}
   m_Layer: 0
-  m_Name: Cube.011
+  m_Name: Safety
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1071,7 +1093,7 @@ GameObject:
   - component: {fileID: 4208080278542144546}
   - component: {fileID: 7007737076496690313}
   m_Layer: 0
-  m_Name: Cylinder.001
+  m_Name: Bullet1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1154,7 +1176,7 @@ GameObject:
   - component: {fileID: 3073654826294963171}
   - component: {fileID: 8499615908578943998}
   m_Layer: 0
-  m_Name: Cube.002
+  m_Name: Pins
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1237,7 +1259,7 @@ GameObject:
   - component: {fileID: 8651927872289127217}
   - component: {fileID: 6844829504116081660}
   m_Layer: 0
-  m_Name: Cube.006
+  m_Name: Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1320,7 +1342,7 @@ GameObject:
   - component: {fileID: 3324098107140226995}
   - component: {fileID: 7555349289947866658}
   m_Layer: 0
-  m_Name: Cube.001
+  m_Name: MagRelease
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1403,7 +1425,7 @@ GameObject:
   - component: {fileID: 4730547233432678574}
   - component: {fileID: 922498651330621322}
   m_Layer: 0
-  m_Name: Cylinder.003
+  m_Name: BulletmidMag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1486,7 +1508,7 @@ GameObject:
   - component: {fileID: 1496351172223700698}
   - component: {fileID: 8291384921143794568}
   m_Layer: 0
-  m_Name: Cube.007
+  m_Name: Chamber
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class GunPickupScript : MonoBehaviour
 {
-    
+
     [SerializeField] GunSettings gun;
     private PlayerGunControls gunControl;
-    bool playerInRange;
+    public bool playerInRange;
     bool triggerSet;
+    [SerializeField] Collider PickupCollider;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,7 +25,7 @@ public class GunPickupScript : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {  
         if (Input.GetButtonDown("Interact") && playerInRange)
         {
             if (gunControl.gunList.Count < 2)
@@ -39,9 +40,9 @@ public class GunPickupScript : MonoBehaviour
             }
         }
     }
-
+  
     private void PickUpGun()
-    {
+    {       
         gameManager.instance.playerGunControls.getGunStats(gun);
         Destroy(gameObject);
     }
@@ -49,10 +50,10 @@ public class GunPickupScript : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
-        {
+        {    
             playerInRange = true;
         }
-
+        
     }
 
     private void OnTriggerExit(Collider other)

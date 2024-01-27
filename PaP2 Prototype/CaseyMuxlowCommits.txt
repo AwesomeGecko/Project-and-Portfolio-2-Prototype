@@ -1,0 +1,224 @@
+commit 4012510feeabc63d47a7ad7f8c278d3e4f019dc2
+Author: Casey-Muxlow <CWMuxlow@student.fullsail.edu>
+Date:   Wed Jan 24 21:45:29 2024 -0500
+
+    Gun Updates and UI Updates
+    
+    Gun muzzle flash now works again and does not utilize frames. Gun Icons created for backpack and what is equipped and Utilizing the gun name.
+
+commit af2cc91974dbff8d6bdb2f2caef9f1fb5ec372a9
+Author: Casey-Muxlow <CWMuxlow@student.fullsail.edu>
+Date:   Wed Jan 24 13:18:19 2024 -0500
+
+    Shotgun fix
+    
+    Shotgun now pulls from the pool. Removed all of the debug logs.
+    Shotgun rate of fire decrease?
+
+commit 396e201975287774949ad5a36e2f80f628fd6d63
+Author: Casey-Muxlow <CWMuxlow@student.fullsail.edu>
+Date:   Wed Jan 24 12:07:29 2024 -0500
+
+    Bullet Pool
+    
+    Bullets are pooling. Troubleshooting return. Push is so that Anthony can help
+
+commit 0fd3b5da3434210cb96851e7fee13c17d626c10d
+Author: Casey-Muxlow <CWMuxlow@student.fullsail.edu>
+Date:   Tue Jan 23 00:25:06 2024 -0500
+
+    Gun Updates
+    
+    Assault rifle now has a custom sight adjusted the offsets of the guns to be better. Made it so that the assault rifle renders in the screen but also that the player is aiming down sights. I also changed the primary cursor.
+
+commit aedff3750c7d0e0465502fe85e7bc56c54ae29ba
+Author: Casey-Muxlow <CWMuxlow@student.fullsail.edu>
+Date:   Mon Jan 22 20:15:18 2024 -0500
+
+    2nd level
+
+commit 7a3bd75c161b7bc52b06be6be9adb31619718c99
+Author: Casey-Muxlow <CWMuxlow@student.fullsail.edu>
+Date:   Mon Jan 22 20:14:01 2024 -0500
+
+    Gun Pickup Prefabs
+    
+    Updates to incorporate physics into the gun drop.
+
+commit 16602b362c6738bccadeb95a7b6badaf68e7e29a
+Author: Casey-Muxlow <CWMuxlow@student.fullsail.edu>
+Date:   Mon Jan 22 04:25:22 2024 -0500
+
+    Guns now drop
+
+commit 6c25910144c5b4b486e0d7b3bbf7c6a141be60e5
+Author: Casey-Muxlow <CWMuxlow@student.fullsail.edu>
+Date:   Mon Jan 22 00:28:18 2024 -0500
+
+    assault rifle updates
+
+commit 3706e883fd5bc12d51f8abaeec988ad96cdbc327
+Author: Casey-Muxlow <CWMuxlow@student.fullsail.edu>
+Date:   Sun Jan 21 23:04:27 2024 -0500
+
+    Player Update
+    
+    Preventing the player from taking additional damage upon death.
+
+commit 9dd3760cde4119909eee24a60bb18aea38f8d216
+Author: Casey-Muxlow <CWMuxlow@student.fullsail.edu>
+Date:   Sun Jan 21 18:25:48 2024 -0500
+
+    Update 2nd Level.unity
+
+commit 8b9cd45912414a625f8527b03baa6b764e6dab06
+Author: Casey-Muxlow <CWMuxlow@student.fullsail.edu>
+Date:   Sun Jan 21 18:21:01 2024 -0500
+
+    Gun Pickup and swap
+    
+    attempting to implement swapping
+
+commit b9d3ceadfd007825c3eac12c53c869e62785275f
+Author: Casey-Muxlow <CWMuxlow@student.fullsail.edu>
+Date:   Sun Jan 21 12:15:27 2024 -0500
+
+    prefab updates due to main
+
+commit c6a82a28f8b940b74858c77ad7d7f54ffd8b7348
+Author: Casey-Muxlow <CWMuxlow@student.fullsail.edu>
+Date:   Sun Jan 21 12:14:33 2024 -0500
+
+    update from main
+
+commit d84592014c50f8221da0385f7db85a00bea3969d
+Author: Casey-Muxlow <CWMuxlow@student.fullsail.edu>
+Date:   Sun Jan 21 12:13:25 2024 -0500
+
+    Assualt rifle does not render
+    
+    Under the current method the assault rifle does not render therefore it needs to removed and reimplemented at a later time.
+
+commit 0e9bdde5658bec77553179300157e3ec9e8b2edc
+Author: Casey-Muxlow <CWMuxlow@student.fullsail.edu>
+Date:   Sun Jan 21 12:09:02 2024 -0500
+
+    Gun change
+    
+    The Player now can only carry two guns
+
+commit afc029b9f2bea5bc1da8d0775ae33d8e79781e42
+Author: Casey-Muxlow <CWMuxlow@student.fullsail.edu>
+Date:   Sun Jan 21 01:18:29 2024 -0500
+
+    M4 change
+    
+    Due to no longer rendering over the m4 is on layer weapon
+
+commit 0924887d8612474ad34b1ef4256960082c2187f6
+Author: Casey-Muxlow <CWMuxlow@student.fullsail.edu>
+Date:   Sun Jan 21 01:17:02 2024 -0500
+
+    Gun changes
+    
+    All guns are now picked up as prefabs and no longer mesh over. Still need to fix the way we change guns though.
+
+commit 0ff964605d6bba97c2671bceeee7f3475a94924e
+Author: Casey-Muxlow <CWMuxlow@student.fullsail.edu>
+Date:   Sat Jan 20 22:35:58 2024 -0500
+
+    Updates to gun stats and health stats
+    
+    Updated the guns stats and health stats
+
+commit 568348133c2c1ffb53c8694be89b32f27fa69602
+Author: Casey-Muxlow <CWMuxlow@student.fullsail.edu>
+Date:   Sat Jan 20 16:56:27 2024 -0500
+
+    Gun Logic decoupled again
+    
+    all gun logic is now on the appropriate script.
+
+commit efaba217c928824c4c271460a04add477aed59cf
+Author: Casey-Muxlow <CWMuxlow@student.fullsail.edu>
+Date:   Sat Jan 20 16:51:09 2024 -0500
+
+    UI scene change
+    
+    just my scene
+
+commit f3ffd666a2065ff06f32dccb559f586c4d98f595
+Author: Casey-Muxlow <CWMuxlow@student.fullsail.edu>
+Date:   Thu Jan 18 00:51:43 2024 -0500
+
+    Shotgun, Player, UI, Aiming logic, M4 updates
+    
+    The original shotgun model had a meshed sight that could not be rendered over. I took the model into blender removed the faces of the sight then re-uploaded into Unity. Made a shotgun sight image in the UI made reference to it in game manager then attached the image. Updated the player so that it has the holder from the Gun branch due to the need to set the transform location of the shotgun. Updated the aim down sights logic to implement a time delay to allow for a more realistic aiming feature.
+
+commit d7fbaa26fd02a7ed3865cef6f121a4048d6333e3
+Author: Casey-Muxlow <CWMuxlow@student.fullsail.edu>
+Date:   Wed Jan 17 23:05:23 2024 -0500
+
+    Shotgun and UI for shotgun
+    
+    Removed the sight from the shotgun in Blender to mask over new sight in Unity. Created mask in UI. Adjusted some masks in too many crosshairs so that I can use them as sprites. Bullets now deactivate and destroy.
+
+commit 70248b4f8c0cdecb4a824c7123e09644a23383f7
+Author: Casey-Muxlow <CWMuxlow@student.fullsail.edu>
+Date:   Wed Jan 17 00:16:05 2024 -0500
+
+    Update player bullet prefab
+    
+    I removed the playerBullet script it is no longer needed. I did leave the script so that I have a reference if needed at a later time.
+
+commit 67bf5f0954206aec2baf33d42a2159924d03192b
+Author: Casey-Muxlow <CWMuxlow@student.fullsail.edu>
+Date:   Tue Jan 16 23:16:10 2024 -0500
+
+    Bullets and Enemy AI update
+    
+    Bullets now use physics with rigid bodies therefore they have bullet drop I set the guns up on basic setups.
+    
+    Enemy AI I updated the enemy ai due to the shotgun still being able to kill the enemy when it was already deactivated. The same update was applied to the Boss script.
+    
+    The guns all have separate reload sounds and volume. I also applied a sound bug fix. The guns reload sound would occur on the press of reload however no bullets were being placed into the magazine.
+
+commit 7804aa828b3f20a51e8843277867d1088bce408d
+Author: Casey-Muxlow <CWMuxlow@student.fullsail.edu>
+Date:   Mon Jan 15 18:44:59 2024 -0500
+
+    Gun update
+    
+    Changed the name of gunStats to GunSettings which is more appropriate. Also moved the sounds for reloading to the Gun Settings that way the sounds can be adjusted for each gun.
+
+commit 9ed6cb4e496c9fb21e0bf3691fd1b88c7935a110
+Author: Casey-Muxlow <CWMuxlow@student.fullsail.edu>
+Date:   Mon Jan 15 17:34:00 2024 -0500
+
+    Gun Model layer
+    
+    Gun model layer was set to player causing the m4 to no longer cull out of mask when scoped in. I set the gun model layer back to weapon so that the weapon will cull out of screen.
+
+commit d58424002b92c83f1f7052e04431a2bfc1aa33a7
+Author: Casey-Muxlow <CWMuxlow@student.fullsail.edu>
+Date:   Sun Jan 14 16:29:56 2024 -0500
+
+    Gun script naming
+    
+    Name updates for the gun scripts to fix some naming issues for the gun overhaul
+
+commit f11f1a18dd32735f0f5d0b075240c1f904fb1377
+Author: Casey-Muxlow <CWMuxlow@student.fullsail.edu>
+Date:   Sun Jan 14 14:30:06 2024 -0500
+
+    Shotgun Prefab
+    
+    Saving the prefab for the shotgun so that it functions appropriately
+
+commit 14eb7fa99ef07eb4bd74231500e21fd31e8594bb
+Author: Casey-Muxlow <CWMuxlow@student.fullsail.edu>
+Date:   Sun Jan 14 09:47:59 2024 -0500
+
+    Gun Update
+    
+    Shotgun can now be picked up and used. Fixed the mesh of the shotgun so that it was scaled correctly. Fixed an orientation issue with the meshes of the shotgun. Fixed an issue where the bullets fired from a gun were set to a fixed speed and not what was set per the scriptable object. Fixed an issue where the bullets would pass through a wall. Fixed an issue where the bullets would not shoot in the correct direction if the player was looking down.

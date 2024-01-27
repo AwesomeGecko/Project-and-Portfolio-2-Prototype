@@ -47,7 +47,7 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.CompareTag("PlayerBullet"))
+        if (collision.collider.CompareTag("PlayerBullet") || collision.collider.CompareTag("WeaponPickUp"))
         {
             return; // Ignore collisions with other player bullets
         }

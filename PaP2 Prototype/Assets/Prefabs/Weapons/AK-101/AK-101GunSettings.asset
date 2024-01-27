@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89383eed46ec81644ac36e0524ce1bb1, type: 3}
+  m_Name: AK-101GunSettings
+  m_EditorClassIdentifier: 
+  model: {fileID: 2972496718634885811, guid: e7b1fc70af6bc3944b03f4cb260194f7, type: 3}
+  GunName: AK-101
+  GunPickupPrefab: {fileID: 2972496718634885811, guid: d4acba8cc14bd5447906dcb4ca704fdc, type: 3}
+  gunIcon: {fileID: 21300000, guid: 1de880b0722a658429bef3b0d5392ba9, type: 3}
+  shootRate: 0.3
+  shootDist: 1000
+  PlayerBulletDamage: 5
+  PlayerBulletSpeed: 3
+  AmmoInMag: 16
+  MaxGunAmmo: 180
+  MagSize: 30
+  PlayerTotalAmmo: 0
+  BulletWeight: 0.1
+  shootSound: {fileID: 8300000, guid: 8581f806dddef8046b4942de05b897be, type: 3}
+  shootSoundVol: 2.5
+  reloadSound: {fileID: 8300000, guid: 0750d4716bc6e984ca12fc704bee4edb, type: 3}
+  reloadSoundVol: 4.1
+  hitEffect: {fileID: 468260622339083660, guid: f8c505478bba5bf4dbdeaa85632801a6, type: 3}
+  fieldOfView: 30
+  Shoot: {fileID: 0}
+  isdefaultPistol: 0
+  shouldUseScope: 0
+  isShotgun: 0
+  isAssaultRifle: 0
+  shotgunPelletCount: 0
+  shotgunPelletSpread: 0
+  barrelTip: {fileID: 11400000, guid: d727e8205789c7f449e79e9eaa8918fe, type: 2}
+  defaultGunRotation: {x: 0, y: 0, z: 0}
+  defaultGunPositionOffset: {x: 0, y: -0.2, z: 0}
+  ADSGunPositionOffset: {x: -0.0013, y: -0.017, z: -0.22}
