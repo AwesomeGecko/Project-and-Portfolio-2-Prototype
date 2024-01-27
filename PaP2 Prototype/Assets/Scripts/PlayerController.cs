@@ -318,6 +318,12 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
             gameManager.instance.damageIndicator();
         }
     }
+    public void teleportToSpawn()
+    {
+        controller.enabled = false;
+        transform.position = gameManager.instance.playerSpawnPos.transform.position;
+        controller.enabled = true;
+    }
 
     public void playerRespawn()
     {

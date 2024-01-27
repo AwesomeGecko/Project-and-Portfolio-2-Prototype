@@ -13,6 +13,7 @@ public class teleporterScript : MonoBehaviour
     [SerializeField] AudioClip idleTeleport;
     [SerializeField] AudioClip changeScene;
 
+    public bool TeleportToSpawn;
     public bool playerInRange;
     public bool isTeleporterOn;
     public int keyCounter;
@@ -69,6 +70,10 @@ public class teleporterScript : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            if (TeleportToSpawn)
+            {
+                gameManager.instance.playerScript.teleportToSpawn();
+            }
             if (keyCounter < 3)
             {
                 gameManager.instance.maxText.text = "Missing Keys";
@@ -79,11 +84,12 @@ public class teleporterScript : MonoBehaviour
                 gameManager.instance.maxText.text = "Enemys remain!";
                 gameManager.instance.runText();
             }
-            if (isTeleporterOn && gameManager.instance.enemiesRemaining <= 0)
+            if (isTeleporterOn && gameManager.instance.enemiesRemaining <= 0 && !TeleportToSpawn)
             { 
                 playerInRange = true;
                 teleport();
-            }    
+            } 
+            
         }
 
     }
