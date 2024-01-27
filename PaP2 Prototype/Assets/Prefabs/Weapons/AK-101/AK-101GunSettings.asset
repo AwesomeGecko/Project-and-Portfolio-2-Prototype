@@ -20,15 +20,15 @@ MonoBehaviour:
   shootDist: 1000
   PlayerBulletDamage: 5
   PlayerBulletSpeed: 3
-  AmmoInMag: 16
+  AmmoInMag: 22
   MaxGunAmmo: 180
   MagSize: 30
   PlayerTotalAmmo: 0
   BulletWeight: 0.1
   shootSound: {fileID: 8300000, guid: 8581f806dddef8046b4942de05b897be, type: 3}
-  shootSoundVol: 2.5
+  shootSoundVol: 0.4
   reloadSound: {fileID: 8300000, guid: 0750d4716bc6e984ca12fc704bee4edb, type: 3}
-  reloadSoundVol: 4.1
+  reloadSoundVol: 1
   hitEffect: {fileID: 468260622339083660, guid: f8c505478bba5bf4dbdeaa85632801a6, type: 3}
   fieldOfView: 30
   PickupRotateSpeed: 0.5
