@@ -159,7 +159,7 @@ public class PlayerGunControls : MonoBehaviour
             else if (gunList[selectedGun].AmmoInMag == 0 && gunList[selectedGun].PlayerTotalAmmo == 0)
             {
                 
-                Debug.Log("Show out of ammo UI for a few seconds");
+                //Debug.Log("Show out of ammo UI for a few seconds");
             }
             
         }
@@ -205,7 +205,7 @@ public class PlayerGunControls : MonoBehaviour
             }
             else if (currentGun.isAssaultRifle)
             {
-                Debug.Log("Entering Scar case");
+                //Debug.Log("Entering Scar case");
                 //Using Invoke enables the assault rifle sight ontop of the main camera through a time delay
                 Invoke("ActivateAssaultRifleSight", 0.3f);
                 //Adjust the scope cameras FOV

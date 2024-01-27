@@ -66,8 +66,8 @@ public class Turret : MonoBehaviour
         float angleToPlayer = Vector3.Angle(playerDir, transform.forward);
         float angleToGen = Vector3.Angle(generatorDir, transform.forward);
 
-        Debug.DrawRay(aimPoint.position, playerDir);
-        Debug.DrawRay(aimPoint.position, generatorDir);
+        //Debug.DrawRay(aimPoint.position, playerDir);
+        //Debug.DrawRay(aimPoint.position, generatorDir);
 
         RaycastHit hit;
         RaycastHit genHit;

@@ -77,7 +77,7 @@ public class interactableObject : MonoBehaviour {
         {
             if (gameManager.instance.DebugLogs)
             {
-                Debug.Log("Added item to inventory!");
+                //Debug.Log("Added item to inventory!");
             }
 
             InteractSound();

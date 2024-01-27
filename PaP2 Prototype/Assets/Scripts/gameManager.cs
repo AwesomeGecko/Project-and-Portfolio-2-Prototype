@@ -146,7 +146,7 @@ public class gameManager : MonoBehaviour, IDataPersistence
         if (!vignette)
         {
             //if the Vignette is not avalible or emty
-            Debug.Log("error, empty vignette");
+            //Debug.Log("error, empty vignette");
         }
         else
         {

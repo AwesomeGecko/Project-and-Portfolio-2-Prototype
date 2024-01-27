@@ -31,7 +31,7 @@ public class DataPersistenceManager : MonoBehaviour
 
         if (instance != null)
         {
-            Debug.LogError("Found more than one Data Manager in the scene. I will destroy the newest one!");
+            //Debug.LogError("Found more than one Data Manager in the scene. I will destroy the newest one!");
             Destroy(gameObject);
             return;
         }
@@ -56,7 +56,7 @@ public class DataPersistenceManager : MonoBehaviour
 
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("Loaded Scene method called!");
+        //Debug.Log("Loaded Scene method called!");
         dataPersistenceObjects = FindAllDataPersistenceObjects();
         LoadGame();
 
@@ -70,7 +70,7 @@ public class DataPersistenceManager : MonoBehaviour
 
     public void OnSceneUnloaded(Scene scene)
     {
-        Debug.Log("Unloaded Scene method called!");
+        //Debug.Log("Unloaded Scene method called!");
         SaveGame();
     }
 
@@ -89,7 +89,7 @@ public class DataPersistenceManager : MonoBehaviour
         if (this.gameData == null)
         {
             
-            Debug.Log("No data was found. A new Game needs to be started before data can be loaded");
+            //Debug.Log("No data was found. A new Game needs to be started before data can be loaded");
             return;
             
         }
@@ -105,7 +105,7 @@ public class DataPersistenceManager : MonoBehaviour
         //if theres no data to save, log a warning here
         if (this.gameData == null)
         {
-            Debug.LogWarning("No data was found. A new game needs to be started before data can be saved.");
+            //Debug.LogWarning("No data was found. A new game needs to be started before data can be saved.");
             return;
         }
 
@@ -149,7 +149,7 @@ public class DataPersistenceManager : MonoBehaviour
         {
             yield return new WaitForSeconds(autoSaveTimeSeconds);
             SaveGame();
-            Debug.Log("Auto Saved!");
+            //Debug.Log("Auto Saved!");
         }
     }
 }

@@ -21,7 +21,7 @@ public class PlayerAudioManager : MonoBehaviour
     {
         if(aud == null)
         {
-            Debug.Log("AudioSource component not assigned in the PlayerAudioManager script.");
+            //Debug.Log("AudioSource component not assigned in the PlayerAudioManager script.");
             return;
         }
         if(sceneStart != null)
@@ -32,7 +32,7 @@ public class PlayerAudioManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Start Scene Audio Clip is not assigned in the PlayerAudioManager Script");
+            //Debug.Log("Start Scene Audio Clip is not assigned in the PlayerAudioManager Script");
         }
     }
 
@@ -64,7 +64,7 @@ public class PlayerAudioManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("No instruction voice line audio clips assigned in the PlayerAudioManager script.");
+            //Debug.Log("No instruction voice line audio clips assigned in the PlayerAudioManager script.");
         }
     }
 

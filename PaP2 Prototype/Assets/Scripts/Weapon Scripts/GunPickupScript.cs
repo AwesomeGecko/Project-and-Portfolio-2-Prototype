@@ -34,7 +34,7 @@ public class GunPickupScript : MonoBehaviour
             }
             else
             {
-                Debug.Log("SwapGuns");
+                //Debug.Log("SwapGuns");
                 gameManager.instance.playerGunControls.SwapGuns();
                 PickUpGun();
             }

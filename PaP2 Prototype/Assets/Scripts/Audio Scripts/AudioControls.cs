@@ -31,7 +31,7 @@ public class AudioControls : MonoBehaviour, IDataPersistence
     {
         if (instance != null)
         {
-            Debug.LogError("Found more than one Audio Manager in the scene. I will destroy the newest one!");
+            //Debug.LogError("Found more than one Audio Manager in the scene. I will destroy the newest one!");
             Destroy(gameObject);
             return;
         }
