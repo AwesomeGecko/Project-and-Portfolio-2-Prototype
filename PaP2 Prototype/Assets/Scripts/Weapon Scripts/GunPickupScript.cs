@@ -8,7 +8,7 @@ public class GunPickupScript : MonoBehaviour
     [SerializeField] GunSettings gun;
     private PlayerGunControls gunControl;
     public bool playerInRange;
-    bool triggerSet;
+    private float speed;
     [SerializeField] Collider PickupCollider;
     // Start is called before the first frame update
     void Start()
@@ -39,6 +39,8 @@ public class GunPickupScript : MonoBehaviour
                 PickUpGun();
             }
         }
+        speed = gun.PickupRotateSpeed * Time.deltaTime * 40f;
+        transform.Rotate(Vector3.up, speed);
     }
   
     private void PickUpGun()

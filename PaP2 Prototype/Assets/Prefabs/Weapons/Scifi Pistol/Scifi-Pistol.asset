@@ -31,6 +31,7 @@ MonoBehaviour:
   reloadSoundVol: 2.01
   hitEffect: {fileID: 468260622339083660, guid: f8c505478bba5bf4dbdeaa85632801a6, type: 3}
   fieldOfView: 60
+  PickupRotateSpeed: 0.3
   isdefaultPistol: 0
   shouldUseScope: 0
   isShotgun: 0

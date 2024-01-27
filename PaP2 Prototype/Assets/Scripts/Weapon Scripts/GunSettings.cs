@@ -45,6 +45,8 @@ public class GunSettings : ScriptableObject
 
     [Header("Gun specific data")]
 
+    public float PickupRotateSpeed;
+
     public bool isdefaultPistol;
     [Space]
     public bool shouldUseScope;

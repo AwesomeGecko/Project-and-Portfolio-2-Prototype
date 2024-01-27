@@ -289,13 +289,13 @@ public class gameManager : MonoBehaviour, IDataPersistence
             {
                 onTarget = true;
 
-                interact_text.text = "Pick up Gun [E]";
+                interact_text.text = "Pick up Gun [F]";
                 interactive.SetActive(true);
 
             }
             else if (GunPickup && GunPickup.playerInRange && playerGunControls.gunList.Count >= 2)
             {
-                interact_text.text = "Swap Guns [E]";
+                interact_text.text = "Swap Guns [F]";
                 interactive.SetActive(true);
             }
             else

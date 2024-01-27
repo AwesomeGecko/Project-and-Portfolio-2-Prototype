@@ -31,6 +31,7 @@ MonoBehaviour:
   reloadSoundVol: 2.22
   hitEffect: {fileID: 468260622339083660, guid: f8c505478bba5bf4dbdeaa85632801a6, type: 3}
   fieldOfView: 45.7
+  PickupRotateSpeed: 0.5
   isdefaultPistol: 0
   shouldUseScope: 0
   isShotgun: 1
@@ -40,5 +41,4 @@ MonoBehaviour:
   barrelTip: {fileID: 11400000, guid: bae3648158d815a45b54b25cf5d91d55, type: 2}
   defaultGunRotation: {x: 0.5, y: 0, z: 0}
   defaultGunPositionOffset: {x: 0.0115, y: -0.0035, z: 0}
-  ADSGunRotation: {x: 0, y: 0, z: 0}
   ADSGunPositionOffset: {x: 0, y: 0, z: 0}

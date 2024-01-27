@@ -161,7 +161,7 @@ public class PlayerGunControls : MonoBehaviour
                 
                 Debug.Log("Show out of ammo UI for a few seconds");
             }
-            //GunAnimator.SetBool("IsReloading", false);
+            
         }
 
         yield return new WaitForSeconds(1f);
@@ -380,10 +380,7 @@ public class PlayerGunControls : MonoBehaviour
                 CallAnimation();
             }
         }
-        else
-        {
-            Debug.Log("Inventory is full");
-        }
+        
 
     }
 
@@ -477,7 +474,7 @@ public class PlayerGunControls : MonoBehaviour
 
         if (gunList.Count > 1 && selectedGun >= 0 && selectedGun < gunList.Count)
         {
-            Debug.Log("prompt player to swap");
+           
             // Drop the current gun
             DropGun(gunList[selectedGun]);
         }
