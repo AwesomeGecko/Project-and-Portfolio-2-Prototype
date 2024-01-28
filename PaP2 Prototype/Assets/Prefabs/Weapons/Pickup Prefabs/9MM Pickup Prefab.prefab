@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1740043361549309920}
   - component: {fileID: 6499585293699493967}
   - component: {fileID: 6763493398817529445}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: FrontSlid.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 2115643450865909794}
   - component: {fileID: 6066328557610341505}
   - component: {fileID: 5781284573092022789}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Detail.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 6973174957972733464}
   - component: {fileID: 5094164896250514235}
   - component: {fileID: 2346168868323839325}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: 9MM Pickup Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -327,7 +327,7 @@ GameObject:
   - component: {fileID: 4217916874357899042}
   - component: {fileID: 870116366664505249}
   - component: {fileID: 5105126262628006367}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Decal.042
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -410,7 +410,7 @@ GameObject:
   - component: {fileID: 7489204714945666232}
   - component: {fileID: 7282366879580802612}
   - component: {fileID: 8830201564665008124}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Decal.044
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -493,7 +493,7 @@ GameObject:
   - component: {fileID: 6010301240550209622}
   - component: {fileID: 636042005622583268}
   - component: {fileID: 1993386942283592439}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: DisassemblyLever.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -576,7 +576,7 @@ GameObject:
   - component: {fileID: 838410999476984519}
   - component: {fileID: 1506287664948710452}
   - component: {fileID: 1188088219805061658}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Magazine.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -660,7 +660,7 @@ GameObject:
   - component: {fileID: 766413542130580169}
   - component: {fileID: 5994133309451015031}
   - component: {fileID: 782713833726220853}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Decal.043
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -743,7 +743,7 @@ GameObject:
   - component: {fileID: 1099747225756686507}
   - component: {fileID: 9025401773969893597}
   - component: {fileID: 6035165625558342266}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Decal.037
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -826,7 +826,7 @@ GameObject:
   - component: {fileID: 4645889172433491398}
   - component: {fileID: 7669349287661940251}
   - component: {fileID: 78101684743965072}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Grip.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -911,7 +911,7 @@ GameObject:
   - component: {fileID: 8974113227517253836}
   - component: {fileID: 2204521395270127799}
   - component: {fileID: 5176096981709556297}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Detail.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -999,7 +999,7 @@ GameObject:
   - component: {fileID: 1962559744525929751}
   - component: {fileID: 6647547967468875780}
   - component: {fileID: 347823726430427630}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: RedDot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1082,7 +1082,7 @@ GameObject:
   - component: {fileID: 2997714960305331380}
   - component: {fileID: 7597428534356218309}
   - component: {fileID: 4464545457326080326}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Decal.058
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1165,7 +1165,7 @@ GameObject:
   - component: {fileID: 8386335368962982174}
   - component: {fileID: 1598503334642265499}
   - component: {fileID: 3195917108176733321}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: RedDotGlass.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1248,7 +1248,7 @@ GameObject:
   - component: {fileID: 9174722495953538071}
   - component: {fileID: 8052378946305675926}
   - component: {fileID: 7321555927758484675}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Decal.049
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1331,7 +1331,7 @@ GameObject:
   - component: {fileID: 8166440030706831338}
   - component: {fileID: 791851743425537975}
   - component: {fileID: 4649082567276739795}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Trigger.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1414,7 +1414,7 @@ GameObject:
   - component: {fileID: 573352548430789352}
   - component: {fileID: 4015331743315709300}
   - component: {fileID: 7481249458515629526}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Decal.058
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1497,7 +1497,7 @@ GameObject:
   - component: {fileID: 8270995436093476585}
   - component: {fileID: 3494834991869873722}
   - component: {fileID: 3327882083237207541}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: RedDot.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1583,7 +1583,7 @@ GameObject:
   - component: {fileID: 3469658215815833419}
   - component: {fileID: 2266257944868139668}
   - component: {fileID: 8716926350561088447}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Barrel.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1667,7 +1667,7 @@ GameObject:
   - component: {fileID: 2448173551031273031}
   - component: {fileID: 4917987561186451355}
   - component: {fileID: 3899338126512969767}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: FrontSight.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1750,7 +1750,7 @@ GameObject:
   - component: {fileID: 739496663226233040}
   - component: {fileID: 6646923963719703605}
   - component: {fileID: 6456363546473729699}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BarrelIntern.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1833,7 +1833,7 @@ GameObject:
   - component: {fileID: 1934962106537703155}
   - component: {fileID: 6160004658122708200}
   - component: {fileID: 4529482101626812479}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Chamber.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1917,7 +1917,7 @@ GameObject:
   - component: {fileID: 6662583565986638007}
   - component: {fileID: 4316152421190187163}
   - component: {fileID: 4278463217407166699}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: DisassemblyLever.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
