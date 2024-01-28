@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 98547142380961493}
   - component: {fileID: 2539139306805138844}
   - component: {fileID: 5770627769007482400}
+  - component: {fileID: 6199511738063289033}
+  - component: {fileID: 1940162183289025173}
   m_Layer: 0
   m_Name: Land Mine
   m_TagString: Untagged
@@ -31,7 +33,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -11, y: 0, z: -0.75}
-  m_LocalScale: {x: 1, y: 0.3, z: 1}
+  m_LocalScale: {x: 1, y: 0.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -53,7 +55,8 @@ MonoBehaviour:
   aud: {fileID: 5770627769007482400}
   mineBeep: {fileID: 8300000, guid: 4e4fa75aada6fd145823dd8ec67e1ff3, type: 3}
   expSound: {fileID: 8300000, guid: f4fb92b874ee33e4faf3c5746c6cc316, type: 3}
-  explode: {fileID: 0}
+  explode: {fileID: 2521907620776276872, guid: c29fb1ecb0066194b9948f9bcfff16eb, type: 3}
+  col: {fileID: 6199511738063289033}
 --- !u!33 &1911169203334254708
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -114,7 +117,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2304
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -123,9 +126,9 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1
-  m_Height: 1
-  m_Direction: 1
+  m_Radius: 2
+  m_Height: 2
+  m_Direction: 0
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!82 &5770627769007482400
 AudioSource:
@@ -139,7 +142,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.733
+  m_Volume: 0.4
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -223,3 +226,51 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!65 &6199511738063289033
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5259277357467428110}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.8, y: 1.9, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &1940162183289025173
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5259277357467428110}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 127
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 1664
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 2

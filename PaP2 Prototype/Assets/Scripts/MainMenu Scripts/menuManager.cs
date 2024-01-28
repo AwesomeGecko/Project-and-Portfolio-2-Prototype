@@ -86,24 +86,24 @@ public class menuManager : MonoBehaviour, IDataPersistence
         
     }
 
-    public void muteSounds()
-    {
+    //public void muteSounds()
+    //{
 
-        if (!AudioControls.instance.isMuted)
-        {
-            image.sprite = Mute;
-            AudioControls.instance.isMuted = true;
-            isMuted = AudioControls.instance.isMuted;
-            AudioControls.instance.Muted();
-        }
-        else
-        {
-            image.sprite = UnMute;
-            AudioControls.instance.isMuted = false;
-            isMuted = AudioControls.instance.isMuted;
-            AudioControls.instance.Muted();
-        }
-    }
+    //    if (!AudioControls.instance.isMuted)
+    //    {
+    //        image.sprite = Mute;
+    //        AudioControls.instance.isMuted = true;
+    //        isMuted = AudioControls.instance.isMuted;
+    //        AudioControls.instance.Muted();
+    //    }
+    //    else
+    //    {
+    //        image.sprite = UnMute;
+    //        AudioControls.instance.isMuted = false;
+    //        isMuted = AudioControls.instance.isMuted;
+    //        AudioControls.instance.Muted();
+    //    }
+    //}
 
 
     public void MainMenu()
@@ -172,6 +172,7 @@ public class menuManager : MonoBehaviour, IDataPersistence
         menuActive.SetActive(false);
         menuActive = menuSettings;
         menuActive.SetActive(true);
+        DataPersistenceManager.instance.LoadAudio();
     }
 
     public void openCredits()
