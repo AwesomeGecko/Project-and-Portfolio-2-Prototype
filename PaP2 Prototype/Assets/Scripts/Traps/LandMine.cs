@@ -16,6 +16,7 @@ public class LandMine : MonoBehaviour
     [SerializeField] public AudioClip expSound;
 
     [SerializeField] private ParticleSystem explode;
+    [SerializeField] BoxCollider col;
 
     private bool isPlayerNear;
     private float timer;
@@ -36,18 +37,23 @@ public class LandMine : MonoBehaviour
         }
     }
 
+    
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") || other.CompareTag("Enemies"))
         {
             isPlayerNear = true;
             aud.PlayOneShot(mineBeep);
             aud.PlayOneShot(expSound);
         }
-        else if(other.CompareTag("PlayerBullet"))
+    }
+    
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag("PlayerBullet"))
         {
             isPlayerNear = false;
-            if(aud != null)
+            if (aud != null)
             {
                 aud.PlayOneShot(expSound);
             }
@@ -81,7 +87,11 @@ public class LandMine : MonoBehaviour
 
     private IEnumerator DeactivateAfterAudio()
     {
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.5f);
+        if (explode != null)
+        {
+            expInstance = Instantiate(explode, transform.position, Quaternion.identity);
+        }
         gameObject.SetActive(false);
     }
     
