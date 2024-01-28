@@ -92,6 +92,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd5d7a0c18822a949a26a1bc27e24a5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 
   playerInRange: 0
   ItemName: Ammo
   interactCollider: {fileID: 3999737413616856892}
@@ -133,7 +134,7 @@ AudioSource:
   m_GameObject: {fileID: 2859711182836850969}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 6365757799108221917, guid: e5be003068f40a348b4a0174226c24de, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
