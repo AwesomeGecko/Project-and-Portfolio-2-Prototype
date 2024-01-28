@@ -17,6 +17,8 @@ public class AudioControls : MonoBehaviour
     [SerializeField] List<ToggleTrap> plates;
     [SerializeField] List<autoDoors> doors;
     [SerializeField] teleporterScript teleporter;
+    [SerializeField] List<LaserTrap> lasers;
+    [SerializeField] List<SpikeTrap> spikes;
 
     private bool isMuted;
     public float mainVol;
@@ -78,7 +80,7 @@ public class AudioControls : MonoBehaviour
 
     #endregion
 
-    #region SFXVolume
+    #region SFXVolume 
     private void AdjustObjectSounds()
     {
         foreach (ToggleTrap plate in plates)
@@ -94,6 +96,22 @@ public class AudioControls : MonoBehaviour
             if (door != null)
             {
                 door.SetVolume(sfxVol);
+            }
+        }
+
+        foreach (LaserTrap laser in lasers)
+        {
+            if (laser != null)
+            {
+                laser.SetVolume(sfxVol);
+            }
+        }
+
+        foreach (SpikeTrap spike in spikes)
+        {
+            if (spike != null)
+            {
+                spike.SetVolume(sfxVol);
             }
         }
 
