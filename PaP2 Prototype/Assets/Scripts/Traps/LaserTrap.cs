@@ -19,9 +19,15 @@ public class LaserTrap : MonoBehaviour
     [SerializeField] Vector3 endPoint;
     [SerializeField] float movingSpeed;
 
+    [SerializeField] AudioSource aud;
+    [SerializeField] AudioClip laser;
+
     // Start is called before the first frame update
     void Start()
     {
+        aud.clip = laser;
+        aud.loop = true;
+        aud.Play();
         if(pointToPoint)
         {
             StartCoroutine(Move());
@@ -77,5 +83,12 @@ public class LaserTrap : MonoBehaviour
         startPoint = endPoint;
         endPoint = temp;
     }
-    
+
+    public void SetVolume(float volume)
+    {
+        if (aud != null)
+        {
+            aud.volume = volume;
+        }
+    }
 }
