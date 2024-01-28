@@ -12,7 +12,7 @@ public class EnemyAudioManager : MonoBehaviour
 
     float minTime = 6f;
     float maxTime = 11f;
-    float clipDelay = 3f;
+    //float clipDelay = 3f;
     bool isRandomClipPlaying = false;
 
     // Start is called before the first frame update
