@@ -119,7 +119,6 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
             jumpCount = 0;
             if (!isLanded)
             {
-                Debug.Log("land sound");
                 if (playerLand != null)
                 {
                     aud.PlayOneShot(playerLand, playerLandVol);
