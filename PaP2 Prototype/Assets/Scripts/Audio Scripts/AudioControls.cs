@@ -1,20 +1,14 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
-using UnityEngine.UIElements;
-using Button = UnityEngine.UI.Button;
-using Slider = UnityEngine.UI.Slider;
+using System;
 
-public class AudioControls : MonoBehaviour, IDataPersistence
+public class AudioControls : MonoBehaviour
 {
-    public static AudioControls instance { get; private set; }
 
     [SerializeField] AudioMixer audioMixer;
-    [SerializeField] Button muteButtons;
-
-    [Header("-----Sliders-----")]
+    [SerializeField] Button muteButton;
     [SerializeField] Slider mainSlider;
     [SerializeField] Slider musicSlider;
     [SerializeField] Slider sfxSlider;
@@ -24,145 +18,107 @@ public class AudioControls : MonoBehaviour, IDataPersistence
     [SerializeField] List<autoDoors> doors;
     [SerializeField] teleporterScript teleporter;
 
-    private float volume;
-    public bool isMuted;
+    private bool isMuted;
+    public float mainVol;
+    public float mainVolume;
+    public float musicVol;
+    public float musicVolume;
+    public float sfxVol;
+    public float sfxVolume;
 
-    public void Awake()
+    private void Start()
     {
-        if (instance != null)
-        {
-            //Debug.LogError("Found more than one Audio Manager in the scene. I will destroy the newest one!");
-            Destroy(gameObject);
-            return;
-        }
-        instance = this;
-        startMusic();
-        Muted();
+        DataPersistenceManager.instance.LoadAudio();
+        LoadVolume();
+        mainSlider.onValueChanged.AddListener(setMainVolume);
+        musicSlider.onValueChanged.AddListener(setMusicVolume);
+        sfxSlider.onValueChanged.AddListener(setSFXVolume);
+        mainSlider.value = PlayerPrefs.GetFloat("mainVolume", mainVol);
+        musicSlider.value = PlayerPrefs.GetFloat("musicVolume", musicVol);
+        sfxSlider.value = PlayerPrefs.GetFloat("sfxVolume", sfxVol);
     }
-
-    public void setMainVolume()
-    {
-        volume = mainSlider.value;
-        audioMixer.SetFloat("Main", Mathf.Log10(volume) * 20);
-        //gameManager.instance.aud.volume = volume;
-        LandMine.SetListVolume(volume);
-        AdjustPlateSound();
-        AdjustDoorSound();
-        AdjustTeleporterSound();
-        PlayerPrefs.SetFloat("mainVolume", volume);
-    }
-
-    public void setMusicVolume()
-    {
-        volume = musicSlider.value;
-        audioMixer.SetFloat("Music", Mathf.Log10(volume)*20);
-        PlayerPrefs.SetFloat("musicVolume", volume);
-        
-    }
-
-    public void setSFXVolume()
-    {
-        volume = sfxSlider.value;
-        audioMixer.SetFloat("SFX", Mathf.Log10(volume) * 20);
-        //gameManager.instance.aud.volume = volume;
-        LandMine.SetListVolume(volume);
-        AdjustPlateSound();
-        AdjustDoorSound();
-        AdjustTeleporterSound();
-        PlayerPrefs.SetFloat("sfxVolume", volume);
-
-    }
-
 
     public void LoadVolume()
     {
-        mainSlider.value = 1;
-        musicSlider.value = 0.5f;
-        sfxSlider.value = 0.5f;
-
-        SetVolume();
+        mainVol = PlayerPrefs.GetFloat("mainVolume", mainVolume);
+        musicVol = PlayerPrefs.GetFloat("musicVolume", musicVolume);
+        sfxVol = PlayerPrefs.GetFloat("sfxVolume", sfxVolume);
+        audioMixer.SetFloat("Main", Mathf.Log10(mainVol) * 20);
+        audioMixer.SetFloat("Music", Mathf.Log10(musicVol) * 20);
+        audioMixer.SetFloat("SFX", Mathf.Log10(sfxVol) * 20);
     }
 
-    public void SetVolume()
+    #region SetVolume
+
+    public void OnDisable()
     {
-        setMusicVolume();
-        setSFXVolume();
-        setMainVolume();
+        PlayerPrefs.SetFloat("mainVolume", mainSlider.value);
+        PlayerPrefs.SetFloat("musicVolume", musicSlider.value);
+        PlayerPrefs.SetFloat("sfxVolume", sfxSlider.value);
+        PlayerPrefs.Save();
     }
 
-    public void startMusic()
+
+    public void setMainVolume(float value)
     {
-        if (PlayerPrefs.HasKey("musicVolume"))
-        {
-            LoadVolume();
-        }
-        else
-        {
-            SetVolume();
-        }
+        audioMixer.SetFloat("Main", Mathf.Log10(value) * 20);
     }
 
-    public void Muted()
+    public void setMusicVolume(float value)
     {
-        if (isMuted)
-        {
-            mainSlider.value = 0;
-            musicSlider.value = 0;
-            sfxSlider.value = 0;
-
-            SetVolume();
-        }
-        else
-        {
-            LoadVolume();
-        }
+        audioMixer.SetFloat("Music", Mathf.Log10(value) * 20);
     }
 
-    public void AdjustPlateSound()
+    public void setSFXVolume(float value)
+    {
+        audioMixer.SetFloat("SFX", Mathf.Log10(value) * 20);
+        LandMine.SetListVolume(sfxVol);
+        AdjustObjectSounds();
+    }
+
+    #endregion
+
+    #region SFXVolume
+    private void AdjustObjectSounds()
     {
         foreach (ToggleTrap plate in plates)
         {
             if (plate != null)
             {
-                plate.SetVolume(volume);
+                plate.SetVolume(sfxVol);
             }
         }
-    }
-    
-    
-    public void AdjustDoorSound()
-    {
-        foreach(autoDoors door in doors)
+
+        foreach (autoDoors door in doors)
         {
             if (door != null)
             {
-                door.SetVolume(volume);
+                door.SetVolume(sfxVol);
             }
         }
-    }
-    
-    public void AdjustTeleporterSound()
-    {
+
         if (teleporter != null)
         {
-            teleporter.SetVolume(volume);
+            teleporter.SetVolume(sfxVol);
         }
     }
+    #endregion
 
-    public void LoadData(GameData data)
+
+    public void LoadData(AudioData data)
     {
+        mainVolume = data.mainSlider;
+        musicVolume = data.musicSlider;
+        sfxVolume = data.sfxSlider;
         isMuted = data.isMuted;
-        mainSlider.value = data.mainSlider;
-        musicSlider.value = data.musicSlider;
-        sfxSlider.value = data.sfxSlider;
-    }
 
-    public void SaveData(GameData data)
+    }
+    public void SaveData(AudioData data)
     {
+        LoadVolume();
+        data.mainSlider = mainVolume;
+        data.musicSlider = musicVolume;
+        data.sfxSlider = sfxVolume;
         data.isMuted = isMuted;
-        data.mainSlider = mainSlider.value;
-        data.musicSlider = musicSlider.value;
-        data.sfxSlider = sfxSlider.value;
     }
-
 }

@@ -22,11 +22,7 @@ public class GameData
     public int ammo;
     public int maxAmmo;
 
-    [Header("Audio")]
-    public float mainSlider;
-    public float musicSlider;
-    public float sfxSlider;
-    public bool isMuted;
+    
     public int level;
 
     public Dictionary<string, bool> KeysCollected;
@@ -49,10 +45,6 @@ public class GameData
         leanDist = 10f;
         leanSpeed = 0.5f;
 
-        //Audio
-        mainSlider = 1f;
-        musicSlider = 0.5f;
-        sfxSlider = 0.5f;
-        isMuted = false;
+        
     }
 }

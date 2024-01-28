@@ -428,21 +428,21 @@ public class gameManager : MonoBehaviour, IDataPersistence
         maxPickup.SetActive(false);
     }
 
-    public void muteSounds()
-    {
-        if (!AudioControls.instance.isMuted)
-        {
-            image.sprite = Mute;
-            AudioControls.instance.isMuted = true;
-            AudioControls.instance.Muted();
-        }
-        else
-        {
-            image.sprite = UnMute;
-            AudioControls.instance.isMuted = false;
-            AudioControls.instance.Muted();
-        }
-    }
+    //public void muteSounds()
+    //{
+    //    if (!AudioControls.instance.isMuted)
+    //    {
+    //        image.sprite = Mute;
+    //        AudioControls.instance.isMuted = true;
+    //        AudioControls.instance.Muted();
+    //    }
+    //    else
+    //    {
+    //        image.sprite = UnMute;
+    //        AudioControls.instance.isMuted = false;
+    //        AudioControls.instance.Muted();
+    //    }
+    //}
 
     public void LoadData(GameData data)
     {
