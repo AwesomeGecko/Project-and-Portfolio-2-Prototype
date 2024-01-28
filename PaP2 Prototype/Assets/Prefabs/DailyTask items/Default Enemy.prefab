@@ -83,7 +83,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 10
+  m_Radius: 15
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &5045377174004693842
 MonoBehaviour:
@@ -322,7 +322,7 @@ MonoBehaviour:
     m_Bits: 1
   LOSChecker: {fileID: 5045377174004693842}
   HideSensitivity: 0
-  HP: 10
+  HP: 15
   viewCone: 90
   speed: 1
   roamDist: 10
@@ -330,7 +330,7 @@ MonoBehaviour:
   animSpeedTrans: 8
   targetFaceSpeed: 3
   EnemyBullet: {fileID: 3393345968891059192, guid: 8ad9da3d86fcb0b4b8d2949686ce9956, type: 3}
-  bulletDamage: 3
+  bulletDamage: 2
   bulletDestroyTime: 1
   bulletSpeed: 5
   shootRate: 0.25
@@ -447,7 +447,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 8
+  m_Radius: 15
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!82 &116684600365427839
 AudioSource:

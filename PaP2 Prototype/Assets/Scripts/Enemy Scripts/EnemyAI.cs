@@ -76,6 +76,9 @@ public class EnemyAI : MonoBehaviour, IDamage
 
            startingPos = transform.position;
            stoppingDistanceOrig = agent.stoppingDistance;
+
+        float animationSpeed = agent.velocity.normalized.magnitude;
+        anim.SetFloat("Speed", Mathf.Lerp(anim.GetFloat("Speed"), animationSpeed, Time.deltaTime * animSpeedTrans));
     }
 
     private void HandleGainSight(Transform Target)
@@ -274,15 +277,34 @@ public class EnemyAI : MonoBehaviour, IDamage
 
         else
         {
-            isShooting = false;
+            
+            //isShooting = false;
             aud.PlayOneShot(hitSound, hitSoundVol);
             anim.SetTrigger("Damage");
             destinationChosen = false;
-            agent.SetDestination(gameManager.instance.player.transform.position);
-
+            
+            
         }
     }
 
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            PlayerInRange = true;
+        }
+    }
+
+    public void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            PlayerInRange = false;
+            agent.stoppingDistance = 0;
+            isShooting = false;
+            LOSChecker.GetComponentInChildren<Collider>().enabled = false;
+        }
+    }
 
 
 

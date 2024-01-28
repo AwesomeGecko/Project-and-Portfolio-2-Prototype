@@ -14,7 +14,8 @@ public class EnemyBullet : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rb.velocity = (gameManager.instance.player.transform.position - rb.transform.position) * speed;        
+        Vector3 ShootOffset = new Vector3(0, .3f);
+        rb.velocity = (gameManager.instance.player.transform.position + ShootOffset - rb.transform.position) * speed;        
         Destroy(gameObject, destroyTime);
     }
     public void SetBulletProperties(int damage, int destroyTime, int speed)
