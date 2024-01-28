@@ -15,9 +15,12 @@ public class LandMine : MonoBehaviour
     [SerializeField] public AudioClip mineBeep;
     [SerializeField] public AudioClip expSound;
 
+    [SerializeField] private ParticleSystem explode;
+
     private bool isPlayerNear;
     private float timer;
     private static List<LandMine> mineTraps = new List<LandMine>();
+    private ParticleSystem expInstance;
     
     // Update is called once per frame
     void Update()
@@ -68,6 +71,10 @@ public class LandMine : MonoBehaviour
         if(HP != null)
         {
             HP.takeDamage(dmgAmount);
+        }
+        if(explode != null)
+        {
+            expInstance = Instantiate(explode, transform.position, Quaternion.identity);
         }
         gameObject.SetActive(false);
     }
