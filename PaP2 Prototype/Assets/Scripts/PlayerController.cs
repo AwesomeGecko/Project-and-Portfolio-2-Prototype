@@ -31,10 +31,13 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
     [SerializeField] AudioClip[] soundSteps;
     [Range(0f, 1f)][SerializeField] float soundStepsVol;
     [SerializeField] AudioClip playerHurt;
-    [SerializeField] AudioClip playerDies; // CR
-    [SerializeField] AudioClip lowHealth; // CR
-    [SerializeField] AudioClip staminaRestore; // CR
-    [Range(0f, 1f)][SerializeField] float staminaRestoreVol; // CR
+    [SerializeField] AudioClip playerDies;
+    [SerializeField] AudioClip lowHealth;
+    [SerializeField] AudioClip staminaRestore;
+    [Range(0f, 1f)][SerializeField] float staminaRestoreVol;
+    [SerializeField] AudioClip playerJump;
+    [SerializeField] AudioClip playerLand;
+    [Range(0f, 1f)][SerializeField] float playerLandVol;
 
     private Vector3 playerVelocity;
     private Vector3 move;
@@ -45,7 +48,8 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
     Quaternion initialRotation;
     bool isSliding;
     float slideMod;
-    bool isLowHealth; // CR
+    bool isLowHealth;
+    bool isLanded = false;
 
     [Header("Gameplay Info")]
     public int HPOriginal;
@@ -73,7 +77,6 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
     void Update()
     {
         Movement();
-        // CR
         if(HP <= lowHP && !isLowHealth)
         {
            StartCoroutine(PlayHeartbeat());
@@ -110,10 +113,15 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
             StartCoroutine(PlaySteps());
         }
 
-        if (groundedPlayer && playerVelocity.y < 0)
+        if (groundedPlayer && playerVelocity.y < 0 && !isLanded)
         {
             playerVelocity.y = 0f;
             jumpCount = 0;
+            if(playerLand != null)
+            {
+                aud.PlayOneShot(playerLand, playerLandVol);
+            }
+            isLanded = true;
         }
 
         if (!isSliding)
@@ -127,6 +135,11 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
         {
             playerVelocity.y = jumpHeight;
             jumpCount++;
+            isLanded = false;
+            if(playerJump != null)
+            {
+                aud.PlayOneShot(playerJump);
+            }
         }
 
         playerVelocity.y += gravityValue * Time.deltaTime;
