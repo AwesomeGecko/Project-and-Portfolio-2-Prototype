@@ -322,7 +322,7 @@ MonoBehaviour:
     m_Bits: 1
   LOSChecker: {fileID: 5045377174004693842}
   HideSensitivity: 0
-  HP: 15
+  HP: 10
   viewCone: 90
   speed: 1
   roamDist: 10
@@ -330,10 +330,10 @@ MonoBehaviour:
   animSpeedTrans: 8
   targetFaceSpeed: 3
   EnemyBullet: {fileID: 3393345968891059192, guid: 8ad9da3d86fcb0b4b8d2949686ce9956, type: 3}
-  bulletDamage: 1
+  bulletDamage: 3
   bulletDestroyTime: 1
   bulletSpeed: 5
-  shootRate: 0.5
+  shootRate: 0.25
   shootSpeed: 0.5
   enemyshootPos: {fileID: 5701292604254272586}
   hitSound: {fileID: 8300000, guid: 0aff9e712df58524e92b99abc49873b7, type: 3}

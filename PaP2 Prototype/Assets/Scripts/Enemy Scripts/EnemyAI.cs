@@ -115,6 +115,47 @@ public class EnemyAI : MonoBehaviour, IDamage
         }
     }
 
+    void faceTarget()
+    {
+        Quaternion rot = Quaternion.LookRotation(new Vector3(playerDir.x, transform.position.y, playerDir.z));
+        transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * targetFaceSpeed);
+    }
+
+    bool canSeePlayer()
+    {
+        playerDir = gameManager.instance.player.transform.position - headPos.position;
+
+        angleToPlayer = Vector3.Angle(playerDir, transform.forward);
+
+        Debug.DrawRay(headPos.position, playerDir);
+
+        RaycastHit hit;
+
+        if (Physics.Raycast(headPos.position, playerDir, out hit))
+        {
+            if (hit.collider.CompareTag("Player") && angleToPlayer <= viewCone)
+            {
+                //agent.SetDestination(gameManager.instance.player.transform.position);
+
+                if (!isShooting)
+                {
+                    StartCoroutine(shoot());
+                }
+
+                if (agent.remainingDistance < agent.stoppingDistance)
+                {
+                    faceTarget();
+                }
+
+                agent.stoppingDistance = stoppingDistanceOrig;
+
+                return true;
+            }
+        }
+        agent.stoppingDistance = 0;
+        return false;
+    }
+
     private IEnumerator Hide(Transform Target)
     {
         while (true)
@@ -143,7 +184,8 @@ public class EnemyAI : MonoBehaviour, IDamage
                     {
                         agent.SetDestination(hit.position);
 
-                        //canSeePlayer();
+                        faceTarget();
+                        canSeePlayer();
                         break;
                     }
 
@@ -195,8 +237,23 @@ public class EnemyAI : MonoBehaviour, IDamage
 
     }
 
-    public void takeDamage(int amount)
+    IEnumerator shoot()
     {
+        isShooting = true;
+        anim.SetTrigger("Shoot");
+        yield return new WaitForSeconds(shootRate);
+        isShooting = false;
+    }
+    public void CreateBullet()
+    {
+        GameObject newBullet = Instantiate(EnemyBullet, enemyshootPos.position, transform.rotation);
+        EnemyBullet enemyBullet = newBullet.GetComponent<EnemyBullet>();
+        enemyBullet.SetBulletProperties(bulletDamage, bulletDestroyTime, bulletSpeed);
+
+    }
+
+    public void takeDamage(int amount)
+    { 
         if (isDead)
             return;
 
@@ -283,40 +340,40 @@ public class EnemyAI : MonoBehaviour, IDamage
     //        }
     //    }
 
-    //    bool canSeePlayer()
+    //bool canSeePlayer()
+    //{
+    //    playerDir = gameManager.instance.player.transform.position - headPos.position;
+
+    //    angleToPlayer = Vector3.Angle(playerDir, transform.forward);
+
+    //    Debug.DrawRay(headPos.position, playerDir);
+
+    //    RaycastHit hit;
+
+    //    if (Physics.Raycast(headPos.position, playerDir, out hit))
     //    {
-    //        playerDir = gameManager.instance.player.transform.position - headPos.position;
-
-    //        angleToPlayer = Vector3.Angle(playerDir, transform.forward);
-
-    //        Debug.DrawRay(headPos.position, playerDir);
-
-    //        RaycastHit hit;
-
-    //        if (Physics.Raycast(headPos.position, playerDir, out hit))
+    //        if (hit.collider.CompareTag("Player") && angleToPlayer <= viewCone)
     //        {
-    //            if (hit.collider.CompareTag("Player") && angleToPlayer <= viewCone)
+    //            //agent.SetDestination(gameManager.instance.player.transform.position);
+
+    //            if (!isShooting)
     //            {
-    //                //agent.SetDestination(gameManager.instance.player.transform.position);
-
-    //                if (!isShooting)
-    //                {
-    //                    StartCoroutine(shoot());
-    //                }
-
-    //                if (agent.remainingDistance < agent.stoppingDistance)
-    //                {
-    //                    faceTarget();
-    //                }
-
-    //                agent.stoppingDistance = stoppingDistanceOrig;
-
-    //                return true;
+    //                StartCoroutine(shoot());
     //            }
+
+    //            if (agent.remainingDistance < agent.stoppingDistance)
+    //            {
+    //                faceTarget();
+    //            }
+
+    //            agent.stoppingDistance = stoppingDistanceOrig;
+
+    //            return true;
     //        }
-    //        agent.stoppingDistance = 0;
-    //        return false;
     //    }
+    //    agent.stoppingDistance = 0;
+    //    return false;
+    //}
 
     //    void faceTarget()
     //    {
