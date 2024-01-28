@@ -113,15 +113,19 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
             StartCoroutine(PlaySteps());
         }
 
-        if (groundedPlayer && playerVelocity.y < 0 && !isLanded)
+        if (groundedPlayer && playerVelocity.y < 0)
         {
             playerVelocity.y = 0f;
             jumpCount = 0;
-            if(playerLand != null)
+            if (!isLanded)
             {
-                aud.PlayOneShot(playerLand, playerLandVol);
+                Debug.Log("land sound");
+                if (playerLand != null)
+                {
+                    aud.PlayOneShot(playerLand, playerLandVol);
+                }
+                isLanded = true;
             }
-            isLanded = true;
         }
 
         if (!isSliding)
