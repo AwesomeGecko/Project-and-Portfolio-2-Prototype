@@ -280,7 +280,7 @@ public class EnemyAI : MonoBehaviour, IDamage
 
         HP -= amount;
 
-        //StopAllCoroutines();
+        StopAllCoroutines();
 
         if (HP <= 0)
         {
