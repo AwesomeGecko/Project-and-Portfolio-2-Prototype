@@ -2420,7 +2420,7 @@ GameObject:
   - component: {fileID: 6669982072310782887}
   m_Layer: 0
   m_Name: Robot Soldier
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2467,6 +2467,11 @@ MonoBehaviour:
   model: {fileID: 1125180650137316569}
   aud: {fileID: 6669982072310782887}
   damageCol: {fileID: 1181870137617099959}
+  HidableLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  LOSChecker: {fileID: 0}
+  HideSensitivity: 0
   HP: 30
   viewCone: 90
   speed: 1
