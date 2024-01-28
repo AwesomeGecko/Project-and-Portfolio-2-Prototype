@@ -101,7 +101,7 @@ public class BossScript : MonoBehaviour, IDamage
 
     IEnumerator ReturnToSpawnAndRecover()
     {
-        Debug.Log("Boss is returning to spawn");
+        //Debug.Log("Boss is returning to spawn");
         isReturningToSpawn = true;
 
         // Disable damage and shooting
@@ -109,7 +109,7 @@ public class BossScript : MonoBehaviour, IDamage
         damageCol.enabled = false;
         anim.ResetTrigger("Shoot");
 
-        Debug.Log("Initial Position: " + startingPos);
+        //Debug.Log("Initial Position: " + startingPos);
 
         // Move to spawn position
         agent.SetDestination(startingPos);
@@ -158,7 +158,7 @@ public class BossScript : MonoBehaviour, IDamage
         if (other.CompareTag("Player"))
         {
             PlayerInRange = true;
-            Debug.Log("Player entered boss trigger zone.");
+            //Debug.Log("Player entered boss trigger zone.");
         }
     }
 
@@ -168,7 +168,7 @@ public class BossScript : MonoBehaviour, IDamage
         {
             PlayerInRange = false;
             agent.stoppingDistance = 0;
-            Debug.Log("Player exited boss trigger zone.");
+            //Debug.Log("Player exited boss trigger zone.");
         }
 
     }
@@ -295,7 +295,7 @@ public class BossScript : MonoBehaviour, IDamage
 
             UpdateBossHP();
 
-            Debug.Log("Boss took damage. HP=" + HP);
+            //Debug.Log("Boss took damage. HP=" + HP);
 
             if (HP <= 0 && damageCol.enabled == true && agent.enabled == true)
             {
@@ -350,7 +350,7 @@ public class BossScript : MonoBehaviour, IDamage
 
     void normalDamage()
     {
-        Debug.Log("NormalDamage triggered.");
+        //Debug.Log("NormalDamage triggered.");
         aud.PlayOneShot(hitSound);
 
         anim.SetTrigger("Damage");
@@ -364,7 +364,7 @@ public class BossScript : MonoBehaviour, IDamage
         }
 
         faceTarget();
-        Debug.Log("Boss took damage");
+        //Debug.Log("Boss took damage");
     }
 
     IEnumerator flashRed()

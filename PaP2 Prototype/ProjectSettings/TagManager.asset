@@ -15,6 +15,7 @@ TagManager:
   - Boss Spawner
   - TeleportPos
   - Audio
+  - WeaponPickUp
   layers:
   - Default
   - TransparentFX

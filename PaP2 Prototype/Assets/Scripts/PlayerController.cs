@@ -25,15 +25,19 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
     [SerializeField] float slideSpeed;
     [SerializeField] float leanDist;
     [SerializeField] float leanSpeed;
+    [SerializeField] float cameraMoveDist;
 
     [Header("Audio")]
     [SerializeField] AudioClip[] soundSteps;
     [Range(0f, 1f)][SerializeField] float soundStepsVol;
     [SerializeField] AudioClip playerHurt;
-    [SerializeField] AudioClip playerDies; // CR
-    [SerializeField] AudioClip lowHealth; // CR
-    [SerializeField] AudioClip staminaRestore; // CR
-    [Range(0f, 1f)][SerializeField] float staminaRestoreVol; // CR
+    [SerializeField] AudioClip playerDies;
+    [SerializeField] AudioClip lowHealth;
+    [SerializeField] AudioClip staminaRestore;
+    [Range(0f, 1f)][SerializeField] float staminaRestoreVol;
+    [SerializeField] AudioClip playerJump;
+    [SerializeField] AudioClip playerLand;
+    [Range(0f, 1f)][SerializeField] float playerLandVol;
 
     private Vector3 playerVelocity;
     private Vector3 move;
@@ -44,7 +48,8 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
     Quaternion initialRotation;
     bool isSliding;
     float slideMod;
-    bool isLowHealth; // CR
+    bool isLowHealth;
+    bool isLanded = false;
 
     [Header("Gameplay Info")]
     public int HPOriginal;
@@ -71,8 +76,7 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
     // Update is called once per frame
     void Update()
     {
-            Movement();
-       // CR
+        Movement();
         if(HP <= lowHP && !isLowHealth)
         {
            StartCoroutine(PlayHeartbeat());
@@ -96,24 +100,10 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
 
     void Movement()
     {
-        RunCode();
+        StartCoroutine(Sprint());
         Crouch();
-        
-        //SLIDING YEAH
-        if (Input.GetButton("Crouch"))
-        {
-            if (Input.GetButtonDown("Sprint"))
-            {
-                slideMod = 1;
-                Stamina -= 1;
-            }
-            Slide();
-        }
-        else
-        {
-            slideMod = 0;
-            isSliding = false;
-        }
+        StartCoroutine(Slide());
+        Lean();
 
         //Identical movement code in the lectures
         groundedPlayer = controller.isGrounded;
@@ -123,10 +113,15 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
             StartCoroutine(PlaySteps());
         }
 
-        if (groundedPlayer && playerVelocity.y < 0)
+        if (groundedPlayer && playerVelocity.y < 0 && !isLanded)
         {
             playerVelocity.y = 0f;
             jumpCount = 0;
+            if(playerLand != null)
+            {
+                aud.PlayOneShot(playerLand, playerLandVol);
+            }
+            isLanded = true;
         }
 
         if (!isSliding)
@@ -140,23 +135,15 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
         {
             playerVelocity.y = jumpHeight;
             jumpCount++;
+            isLanded = false;
+            if(playerJump != null)
+            {
+                aud.PlayOneShot(playerJump);
+            }
         }
 
         playerVelocity.y += gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
-
-        //LEAN
-        if (Input.GetButtonDown("LeanLeft") || (Input.GetButtonDown("LeanRight") && !gameManager.instance.onTarget))
-        {
-            initialRotation = transform.rotation;
-            Lean();
-        }
-
-        if (Input.GetButtonUp("LeanLeft") || Input.GetButtonUp("LeanRight"))
-        {
-            Quaternion leanRotation = Quaternion.Euler(0, 0, leanDist);
-            transform.rotation = Quaternion.Euler(0f, transform.eulerAngles.y, 0f);
-        }
 
         if (!isStaminaRestore && !isRunning && Stamina < StaminaOrig)
         {
@@ -186,35 +173,6 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
         controller.enabled = true;
     }
 
-    void RunCode()
-    {
-        if (Input.GetButton("Sprint") && Stamina > 0.2f)
-        {
-            if (!isRunning)
-            {
-                StartCoroutine(Sprint());
-                playerSpeed = sprintSpeed;
-
-                // CR: Adjusts player footsteps louder/faster
-                soundStepsVol = 1.0f;
-            }
-        }
-        else
-        {
-            playerSpeed = initialSpeed;
-
-            // CR: Reset back to original volume value
-            soundStepsVol = 0.5f;
-        }
-        
-        if(Input.GetButtonUp("Sprint"))
-        {
-            
-        }
-
-        UpdatePlayerUI();
-    }
-
     void Crouch()
     {
         if (Input.GetButtonDown("Crouch"))
@@ -237,54 +195,97 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
         }
     }
 
-    void Slide()
+    IEnumerator Slide()
     {
-        if(slideMod > 0)
+        if (Input.GetButton("Crouch"))
         {
-            isSliding = true;
-            controller.Move(transform.forward * slideSpeed * Time.deltaTime * slideMod);
-            slideMod -= Time.deltaTime;
-            if(Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+            if (Input.GetButtonDown("Sprint"))
             {
-                slideMod = 0;
+                slideMod = 1;
+                Stamina -= 1;
+            }
+            if (slideMod > 0)
+            {
+                isSliding = true;
+                controller.Move(transform.forward * slideSpeed * Time.deltaTime * slideMod);
+                slideMod -= Time.deltaTime;
+                if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+                {
+                    slideMod = 0;
+                    isSliding = false;
+                }
+            }
+            else
+            {
                 isSliding = false;
             }
         }
         else
         {
+            slideMod = 0;
             isSliding = false;
         }
+        yield return null;
     }
 
     void Lean()
     {
-        if(Input.GetButtonDown("LeanLeft"))
+        if (Input.GetButtonDown("LeanLeft") && !gameManager.instance.onTarget)
         {
+            initialRotation = transform.rotation;
             // Calculate the lean rotation on the local Z-axis
+            Camera.main.transform.position -= Camera.main.transform.right * cameraMoveDist;
             Quaternion leanRotation = Quaternion.Euler(0, 0, leanDist);
 
             // Smoothly interpolate between the initial rotation and the lean rotation
             transform.rotation = Quaternion.Lerp(initialRotation, initialRotation * leanRotation, leanSpeed);
         }
-        if(Input.GetButtonDown("LeanRight"))
+        if(Input.GetButtonDown("LeanRight") && !gameManager.instance.onTarget)
         {
+            initialRotation = transform.rotation;
             // Calculate the lean rotation on the local Z-axis
+            Camera.main.transform.position += Camera.main.transform.right * cameraMoveDist;
             Quaternion leanRotation = Quaternion.Euler(0, 0, -leanDist);
 
             // Smoothly interpolate between the initial rotation and the lean rotation
             transform.rotation = Quaternion.Lerp(initialRotation, initialRotation * leanRotation, leanSpeed);
         }
+
+        if (Input.GetButtonUp("LeanLeft") || Input.GetButtonUp("LeanRight"))
+        {
+            Quaternion leanRotation = Quaternion.Euler(0, 0, leanDist);
+            transform.rotation = Quaternion.Euler(0f, transform.eulerAngles.y, 0f);
+            Camera.main.transform.position = transform.position + Vector3.up;
+        }
     }
 
     IEnumerator Sprint()
-    { 
-        isRunning = true;
-        if(move != Vector3.zero || isSliding)
+    {
+        if (Input.GetButton("Sprint") && Stamina > 0.2f)
         {
-            Stamina -= 1;
+            if (!isRunning)
+            {
+                isRunning = true;
+                playerSpeed = sprintSpeed;
+                if (move != Vector3.zero || isSliding)
+                {
+                    Stamina -= 1;
+                }
+                yield return new WaitForSeconds(0.8f);
+                isRunning = false;
+                // CR: Adjusts player footsteps louder/faster
+                soundStepsVol = 1.0f;
+            }
         }
-        yield return new WaitForSeconds(0.8f);
-        isRunning = false;
+        else
+        {
+            playerSpeed = initialSpeed;
+
+            // CR: Reset back to original volume value
+            soundStepsVol = 0.5f;
+        }
+
+        UpdatePlayerUI();
     }
 
     IEnumerator RestoreStamina()
@@ -318,6 +319,12 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
         {
             gameManager.instance.damageIndicator();
         }
+    }
+    public void teleportToSpawn()
+    {
+        controller.enabled = false;
+        transform.position = gameManager.instance.playerSpawnPos.transform.position;
+        controller.enabled = true;
     }
 
     public void playerRespawn()

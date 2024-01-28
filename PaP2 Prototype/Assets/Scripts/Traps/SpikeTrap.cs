@@ -12,8 +12,16 @@ public class SpikeTrap : MonoBehaviour
     [SerializeField] int bleedAmt;
     [SerializeField] int bleedOverTime;
 
+    [SerializeField] AudioSource aud;
+    [SerializeField] AudioClip spike;
+
     private bool retract = true;
 
+    private void Start()
+    {
+        maxHeight += transform.position.y;
+        minHeight += transform.position.y;
+    }
     private void Update()
     {
         TrapActive();
@@ -40,7 +48,9 @@ public class SpikeTrap : MonoBehaviour
         transform.position = new Vector3(transform.position.x, calculateHeight, transform.position.z);
         if(Mathf.Approximately(calculateHeight, newHeight))
         {
+            aud.PlayOneShot(spike);
             retract = !retract;
+            
         }
     }
 
@@ -57,6 +67,14 @@ public class SpikeTrap : MonoBehaviour
             HP.takeDamage(bleedAmt);
             yield return new WaitForSeconds(1f);
             timer += 1f;
+        }
+    }
+
+    public void SetVolume(float volume)
+    {
+        if (aud != null)
+        {
+            aud.volume = volume;
         }
     }
 }

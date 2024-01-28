@@ -213,9 +213,10 @@ GameObject:
   - component: {fileID: 4676427543473073703}
   - component: {fileID: 6421932860816686360}
   - component: {fileID: 6438497865631711088}
+  - component: {fileID: 6896945760485780140}
   m_Layer: 0
   m_Name: Scifi-Pistol Pickup Prefab
-  m_TagString: Untagged
+  m_TagString: WeaponPickUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -266,6 +267,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gun: {fileID: 11400000, guid: 5ad7c2f7ab2fc3a418440db979a57295, type: 2}
+  playerInRange: 0
+  PickupCollider: {fileID: 6896945760485780140}
 --- !u!135 &8576805756660763622
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -285,7 +288,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &2031190165118701572
 MeshRenderer:
@@ -376,7 +379,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 0.2, z: 1}
-  m_Center: {x: 0, y: -1, z: 0}
+  m_Center: {x: 0, y: -1.6, z: 0}
 --- !u!198 &6421932860816686360
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -5174,6 +5177,27 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!65 &6896945760485780140
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1126165088178583906}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 2043
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.1, y: 0.1, z: 0.3}
+  m_Center: {x: 0, y: 0.05, z: 0}
 --- !u!1 &1627718003808769105
 GameObject:
   m_ObjectHideFlags: 0

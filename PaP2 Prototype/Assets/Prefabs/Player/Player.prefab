@@ -237,14 +237,18 @@ MonoBehaviour:
   maxAmmo: 0
   shootDist: 0
   gunLocation: {fileID: 6000765930483488672}
-  defaultPistol: {fileID: 11400000, guid: b622e77337d8b8141acab1f561c0b35b, type: 2}
+  gunRotation: {fileID: 5533899427408522987}
+  defaultPistol: {fileID: 11400000, guid: 73c4a3264a49dfa4b85c1a3e3157670a, type: 2}
   isAiming: 0
   defaultFOV: 0
   selectedGun: 0
+  isShooting: 0
   scopeIn: {fileID: 6951981033588707834}
   gameManagerAmmo: 0
   aud: {fileID: 4268009355107710033}
+  IsIdle: 0
   BulletPrefab: {fileID: 2081206634432917684, guid: f2ebe8c562f11b3439d76c5a0b962c1d, type: 3}
+  IsReloading: 0
   spawnPos: {x: 0, y: 0, z: 0}
   spawnScopedPos: {x: 0, y: 0, z: 0}
   spawnRotation: {x: 0, y: 0, z: 0, w: 0}
@@ -263,6 +267,7 @@ MonoBehaviour:
   controller: {fileID: 5190971063148889619}
   aud: {fileID: 4268009355107710033}
   HP: 40
+  SavedHP: 0
   lowHP: 10
   Stamina: 10
   playerSpeed: 10
@@ -274,6 +279,7 @@ MonoBehaviour:
   slideSpeed: 12
   leanDist: 10
   leanSpeed: 0.5
+  cameraMoveDist: 0
   soundSteps:
   - {fileID: 8300000, guid: f6c214bca5e20274d958c0d78f78ca27, type: 3}
   - {fileID: 8300000, guid: 040b30653ed0e0a4092e135887dc40cd, type: 3}

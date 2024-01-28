@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Lights : MonoBehaviour
 {
+    [SerializeField] Renderer ren;
+    [SerializeField] Material shutoffmat;
     public float Oncount;
     public float Offcount;
     new Light light;
@@ -51,6 +53,9 @@ public class Lights : MonoBehaviour
         {
             if(other.CompareTag("Player"))
             {
+                Material[] m = ren.materials;
+                m[2] = shutoffmat;
+                ren.materials = m;
                 completelyOff = true;
                 light.enabled = false;
             }

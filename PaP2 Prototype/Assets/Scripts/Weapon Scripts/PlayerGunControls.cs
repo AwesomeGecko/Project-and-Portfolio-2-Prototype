@@ -1,7 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -10,7 +8,6 @@ public class PlayerGunControls : MonoBehaviour
 
     [Header("Gun Stats")]
     [SerializeField] public List<GunSettings> gunList = new List<GunSettings>();
-    private GameObject droppedGunPrefab;
     [SerializeField] GameObject Playerbullet;
     [SerializeField] Transform BackPack;
     [SerializeField] float shootRate;
@@ -21,26 +18,35 @@ public class PlayerGunControls : MonoBehaviour
     [SerializeField] public int maxAmmo;
     [SerializeField] int shootDist;
     [SerializeField] Transform gunLocation;
+    [SerializeField] Transform gunRotation;
     [SerializeField] public GunSettings defaultPistol;
     public bool isAiming;
     public float defaultFOV;
     public int selectedGun;
     private int InBackPack;
-    private bool isShooting;
+    public bool isShooting;
     public Camera scopeIn;
     public int gameManagerAmmo;
     private PlayerController playerController;
     [SerializeField] AudioSource aud;
-
+    private float reloadDuration;
     private GameObject gunPrefab;
     private ParticleSystem MuzzleFlash;
+    private Animator animator;
+   
+    public bool IsIdle;
     public Bullet BulletPrefab;
-
+   
     private BulletPool BulletPool;
-
+    public bool IsReloading;
     public Vector3 spawnPos;
     public Vector3 spawnScopedPos;
     public Quaternion spawnRotation;
+
+    GunAnimations GunAnimations;
+    private bool IsAutoFiring;
+    private int BackPackGun;
+
     void Start()
     {
         //Default field of view for the player
@@ -52,6 +58,8 @@ public class PlayerGunControls : MonoBehaviour
         ammoCounter = gameManagerAmmo;
 
         BulletPool = GetComponent<BulletPool>();
+
+        
     }
 
     // Update is called once per frame
@@ -61,7 +69,7 @@ public class PlayerGunControls : MonoBehaviour
         {
             if (gunList.Count > 0)
             {
-                if (Input.GetButton("Fire1") && !isShooting)
+                if (Input.GetButton("Fire1") && !isShooting && !IsReloading)
                 {
                     StartCoroutine(Shoot());
                 }
@@ -73,24 +81,49 @@ public class PlayerGunControls : MonoBehaviour
                     ToggleAimDownSights();
                 }
 
-                if (Input.GetButtonDown("Reload"))
+                if (Input.GetButtonDown("Reload") && !isShooting && !IsReloading && !isAiming)
                 {
-                    Reload();
+                    StartCoroutine(ReloadingDuration());
                 }
 
+                //if (Input.GetButtonDown("Inspect"))
+                //{
+
+                //    WeaponInspect();
+                //}
             }
+           
         }
     }
+    
+
+    //Inspect animation for guns
 
 
+    //public void WeaponInspect()
+    //{
+    //    GunSettings currentGun = gunList[selectedGun];
+    //    GunAnimator.Play(currentGun.InspectAnimName);
+    //}
 
+    //IEnumerator InspectAnimDuration()
+    //{
 
-    public void Reload()
+    //    yield return new WaitForSeconds(gunList[selectedGun].InspectDuration);
+    //}
+    
+    IEnumerator ReloadingDuration()
     {
+        IsIdle = false;
+        IsReloading = true;
         
+
+        GunSettings currentGun = gunList[selectedGun];
         // Check if the gun is not already full
-        if (gunList[selectedGun].AmmoInMag < gunList[selectedGun].MagSize)
+        if (gunList[selectedGun].AmmoInMag < gunList[selectedGun].MagSize && gunList[selectedGun].PlayerTotalAmmo > 0)
         {
+            //GunAnimator.SetBool("IsReloading", true);
+            CallAnimation();
             // Calculate the number of bullets needed to fill the magazine
             int bulletsNeeded = gunList[selectedGun].MagSize - gunList[selectedGun].AmmoInMag;
 
@@ -106,6 +139,7 @@ public class PlayerGunControls : MonoBehaviour
                 // Update the UI
                 UpdatePlayerUI();
 
+                
                 aud.PlayOneShot(gunList[selectedGun].reloadSound, gunList[selectedGun].reloadSoundVol);
             }
             else if (gunList[selectedGun].PlayerTotalAmmo > 0)
@@ -119,24 +153,35 @@ public class PlayerGunControls : MonoBehaviour
 
                 // Update the UI
                 UpdatePlayerUI();
-
+                
                 aud.PlayOneShot(gunList[selectedGun].reloadSound, gunList[selectedGun].reloadSoundVol);
             }
             else if (gunList[selectedGun].AmmoInMag == 0 && gunList[selectedGun].PlayerTotalAmmo == 0)
             {
-                Debug.Log("Show out of ammo UI for a few seconds");
+                
+                //Debug.Log("Show out of ammo UI for a few seconds");
             }
             
         }
+
+        yield return new WaitForSeconds(1f);
+
+        IsReloading = false;
+        IsIdle = true;
+        CallAnimation();
+
     }
+
     public void ToggleAimDownSights()
     {
         isAiming = !isAiming;
         GunSettings currentGun = gunList[selectedGun];
 
+       
         //Adjust the camera properties
         if (isAiming)
         {
+            
 
             //Deactivate the main crosshairs
             gameManager.instance.Crosshair.gameObject.SetActive(false);
@@ -160,8 +205,16 @@ public class PlayerGunControls : MonoBehaviour
             }
             else if (currentGun.isAssaultRifle)
             {
+                //Debug.Log("Entering Scar case");
                 //Using Invoke enables the assault rifle sight ontop of the main camera through a time delay
                 Invoke("ActivateAssaultRifleSight", 0.3f);
+                //Adjust the scope cameras FOV
+                Camera.main.fieldOfView = currentGun.fieldOfView;
+            }
+            else if (currentGun.GunName == "AK-101")
+            {
+                //Using Invoke enables the assault rifle sight ontop of the main camera through a time delay      
+                Invoke("ActivateAKSight", 0.3f);
                 //Adjust the scope cameras FOV
                 Camera.main.fieldOfView = currentGun.fieldOfView;
             }
@@ -174,14 +227,19 @@ public class PlayerGunControls : MonoBehaviour
                 //Cull the gun back onto screen
                 scopeIn.cullingMask = scopeIn.cullingMask | (1 << 7);
                 //Adjust the main cameras FOV
-                Camera.main.fieldOfView = currentGun.fieldOfView;
-            }
+                Camera.main.fieldOfView = currentGun.fieldOfView;                
+            }         
         }
         else
         {
-            DeActivateAssaultRifleSight();
+
+            gunLocation.transform.localPosition = Vector3.zero;
+
+            currentGun.model.transform.localPosition = currentGun.defaultGunPositionOffset;
+            currentGun.model.transform.localRotation = currentGun.defaultRotation;
+
             //Enable the main crosshairs
-            gameManager.instance.Crosshair.gameObject.SetActive(true); 
+            gameManager.instance.Crosshair.gameObject.SetActive(true);
 
             //Disable the scope camera
             gameManager.instance.Scope.gameObject.SetActive(false);
@@ -191,6 +249,9 @@ public class PlayerGunControls : MonoBehaviour
 
             //Disable the Assualt rifle sight
             gameManager.instance.AssaultRifleSight.gameObject.SetActive(false);
+            //Disable the AK Rifle Sight
+
+            gameManager.instance.AKSight.gameObject.SetActive(false);
 
             //Cull the gun onto screen
             scopeIn.cullingMask = scopeIn.cullingMask | (1 << 7);
@@ -198,6 +259,7 @@ public class PlayerGunControls : MonoBehaviour
             //Re-enable the main camera and set it to the default value
             Camera.main.fieldOfView = defaultFOV;
         }
+        
     }
 
     //This method simply calls the UI image of the scope and sets it to true
@@ -217,39 +279,46 @@ public class PlayerGunControls : MonoBehaviour
     //This method is to use the assault rifle UI sight.
     void ActivateAssaultRifleSight()
     {
-        // Set local rotation
-        gunLocation.localRotation = gunList[selectedGun].ADSRotation;
-
         // Set local position using the selected gun's offset
         gunLocation.localPosition = gunList[selectedGun].ADSGunPositionOffset;
 
         gameManager.instance.AssaultRifleSight.gameObject.SetActive(true);
         scopeIn.cullingMask = scopeIn.cullingMask & ~(1 << 7);
-
     }
 
-    void DeActivateAssaultRifleSight()
+    void ActivateAKSight()
     {
-        // Set local rotation
-        gunLocation.localRotation = gunList[selectedGun].defaultRotation;
+        // Set local position using the selected gun's offset
+        gunLocation.transform.localPosition = gunList[selectedGun].ADSGunPositionOffset;
 
-        // Set local position using the selected gun's default offset
-        Vector3 targetPosition = gunList[selectedGun].defaultGunPositionOffset;
-
-        // Set the gun's position instantly without lerping for debugging
-        gunLocation.localPosition = targetPosition;
+        gameManager.instance.AKSight.gameObject.SetActive(true);
+        scopeIn.cullingMask = scopeIn.cullingMask & ~(1 << 7);
     }
+
+
     public void getGunStats(GunSettings gun)
-    {  
+    {
         if (gunList.Count < 2)
         {
+            int previousSelectedGun = selectedGun;
+
             // Check if there is an existing gunPrefab
             if (gunLocation.childCount > 0)
             {
                 // Move the existing gun to the backpack
+                
+
                 Transform existingGun = gunLocation.GetChild(0);
                 existingGun.SetParent(BackPack);
-                existingGun.gameObject.SetActive(false);
+                //existingGun.gameObject.SetActive(false);
+                existingGun.localRotation = Quaternion.identity;
+                existingGun.localPosition = Vector3.zero;
+                shootDist = gun.shootDist;
+                shootRate = gun.shootRate;
+                PlayerBulletDamage = gun.PlayerBulletDamage;
+
+                PlayerBulletSpeed = gun.PlayerBulletSpeed;
+              
             }
             // Add the new gun to the gunList
             gunList.Add(gun);
@@ -257,19 +326,21 @@ public class PlayerGunControls : MonoBehaviour
             // Set the selectedGun index to the newly added gun
             selectedGun = gunList.Count - 1;
 
+            
+
             // Assign gun stats to player variables
             shootDist = gun.shootDist;
             shootRate = gun.shootRate;
             PlayerBulletDamage = gun.PlayerBulletDamage;
 
             PlayerBulletSpeed = gun.PlayerBulletSpeed;
-
-            //// Initialize ammo variables
+           
+            // Initialize ammo variables
             gun.AmmoInMag = gun.MagSize;
 
-            if(gun.isdefaultPistol)
+            if (gun.isdefaultPistol)
             {
-                
+
                 gunList[selectedGun].PlayerTotalAmmo = gunList[selectedGun].MagSize;
             }
             else
@@ -281,27 +352,36 @@ public class PlayerGunControls : MonoBehaviour
             if (gun.model != null)
             {
                 // Instantiate the gun prefab from the scriptable object
-                gunPrefab = Instantiate(gun.model, gunLocation.position, gunLocation.rotation, gunLocation);
+                gunPrefab = Instantiate(gun.model, gunLocation.transform.position, gunRotation.transform.rotation, gunLocation.transform);
                 gunPrefab.name = gun.model.name;
-                // Adjust the gun's local position and rotation based on default values in the scriptable object
+
+                
                 gunPrefab.transform.localPosition = gun.defaultGunPositionOffset;
                 gunPrefab.transform.localRotation = gun.defaultRotation;
+                animator = gunPrefab.GetComponentInChildren<Animator>();
+
                 MuzzleFlash = gunPrefab.GetComponentInChildren<ParticleSystem>();
+
+
+
+
+                
+                // Set local rotation
+                gunRotation.transform.localRotation = gun.defaultRotation;
+
+                // Set local position using the selected gun's offset
+                gunRotation.transform.localPosition = gun.defaultGunPositionOffset;
+
+                
+               
+                // Update the player's UI
+                UpdatePlayerUI();
+                IsIdle = true;
+                CallAnimation();
             }
-            // Set local rotation
-            gunLocation.localRotation = gun.defaultRotation;
-
-            // Set local position using the selected gun's offset
-            gunLocation.localPosition = gun.defaultGunPositionOffset;
-
-            // Update the player's UI
-            UpdatePlayerUI();
         }
-        else
-        {
-            Debug.Log("Inventory is full");
-        }
-       
+        
+
     }
 
     public void selectGun()
@@ -310,7 +390,7 @@ public class PlayerGunControls : MonoBehaviour
         {
             if (Input.GetAxis("Mouse ScrollWheel") > 0 && selectedGun < gunList.Count - 1)
             {
-                
+
                 selectedGun++;
                 changeGun();
             }
@@ -320,52 +400,81 @@ public class PlayerGunControls : MonoBehaviour
                 changeGun();
             }
         }
-        
+
     }
 
     void changeGun()
     {
-        
+        GunSettings gun = gunList[selectedGun];
+
+        // Store current gun's Animator controller and parameters
+        Animator currentGunAnimator = null;
+        isShooting = false;  
+        IsReloading = false;  
+                                          
+
         // Deactivate the current gun
         if (gunLocation.childCount > 0)
         {
             Transform currentGun = gunLocation.GetChild(0);
-            currentGun.gameObject.SetActive(false);
+            currentGun.gameObject.SetActive(true);
+
+            // Store current gun's Animator controller
+            currentGunAnimator = currentGun.GetComponentInChildren<Animator>();
+          
+
             // Move the current gun to the backpack
             currentGun.SetParent(BackPack);
+            currentGun.localRotation = Quaternion.identity;
+            currentGun.localPosition = Vector3.zero;
+            shootDist = gun.shootDist;
+            shootRate = gun.shootRate;
+            PlayerBulletDamage = gun.PlayerBulletDamage;
+            PlayerBulletSpeed = gun.PlayerBulletSpeed;
         }
 
         // Use selectedGunIndex to access the gun in gunList
-        shootDist = gunList[selectedGun].shootDist;
-        shootRate = gunList[selectedGun].shootRate;
-        PlayerBulletDamage = gunList[selectedGun].PlayerBulletDamage;
+        shootDist = gun.shootDist;
+        shootRate = gun.shootRate;
+        PlayerBulletDamage = gun.PlayerBulletDamage;
+        PlayerBulletSpeed = gun.PlayerBulletSpeed;
 
-        PlayerBulletSpeed = gunList[selectedGun].PlayerBulletSpeed;
+        MuzzleFlash = gunPrefab.GetComponentInChildren<ParticleSystem>();
 
         // Move the gun from the backpack to the player's hands
         if (BackPack.childCount > 0)
         {
             Transform nextGun = BackPack.GetChild(0);
             nextGun.SetParent(gunLocation);
-            nextGun.gameObject.SetActive(true);
-            // Adjust the gun's local position and rotation based on default values in the scriptable object
-            nextGun.localPosition = gunList[selectedGun].defaultGunPositionOffset;
-            nextGun.localRotation = gunList[selectedGun].defaultRotation;
+            CallAnimation();
 
-            // Set local rotation and position of gunLocation
-            gunLocation.localRotation = gunList[selectedGun].defaultRotation;
-            gunLocation.localPosition = gunList[selectedGun].defaultGunPositionOffset;         
-        }           
+            // Use selectedGunIndex to access the gun in gunList
+            shootDist = gun.shootDist;
+            shootRate = gun.shootRate;
+            PlayerBulletDamage = gun.PlayerBulletDamage;
+            PlayerBulletSpeed = gun.PlayerBulletSpeed;
+
+            MuzzleFlash = gunPrefab.GetComponentInChildren<ParticleSystem>();
+
+            // Restore Animator controller and parameters
+            animator = nextGun.GetComponentInChildren<Animator>();
+
+            // Set more parameters as needed
+            gunRotation.transform.localRotation = gun.defaultRotation;
+            nextGun.localPosition = gun.defaultGunPositionOffset;
+            nextGun.localRotation = gun.defaultRotation;
+
+            
+        }
+
         UpdatePlayerUI();
-
-        isShooting = false;
     }
     public void SwapGuns()
     {
 
         if (gunList.Count > 1 && selectedGun >= 0 && selectedGun < gunList.Count)
         {
-            Debug.Log("prompt player to swap");
+           
             // Drop the current gun
             DropGun(gunList[selectedGun]);
         }
@@ -373,9 +482,9 @@ public class PlayerGunControls : MonoBehaviour
 
     private void DropGun(GunSettings gun)
     {
-           
-            Transform hands = gunLocation.GetChild(0);
-        
+
+        Transform hands = gunLocation.GetChild(0);
+
 
         UpdatePlayerUI();
 
@@ -393,15 +502,15 @@ public class PlayerGunControls : MonoBehaviour
         {
             // Get the player's rotation
             Quaternion playerRotation = gunLocation.rotation;
-           
+
             // Use Quaternion.Euler to convert euler angles to a quaternion
             Quaternion forwardRotation = Quaternion.Euler(0f, playerRotation.eulerAngles.y, 0f);
 
             //Set the bounce direction <><> Dont forget to set the rigid body to interpolate otherwise no bounce in Unity
             Vector3 bounceDirection = forwardRotation * Vector3.forward;
-           
+
             // Adjust the force as needed
-            float bounceForceMagnitude = 100f; // Adjust the magnitude as needed
+            float bounceForceMagnitude = 50f; // Adjust the magnitude as needed
             Vector3 bounceForce = (bounceForceMagnitude * bounceDirection) * Time.deltaTime;
 
             // Apply the force to the Rigidbody
@@ -412,27 +521,30 @@ public class PlayerGunControls : MonoBehaviour
 
     IEnumerator Shoot()
     {
+        IsIdle = false;
         isShooting = true;
-
+        
         if (gunList[selectedGun].AmmoInMag <= 0)
         {
+            IsIdle = true;
             isShooting = false;
             yield break;
         }
 
-        
+        CallAnimation();
 
-        //muzzleFlash.Play();
         aud.PlayOneShot(gunList[selectedGun].shootSound, gunList[selectedGun].shootSoundVol);
 
         GunSettings currentGun = gunList[selectedGun];
+        //GunAnimations.CallAnimation();
+        
 
         spawnPos = gunLocation.transform.TransformPoint(currentGun.barrelTip.localPosition);
         spawnScopedPos = isAiming ? gunLocation.transform.TransformPoint(currentGun.barrelTip.localPosition) : spawnPos;
         spawnRotation = isAiming ? gunLocation.transform.rotation : gunLocation.transform.rotation;
 
         Vector3 bulletDirection = CalculateBulletDirection();
-        
+
         // Check if the currently selected gun is the shotgun
         if (currentGun.isShotgun)
         {
@@ -443,7 +555,7 @@ public class PlayerGunControls : MonoBehaviour
 
                 Quaternion spreadRotation = Quaternion.LookRotation(bulletDirection);
 
-               //Get the bullets from the pool
+                //Get the bullets from the pool
                 Bullet bullet = BulletPool.pool.Get();
 
                 // Set Bullet properties
@@ -457,10 +569,10 @@ public class PlayerGunControls : MonoBehaviour
         }
         else
         {
-            
+
             //Get the bullet from the pool
             Bullet bullet = BulletPool.pool.Get();
-            
+
             //// Set Bullet properties
             bullet.Spawn(bulletDirection * currentGun.PlayerBulletSpeed, currentGun.PlayerBulletDamage);
             TrailRenderer bulletTrail = bullet.GetComponent<TrailRenderer>();
@@ -475,12 +587,14 @@ public class PlayerGunControls : MonoBehaviour
         UpdatePlayerUI();
         // Instantiate the muzzle flash particle effect system
         MuzzleFlash.Play();
-
+        
         yield return new WaitForSeconds(shootRate);
-
+        
         isShooting = false;
-
-
+        IsIdle = true;
+        //GunAnimations.CallAnimation();
+        CallAnimation();
+        //GunAnimator.Play(currentGun.IdleAnimName);
 
         //For Future Implementation:
 
@@ -526,14 +640,14 @@ public class PlayerGunControls : MonoBehaviour
         gameManager.instance.ammoCounter.text = gunList[selectedGun].AmmoInMag.ToString("0");
         gameManager.instance.maxAmmoCounter.text = gunList[selectedGun].PlayerTotalAmmo.ToString("0");
         gameManager.instance.gunName.text = gunList[selectedGun].GunName.ToString();
-        if(gunList.Count > 0)
+        if (gunList.Count > 0)
         {
             if (gunLocation.childCount > 0)
             {
                 gameManager.instance.GunIconHandsBackground.gameObject.SetActive(true);
                 gameManager.instance.UpdateGunIcon(gunList[selectedGun].gunIcon, gameManager.instance.GunIconHands);
             }
-            
+
             if (BackPack.childCount > 0)
             {
                 int backpackIndex = (selectedGun + 1) % gunList.Count;
@@ -544,6 +658,166 @@ public class PlayerGunControls : MonoBehaviour
             {
                 gameManager.instance.GunIconBackPackBackground.gameObject.SetActive(false);
                 gameManager.instance.GunIconBackPack.enabled = false;
+            }
+        }
+    }
+
+    public void CallAnimation()
+    {
+        GunSettings currentGun = gunList[selectedGun];
+
+        if (currentGun.GunName == "9MM")
+        {
+            animator.SetBool("Shotgun", false);
+            animator.SetBool("AK-101", false);
+            animator.SetBool("UpgradedPistol", false);
+            animator.SetBool("M4A1", false);
+            animator.SetBool("AssaultRifle", false);
+            animator.SetBool("Is9MM", true);
+            
+            
+            if (isShooting)
+            {
+                animator.SetTrigger("Shoot9MM");
+                
+            }
+
+            else if (IsReloading)
+            {
+                animator.SetTrigger("Reload");
+            }
+
+            else if (IsIdle)
+            {
+                animator.SetTrigger("Idle");
+            }
+        }
+
+        else if (currentGun.GunName == "Upgraded Pistol")
+        {
+            animator.SetBool("Shotgun", false);
+            animator.SetBool("AK-101", false);
+            animator.SetBool("Is9MM", false);
+            animator.SetBool("M4A1", false);
+            animator.SetBool("AssaultRifle", false);
+            animator.SetBool("UpgradedPistol", true);
+           
+            if (isShooting)
+            {
+                animator.SetTrigger("ShootUpgradedPistol");
+                
+            }
+
+            else if (IsReloading)
+            {
+                animator.SetTrigger("Reload");
+            }
+
+            else if (IsIdle)
+            {
+                animator.SetTrigger("Idle");
+            }
+        }
+
+        else if (currentGun.GunName == "AK-101")
+        {
+            animator.SetBool("Shotgun", false);
+            animator.SetBool("Is9MM", false);
+            animator.SetBool("UpgradedPistol", false);
+            animator.SetBool("M4A1", false);
+            animator.SetBool("AssaultRifle", false);
+            animator.SetBool("AK-101", true);
+
+            if (isShooting)
+            {
+                
+                animator.SetTrigger("Shoot");
+            }
+
+            else if (IsReloading)
+            {
+                animator.SetTrigger("Reload");
+            }
+
+            else if (IsIdle)
+            {
+                animator.SetTrigger("Idle");
+            }
+        }
+        else if (currentGun.GunName == "Shotgun")
+        {
+            animator.SetBool("AK-101", false);
+            animator.SetBool("Is9MM", false);
+            animator.SetBool("UpgradedPistol", false);
+            animator.SetBool("M4A1", false);
+            animator.SetBool("AssaultRifle", false);
+            animator.SetBool("Shotgun", true);
+
+            if (isShooting)
+            {
+                animator.SetTrigger("Shoot");
+
+            }
+
+            else if (IsReloading)
+            {
+                animator.SetTrigger("Reload");
+            }
+
+            else if (IsIdle)
+            {
+                animator.SetTrigger("Idle");
+            }
+        }
+        else if (currentGun.GunName == "M4A1")
+        {
+            animator.SetBool("AK-101", false);
+            animator.SetBool("Is9MM", false);
+            animator.SetBool("UpgradedPistol", false);
+            animator.SetBool("Shotgun", false);
+            animator.SetBool("AssaultRifle", false);
+            animator.SetBool("M4A1", true);
+            
+
+            if (isShooting)
+            {
+                animator.SetTrigger("Shoot");
+
+            }
+
+            else if (IsReloading)
+            {
+                animator.SetTrigger("Reload");
+            }
+
+            else if (IsIdle)
+            {
+                animator.SetTrigger("Idle");
+            }
+        }
+        else if (currentGun.GunName == "AssaultRifle")
+        {
+            animator.SetBool("AK-101", false);
+            animator.SetBool("Is9MM", false);
+            animator.SetBool("UpgradedPistol", false);
+            animator.SetBool("Shotgun", false);
+            animator.SetBool("M4A1", false);
+            animator.SetBool("AssaultRifle", true);
+
+            if (isShooting)
+            {
+                animator.SetTrigger("Shoot");
+
+            }
+
+            else if (IsReloading)
+            {
+                animator.SetTrigger("Reload");
+            }
+
+            else if (IsIdle)
+            {
+                animator.SetTrigger("Idle");
             }
         }
     }

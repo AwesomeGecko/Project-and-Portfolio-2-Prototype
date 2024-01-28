@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class GunPickupScript : MonoBehaviour
 {
-    
+
     [SerializeField] GunSettings gun;
     private PlayerGunControls gunControl;
-    bool playerInRange;
-    bool triggerSet;
+    public bool playerInRange;
+    private float speed;
+    [SerializeField] Collider PickupCollider;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,7 +25,7 @@ public class GunPickupScript : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {  
         if (Input.GetButtonDown("Interact") && playerInRange)
         {
             if (gunControl.gunList.Count < 2)
@@ -33,15 +34,17 @@ public class GunPickupScript : MonoBehaviour
             }
             else
             {
-                Debug.Log("SwapGuns");
+                //Debug.Log("SwapGuns");
                 gameManager.instance.playerGunControls.SwapGuns();
                 PickUpGun();
             }
         }
+        speed = gun.PickupRotateSpeed * Time.deltaTime * 40f;
+        transform.Rotate(Vector3.up, speed);
     }
-
+  
     private void PickUpGun()
-    {
+    {       
         gameManager.instance.playerGunControls.getGunStats(gun);
         Destroy(gameObject);
     }
@@ -49,10 +52,10 @@ public class GunPickupScript : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
-        {
+        {    
             playerInRange = true;
         }
-
+        
     }
 
     private void OnTriggerExit(Collider other)

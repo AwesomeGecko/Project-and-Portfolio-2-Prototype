@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.Jobs;
@@ -17,7 +18,7 @@ public class GunSettings : ScriptableObject
     public float shootRate;
     public int shootDist;
     public int PlayerBulletDamage;
-    
+
     public int PlayerBulletSpeed;
     public int AmmoInMag;
     public int MaxGunAmmo;
@@ -35,14 +36,16 @@ public class GunSettings : ScriptableObject
 
     [Header("Particle Effects")]
     public ParticleSystem hitEffect;
-    
+
 
     [Header("Field of View")]
     [Range(1, 120)] public float fieldOfView = 60f;
 
-    
+
 
     [Header("Gun specific data")]
+
+    public float PickupRotateSpeed;
 
     public bool isdefaultPistol;
     [Space]
@@ -62,8 +65,8 @@ public class GunSettings : ScriptableObject
     public Vector3 defaultGunPositionOffset = new Vector3(0.000f, 0.000f, 0.000f);
     public Quaternion defaultRotation => Quaternion.Euler(defaultGunRotation);
     [Space]
-    public Vector3 ADSGunRotation = new Vector3(0.000f, 0.000f, 0.000f);
-
     public Vector3 ADSGunPositionOffset = new Vector3(0.000f, 0.000f, 0.000f);
-    public Quaternion ADSRotation => Quaternion.Euler(ADSGunRotation);
+
+
+    
 }

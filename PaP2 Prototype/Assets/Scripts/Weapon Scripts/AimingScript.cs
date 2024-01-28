@@ -30,7 +30,7 @@ public class AimingScript : MonoBehaviour
         Animator animator = gunHolder.GetComponent<Animator>();
         if(animator!= null)
         {
-            animator.speed = speed;
+            animator.speed = speed * Time.deltaTime;
             animator.Play(ads);
             animator.speed = 1.0f;
         }

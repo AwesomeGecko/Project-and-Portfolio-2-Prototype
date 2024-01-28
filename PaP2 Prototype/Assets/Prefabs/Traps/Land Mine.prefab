@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -11, y: 0, z: -0.75}
-  m_LocalScale: {x: 1, y: 0.1, z: 1}
+  m_LocalScale: {x: 1, y: 0.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -53,6 +53,7 @@ MonoBehaviour:
   aud: {fileID: 5770627769007482400}
   mineBeep: {fileID: 8300000, guid: 4e4fa75aada6fd145823dd8ec67e1ff3, type: 3}
   expSound: {fileID: 8300000, guid: f4fb92b874ee33e4faf3c5746c6cc316, type: 3}
+  explode: {fileID: 0}
 --- !u!33 &1911169203334254708
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -122,8 +123,8 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 2
-  m_Height: 5
+  m_Radius: 1
+  m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!82 &5770627769007482400
@@ -146,7 +147,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1.9376526
+  MinDistance: 2.441935
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0

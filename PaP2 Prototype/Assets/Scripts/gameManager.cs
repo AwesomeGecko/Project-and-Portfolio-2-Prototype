@@ -54,6 +54,7 @@ public class gameManager : MonoBehaviour, IDataPersistence
     [SerializeField] public Image Crosshair;
     [SerializeField] public Image ShotgunSight;
     [SerializeField] public Image AssaultRifleSight;
+    [SerializeField] public Image AKSight;
     [SerializeField] public Image GunIconHandsBackground;
     [SerializeField] public Image GunIconHands;
     [SerializeField] public Image GunIconBackPackBackground;
@@ -75,7 +76,7 @@ public class gameManager : MonoBehaviour, IDataPersistence
     public PlayerController playerScript;
     public CameraController cameraScript;
     public PlayerGunControls playerGunControls;
-
+    
 
     [Header("Public variables")]
     public bool isPaused;
@@ -93,9 +94,7 @@ public class gameManager : MonoBehaviour, IDataPersistence
     public int keysRemain = 3;
 
     public string CheckForBoss;
-    public int Level;
-    public bool isMuted;
-    
+   
 
 
 
@@ -147,7 +146,7 @@ public class gameManager : MonoBehaviour, IDataPersistence
         if (!vignette)
         {
             //if the Vignette is not avalible or emty
-            Debug.Log("error, empty vignette");
+            //Debug.Log("error, empty vignette");
         }
         else
         {
@@ -276,6 +275,8 @@ public class gameManager : MonoBehaviour, IDataPersistence
 
             interactableObject interactable = selectionTransform.GetComponent<interactableObject>();
 
+            GunPickupScript GunPickup = selectionTransform.GetComponent<GunPickupScript>();
+
             if (interactable && interactable.playerInRange)
             {
                 onTarget = true;
@@ -284,12 +285,25 @@ public class gameManager : MonoBehaviour, IDataPersistence
                 interactive.SetActive(true);
 
             }
+            else if (GunPickup && GunPickup.playerInRange && playerGunControls.gunList.Count < 2)
+            {
+                onTarget = true;
+
+                interact_text.text = "Pick up Gun [F]";
+                interactive.SetActive(true);
+
+            }
+            else if (GunPickup && GunPickup.playerInRange && playerGunControls.gunList.Count >= 2)
+            {
+                interact_text.text = "Swap Guns [F]";
+                interactive.SetActive(true);
+            }
             else
             {
                 onTarget = false;
                 interactive.SetActive(false);
             }
-
+            
         }
         else
         {
@@ -432,12 +446,12 @@ public class gameManager : MonoBehaviour, IDataPersistence
 
     public void LoadData(GameData data)
     {
-        data.level = Level;
+        //data.level = Level;
     }
 
     public void SaveData(GameData data)
     {
-        Level = data.level;
+        //Level = data.level;
     }
     public void UpdateGunIcon(Sprite gunIcon, Image targetImage)
     {
