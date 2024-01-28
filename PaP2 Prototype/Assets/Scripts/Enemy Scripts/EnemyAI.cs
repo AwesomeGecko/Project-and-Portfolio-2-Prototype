@@ -81,6 +81,24 @@ public class EnemyAI : MonoBehaviour, IDamage
         anim.SetFloat("Speed", Mathf.Lerp(anim.GetFloat("Speed"), animationSpeed, Time.deltaTime * animSpeedTrans));
     }
 
+    void Update()
+    {
+        if (agent.isActiveAndEnabled)
+        {
+            float animationSpeed = agent.velocity.normalized.magnitude;
+            anim.SetFloat("Speed", Mathf.Lerp(anim.GetFloat("Speed"), animationSpeed, Time.deltaTime * animSpeedTrans));
+
+            if (PlayerInRange && !canSeePlayer())
+            {
+                StartCoroutine(roam());
+            }
+            else if (!PlayerInRange)
+            {
+                StartCoroutine(roam());
+            }
+        }
+    }
+
     private void HandleGainSight(Transform Target)
     {
         if (MovementCoroutine != null)
@@ -262,7 +280,7 @@ public class EnemyAI : MonoBehaviour, IDamage
 
         HP -= amount;
 
-        StopAllCoroutines();
+        //StopAllCoroutines();
 
         if (HP <= 0)
         {
@@ -280,7 +298,7 @@ public class EnemyAI : MonoBehaviour, IDamage
             
             //isShooting = false;
             aud.PlayOneShot(hitSound, hitSoundVol);
-            anim.SetTrigger("Damage");
+            //anim.SetTrigger("Damage");
             destinationChosen = false;
             
             
