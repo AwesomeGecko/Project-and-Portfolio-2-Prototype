@@ -1596,10 +1596,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3251788820894578651, guid: 5f698264e89308d44899ad2c29e21941, type: 3}
-      propertyPath: bulletDamage
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 9062981272011841574, guid: 5f698264e89308d44899ad2c29e21941, type: 3}
       propertyPath: m_Name
       value: Default Enemy
@@ -4424,6 +4420,10 @@ PrefabInstance:
     - target: {fileID: 1941524770838689977, guid: 415e8ce8c9de02143b1cd6917b11c526, type: 3}
       propertyPath: m_Height
       value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1941524770838689977, guid: 415e8ce8c9de02143b1cd6917b11c526, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2032022834073519530, guid: 415e8ce8c9de02143b1cd6917b11c526, type: 3}
       propertyPath: m_LocalPosition.x
