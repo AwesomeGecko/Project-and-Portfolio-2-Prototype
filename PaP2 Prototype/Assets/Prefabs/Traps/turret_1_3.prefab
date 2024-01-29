@@ -943,7 +943,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.8000004, y: 0.8000003, z: 0.8000003}
+  m_LocalScale: {x: 0.80000013, y: 0.8000003, z: 0.8000003}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8139709239305562810}
@@ -972,7 +972,7 @@ MonoBehaviour:
   aimPoint: {fileID: 8519092258074968649}
   gen: {fileID: 0}
   colliderRadius: 30
-  bulletDamage: 0.5
+  bulletDamage: 1
   bulletDestroyTime: 1
   bulletSpeed: 1
   viewCone: 360
