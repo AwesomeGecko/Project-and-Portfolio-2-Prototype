@@ -12,7 +12,7 @@ public class EnemyAI : MonoBehaviour, IDamage
     [Header("----- Components -----")]
     [SerializeField] NavMeshAgent agent;
     [SerializeField] Rigidbody rb;
-    [SerializeField] GameObject player;
+    //[SerializeField] GameObject player;
     [SerializeField] Transform headPos;
     [SerializeField] Animator anim;
     [SerializeField] Renderer model;
