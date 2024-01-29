@@ -17,6 +17,7 @@ TagManager:
   - Audio
   - WeaponPickUp
   - Enemy
+  - Cover
   layers:
   - Default
   - TransparentFX
@@ -32,9 +33,7 @@ TagManager:
   - LineOfSight
   - Floor
   - Enemies
-  - 
-  - 
-  - 
+  - Cover
   - 
   - 
   - 
