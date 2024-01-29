@@ -3581,9 +3581,9 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2072848645143629209}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: AudioControls, Assembly-CSharp
-        m_MethodName: setSFXVolume
+        m_MethodName: OnSFXVolumeChanged
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4165,7 +4165,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6295437825779091039}
-  - component: {fileID: 2072848645143629209}
   - component: {fileID: 473131084759299205}
   - component: {fileID: 4781157514460515322}
   m_Layer: 5
@@ -4199,27 +4198,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 800, y: 600}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2072848645143629209
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5682313830987893606}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 110bc78e494d6d54aa054287b7059db9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioMixer: {fileID: 24100000, guid: e5be003068f40a348b4a0174226c24de, type: 2}
-  muteButtons: {fileID: 5259108121378969224}
-  mainSlider: {fileID: 8960096231711339963}
-  musicSlider: {fileID: 1815873279829717992}
-  sfxSlider: {fileID: 5034154994346884034}
-  plates: []
-  doors: []
-  teleporter: {fileID: 0}
-  isMuted: 0
 --- !u!222 &473131084759299205
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4546,8 +4524,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2869496279462369146}
-        m_TargetAssemblyTypeName: menuManager, Assembly-CSharp
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: AudioControls, Assembly-CSharp
         m_MethodName: muteSounds
         m_Mode: 1
         m_Arguments:
@@ -7530,13 +7508,13 @@ MonoBehaviour:
   m_MinValue: 0.0001
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.001
+  m_Value: 0.0001
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2072848645143629209}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: AudioControls, Assembly-CSharp
-        m_MethodName: setMainVolume
+        m_MethodName: OnMainVolumeChanged
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8148,9 +8126,9 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2072848645143629209}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: AudioControls, Assembly-CSharp
-        m_MethodName: setMusicVolume
+        m_MethodName: OnMusicVolumeChanged
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
