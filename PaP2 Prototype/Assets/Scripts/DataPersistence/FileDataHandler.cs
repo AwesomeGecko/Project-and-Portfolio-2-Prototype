@@ -51,7 +51,7 @@ public class FileDataHandler
                     //Debug.Log("Loaded Data!");
                 
             }
-            catch (Exception e)
+            catch (Exception )
             {
                Debug.LogError("Error occured when trying to load data from the file: " + fullPath + "\n" + e);
             }
@@ -91,7 +91,7 @@ public class FileDataHandler
                 //Debug.Log("Saved Data!");
             
         }
-        catch (Exception e)
+        catch (Exception )
         {
             Debug.LogError("Error occured when trying to save data to file: " + fullPath + "\n" + e);
             
