@@ -20,6 +20,11 @@ public class AudioControls : MonoBehaviour
     [SerializeField] List<LaserTrap> lasers;
     [SerializeField] List<SpikeTrap> spikes;
 
+    [Header("-----Mute Images-----")]
+    [SerializeField] public Sprite Muted;
+    [SerializeField] public Sprite Unmuted;
+    [SerializeField] public Image image;
+
     private bool isMuted;
     public float mainVol;
     public float mainVolume;
@@ -27,19 +32,34 @@ public class AudioControls : MonoBehaviour
     public float musicVolume;
     public float sfxVol;
     public float sfxVolume;
+    public int boolAsInt;
+    public int noVol;
 
     private void Start()
     {
-        
+        DataPersistenceManager.instance.LoadAudio();
         LoadVolume();
         mainSlider.onValueChanged.AddListener(setMainVolume);
         musicSlider.onValueChanged.AddListener(setMusicVolume);
         sfxSlider.onValueChanged.AddListener(setSFXVolume);
-        mainSlider.value = PlayerPrefs.GetFloat("mainVolume", mainVol);
-        musicSlider.value = PlayerPrefs.GetFloat("musicVolume", musicVol);
-        sfxSlider.value = PlayerPrefs.GetFloat("sfxVolume", sfxVol);
+        LoadSliders();
+        isMuted = boolAsInt == 1;
+        if (isMuted == false)
+        {
+            return;
+        }
+        else
+        {
+            muteSounds();
+        }
+    }
+    public void OnDisable()
+    {
+        SaveVolume();
     }
 
+
+    #region SetVolume
     public void LoadVolume()
     {
         mainVol = PlayerPrefs.GetFloat("mainVolume", mainVolume);
@@ -48,15 +68,24 @@ public class AudioControls : MonoBehaviour
         audioMixer.SetFloat("Main", Mathf.Log10(mainVol) * 20);
         audioMixer.SetFloat("Music", Mathf.Log10(musicVol) * 20);
         audioMixer.SetFloat("SFX", Mathf.Log10(sfxVol) * 20);
+        boolAsInt = PlayerPrefs.GetInt("Muted", 0);
+        isMuted = boolAsInt == 1;
     }
 
-    #region SetVolume
+    public void LoadSliders()
+    {
+        mainSlider.value = PlayerPrefs.GetFloat("mainVolume", mainVol);
+        musicSlider.value = PlayerPrefs.GetFloat("musicVolume", musicVol);
+        sfxSlider.value = PlayerPrefs.GetFloat("sfxVolume", sfxVol);
+    }
 
-    public void OnDisable()
+
+    public void SaveVolume()
     {
         PlayerPrefs.SetFloat("mainVolume", mainSlider.value);
         PlayerPrefs.SetFloat("musicVolume", musicSlider.value);
         PlayerPrefs.SetFloat("sfxVolume", sfxSlider.value);
+        saveBool();
         PlayerPrefs.Save();
     }
 
@@ -76,6 +105,38 @@ public class AudioControls : MonoBehaviour
         audioMixer.SetFloat("SFX", Mathf.Log10(value) * 20);
         LandMine.SetListVolume(sfxVol);
         AdjustObjectSounds();
+    }
+
+    public void saveBool()
+    {
+        boolAsInt = isMuted ? 1 : 0;
+        PlayerPrefs.SetInt("Muted", boolAsInt);
+        PlayerPrefs.Save();
+    }
+
+    public void AudioMuted()
+    {
+        audioMixer.SetFloat("Main", Mathf.Log10(0.0001f) * 20);
+        audioMixer.SetFloat("Music", Mathf.Log10(0.0001f) * 20);
+        audioMixer.SetFloat("SFX", Mathf.Log10(0.0001f) * 20);
+    }
+
+    public void muteSounds()
+    {
+        if (!isMuted)
+        {
+            SaveVolume();
+            AudioMuted();
+            saveBool();
+            image.sprite = Muted;
+            isMuted = true;
+        }
+        else
+        {
+            image.sprite = Unmuted;
+            LoadVolume();
+            isMuted = false;
+        }
     }
 
     #endregion
