@@ -225,15 +225,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: cf3910b7639e12447827e45f63f60201, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 13.75
+      value: -33.75
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: cf3910b7639e12447827e45f63f60201, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 24.5
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: cf3910b7639e12447827e45f63f60201, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -32
+      value: -118
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: cf3910b7639e12447827e45f63f60201, type: 3}
       propertyPath: m_LocalRotation.w
@@ -315,7 +315,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 8168814099955323348}
   rb: {fileID: 0}
-  player: {fileID: 3936800427781867614, guid: 415e8ce8c9de02143b1cd6917b11c526, type: 3}
   headPos: {fileID: 9062981272012274718}
   anim: {fileID: 9062981272021357538}
   model: {fileID: 5119316622872894172}
@@ -323,7 +322,7 @@ MonoBehaviour:
   damageCol: {fileID: 6982621685235441029}
   HidableLayers:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 16384
   LOSChecker: {fileID: 5045377174004693842}
   HideSensitivity: 0
   HP: 15

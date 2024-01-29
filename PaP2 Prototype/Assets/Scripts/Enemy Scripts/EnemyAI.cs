@@ -179,62 +179,66 @@ public class EnemyAI : MonoBehaviour, IDamage
 
     private IEnumerator Hide(Transform Target)
     {
-        while (true)
+        if(CompareTag("Cover"))
         {
-
-            for (int i = 0; i < Colliders.Length; i++)
+            while (true)
             {
-                Colliders[i] = null;
-            }
 
-
-            int hits = Physics.OverlapSphereNonAlloc(agent.transform.position, LOSChecker.Collider.radius, Colliders, HidableLayers);
-
-            System.Array.Sort(Colliders, ColliderArraySortComparer);
-
-            for (int i = 0; i < hits; i++)
-            {
-                if (NavMesh.SamplePosition(Colliders[i].transform.position, out NavMeshHit hit, 4f, agent.areaMask))
+                for (int i = 0; i < Colliders.Length; i++)
                 {
-                    if (!NavMesh.FindClosestEdge(hit.position, out hit, agent.areaMask))
+                    Colliders[i] = null;
+                }
+
+
+                int hits = Physics.OverlapSphereNonAlloc(agent.transform.position, LOSChecker.Collider.radius, Colliders, HidableLayers);
+
+                System.Array.Sort(Colliders, ColliderArraySortComparer);
+
+                for (int i = 0; i < hits; i++)
+                {
+                    if (NavMesh.SamplePosition(Colliders[i].transform.position, out NavMeshHit hit, 4f, agent.areaMask))
                     {
-                        Debug.LogError($"Unable to find edge close to {hit.position}");
-                    }
-
-                    if (Vector3.Dot(hit.normal, (Target.position - hit.position).normalized) < HideSensitivity)
-                    {
-                        agent.SetDestination(hit.position);
-
-                        faceTarget();
-                        canSeePlayer();
-                        break;
-                    }
-
-                    else
-                    {   //Second check for hidable position
-                        if (NavMesh.SamplePosition(Colliders[i].transform.position - (Target.position - hit.position) * 10, out NavMeshHit hit2, 2f, agent.areaMask))
+                        if (!NavMesh.FindClosestEdge(hit.position, out hit, agent.areaMask))
                         {
-                            if (!NavMesh.FindClosestEdge(hit.position, out hit2, agent.areaMask))
-                            {
-                                Debug.LogError($"Unable to find edge close to {hit2.position} (second attempt)");
-                            }
+                            Debug.LogError($"Unable to find edge close to {hit.position}");
+                        }
 
-                            if (Vector3.Dot(hit2.normal, (Target.position - hit2.position).normalized) < HideSensitivity)
+                        if (Vector3.Dot(hit.normal, (Target.position - hit.position).normalized) < HideSensitivity)
+                        {
+                            agent.SetDestination(hit.position);
+
+                            faceTarget();
+                            canSeePlayer();
+                            break;
+                        }
+
+                        else
+                        {   //Second check for hidable position
+                            if (NavMesh.SamplePosition(Colliders[i].transform.position - (Target.position - hit.position) * 10, out NavMeshHit hit2, 2f, agent.areaMask))
                             {
-                                agent.SetDestination(hit2.position);
-                                break;
+                                if (!NavMesh.FindClosestEdge(hit.position, out hit2, agent.areaMask))
+                                {
+                                    Debug.LogError($"Unable to find edge close to {hit2.position} (second attempt)");
+                                }
+
+                                if (Vector3.Dot(hit2.normal, (Target.position - hit2.position).normalized) < HideSensitivity)
+                                {
+                                    agent.SetDestination(hit2.position);
+                                    break;
+                                }
                             }
                         }
                     }
+                    else
+                    {
+                        Debug.LogError($"Unable to find NavMesh near object {Colliders[i].name} at {Colliders[i].transform.position}");
+                    }
                 }
-                else
-                {
-                    Debug.LogError($"Unable to find NavMesh near object {Colliders[i].name} at {Colliders[i].transform.position}");
-                }
-            }
 
-            yield return null;
+                yield return null;
+            }
         }
+        
     }
 
     private int ColliderArraySortComparer(Collider A, Collider B)

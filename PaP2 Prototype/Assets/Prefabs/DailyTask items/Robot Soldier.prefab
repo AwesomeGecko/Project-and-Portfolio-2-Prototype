@@ -2540,7 +2540,7 @@ MonoBehaviour:
   damageCol: {fileID: 1181870137617099959}
   HidableLayers:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 16384
   LOSChecker: {fileID: 3569381735096889398}
   HideSensitivity: 0
   HP: 30
