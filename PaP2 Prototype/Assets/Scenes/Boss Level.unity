@@ -3904,6 +3904,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2328290278315153106, guid: ed7f674ab735ed34290c8d5b693ebbed, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2452298167773979430, guid: ed7f674ab735ed34290c8d5b693ebbed, type: 3}
       propertyPath: pauseSound
       value: 
