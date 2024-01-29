@@ -40,7 +40,7 @@ public class LandMine : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") || other.CompareTag("Enemies"))
+        if (other.CompareTag("Player"))
         {
             isPlayerNear = true;
             aud.PlayOneShot(mineBeep);
