@@ -2758,7 +2758,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -32.499756}
+  m_AnchoredPosition: {x: 0, y: -32.499817}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1935948591681616949
@@ -5241,7 +5241,7 @@ MonoBehaviour:
   winSoundVol: 0.25
   loseSound: {fileID: 8300000, guid: cce02d8f30f0c5a4b90c786e0e8e955f, type: 3}
   loseSoundVol: 0.5
-  pauseSound: {fileID: 8300000, guid: 5c2471fc85ca45b4687db8150f1afb92, type: 3}
+  pauseSound: {fileID: 8300000, guid: 5c42e12034228e246bfd09cd991210bf, type: 3}
   pauseSoundVol: 0.15
   UIButtonForward: {fileID: 8300000, guid: f3bd50d7cf7284c40b1470d8bd81af8e, type: 3}
   UIButtonBack: {fileID: 8300000, guid: f3bd50d7cf7284c40b1470d8bd81af8e, type: 3}
@@ -5267,7 +5267,7 @@ AudioSource:
   m_GameObject: {fileID: 3355678810000962189}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 6365757799108221917, guid: e5be003068f40a348b4a0174226c24de, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 0.5
@@ -8411,7 +8411,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: e5be003068f40a348b4a0174226c24de, type: 2}
-  muteButtons: {fileID: 6224961103050243829}
+  muteButton: {fileID: 6224961103050243829}
   mainSlider: {fileID: 2868198964133798403}
   musicSlider: {fileID: 4693173153249023076}
   sfxSlider: {fileID: 2899806819482537905}
@@ -8426,8 +8426,48 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   teleporter: {fileID: 0}
-  isMuted: 0
+  lasers:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  spikes:
+  - {fileID: 0}
+  - {fileID: 0}
+  mainVol: 0
+  mainVolume: 0
+  musicVol: 0
+  musicVolume: 0
+  sfxVol: 0
+  sfxVolume: 0
 --- !u!222 &554195455225436511
 CanvasRenderer:
   m_ObjectHideFlags: 0
