@@ -86,14 +86,14 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
     public void LoadData(GameData data)
     {
         SavedHP = data.Health;
-        Stamina = data.Stamina;
+        //Stamina = data.Stamina;
         HP = SavedHP;
     }
 
     public void SaveData(GameData data)
     {
         data.Health = SavedHP;
-        data.Stamina = Stamina;
+        //data.Stamina = Stamina;
         SavedHP = HP;
     }
 

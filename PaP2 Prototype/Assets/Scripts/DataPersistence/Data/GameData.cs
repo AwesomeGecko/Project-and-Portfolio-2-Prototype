@@ -9,7 +9,7 @@ public class GameData
     [Header("player stats")]
     public Vector3 playerPosition;
     public int Health;
-    public float Stamina;
+    //public float Stamina;
     public float playerSpeed;
     public float jumpHeight;
     public float gravityValue;
@@ -34,7 +34,7 @@ public class GameData
         playerPosition = Vector3.zero;
         level = 0;
         Health = 30;
-        Stamina = 10;
+        //Stamina = 10;
         playerSpeed = 10;
         jumpHeight = 7.5f;
         gravityValue = -20f;
