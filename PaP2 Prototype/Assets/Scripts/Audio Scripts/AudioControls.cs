@@ -30,7 +30,7 @@ public class AudioControls : MonoBehaviour
 
     private void Start()
     {
-        DataPersistenceManager.instance.LoadAudio();
+        
         LoadVolume();
         mainSlider.onValueChanged.AddListener(setMainVolume);
         musicSlider.onValueChanged.AddListener(setMusicVolume);

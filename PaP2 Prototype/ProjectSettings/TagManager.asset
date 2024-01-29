@@ -18,6 +18,7 @@ TagManager:
   - WeaponPickUp
   - Enemy
   - Cover
+  - Enemies
   layers:
   - Default
   - TransparentFX
