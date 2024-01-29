@@ -22,6 +22,8 @@ public class LaserTrap : MonoBehaviour
     [SerializeField] AudioSource aud;
     [SerializeField] AudioClip laser;
 
+    private bool playerInside = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,7 +36,31 @@ public class LaserTrap : MonoBehaviour
         }
     }
 
+    
     private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            PlayerController HP = other.GetComponent<PlayerController>();
+            if (HP != null)
+            {
+                HP.takeDamage(dmgAmount);
+                StartCoroutine(BurnOverTime(HP));
+                playerInside = true;
+            }
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerInside = false;
+        }
+    }
+
+    /*
+    private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Player"))
         {
@@ -46,6 +72,7 @@ public class LaserTrap : MonoBehaviour
             }
         }
     }
+    */
 
     public void Deactivate()
     {
@@ -55,11 +82,16 @@ public class LaserTrap : MonoBehaviour
     private IEnumerator BurnOverTime(PlayerController HP) // Burn Damage Method
     {
         float timer = 0f;
-        while (timer < burnOverTime)
+        while (timer < burnOverTime && HP.HP > 0)
         {
             HP.takeDamage(burnAmt);
             yield return new WaitForSeconds(1f);
             timer += 1f;
+        }
+
+        if(playerInside && HP.HP > 0)
+        {
+            StartCoroutine(BurnOverTime(HP));
         }
     }
 
