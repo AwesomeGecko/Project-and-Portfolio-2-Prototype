@@ -1786,37 +1786,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 845547961045250400, guid: a15d61f448f373a42b12cab2fe4bc9a8, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.46
-      objectReference: {fileID: 0}
-    - target: {fileID: 845547961045250400, guid: a15d61f448f373a42b12cab2fe4bc9a8, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 4.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 899499396778010484, guid: a15d61f448f373a42b12cab2fe4bc9a8, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 6.83
-      objectReference: {fileID: 0}
-    - target: {fileID: 899499396778010484, guid: a15d61f448f373a42b12cab2fe4bc9a8, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.26
-      objectReference: {fileID: 0}
     - target: {fileID: 1873076841763944090, guid: a15d61f448f373a42b12cab2fe4bc9a8, type: 3}
       propertyPath: m_Name
       value: Soldier Spawner
-      objectReference: {fileID: 0}
-    - target: {fileID: 4797366204318355743, guid: a15d61f448f373a42b12cab2fe4bc9a8, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.32
-      objectReference: {fileID: 0}
-    - target: {fileID: 4797366204318355743, guid: a15d61f448f373a42b12cab2fe4bc9a8, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.34
-      objectReference: {fileID: 0}
-    - target: {fileID: 5658104123770347607, guid: a15d61f448f373a42b12cab2fe4bc9a8, type: 3}
-      propertyPath: m_Radius
-      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 6848061985384096572, guid: a15d61f448f373a42b12cab2fe4bc9a8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1857,14 +1829,6 @@ PrefabInstance:
     - target: {fileID: 6848061985384096572, guid: a15d61f448f373a42b12cab2fe4bc9a8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8046209608765390566, guid: a15d61f448f373a42b12cab2fe4bc9a8, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 8046209608765390566, guid: a15d61f448f373a42b12cab2fe4bc9a8, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -9.81
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4315,49 +4279,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 367082749704362871, guid: 06654f7fb4a49ea469ebbe65a0f9097e, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -2
-      objectReference: {fileID: 0}
-    - target: {fileID: 367082749704362871, guid: 06654f7fb4a49ea469ebbe65a0f9097e, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.10000038
-      objectReference: {fileID: 0}
     - target: {fileID: 415169368765247594, guid: 06654f7fb4a49ea469ebbe65a0f9097e, type: 3}
       propertyPath: m_Name
       value: Default Enemy Spawner
-      objectReference: {fileID: 0}
-    - target: {fileID: 415169368765247594, guid: 06654f7fb4a49ea469ebbe65a0f9097e, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1192572372301744606, guid: 06654f7fb4a49ea469ebbe65a0f9097e, type: 3}
-      propertyPath: m_Radius
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 3681825950153299195, guid: 06654f7fb4a49ea469ebbe65a0f9097e, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3681825950153299195, guid: 06654f7fb4a49ea469ebbe65a0f9097e, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 2.15
-      objectReference: {fileID: 0}
-    - target: {fileID: 6304694845106905281, guid: 06654f7fb4a49ea469ebbe65a0f9097e, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.049999237
-      objectReference: {fileID: 0}
-    - target: {fileID: 6304694845106905281, guid: 06654f7fb4a49ea469ebbe65a0f9097e, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 6804007705698481103, guid: 06654f7fb4a49ea469ebbe65a0f9097e, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 6804007705698481103, guid: 06654f7fb4a49ea469ebbe65a0f9097e, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -1.4500008
       objectReference: {fileID: 0}
     - target: {fileID: 8111512806103693233, guid: 06654f7fb4a49ea469ebbe65a0f9097e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4792,10 +4716,6 @@ PrefabInstance:
     - target: {fileID: 5854654962943007971, guid: cf10108b25c805c45b0900d70bfe001f, type: 3}
       propertyPath: m_Name
       value: Alien Spawner
-      objectReference: {fileID: 0}
-    - target: {fileID: 5854654962943007971, guid: cf10108b25c805c45b0900d70bfe001f, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
