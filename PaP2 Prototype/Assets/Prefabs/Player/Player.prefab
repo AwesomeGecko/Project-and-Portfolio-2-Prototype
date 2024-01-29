@@ -266,8 +266,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 5190971063148889619}
   aud: {fileID: 4268009355107710033}
-  HP: 40
-  SavedHP: 0
+  HP: 20
+  SavedHP: 40
+  SavedStamina: 0
   lowHP: 10
   Stamina: 10
   playerSpeed: 10
@@ -293,9 +294,9 @@ MonoBehaviour:
   lowHealth: {fileID: 8300000, guid: 2ac6c415babd8464fb3c0d150bfbb3c1, type: 3}
   staminaRestore: {fileID: 8300000, guid: c89d51e960bc6b14d8dfe5ad4f8ccd9b, type: 3}
   staminaRestoreVol: 0.15
-  playerJump: {fileID: 0}
-  playerLand: {fileID: 0}
-  playerLandVol: 0
+  playerJump: {fileID: 8300000, guid: f5033804d63f795469570849b29ef405, type: 3}
+  playerLand: {fileID: 8300000, guid: 10e4ce33fbbd4a142acc7f591cb0e8be, type: 3}
+  playerLandVol: 1
   HPOriginal: 0
   staminaRunCost: 2
   staminaRestoreSpeed: 0.8
@@ -410,7 +411,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 6365757799108221917, guid: e5be003068f40a348b4a0174226c24de, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.5
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
