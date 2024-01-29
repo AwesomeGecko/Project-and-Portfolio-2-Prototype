@@ -14,7 +14,6 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
     [Header("Player Stats")]
     [SerializeField] public int HP;
     [SerializeField] public int SavedHP;
-    [SerializeField] public float SavedStamina;
     [SerializeField] public int lowHP; // CR
     [SerializeField] public float Stamina;
     [SerializeField] float playerSpeed;
@@ -53,8 +52,8 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
     bool isLanded = false;
 
     [Header("Gameplay Info")]
-    public int HPOriginal; //this value never changes!
-    private float StaminaOrig; //This value never changes!
+    public int HPOriginal;
+    private float StaminaOrig;
     public float staminaRunCost;
     public float staminaRestoreSpeed;
     private bool isRunning;
@@ -68,11 +67,10 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
     void Start()
     {
         crouchCameraDist = new Vector3(0, crouchDist / 2, 0);
+        HPOriginal = HP;
         StaminaOrig = Stamina;
         initialSpeed = playerSpeed;
         playerRespawn();
-        HP = SavedHP;
-        Stamina = SavedStamina;
     }
 
     // Update is called once per frame
@@ -88,13 +86,15 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
     public void LoadData(GameData data)
     {
         SavedHP = data.Health;
-        SavedStamina = data.Stamina;
+        Stamina = data.Stamina;
+        HP = SavedHP;
     }
 
     public void SaveData(GameData data)
     {
-        data.Health = HP;
+        data.Health = SavedHP;
         data.Stamina = Stamina;
+        SavedHP = HP;
     }
 
 
