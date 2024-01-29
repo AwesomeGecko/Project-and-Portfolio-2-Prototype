@@ -20,7 +20,7 @@ public class Turret : MonoBehaviour
     [SerializeField] Transform aimPoint;
     [SerializeField] Transform gen;
     [SerializeField] int colliderRadius;
-    [SerializeField] float bulletDamage;
+    [SerializeField] int bulletDamage;
     [SerializeField] int bulletDestroyTime;
     [SerializeField] int bulletSpeed;
     [SerializeField] int viewCone;

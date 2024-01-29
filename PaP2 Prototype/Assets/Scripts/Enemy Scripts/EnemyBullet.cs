@@ -6,7 +6,7 @@ public class EnemyBullet : MonoBehaviour
 {
     [SerializeField] Rigidbody rb;
 
-    private float damage;
+    private int damage;
     private int destroyTime;
     private int speed;
     public ParticleSystem sparkParticles;
@@ -18,7 +18,7 @@ public class EnemyBullet : MonoBehaviour
         rb.velocity = (gameManager.instance.player.transform.position + ShootOffset - rb.transform.position) * speed;        
         Destroy(gameObject, destroyTime);
     }
-    public void SetBulletProperties(float damage, int destroyTime, int speed)
+    public void SetBulletProperties(int damage, int destroyTime, int speed)
     {
         this.damage = damage;
         this.destroyTime = destroyTime;
@@ -44,7 +44,7 @@ public class EnemyBullet : MonoBehaviour
 
             if (dmg != null)
             {
-                dmg.takeDamage((int)damage);
+                dmg.takeDamage(damage);
             }
 
         }
