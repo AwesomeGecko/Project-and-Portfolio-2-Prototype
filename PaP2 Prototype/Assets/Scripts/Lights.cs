@@ -8,7 +8,8 @@ public class Lights : MonoBehaviour
     [SerializeField] Material shutoffmat;
     public float Oncount;
     public float Offcount;
-    new Light light;
+
+    Light lightComponent;
 
    [SerializeField] bool IfObjectiveLight;
     bool completelyOff;
@@ -19,7 +20,7 @@ public class Lights : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        light = GetComponent<Light>();
+      lightComponent = GetComponent<Light>();
        
         count = Offcount;
       
@@ -30,15 +31,15 @@ public class Lights : MonoBehaviour
     {
         if (!completelyOff)
         {
-            if (count <= 0 && !light.enabled)
+            if (count <= 0 && !lightComponent.enabled)
             {
-                light.enabled = true;
+                lightComponent.enabled = true;
                 count = Offcount;
 
             }
-            else if (count <= 0 && light.enabled)
+            else if (count <= 0 && lightComponent.enabled)
             {
-                light.enabled = false;
+                lightComponent.enabled = false;
                 count = Oncount;
 
             }
@@ -57,7 +58,7 @@ public class Lights : MonoBehaviour
                 m[2] = shutoffmat;
                 ren.materials = m;
                 completelyOff = true;
-                light.enabled = false;
+                lightComponent.enabled = false;
             }
         }
     }
