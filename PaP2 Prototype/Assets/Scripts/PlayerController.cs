@@ -71,8 +71,6 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
         StaminaOrig = Stamina;
         initialSpeed = playerSpeed;
         playerRespawn();
-        HP = SavedHP;
-        Stamina = SavedStamina;
     }
 
     // Update is called once per frame
@@ -89,12 +87,14 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
     {
         SavedHP = data.Health;
         SavedStamina = data.Stamina;
+        HP = SavedHP;
     }
 
     public void SaveData(GameData data)
     {
-        data.Health = HP;
+        data.Health = SavedHP;
         data.Stamina = Stamina;
+        SavedHP = HP;
     }
 
 
