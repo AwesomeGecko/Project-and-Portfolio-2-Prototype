@@ -14,15 +14,20 @@ public class AimingScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(1))
+        
+        if (!gameManager.instance.isPaused)
         {
-            PlayAnimationWithSpeed("ADS", 0.5f);
-        }
+            if (Input.GetMouseButtonDown(1))
+            {
+                PlayAnimationWithSpeed("ADS", 0.5f);
+            }
 
-        if (Input.GetMouseButtonDown(1))
-        {
-            gunHolder.GetComponent<Animator>().Play("New State");
+            if (Input.GetMouseButtonDown(1))
+            {
+                gunHolder.GetComponent<Animator>().Play("New State");
+            }
         }
+           
     }
 
     void PlayAnimationWithSpeed(string ads, float speed)
