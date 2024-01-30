@@ -19,15 +19,15 @@ public class EnemyAI : MonoBehaviour, IDamage
     [SerializeField] AudioSource aud;
     [SerializeField] Collider damageCol;
 
-    [Header("----- Behavior -----")]
-    public LayerMask HidableLayers;
-    public EnemyLOS LOSChecker;
-    [Range(-1, 1)]
-    [Tooltip("Lower is a better Hiding spot")]
-    public float HideSensitivity = 0;
+    //[Header("----- Behavior -----")]
+    //public LayerMask HidableLayers;
+    //public EnemyLOS LOSChecker;
+    //[Range(-1, 1)]
+    //[Tooltip("Lower is a better Hiding spot")]
+    //public float HideSensitivity = 0;
 
-    private Coroutine MovementCoroutine;
-    private Collider[] Colliders = new Collider[10];
+    //private Coroutine MovementCoroutine;
+    //private Collider[] Colliders = new Collider[10];
 
 
 
@@ -69,16 +69,15 @@ public class EnemyAI : MonoBehaviour, IDamage
 
     void Start()
     {
-       agent = GetComponent<NavMeshAgent>();
-
-           LOSChecker.OnGainSight += HandleGainSight;
-           LOSChecker.OnLoseSight += HandleLoseSight;
+       agent = GetComponent<NavMeshAgent>();         
 
            startingPos = transform.position;
            stoppingDistanceOrig = agent.stoppingDistance;
 
         float animationSpeed = agent.velocity.normalized.magnitude;
         anim.SetFloat("Speed", Mathf.Lerp(anim.GetFloat("Speed"), animationSpeed, Time.deltaTime * animSpeedTrans));
+
+
     }
 
     void Update()
@@ -96,24 +95,9 @@ public class EnemyAI : MonoBehaviour, IDamage
             {
                 StartCoroutine(roam());
             }
-        }
-    }
 
-    private void HandleGainSight(Transform Target)
-    {
-        if (MovementCoroutine != null)
-        {
-            StopCoroutine(roam());
-        }
 
-        MovementCoroutine = StartCoroutine(Hide(Target));
-    }
 
-    private void HandleLoseSight(Transform Target)
-    {
-        if (MovementCoroutine != null)
-        {
-            StopCoroutine(roam());
         }
     }
 
@@ -158,15 +142,17 @@ public class EnemyAI : MonoBehaviour, IDamage
             {
                 //agent.SetDestination(gameManager.instance.player.transform.position);
 
-                if (!isShooting)
-                {
-                    StartCoroutine(shoot());
-                }
 
-                if (agent.remainingDistance < agent.stoppingDistance)
-                {
-                    faceTarget();
-                }
+                    if (!isShooting)
+                    {
+                        StartCoroutine(shoot());
+                    }
+
+                    if (agent.remainingDistance < agent.stoppingDistance)
+                    {
+                        faceTarget();
+                    }
+                
 
                 agent.stoppingDistance = stoppingDistanceOrig;
 
@@ -177,90 +163,9 @@ public class EnemyAI : MonoBehaviour, IDamage
         return false;
     }
 
-    private IEnumerator Hide(Transform Target)
-    {
-        if(CompareTag("Cover"))
-        {
-            while (true)
-            {
-
-                for (int i = 0; i < Colliders.Length; i++)
-                {
-                    Colliders[i] = null;
-                }
 
 
-                int hits = Physics.OverlapSphereNonAlloc(agent.transform.position, LOSChecker.Collider.radius, Colliders, HidableLayers);
 
-                System.Array.Sort(Colliders, ColliderArraySortComparer);
-
-                for (int i = 0; i < hits; i++)
-                {
-                    if (NavMesh.SamplePosition(Colliders[i].transform.position, out NavMeshHit hit, 4f, agent.areaMask))
-                    {
-                        if (!NavMesh.FindClosestEdge(hit.position, out hit, agent.areaMask))
-                        {
-                            Debug.LogError($"Unable to find edge close to {hit.position}");
-                        }
-
-                        if (Vector3.Dot(hit.normal, (Target.position - hit.position).normalized) < HideSensitivity)
-                        {
-                            agent.SetDestination(hit.position);
-
-                            faceTarget();
-                            canSeePlayer();
-                            break;
-                        }
-
-                        else
-                        {   //Second check for hidable position
-                            if (NavMesh.SamplePosition(Colliders[i].transform.position - (Target.position - hit.position) * 10, out NavMeshHit hit2, 2f, agent.areaMask))
-                            {
-                                if (!NavMesh.FindClosestEdge(hit.position, out hit2, agent.areaMask))
-                                {
-                                    Debug.LogError($"Unable to find edge close to {hit2.position} (second attempt)");
-                                }
-
-                                if (Vector3.Dot(hit2.normal, (Target.position - hit2.position).normalized) < HideSensitivity)
-                                {
-                                    agent.SetDestination(hit2.position);
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    else
-                    {
-                        Debug.LogError($"Unable to find NavMesh near object {Colliders[i].name} at {Colliders[i].transform.position}");
-                    }
-                }
-
-                yield return null;
-            }
-        }
-        
-    }
-
-    private int ColliderArraySortComparer(Collider A, Collider B)
-    {
-        if (A == null && B != null)
-        {
-            return 1;
-        }
-        else if (A != null && B == null)
-        {
-            return -1;
-        }
-        else if (A == null && B == null)
-        {
-            return 1;
-        }
-        else
-        {
-            return Vector3.Distance(agent.transform.position, A.transform.position).CompareTo(Vector3.Distance(agent.transform.position, B.transform.position));
-        }
-
-    }
 
     IEnumerator shoot()
     {
@@ -300,12 +205,12 @@ public class EnemyAI : MonoBehaviour, IDamage
         else
         {
             
-            //isShooting = false;
+            isShooting = false;
             aud.PlayOneShot(hitSound, hitSoundVol);
-            //anim.SetTrigger("Damage");
+            anim.SetTrigger("Damage");
             destinationChosen = false;
-            
-            
+            agent.SetDestination(gameManager.instance.player.transform.position);
+            agent.stoppingDistance = stoppingDistanceOrig;
         }
     }
 
@@ -324,7 +229,7 @@ public class EnemyAI : MonoBehaviour, IDamage
             PlayerInRange = false;
             agent.stoppingDistance = 0;
             isShooting = false;
-            LOSChecker.GetComponentInChildren<Collider>().enabled = false;
+            //LOSChecker.GetComponentInChildren<Collider>().enabled = false;
         }
     }
 
@@ -443,15 +348,28 @@ public class EnemyAI : MonoBehaviour, IDamage
     //        }
     //    }
 
-    //    private IEnumerator Hide(Transform Target)
+    //private IEnumerator Hide(Transform Target)
+    //{
+    //    if(CompareTag("Cover"))
     //    {
     //        while (true)
     //        {
+
+    //            for (int i = 0; i < Colliders.Length; i++)
+    //            {
+    //                Colliders[i] = null;
+    //            }
+
+
     //            int hits = Physics.OverlapSphereNonAlloc(agent.transform.position, LOSChecker.Collider.radius, Colliders, HidableLayers);
+
+
+
+    //            System.Array.Sort(Colliders, ColliderArraySortComparer);
 
     //            for (int i = 0; i < hits; i++)
     //            {
-    //                if (NavMesh.SamplePosition(Colliders[i].transform.position, out NavMeshHit hit, 2f, agent.areaMask))
+    //                if (NavMesh.SamplePosition(Colliders[i].transform.position, out NavMeshHit hit, 4f, agent.areaMask))
     //                {
     //                    if (!NavMesh.FindClosestEdge(hit.position, out hit, agent.areaMask))
     //                    {
@@ -462,6 +380,7 @@ public class EnemyAI : MonoBehaviour, IDamage
     //                    {
     //                        agent.SetDestination(hit.position);
 
+    //                        faceTarget();
     //                        canSeePlayer();
     //                        break;
     //                    }
@@ -492,6 +411,32 @@ public class EnemyAI : MonoBehaviour, IDamage
     //            yield return null;
     //        }
     //    }
+
+    //}
+
+
+    //private int ColliderArraySortComparer(Collider A, Collider B)
+    //{
+    //    if (A == null && B != null)
+    //    {
+    //        return 1;
+    //    }
+    //    else if (A != null && B == null)
+    //    {
+    //        return -1;
+    //    }
+    //    else if (A == null && B == null)
+    //    {
+    //        return 1;
+    //    }
+    //    else
+    //    {
+    //        return Vector3.Distance(agent.transform.position, A.transform.position).CompareTo(Vector3.Distance(agent.transform.position, B.transform.position));
+    //    }
+
+    //}
+
+
 
     //    public void OnTriggerEnter(Collider other)
     //    {

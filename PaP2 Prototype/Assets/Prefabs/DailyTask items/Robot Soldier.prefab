@@ -1873,77 +1873,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1106462317318864193}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &6578079295830866356
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5000400860519366976}
-  - component: {fileID: 7661675296822541809}
-  - component: {fileID: 3569381735096889398}
-  m_Layer: 11
-  m_Name: LOS CheckSphere
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5000400860519366976
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6578079295830866356}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4394663217518112982}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &7661675296822541809
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6578079295830866356}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 15
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3569381735096889398
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6578079295830866356}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87b79ed7fc8291d47a87794b6ffa83c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Collider: {fileID: 7661675296822541809}
-  FieldOfView: 360
-  LOSLayers:
-    serializedVersion: 2
-    m_Bits: 256
 --- !u!1 &6684638918152845966
 GameObject:
   m_ObjectHideFlags: 0
@@ -2509,7 +2438,6 @@ Transform:
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5000400860519366976}
   - {fileID: 2580090108234128985}
   - {fileID: 6072296135848686270}
   - {fileID: 1685172821726113764}
@@ -2538,11 +2466,6 @@ MonoBehaviour:
   model: {fileID: 1125180650137316569}
   aud: {fileID: 6669982072310782887}
   damageCol: {fileID: 1181870137617099959}
-  HidableLayers:
-    serializedVersion: 2
-    m_Bits: 16384
-  LOSChecker: {fileID: 3569381735096889398}
-  HideSensitivity: 0
   HP: 30
   viewCone: 90
   speed: 1
@@ -2553,7 +2476,7 @@ MonoBehaviour:
   EnemyBullet: {fileID: 3393345968891059192, guid: 8ad9da3d86fcb0b4b8d2949686ce9956, type: 3}
   bulletDamage: 4
   bulletDestroyTime: 1
-  bulletSpeed: 4
+  bulletSpeed: 3
   shootRate: 0.1
   shootSpeed: 0.5
   enemyshootPos: {fileID: 3353402849618054329}
@@ -2597,7 +2520,7 @@ NavMeshAgent:
   m_Acceleration: 32
   avoidancePriority: 50
   m_AngularSpeed: 600
-  m_StoppingDistance: 1.5
+  m_StoppingDistance: 25
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 0
   m_AutoRepath: 1
@@ -2689,8 +2612,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 15
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 20
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!82 &6669982072310782887
 AudioSource:
   m_ObjectHideFlags: 0
