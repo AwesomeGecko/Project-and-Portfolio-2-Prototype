@@ -19,6 +19,8 @@ public class Bullet : MonoBehaviour
     public event CollisionEvent OnCollision;
     public ParticleSystem sparkParticles;
 
+    bool isReleased = false;
+
     private ObjectPool<Bullet> _pool;
 
     private void Awake()
@@ -28,6 +30,7 @@ public class Bullet : MonoBehaviour
 
     private void OnEnable()
     {
+        isReleased = false;
         StartCoroutine(DelayedDisable(1));
     }
 
@@ -66,12 +69,12 @@ public class Bullet : MonoBehaviour
 
     private void DisableBullet()
     {
-        
-
-        OnCollision?.Invoke(this, null);
-        
-        _pool.Release(this);
-       
+        if (!isReleased)
+        {
+            isReleased = true;
+            OnCollision?.Invoke(this, null);       
+            _pool.Release(this);
+        }
     }
 
     private void OnDisable()
