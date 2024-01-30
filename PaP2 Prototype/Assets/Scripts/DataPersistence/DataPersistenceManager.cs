@@ -146,7 +146,7 @@ public class DataPersistenceManager : MonoBehaviour
         //if no data can be loaded, dont continue
         if (audioData == null)
         {
-            Debug.Log("No 'AudioSave' file was found. I'll make one!");
+            //Debug.Log("No 'AudioSave' file was found. I'll make one!");
             NewAudio();
             return;
 
