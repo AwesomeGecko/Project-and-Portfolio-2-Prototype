@@ -43,8 +43,8 @@ public class AudioControls : MonoBehaviour
         musicSlider.onValueChanged.AddListener(setMusicVolume);
         sfxSlider.onValueChanged.AddListener(setSFXVolume);
         LoadSliders();
-        Debug.Log($"can i hear volume?, {hasVol}");
-        Debug.Log($"am i muted?, {isMuted}");
+        //Debug.Log($"can i hear volume?, {hasVol}");
+        //Debug.Log($"am i muted?, {isMuted}");
 
         //loads with no volume? set the UI to mute
         if (hasVol == false)
