@@ -43,9 +43,6 @@ public class AudioControls : MonoBehaviour
         musicSlider.onValueChanged.AddListener(setMusicVolume);
         sfxSlider.onValueChanged.AddListener(setSFXVolume);
         LoadSliders();
-        //Debug.Log($"can i hear volume?, {hasVol}");
-        //Debug.Log($"am i muted?, {isMuted}");
-
         //loads with no volume? set the UI to mute
         if (hasVol == false)
         {
@@ -112,7 +109,6 @@ public class AudioControls : MonoBehaviour
     public void setSFXVolume(float value)
     {
         audioMixer.SetFloat("SFX", Mathf.Log10(value) * 20);
-        LandMine.SetListVolume(sfxVol);
         AdjustObjectSounds();
     }
 

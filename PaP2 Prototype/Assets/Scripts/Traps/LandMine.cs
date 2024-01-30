@@ -94,23 +94,4 @@ public class LandMine : MonoBehaviour
         }
         gameObject.SetActive(false);
     }
-    
-    public static void SetListVolume(float volume)
-    {
-        foreach(LandMine mines in mineTraps)
-        {
-            if(mines != null)
-            {
-                mines.SetVolume(volume);
-            }
-        }
-    }
-
-    public void SetVolume(float volume)
-    {
-        if(aud != null)
-        {
-            aud.volume = volume;
-        }
-    }
 }
