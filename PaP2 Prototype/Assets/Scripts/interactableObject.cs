@@ -14,7 +14,7 @@ public class interactableObject : MonoBehaviour {
 
     public bool playerInRange;
     public string ItemName;
-    private int ammoAmount = 25;
+    private int ammoAmount = 40;
     private int healAmount = 5;
     Animator animator;
     [SerializeField] Collider interactCollider;
