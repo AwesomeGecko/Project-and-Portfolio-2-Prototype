@@ -191,24 +191,28 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
 
     void Crouch()
     {
-        if (Input.GetButtonDown("Crouch"))
+        if (!gameManager.instance.isPaused)
         {
-            controller.height -= crouchDist;
-            playerSpeed = crouchSpeed;
-            Camera.main.transform.localPosition -= crouchCameraDist;
+            if (Input.GetButtonDown("Crouch"))
+            {
+                controller.height -= crouchDist;
+                playerSpeed = crouchSpeed;
+                Camera.main.transform.localPosition -= crouchCameraDist;
 
-            // CR: Adjusts player footsteps louder/faster
-            soundStepsVol = 0.2f;
-        }
-        else if (Input.GetButtonUp("Crouch"))
-        {
-            controller.height += crouchDist;
-            playerSpeed = initialSpeed;
-            Camera.main.transform.localPosition += crouchCameraDist;
+                // CR: Adjusts player footsteps louder/faster
+                soundStepsVol = 0.2f;
+            }
+            else if (Input.GetButtonUp("Crouch"))
+            {
+                controller.height += crouchDist;
+                playerSpeed = initialSpeed;
+                Camera.main.transform.localPosition += crouchCameraDist;
 
-            // CR: Reset back to original volume value
-            soundStepsVol = 0.5f;
+                // CR: Reset back to original volume value
+                soundStepsVol = 0.5f;
+            }
         }
+        
     }
 
     IEnumerator Slide()

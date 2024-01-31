@@ -405,7 +405,7 @@ public class PlayerGunControls : MonoBehaviour
 
     public void selectGun()
     {
-        if (!isAiming)
+        if (!isAiming && !isShooting && !IsReloading)
         {
             if (Input.GetAxis("Mouse ScrollWheel") > 0 && selectedGun < gunList.Count - 1)
             {

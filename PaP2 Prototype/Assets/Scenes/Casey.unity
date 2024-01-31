@@ -289,6 +289,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GroovedDecoWall
       objectReference: {fileID: 0}
+    - target: {fileID: 6181887051733786686, guid: 560728cabe1683040add6a336e0cc67e, type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 7262876877528776941, guid: 560728cabe1683040add6a336e0cc67e, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
