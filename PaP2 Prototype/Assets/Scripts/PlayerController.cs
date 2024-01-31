@@ -86,7 +86,7 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
         {
             playerGunControls.isAiming = false;
             gunAnim.SetTrigger("NotAiming");
-            playerGunControls.NotAimingDownSight();
+            
         }
 
         Movement();

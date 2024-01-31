@@ -17,7 +17,7 @@ public class PlayerGunControls : MonoBehaviour
     [SerializeField] public int ammoCounter;
     [SerializeField] public int maxAmmo;
     [SerializeField] int shootDist;
-    [SerializeField] Transform gunLocation;
+    [SerializeField] public Transform gunLocation;
     [SerializeField] Transform gunRotation;
     [SerializeField] public GunSettings defaultPistol;
     public bool isAiming;
@@ -80,14 +80,15 @@ public class PlayerGunControls : MonoBehaviour
                 {
                     isAiming = true;
                     GunAimAnimator.SetTrigger("Aiming");
-                    AimDownSights();     
+                    //AimDownSights();
+                        
                 }
 
-                if (Input.GetButtonUp("AimDownSight"))
+                if (Input.GetButtonUp("AimDownSight") && isAiming)
                 {
                     isAiming = false;
                     GunAimAnimator.SetTrigger("NotAiming");
-                    NotAimingDownSight();
+                    //NotAimingDownSight();
                 }
 
                 if (Input.GetButtonDown("Reload") && !isShooting && !IsReloading && !isAiming)
@@ -179,139 +180,6 @@ public class PlayerGunControls : MonoBehaviour
         IsIdle = true;
         CallAnimation();
 
-    }
-
-    public void AimDownSights()
-    {
-        
-        GunSettings currentGun = gunList[selectedGun];
-
-       
-        //Adjust the camera properties
-        
-        
-            
-
-            //Deactivate the main crosshairs
-            gameManager.instance.Crosshair.gameObject.SetActive(false);
-
-            //If the current gun wants the scope
-            if (currentGun.shouldUseScope)
-            {
-                //Using Invoke enables the scope image overlay ontop of the main camera through a time delay
-                Invoke("ActivateM4Sight", 0.3f);
-                //Adjust the scope cameras FOV
-                Camera.main.fieldOfView = currentGun.fieldOfView;
-            }
-
-            //If the current gun is the shotgun use the shotgun sight
-            else if (currentGun.isShotgun)
-            {
-                //Using Invoke enables the shotgun sight ontop of the main camera through a time delay
-                Invoke("ActivateShotgunSight", 0.4f);
-                //Adjust the shotgun camera FOV
-                Camera.main.fieldOfView = currentGun.fieldOfView;
-            }
-            else if (currentGun.isAssaultRifle)
-            {
-                //Debug.Log("Entering Scar case");
-                //Using Invoke enables the assault rifle sight ontop of the main camera through a time delay
-                Invoke("ActivateAssaultRifleSight", 0.3f);
-                //Adjust the scope cameras FOV
-                Camera.main.fieldOfView = currentGun.fieldOfView;
-            }
-            else if (currentGun.GunName == "AK-101")
-            {
-                //Using Invoke enables the assault rifle sight ontop of the main camera through a time delay      
-                Invoke("ActivateAKSight", 0.3f);
-                //Adjust the scope cameras FOV
-                Camera.main.fieldOfView = currentGun.fieldOfView;
-            }
-            
-
-        
-    }
-
-    public void NotAimingDownSight()
-    {
-        isAiming = false;
-        GunSettings currentGun = gunList[selectedGun];
-
-
-
-        //Deactivate the Scope image
-        gameManager.instance.Scope.gameObject.SetActive(false);
-
-        //Cull the gun back onto screen
-        scopeIn.cullingMask = scopeIn.cullingMask | (1 << 7);
-        //Adjust the main cameras FOV
-        Camera.main.fieldOfView = currentGun.fieldOfView;
-
-
-
-
-
-
-        gunLocation.transform.localPosition = Vector3.zero;
-
-        currentGun.model.transform.localPosition = currentGun.defaultGunPositionOffset;
-        currentGun.model.transform.localRotation = currentGun.defaultRotation;
-
-        //Enable the main crosshairs
-        gameManager.instance.Crosshair.gameObject.SetActive(true);
-
-        //Disable the scope camera
-        gameManager.instance.Scope.gameObject.SetActive(false);
-
-        //Disable the shotgun sight
-        gameManager.instance.ShotgunSight.gameObject.SetActive(false);
-
-        //Disable the Assualt rifle sight
-        gameManager.instance.AssaultRifleSight.gameObject.SetActive(false);
-        //Disable the AK Rifle Sight
-
-        gameManager.instance.AKSight.gameObject.SetActive(false);
-
-        //Cull the gun onto screen
-        scopeIn.cullingMask = scopeIn.cullingMask | (1 << 7);
-
-        //Re-enable the main camera and set it to the default value
-        Camera.main.fieldOfView = defaultFOV;
-
-
-    }
-
-    //This method simply calls the UI image of the scope and sets it to true
-    void ActivateM4Sight()
-    {
-        gameManager.instance.Scope.gameObject.SetActive(true);
-        //Cull the gun out of screen by setting the gun model on a layer called weapon. Then the m4 will not be shown when the scope image is overlayed on the main camera.
-        scopeIn.cullingMask = scopeIn.cullingMask & ~(1 << 7);
-    }
-
-    //This method simply calls the UI image of the shotgun sight and sets it to true
-    void ActivateShotgunSight()
-    {
-        gameManager.instance.ShotgunSight.gameObject.SetActive(true);
-    }
-
-    //This method is to use the assault rifle UI sight.
-    void ActivateAssaultRifleSight()
-    {
-        // Set local position using the selected gun's offset
-        gunLocation.localPosition = gunList[selectedGun].ADSGunPositionOffset;
-
-        gameManager.instance.AssaultRifleSight.gameObject.SetActive(true);
-        scopeIn.cullingMask = scopeIn.cullingMask & ~(1 << 7);
-    }
-
-    void ActivateAKSight()
-    {
-        // Set local position using the selected gun's offset
-        gunLocation.transform.localPosition = gunList[selectedGun].ADSGunPositionOffset;
-
-        gameManager.instance.AKSight.gameObject.SetActive(true);
-        scopeIn.cullingMask = scopeIn.cullingMask & ~(1 << 7);
     }
 
 
@@ -814,7 +682,7 @@ public class PlayerGunControls : MonoBehaviour
                 animator.SetTrigger("Idle");
             }
         }
-        else if (currentGun.GunName == "AssaultRifle")
+        else if (currentGun.GunName == "Assault Rifle")
         {
             animator.SetBool("AK-101", false);
             animator.SetBool("Is9MM", false);
