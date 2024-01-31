@@ -147,24 +147,26 @@ public class interactableObject : MonoBehaviour {
         gameManager.instance.isAmmo = true;
 
 
-        GunSettings selectedGun = gameManager.instance.playerGunControls.gunList[gameManager.instance.playerGunControls.selectedGun];
-        int maxAmmo = selectedGun.MaxGunAmmo;
+        
 
-        if (selectedGun.PlayerTotalAmmo < maxAmmo)
+        foreach (GunSettings gun in gameManager.instance.playerGunControls.gunList)
         {
-            StartCoroutine(openBox());
-            selectedGun.PlayerTotalAmmo = maxAmmo;
+            if (gun.PlayerTotalAmmo < gun.MaxGunAmmo)
+            {
+                StartCoroutine(openBox());
+                gun.PlayerTotalAmmo = gun.MaxGunAmmo;
 
 
-            gameManager.instance.maxText.text = $"Max Ammo Given for {selectedGun.GunName}";
-            gameManager.instance.runText();
+                gameManager.instance.maxText.text = $"Max Ammo";
+                gameManager.instance.runText();
+            }
+            else if (gun.PlayerTotalAmmo == gun.MaxGunAmmo)
+            {
+                gameManager.instance.maxItems();
+            }
+            gameManager.instance.isAmmo = false;
+            gameManager.instance.playerGunControls.UpdatePlayerUI();
         }
-        else if (selectedGun.PlayerTotalAmmo == maxAmmo)
-        {
-            gameManager.instance.maxItems();
-        }
-        gameManager.instance.isAmmo = false;
-        gameManager.instance.playerGunControls.UpdatePlayerUI();
     }
 
 
