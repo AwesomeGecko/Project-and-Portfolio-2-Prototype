@@ -62,20 +62,33 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
     //Gun logic
     private float initialSpeed;
     private bool isDead = false;
-
+    private PlayerGunControls playerGunControls;
+    private Animator gunAnim;
     // Start is called before the first frame update
     void Start()
     {
+        gunAnim = gameManager.instance.playerGunControls.gunHolder.GetComponent<Animator>();
         crouchCameraDist = new Vector3(0, crouchDist / 2, 0);
         HPOriginal = HP;
         StaminaOrig = Stamina;
         initialSpeed = playerSpeed;
+        
+        playerGunControls = GetComponent<PlayerGunControls>();
+
+        
         playerRespawn();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetButtonUp("AimDownSight"))
+        {
+            playerGunControls.isAiming = false;
+            gunAnim.SetTrigger("NotAiming");
+            playerGunControls.NotAimingDownSight();
+        }
+
         Movement();
         if(HP <= lowHP && !isLowHealth)
         {
@@ -314,6 +327,7 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
         if (HP <= 0)
         {
             isDead = true;
+            
             // CR
             StartCoroutine(PlayerDiesAndLoses());
             //gameManager.instance.youLose();
@@ -335,7 +349,7 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
         isDead = false;
         HP = HPOriginal;
         UpdatePlayerUI();
-
+        
         controller.enabled = false;
 
         //if (gameManager.instance.playerStats.Chapter == 0)

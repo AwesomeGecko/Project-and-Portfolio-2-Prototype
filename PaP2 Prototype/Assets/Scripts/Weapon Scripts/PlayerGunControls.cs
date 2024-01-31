@@ -12,7 +12,7 @@ public class PlayerGunControls : MonoBehaviour
     [SerializeField] Transform BackPack;
     [SerializeField] float shootRate;
     [SerializeField] int PlayerBulletDamage;
-
+    [SerializeField] public GameObject gunHolder;
     [SerializeField] int PlayerBulletSpeed;
     [SerializeField] public int ammoCounter;
     [SerializeField] public int maxAmmo;
@@ -33,7 +33,7 @@ public class PlayerGunControls : MonoBehaviour
     private GameObject gunPrefab;
     private ParticleSystem MuzzleFlash;
     private Animator animator;
-   
+    
     public bool IsIdle;
     public Bullet BulletPrefab;
    
@@ -46,7 +46,7 @@ public class PlayerGunControls : MonoBehaviour
     GunAnimations GunAnimations;
     private bool IsAutoFiring;
     private int BackPackGun;
-
+    private Animator GunAimAnimator;
     void Start()
     {
         //Default field of view for the player
@@ -58,7 +58,7 @@ public class PlayerGunControls : MonoBehaviour
         ammoCounter = gameManagerAmmo;
 
         BulletPool = GetComponent<BulletPool>();
-
+        GunAimAnimator = gunHolder.GetComponent<Animator>();
         
     }
 
@@ -76,9 +76,18 @@ public class PlayerGunControls : MonoBehaviour
 
                 selectGun();
 
-                if (Input.GetButtonDown("AimDownSight"))
+                if (Input.GetButtonDown("AimDownSight") && !isAiming)
                 {
-                    ToggleAimDownSights();
+                    isAiming = true;
+                    GunAimAnimator.SetTrigger("Aiming");
+                    AimDownSights();     
+                }
+
+                if (Input.GetButtonUp("AimDownSight"))
+                {
+                    isAiming = false;
+                    GunAimAnimator.SetTrigger("NotAiming");
+                    NotAimingDownSight();
                 }
 
                 if (Input.GetButtonDown("Reload") && !isShooting && !IsReloading && !isAiming)
@@ -172,15 +181,15 @@ public class PlayerGunControls : MonoBehaviour
 
     }
 
-    public void ToggleAimDownSights()
+    public void AimDownSights()
     {
-        isAiming = !isAiming;
+        
         GunSettings currentGun = gunList[selectedGun];
 
        
         //Adjust the camera properties
-        if (isAiming)
-        {
+        
+        
             
 
             //Deactivate the main crosshairs
@@ -218,48 +227,58 @@ public class PlayerGunControls : MonoBehaviour
                 //Adjust the scope cameras FOV
                 Camera.main.fieldOfView = currentGun.fieldOfView;
             }
-            else
-            {
-                
-                //Deactivate the Scope image
-                gameManager.instance.Scope.gameObject.SetActive(false);
+            
 
-                //Cull the gun back onto screen
-                scopeIn.cullingMask = scopeIn.cullingMask | (1 << 7);
-                //Adjust the main cameras FOV
-                Camera.main.fieldOfView = currentGun.fieldOfView;                
-            }         
-        }
-        else
-        {
-
-            gunLocation.transform.localPosition = Vector3.zero;
-
-            currentGun.model.transform.localPosition = currentGun.defaultGunPositionOffset;
-            currentGun.model.transform.localRotation = currentGun.defaultRotation;
-
-            //Enable the main crosshairs
-            gameManager.instance.Crosshair.gameObject.SetActive(true);
-
-            //Disable the scope camera
-            gameManager.instance.Scope.gameObject.SetActive(false);
-
-            //Disable the shotgun sight
-            gameManager.instance.ShotgunSight.gameObject.SetActive(false);
-
-            //Disable the Assualt rifle sight
-            gameManager.instance.AssaultRifleSight.gameObject.SetActive(false);
-            //Disable the AK Rifle Sight
-
-            gameManager.instance.AKSight.gameObject.SetActive(false);
-
-            //Cull the gun onto screen
-            scopeIn.cullingMask = scopeIn.cullingMask | (1 << 7);
-
-            //Re-enable the main camera and set it to the default value
-            Camera.main.fieldOfView = defaultFOV;
-        }
         
+    }
+
+    public void NotAimingDownSight()
+    {
+        isAiming = false;
+        GunSettings currentGun = gunList[selectedGun];
+
+
+
+        //Deactivate the Scope image
+        gameManager.instance.Scope.gameObject.SetActive(false);
+
+        //Cull the gun back onto screen
+        scopeIn.cullingMask = scopeIn.cullingMask | (1 << 7);
+        //Adjust the main cameras FOV
+        Camera.main.fieldOfView = currentGun.fieldOfView;
+
+
+
+
+
+
+        gunLocation.transform.localPosition = Vector3.zero;
+
+        currentGun.model.transform.localPosition = currentGun.defaultGunPositionOffset;
+        currentGun.model.transform.localRotation = currentGun.defaultRotation;
+
+        //Enable the main crosshairs
+        gameManager.instance.Crosshair.gameObject.SetActive(true);
+
+        //Disable the scope camera
+        gameManager.instance.Scope.gameObject.SetActive(false);
+
+        //Disable the shotgun sight
+        gameManager.instance.ShotgunSight.gameObject.SetActive(false);
+
+        //Disable the Assualt rifle sight
+        gameManager.instance.AssaultRifleSight.gameObject.SetActive(false);
+        //Disable the AK Rifle Sight
+
+        gameManager.instance.AKSight.gameObject.SetActive(false);
+
+        //Cull the gun onto screen
+        scopeIn.cullingMask = scopeIn.cullingMask | (1 << 7);
+
+        //Re-enable the main camera and set it to the default value
+        Camera.main.fieldOfView = defaultFOV;
+
+
     }
 
     //This method simply calls the UI image of the scope and sets it to true
