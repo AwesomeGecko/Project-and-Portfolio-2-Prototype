@@ -51,6 +51,7 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
     float slideMod;
     bool isLowHealth;
     bool isLanded = false;
+    
 
     [Header("Gameplay Info")]
     public int HPOriginal;
@@ -62,7 +63,7 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
 
     //Gun logic
     private float initialSpeed;
-    private bool isDead = false;
+    public bool isDead = false;
     private PlayerGunControls playerGunControls;
     private Animator gunAnim;
     // Start is called before the first frame update
