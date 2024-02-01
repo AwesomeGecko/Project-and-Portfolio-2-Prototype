@@ -44,6 +44,7 @@ public class gameManager : MonoBehaviour, IDataPersistence
     private float intensity;
     private PostProcessVolume volume;
     Vignette vignette;
+    public bool isMelee = false;
 
     [Header("UI")]
     [SerializeField] public Image playerHPBar;

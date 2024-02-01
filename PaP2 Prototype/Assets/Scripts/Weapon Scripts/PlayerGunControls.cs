@@ -69,7 +69,7 @@ public class PlayerGunControls : MonoBehaviour
         {
             if (gunList.Count > 0)
             {
-                if (Input.GetButton("Fire1") && !isShooting && !IsReloading)
+                if (Input.GetButton("Fire1") && !isShooting && !IsReloading && !gameManager.instance.isMelee)
                 {
                     StartCoroutine(Shoot());
                 }
@@ -78,8 +78,11 @@ public class PlayerGunControls : MonoBehaviour
 
                 if (Input.GetButtonDown("AimDownSight") && !isAiming)
                 {
-                    isAiming = true;
-                    GunAimAnimator.SetTrigger("Aiming");
+                    if(!gameManager.instance.isMelee)
+                    {
+                        isAiming = true;
+                        GunAimAnimator.SetTrigger("Aiming");
+                    }
                     //AimDownSights();
                         
                 }

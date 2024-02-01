@@ -46,6 +46,7 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
     private Vector3 crouchCameraDist;
     bool isPlayingSteps;
     Quaternion initialRotation;
+    bool isCrouching;
     bool isSliding;
     float slideMod;
     bool isLowHealth;
@@ -72,10 +73,10 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
         HPOriginal = HP;
         StaminaOrig = Stamina;
         initialSpeed = playerSpeed;
-        
+
         playerGunControls = GetComponent<PlayerGunControls>();
 
-        
+
         playerRespawn();
     }
 
@@ -86,13 +87,13 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
         {
             playerGunControls.isAiming = false;
             gunAnim.SetTrigger("NotAiming");
-            
+
         }
 
         Movement();
-        if(HP <= lowHP && !isLowHealth)
+        if (HP <= lowHP && !isLowHealth)
         {
-           StartCoroutine(PlayHeartbeat());
+            StartCoroutine(PlayHeartbeat());
         }
     }
 
@@ -152,7 +153,7 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
             playerVelocity.y = jumpHeight;
             jumpCount++;
             isLanded = false;
-            if(playerJump != null)
+            if (playerJump != null)
             {
                 aud.PlayOneShot(playerJump);
             }
@@ -171,7 +172,7 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
     {
         isPlayingSteps = true;
         aud.PlayOneShot(soundSteps[UnityEngine.Random.Range(0, soundSteps.Length - 1)], soundStepsVol);
-        if(!isRunning)
+        if (!isRunning)
         {
             yield return new WaitForSeconds(0.5f);
         }
@@ -195,6 +196,8 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
         {
             if (Input.GetButtonDown("Crouch"))
             {
+                isCrouching = true;
+                Debug.Log(isCrouching);
                 controller.height -= crouchDist;
                 playerSpeed = crouchSpeed;
                 Camera.main.transform.localPosition -= crouchCameraDist;
@@ -204,6 +207,8 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
             }
             else if (Input.GetButtonUp("Crouch"))
             {
+                isCrouching = false;
+                Debug.Log(isCrouching);
                 controller.height += crouchDist;
                 playerSpeed = initialSpeed;
                 Camera.main.transform.localPosition += crouchCameraDist;
@@ -211,18 +216,23 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
                 // CR: Reset back to original volume value
                 soundStepsVol = 0.5f;
             }
+
         }
-        
+
     }
 
     IEnumerator Slide()
     {
+
         if (Input.GetButton("Crouch"))
         {
             if (Input.GetButtonDown("Sprint"))
             {
-                slideMod = 1;
-                Stamina -= 1;
+                if (Stamina >= 1)
+                {
+                    slideMod = 1;
+                    Stamina -= 1;
+                }
             }
             if (slideMod > 0)
             {
@@ -365,6 +375,16 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
            // transform.position = gameManager.instance.Checkpoint_Alpha.transform.position;
        // }
         controller.enabled = true;
+
+        if(isCrouching && !Input.GetButton("Crouch"))
+        {
+            isCrouching = false;
+            Debug.Log(isCrouching);
+            controller.height += crouchDist;
+            playerSpeed = initialSpeed;
+            Camera.main.transform.localPosition += crouchCameraDist;
+            soundStepsVol = 0.5f;
+        }
     }
 
     public void UpdatePlayerUI()
