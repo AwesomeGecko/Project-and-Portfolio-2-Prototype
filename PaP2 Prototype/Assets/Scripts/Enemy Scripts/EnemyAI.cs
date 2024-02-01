@@ -82,6 +82,12 @@ public class EnemyAI : MonoBehaviour, IDamage
 
     void Update()
     {
+        if (gameManager.instance.playerScript.isDead)
+        {
+            PlayerInRange = false;
+            agent.stoppingDistance = 0;
+            isShooting = false;
+        }
         if (agent.isActiveAndEnabled)
         {
             float animationSpeed = agent.velocity.normalized.magnitude;
