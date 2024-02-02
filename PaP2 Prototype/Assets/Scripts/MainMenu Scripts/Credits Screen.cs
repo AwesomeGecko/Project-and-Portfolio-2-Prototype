@@ -15,7 +15,7 @@ public class CreditsScreen : MonoBehaviour
 
     public void spaceBarPressed()
     {
-        if (Input.GetButton("Jump"))
+        if (Input.GetButton("Jump") && !gameManager.instance.isPaused)
         {
             credits.speed = 2.5f;
         }

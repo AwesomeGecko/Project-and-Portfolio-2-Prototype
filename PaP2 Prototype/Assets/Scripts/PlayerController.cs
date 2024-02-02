@@ -143,8 +143,10 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
             controller.Move(move * playerSpeed * Time.deltaTime);
         }
 
-        if (Input.GetButtonDown("Jump") && jumpCount < 1)
+        if (Input.GetButtonDown("Jump") && jumpCount < 1 && !gameManager.instance.isPaused)
         {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
             playerVelocity.y = jumpHeight;
             jumpCount++;
             isLanded = false;
