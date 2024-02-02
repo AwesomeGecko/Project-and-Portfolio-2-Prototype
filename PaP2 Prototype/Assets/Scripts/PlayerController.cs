@@ -83,13 +83,7 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
 
     // Update is called once per frame
     void Update()
-    {
-        if (Input.GetButtonUp("AimDownSight"))
-        {
-            playerGunControls.isAiming = false;
-            gunAnim.SetTrigger("NotAiming");
-
-        }
+    {    
 
         Movement();
         if (HP <= lowHP && !isLowHealth)
@@ -342,7 +336,7 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
         if (HP <= 0)
         {
             isDead = true;
-            
+           
             // CR
             StartCoroutine(PlayerDiesAndLoses());
             //gameManager.instance.youLose();
@@ -366,10 +360,11 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
         UpdatePlayerUI();
         
         controller.enabled = false;
-
+        playerGunControls.isAiming = false;
+        gunAnim.SetTrigger("NotAiming");
         //if (gameManager.instance.playerStats.Chapter == 0)
         //{
-            transform.position = gameManager.instance.playerSpawnPos.transform.position;
+        transform.position = gameManager.instance.playerSpawnPos.transform.position;
        // }
        // else 
        // {
