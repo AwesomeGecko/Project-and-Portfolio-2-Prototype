@@ -32,35 +32,40 @@ public class AudioControls : MonoBehaviour
     public float musicVolume;
     public float sfxVol;
     public float sfxVolume;
-    public int muteBoolAsInt;
     public bool hasVol;
-    public int hasVolBoolAsInt;
 
     private void Start()
     {
+        LoadSliders();
         LoadVolume();
         mainSlider.onValueChanged.AddListener(setMainVolume);
         musicSlider.onValueChanged.AddListener(setMusicVolume);
         sfxSlider.onValueChanged.AddListener(setSFXVolume);
-        LoadSliders();
-        //loads with no volume? set the UI to mute
-        if (hasVol == false)
+        //Debug.Log($"am i muted? (Loaded) {isMuted}");
+        if (isMuted)
         {
-            //if no volume and is muted set the correct sprite
-            if (isMuted == true)
-            {
-                image.sprite = Muted;
-            }
+            AudioMuted();
+            image.sprite = Muted;
+            isMuted = true;
+            SaveBool();
+            SaveVolume();
+            //Debug.Log("Muted");
         }
-        else if(hasVol == true)
+        else
         {
             image.sprite = Unmuted;
+            LoadVolume();
+            isMuted = false;
+            SaveBool();
+            //Debug.Log("Unmuted");
         }
     }
     public void OnDisable()
     {
         SaveVolume();
+        //Debug.Log($"am i muted? (Saved) {isMuted}");
     }
+
 
 
     #region SetVolume
@@ -74,8 +79,7 @@ public class AudioControls : MonoBehaviour
         audioMixer.SetFloat("SFX", Mathf.Log10(sfxVol) * 20);
 
         //Mute area
-        isMuted = LoadBool("IsMuted");
-        hasVol = LoadBool("HasVolume");
+        isMuted = (PlayerPrefs.GetInt("IsMuted") != 0);
         SaveVolume();
     }
 
@@ -92,6 +96,7 @@ public class AudioControls : MonoBehaviour
         PlayerPrefs.SetFloat("mainVolume", mainSlider.value);
         PlayerPrefs.SetFloat("musicVolume", musicSlider.value);
         PlayerPrefs.SetFloat("sfxVolume", sfxSlider.value);
+        SaveBool();
         PlayerPrefs.Save();
     }
 
@@ -112,10 +117,10 @@ public class AudioControls : MonoBehaviour
         AdjustObjectSounds();
     }
 
-    public void SaveBool(string key, bool value)
+    public void SaveBool()
     { 
-        int intValue = value ? 1 : 0;
-        PlayerPrefs.SetInt(key, intValue);
+        PlayerPrefs.SetInt("IsMuted", (isMuted ? 1 : 0));
+        isMuted = (PlayerPrefs.GetInt("IsMuted") != 0);
         PlayerPrefs.Save();
     }
 
@@ -133,26 +138,33 @@ public class AudioControls : MonoBehaviour
         audioMixer.SetFloat("SFX", Mathf.Log10(0.0001f) * 20);
     }
 
+    public void MutedSound()
+    {
+        AudioMuted();
+        image.sprite = Muted;
+        isMuted = true;
+        SaveBool();
+        SaveVolume();
+    }
+    public void UnmutedSound()
+    {
+        image.sprite = Unmuted;
+        LoadVolume();
+        isMuted = false;
+        hasVol = true;
+        SaveBool();
+    }
+
     public void muteSounds()
     {
+        //Debug.Log("Clicked");
         if (!isMuted)
         {
-            SaveVolume();
-            AudioMuted();
-            image.sprite = Muted;
-            isMuted = true;
-            hasVol = false;
-            SaveBool("IsMuted", true);
-            SaveBool("HasVolume", false);
+            MutedSound();
         }
         else if (isMuted)
         {
-            image.sprite = Unmuted;
-            LoadVolume();
-            isMuted = false;
-            hasVol = true;
-            SaveBool("IsMuted", false);
-            SaveBool("HasVolume", true);
+            UnmutedSound();
         }
     }
 
