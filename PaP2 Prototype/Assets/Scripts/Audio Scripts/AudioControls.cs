@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
 using System;
+using UnityEngine.SceneManagement;
 
 public class AudioControls : MonoBehaviour
 {
@@ -41,7 +42,6 @@ public class AudioControls : MonoBehaviour
         mainSlider.onValueChanged.AddListener(setMainVolume);
         musicSlider.onValueChanged.AddListener(setMusicVolume);
         sfxSlider.onValueChanged.AddListener(setSFXVolume);
-        //Debug.Log($"am i muted? (Loaded) {isMuted}");
         if (isMuted)
         {
             AudioMuted();
@@ -49,7 +49,6 @@ public class AudioControls : MonoBehaviour
             isMuted = true;
             SaveBool();
             SaveVolume();
-            //Debug.Log("Muted");
         }
         else
         {
@@ -57,13 +56,11 @@ public class AudioControls : MonoBehaviour
             LoadVolume();
             isMuted = false;
             SaveBool();
-            //Debug.Log("Unmuted");
         }
     }
     public void OnDisable()
     {
         SaveVolume();
-        //Debug.Log($"am i muted? (Saved) {isMuted}");
     }
 
 
@@ -104,16 +101,19 @@ public class AudioControls : MonoBehaviour
     public void setMainVolume(float value)
     {
         audioMixer.SetFloat("Main", Mathf.Log10(value) * 20);
+        UnmutedSound();
     }
 
     public void setMusicVolume(float value)
     {
         audioMixer.SetFloat("Music", Mathf.Log10(value) * 20);
+        UnmutedSound();
     }
 
     public void setSFXVolume(float value)
     {
         audioMixer.SetFloat("SFX", Mathf.Log10(value) * 20);
+        UnmutedSound();
         AdjustObjectSounds();
     }
 
@@ -133,6 +133,9 @@ public class AudioControls : MonoBehaviour
 
     public void AudioMuted()
     {
+        musicSlider.interactable = false;
+        mainSlider.interactable = false;
+        sfxSlider.interactable = false;
         audioMixer.SetFloat("Main", Mathf.Log10(0.0001f) * 20);
         audioMixer.SetFloat("Music", Mathf.Log10(0.0001f) * 20);
         audioMixer.SetFloat("SFX", Mathf.Log10(0.0001f) * 20);
@@ -149,6 +152,9 @@ public class AudioControls : MonoBehaviour
     public void UnmutedSound()
     {
         image.sprite = Unmuted;
+        musicSlider.interactable = true;
+        mainSlider.interactable = true;
+        sfxSlider.interactable = true;
         LoadVolume();
         isMuted = false;
         hasVol = true;
@@ -157,7 +163,6 @@ public class AudioControls : MonoBehaviour
 
     public void muteSounds()
     {
-        //Debug.Log("Clicked");
         if (!isMuted)
         {
             MutedSound();

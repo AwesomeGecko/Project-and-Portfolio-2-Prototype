@@ -34,10 +34,6 @@ public class menuManager : MonoBehaviour, IDataPersistence
     [SerializeField] public AudioSource aud;
     public AudioClip mainSound;
 
-    [Header("-----Mute Images-----")]
-    [SerializeField] Sprite Mute;
-    [SerializeField] Sprite UnMute;
-    [SerializeField] Image image;
 
     public bool isMuted;
     public int Level;
@@ -62,16 +58,6 @@ public class menuManager : MonoBehaviour, IDataPersistence
             menuActive.SetActive(true);
         }
 
-        if (!isMuted)
-        {
-            image.sprite = UnMute;
-            isMuted = false;
-        }
-        else
-        {
-            image.sprite = Mute;
-            isMuted = true;
-        }
     }
 
     // Update is called once per frame
@@ -84,6 +70,11 @@ public class menuManager : MonoBehaviour, IDataPersistence
         }
         RenderSettings.skybox.SetFloat("_Rotation", Time.time * SkyBoxSpeed);
         
+    }
+
+    public void OnDisable()
+    {
+        RenderSettings.skybox.SetFloat("_Rotation",0);
     }
 
     //public void muteSounds()
