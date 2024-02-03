@@ -33,7 +33,7 @@ public class GameData
     {
         playerPosition = Vector3.zero;
         level = 0;
-        Health = 30;
+        Health = 40;
         //Stamina = 10;
         playerSpeed = 10;
         jumpHeight = 7.5f;

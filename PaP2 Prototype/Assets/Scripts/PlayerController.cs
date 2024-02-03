@@ -69,16 +69,18 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
     // Start is called before the first frame update
     void Start()
     {
+        HPOriginal = 40;
         gunAnim = gameManager.instance.playerGunControls.gunHolder.GetComponent<Animator>();
         crouchCameraDist = new Vector3(0, crouchDist / 2, 0);
-        HPOriginal = HP;
         StaminaOrig = Stamina;
         initialSpeed = playerSpeed;
 
         playerGunControls = GetComponent<PlayerGunControls>();
+        controller.enabled = false;
+        transform.position = gameManager.instance.playerSpawnPos.transform.position;
+        controller.enabled = true;
 
-
-        playerRespawn();
+        //playerRespawn();
     }
 
     // Update is called once per frame
@@ -96,7 +98,14 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
     {
         SavedHP = data.Health;
         //Stamina = data.Stamina;
-        HP = SavedHP;
+        if(SavedHP > 0)
+        {
+            HP = SavedHP;
+        }
+        else
+        {
+            HP = 40;
+        }
     }
 
     public void SaveData(GameData data)
