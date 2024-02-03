@@ -371,8 +371,6 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
         UpdatePlayerUI();
         
         controller.enabled = false;
-        playerGunControls.isAiming = false;
-        gunAnim.SetTrigger("NotAiming");
         //if (gameManager.instance.playerStats.Chapter == 0)
         //{
         transform.position = gameManager.instance.playerSpawnPos.transform.position;
@@ -383,7 +381,9 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
        // }
         controller.enabled = true;
 
-        if(isCrouching && !Input.GetButton("Crouch"))
+        
+        gunAnim.Play("Idle");
+        if (isCrouching && !Input.GetButton("Crouch"))
         {
             isCrouching = false;
             Debug.Log(isCrouching);
