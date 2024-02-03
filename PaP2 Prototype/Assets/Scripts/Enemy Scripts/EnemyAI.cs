@@ -82,6 +82,12 @@ public class EnemyAI : MonoBehaviour, IDamage
 
     void Update()
     {
+        if (gameManager.instance.playerScript.isDead)
+        {
+            PlayerInRange = false;
+            agent.stoppingDistance = 0;
+            isShooting = false;
+        }
         if (agent.isActiveAndEnabled)
         {
             float animationSpeed = agent.velocity.normalized.magnitude;
@@ -140,7 +146,7 @@ public class EnemyAI : MonoBehaviour, IDamage
         {
             if (hit.collider.CompareTag("Player") && angleToPlayer <= viewCone)
             {
-                //agent.SetDestination(gameManager.instance.player.transform.position);
+                agent.SetDestination(gameManager.instance.player.transform.position);
 
 
                     if (!isShooting)
@@ -207,10 +213,10 @@ public class EnemyAI : MonoBehaviour, IDamage
             
             isShooting = false;
             aud.PlayOneShot(hitSound, hitSoundVol);
-            anim.SetTrigger("Damage");
+           // anim.SetTrigger("Damage");
             destinationChosen = false;
             agent.SetDestination(gameManager.instance.player.transform.position);
-            agent.stoppingDistance = stoppingDistanceOrig;
+     
         }
     }
 

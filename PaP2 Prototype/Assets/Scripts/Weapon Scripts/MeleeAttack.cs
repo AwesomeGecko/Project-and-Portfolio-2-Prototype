@@ -15,10 +15,14 @@ public class MeleeAttack : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetButtonDown("Melee"))
+        if(!gameManager.instance.playerGunControls.isAiming)
         {
-            anim.speed = 1.5f;
-            anim.Play("MeleeAttack");
+            if (Input.GetButtonDown("Melee"))
+            {
+                gameManager.instance.isMelee = true;
+                anim.speed = 1.5f;
+                anim.Play("MeleeAttack");
+            }
         }
 
         
@@ -36,6 +40,7 @@ public class MeleeAttack : MonoBehaviour
 
     public void SetToIdle()
     {
-        anim.Play("New State");
+        anim.Play("Idle");
+        gameManager.instance.isMelee = false;
     }
 }

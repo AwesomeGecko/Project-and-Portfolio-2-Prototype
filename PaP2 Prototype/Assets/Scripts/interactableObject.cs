@@ -144,38 +144,31 @@ public class interactableObject : MonoBehaviour {
 
     void ammoBox()
     {
-       
         gameManager.instance.isAmmo = true;
-        int bulletsNeeded = gameManager.instance.playerGunControls.gunList[gameManager.instance.playerGunControls.selectedGun].MagSize - gameManager.instance.playerGunControls.gunList[gameManager.instance.playerGunControls.selectedGun].PlayerTotalAmmo;
 
-        //if current ammo is less than max
-        if (gameManager.instance.playerGunControls.gunList[gameManager.instance.playerGunControls.selectedGun].PlayerTotalAmmo < gameManager.instance.playerGunControls.gunList[gameManager.instance.playerGunControls.selectedGun].MaxGunAmmo)
+
+        
+
+        foreach (GunSettings gun in gameManager.instance.playerGunControls.gunList)
         {
-            StartCoroutine(openBox());
-            if (gameManager.instance.playerGunControls.gunList[gameManager.instance.playerGunControls.selectedGun].PlayerTotalAmmo + ammoAmount > gameManager.instance.playerGunControls.gunList[gameManager.instance.playerGunControls.selectedGun].MaxGunAmmo)
+            if (gun.PlayerTotalAmmo < gun.MaxGunAmmo)
             {
-                //Add the amount needed to the gun and none over ex: magSize = 10 ammoAmmount = 25
-                //subtracts magSize from totalAmmo to give propper refill
-                ammoAmount = bulletsNeeded;
-                gameManager.instance.playerGunControls.gunList[gameManager.instance.playerGunControls.selectedGun].PlayerTotalAmmo += ammoAmount;
-                gameManager.instance.maxText.text = $"Ammo Given {ammoAmount}";
-                ammoAmount = ammoReset;
+                StartCoroutine(openBox());
+                gun.PlayerTotalAmmo = gun.MaxGunAmmo;
+
+
+                gameManager.instance.maxText.text = $"Max Ammo";
+                gameManager.instance.runText();
             }
-            else 
+            else if (gun.PlayerTotalAmmo == gun.MaxGunAmmo)
             {
-                //Add the amount of ammo directly to the specific gun magazine
-                gameManager.instance.playerGunControls.gunList[gameManager.instance.playerGunControls.selectedGun].PlayerTotalAmmo += ammoAmount;
-                gameManager.instance.maxText.text = $"Ammo Given {ammoAmount}";
+                gameManager.instance.maxItems();
             }
-            gameManager.instance.runText();
+            gameManager.instance.isAmmo = false;
+            gameManager.instance.playerGunControls.UpdatePlayerUI();
         }
-        else
-        {
-            gameManager.instance.maxItems();
-        }
-        gameManager.instance.isAmmo = false;
-        gameManager.instance.playerGunControls.UpdatePlayerUI();
     }
+
 
     void healthBox()
     {

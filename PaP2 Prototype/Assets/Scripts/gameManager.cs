@@ -44,6 +44,7 @@ public class gameManager : MonoBehaviour, IDataPersistence
     private float intensity;
     private PostProcessVolume volume;
     Vignette vignette;
+    public bool isMelee = false;
 
     [Header("UI")]
     [SerializeField] public Image playerHPBar;
@@ -197,6 +198,7 @@ public class gameManager : MonoBehaviour, IDataPersistence
         Cursor.visible = true;
         //optional \/\/\/
         Cursor.lockState = CursorLockMode.Confined;
+        playerScript.enabled = false;
     }
 
     public void stateStillPaused()
@@ -216,6 +218,7 @@ public class gameManager : MonoBehaviour, IDataPersistence
         Cursor.lockState = CursorLockMode.Locked;
         menuActive.SetActive(false);
         menuActive = null;
+        playerScript.enabled = true;
     }
 
     public void updateGameGoal(int amount)

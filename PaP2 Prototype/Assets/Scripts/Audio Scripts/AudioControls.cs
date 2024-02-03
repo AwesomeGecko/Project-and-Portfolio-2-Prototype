@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
 using System;
+using UnityEngine.SceneManagement;
 
 public class AudioControls : MonoBehaviour
 {
@@ -32,35 +33,36 @@ public class AudioControls : MonoBehaviour
     public float musicVolume;
     public float sfxVol;
     public float sfxVolume;
-    public int muteBoolAsInt;
     public bool hasVol;
-    public int hasVolBoolAsInt;
 
     private void Start()
     {
+        LoadSliders();
         LoadVolume();
         mainSlider.onValueChanged.AddListener(setMainVolume);
         musicSlider.onValueChanged.AddListener(setMusicVolume);
         sfxSlider.onValueChanged.AddListener(setSFXVolume);
-        LoadSliders();
-        //loads with no volume? set the UI to mute
-        if (hasVol == false)
+        if (isMuted)
         {
-            //if no volume and is muted set the correct sprite
-            if (isMuted == true)
-            {
-                image.sprite = Muted;
-            }
+            AudioMuted();
+            image.sprite = Muted;
+            isMuted = true;
+            SaveBool();
+            SaveVolume();
         }
-        else if(hasVol == true)
+        else
         {
             image.sprite = Unmuted;
+            LoadVolume();
+            isMuted = false;
+            SaveBool();
         }
     }
     public void OnDisable()
     {
         SaveVolume();
     }
+
 
 
     #region SetVolume
@@ -74,8 +76,7 @@ public class AudioControls : MonoBehaviour
         audioMixer.SetFloat("SFX", Mathf.Log10(sfxVol) * 20);
 
         //Mute area
-        isMuted = LoadBool("IsMuted");
-        hasVol = LoadBool("HasVolume");
+        isMuted = (PlayerPrefs.GetInt("IsMuted") != 0);
         SaveVolume();
     }
 
@@ -92,6 +93,7 @@ public class AudioControls : MonoBehaviour
         PlayerPrefs.SetFloat("mainVolume", mainSlider.value);
         PlayerPrefs.SetFloat("musicVolume", musicSlider.value);
         PlayerPrefs.SetFloat("sfxVolume", sfxSlider.value);
+        SaveBool();
         PlayerPrefs.Save();
     }
 
@@ -99,23 +101,26 @@ public class AudioControls : MonoBehaviour
     public void setMainVolume(float value)
     {
         audioMixer.SetFloat("Main", Mathf.Log10(value) * 20);
+        UnmutedSound();
     }
 
     public void setMusicVolume(float value)
     {
         audioMixer.SetFloat("Music", Mathf.Log10(value) * 20);
+        UnmutedSound();
     }
 
     public void setSFXVolume(float value)
     {
         audioMixer.SetFloat("SFX", Mathf.Log10(value) * 20);
+        UnmutedSound();
         AdjustObjectSounds();
     }
 
-    public void SaveBool(string key, bool value)
+    public void SaveBool()
     { 
-        int intValue = value ? 1 : 0;
-        PlayerPrefs.SetInt(key, intValue);
+        PlayerPrefs.SetInt("IsMuted", (isMuted ? 1 : 0));
+        isMuted = (PlayerPrefs.GetInt("IsMuted") != 0);
         PlayerPrefs.Save();
     }
 
@@ -128,31 +133,43 @@ public class AudioControls : MonoBehaviour
 
     public void AudioMuted()
     {
+        musicSlider.interactable = false;
+        mainSlider.interactable = false;
+        sfxSlider.interactable = false;
         audioMixer.SetFloat("Main", Mathf.Log10(0.0001f) * 20);
         audioMixer.SetFloat("Music", Mathf.Log10(0.0001f) * 20);
         audioMixer.SetFloat("SFX", Mathf.Log10(0.0001f) * 20);
+    }
+
+    public void MutedSound()
+    {
+        AudioMuted();
+        image.sprite = Muted;
+        isMuted = true;
+        SaveBool();
+        SaveVolume();
+    }
+    public void UnmutedSound()
+    {
+        image.sprite = Unmuted;
+        musicSlider.interactable = true;
+        mainSlider.interactable = true;
+        sfxSlider.interactable = true;
+        LoadVolume();
+        isMuted = false;
+        hasVol = true;
+        SaveBool();
     }
 
     public void muteSounds()
     {
         if (!isMuted)
         {
-            SaveVolume();
-            AudioMuted();
-            image.sprite = Muted;
-            isMuted = true;
-            hasVol = false;
-            SaveBool("IsMuted", true);
-            SaveBool("HasVolume", false);
+            MutedSound();
         }
         else if (isMuted)
         {
-            image.sprite = Unmuted;
-            LoadVolume();
-            isMuted = false;
-            hasVol = true;
-            SaveBool("IsMuted", false);
-            SaveBool("HasVolume", true);
+            UnmutedSound();
         }
     }
 

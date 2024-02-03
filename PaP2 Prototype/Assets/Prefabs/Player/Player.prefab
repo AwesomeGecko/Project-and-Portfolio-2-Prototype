@@ -168,7 +168,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2032022834073519530}
-  - component: {fileID: 5898882285470728892}
   - component: {fileID: 7044424728797932498}
   - component: {fileID: 681734634721804330}
   - component: {fileID: 5190971063148889619}
@@ -202,19 +201,6 @@ Transform:
   - {fileID: 75261105650284465}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5898882285470728892
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2983655738157960448}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30afab3de013cd24ab61310c1a42e987, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gunHolder: {fileID: 8026255326278237917}
 --- !u!114 &7044424728797932498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,6 +218,7 @@ MonoBehaviour:
   BackPack: {fileID: 75261105650284465}
   shootRate: 0
   PlayerBulletDamage: 0
+  gunHolder: {fileID: 8026255326278237917}
   PlayerBulletSpeed: 0
   ammoCounter: 0
   maxAmmo: 0
@@ -293,12 +280,13 @@ MonoBehaviour:
   lowHealth: {fileID: 8300000, guid: 2ac6c415babd8464fb3c0d150bfbb3c1, type: 3}
   staminaRestore: {fileID: 8300000, guid: c89d51e960bc6b14d8dfe5ad4f8ccd9b, type: 3}
   staminaRestoreVol: 0.15
-  playerJump: {fileID: 0}
-  playerLand: {fileID: 0}
-  playerLandVol: 0
+  playerJump: {fileID: 8300000, guid: f5033804d63f795469570849b29ef405, type: 3}
+  playerLand: {fileID: 8300000, guid: 10e4ce33fbbd4a142acc7f591cb0e8be, type: 3}
+  playerLandVol: 1
   HPOriginal: 0
   staminaRunCost: 2
   staminaRestoreSpeed: 0.8
+  isDead: 0
 --- !u!143 &5190971063148889619
 CharacterController:
   m_ObjectHideFlags: 0
@@ -410,7 +398,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 6365757799108221917, guid: e5be003068f40a348b4a0174226c24de, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.5
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -928,6 +916,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 145938922686590712, guid: 56e96d7e41c56a54a987bc616f748d5e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 9010389847987616238}
+    - targetCorrespondingSourceObject: {fileID: 145938922686590712, guid: 56e96d7e41c56a54a987bc616f748d5e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6274936095730028681}
   m_SourcePrefab: {fileID: 100100000, guid: 56e96d7e41c56a54a987bc616f748d5e, type: 3}
 --- !u!4 &5533899427408522987 stripped
 Transform:
@@ -978,3 +969,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meleeHitbox: {fileID: 627652010470103733}
+--- !u!114 &6274936095730028681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8026255326278237917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30afab3de013cd24ab61310c1a42e987, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gunHolder: {fileID: 145938922686590712, guid: 56e96d7e41c56a54a987bc616f748d5e, type: 3}
