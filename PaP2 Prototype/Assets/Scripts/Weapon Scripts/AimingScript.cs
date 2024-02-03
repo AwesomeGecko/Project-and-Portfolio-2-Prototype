@@ -24,13 +24,13 @@ public class AimingScript : MonoBehaviour
 
         GunSettings currentGun = gameManager.instance.playerGunControls.gunList[gameManager.instance.playerGunControls.selectedGun];
 
-       
+        gunControl.gunLocation.transform.localPosition = currentGun.ADSGunPositionOffset;
         //Adjust the camera properties
-
+        Camera.main.fieldOfView = currentGun.fieldOfView;
         if (gunControl.isAiming)
         {
-            
 
+            
             //If the current gun wants the scope
             if (currentGun.shouldUseScope)
             {
@@ -68,7 +68,7 @@ public class AimingScript : MonoBehaviour
         {
             //Deactivate the Scope image
             gameManager.instance.Scope.gameObject.SetActive(false);
-
+            
             //Cull the gun back onto screen
             gunControl.scopeIn.cullingMask = gunControl.scopeIn.cullingMask | (1 << 7);
             //Adjust the main cameras FOV

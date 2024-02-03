@@ -20,10 +20,10 @@ MonoBehaviour:
   shootDist: 200
   PlayerBulletDamage: 4
   PlayerBulletSpeed: 4
-  AmmoInMag: 30
+  AmmoInMag: 16
   MaxGunAmmo: 120
   MagSize: 30
-  PlayerTotalAmmo: 3
+  PlayerTotalAmmo: 0
   BulletWeight: 0.1
   shootSound: {fileID: 8300000, guid: 8581f806dddef8046b4942de05b897be, type: 3}
   shootSoundVol: 0.4
@@ -40,5 +40,5 @@ MonoBehaviour:
   shotgunPelletSpread: 0
   barrelTip: {fileID: 11400000, guid: 0c16855887b490d45961bf169830992b, type: 2}
   defaultGunRotation: {x: 0, y: 0, z: 0}
-  defaultGunPositionOffset: {x: -0.0045, y: -0.0125, z: 0}
-  ADSGunPositionOffset: {x: 0, y: 0, z: 0}
+  defaultGunPositionOffset: {x: 0, y: 0, z: 0}
+  ADSGunPositionOffset: {x: -0.0055, y: -0.01, z: -0.2}
