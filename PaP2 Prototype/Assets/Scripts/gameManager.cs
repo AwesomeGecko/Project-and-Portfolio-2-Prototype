@@ -117,7 +117,7 @@ public class gameManager : MonoBehaviour, IDataPersistence
     // Start is called before the first frame update
     void Awake()
     {
-        GameObject BossCheck = GameObject.FindWithTag("Boss Spawner");
+        GameObject BossCheck = GameObject.FindWithTag("Big Robot");
 
         if (BossCheck != null)
         {

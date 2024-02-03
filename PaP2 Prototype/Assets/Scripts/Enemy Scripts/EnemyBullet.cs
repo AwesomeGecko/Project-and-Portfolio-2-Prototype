@@ -30,7 +30,7 @@ public class EnemyBullet : MonoBehaviour
 
         if (rb.CompareTag("EnemyBullet"))
         {
-            if (collision.gameObject.CompareTag("EnemyBullet"))
+            if (collision.gameObject.CompareTag("EnemyBullet") || collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Big Robot"))
             {
                 return;
             }

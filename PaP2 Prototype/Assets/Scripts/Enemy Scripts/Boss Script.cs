@@ -15,6 +15,7 @@ public class BossScript : MonoBehaviour, IDamage
 
     [SerializeField] AudioSource aud;
     [SerializeField] Collider damageCol;
+    [SerializeField] GameObject Shield;
 
 
     [Header("----- Enemy Stat -----")]
@@ -65,16 +66,24 @@ public class BossScript : MonoBehaviour, IDamage
     private bool hasReturnedToSpawn50;
     private bool hasReturnedToSpawn25;
     private bool isDead = false;
+    private int enemyCount;
 
 
+    [Header("----- Enemy Lists -----")]
+    [SerializeField] GameObject[] initialEnemies;
+    [SerializeField] GameObject[] enemiesAt75Percent;
+    [SerializeField] GameObject[] enemiesAt50Percent;
+    [SerializeField] GameObject[] enemiesAt25Percent;
     // Start is called before the first frame update
     void Start()
     {
         //gameManager.instance.updateGameGoal(1);
+        enemyCount++;
         startingHP = HP;
         startingPos = transform.position;
         stoppingDistanceOrig = agent.stoppingDistance;
-       
+        gameManager.instance.updateGameGoal(enemyCount);
+        ActivateEnemies(initialEnemies);
     }
 
 
@@ -101,13 +110,14 @@ public class BossScript : MonoBehaviour, IDamage
 
     IEnumerator ReturnToSpawnAndRecover()
     {
+        Shield.SetActive(true);
         //Debug.Log("Boss is returning to spawn");
         isReturningToSpawn = true;
 
         // Disable damage and shooting
         PlayerInRange = false;
         damageCol.enabled = false;
-        anim.ResetTrigger("Shoot");
+        anim.SetTrigger("StopShoot");
 
         //Debug.Log("Initial Position: " + startingPos);
 
@@ -120,10 +130,11 @@ public class BossScript : MonoBehaviour, IDamage
         
 
         // Wait for 5 seconds
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(15f);
 
+        Shield.SetActive(false);
         // Re-engage the player
-        
+        anim.SetTrigger("Shoot");
         PlayerInRange = true;
         agent.SetDestination(gameManager.instance.player.transform.position);
 
@@ -136,21 +147,24 @@ public class BossScript : MonoBehaviour, IDamage
     {
         if (threshold == 0.75f && !hasReturnedToSpawn75)
         {
+           
             StartCoroutine(ReturnToSpawnAndRecover());
-            hasReturnedToSpawn75 = true;            
+            hasReturnedToSpawn75 = true;
+            ActivateEnemies(enemiesAt75Percent);
         }
         else if (threshold == 0.5f && !hasReturnedToSpawn50)
         {
             
             StartCoroutine(ReturnToSpawnAndRecover());
             hasReturnedToSpawn50 = true;
+            ActivateEnemies(enemiesAt50Percent);
         }
         else if (threshold == 0.25f && !hasReturnedToSpawn25)
         {
             StartCoroutine(ReturnToSpawnAndRecover());
             hasReturnedToSpawn25 = true;
-        }
-       
+            ActivateEnemies(enemiesAt25Percent);
+        }    
     }
 
     public void OnTriggerEnter(Collider other)
@@ -300,8 +314,8 @@ public class BossScript : MonoBehaviour, IDamage
             if (HP <= 0 && damageCol.enabled == true && agent.enabled == true)
             {
                 isDead = true;
-                mySpawner.heyIDied();
-
+                enemyCount--;
+                anim.SetTrigger("StopShoot");
                 if (isShooting)
                 {
                     StopCoroutine(shoot());
@@ -374,5 +388,11 @@ public class BossScript : MonoBehaviour, IDamage
         model.material.color = Color.white;
     }
 
-    
+    void ActivateEnemies(GameObject[] enemyList)
+    {
+        foreach (GameObject enemy in enemyList)
+        {
+            enemy.SetActive(true);
+        }
+    }
 }

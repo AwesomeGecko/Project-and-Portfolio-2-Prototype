@@ -66,13 +66,16 @@ public class EnemyAI : MonoBehaviour, IDamage
     float stoppingDistanceOrig;
     public enemySpawn mySpawner;
     private bool isDead = false;
+    private bool TookDmg;
+    private bool ChasingPlayer;
+    public float notifyRadius = 25f;
 
     void Start()
     {
-       agent = GetComponent<NavMeshAgent>();         
+        agent = GetComponent<NavMeshAgent>();
 
-           startingPos = transform.position;
-           stoppingDistanceOrig = agent.stoppingDistance;
+        startingPos = transform.position;
+        stoppingDistanceOrig = agent.stoppingDistance;
 
         float animationSpeed = agent.velocity.normalized.magnitude;
         anim.SetFloat("Speed", Mathf.Lerp(anim.GetFloat("Speed"), animationSpeed, Time.deltaTime * animSpeedTrans));
@@ -87,15 +90,22 @@ public class EnemyAI : MonoBehaviour, IDamage
             PlayerInRange = false;
             agent.stoppingDistance = 0;
             isShooting = false;
+            TookDmg = false;
+            ChasingPlayer = false;
         }
         if (agent.isActiveAndEnabled)
         {
             float animationSpeed = agent.velocity.normalized.magnitude;
             anim.SetFloat("Speed", Mathf.Lerp(anim.GetFloat("Speed"), animationSpeed, Time.deltaTime * animSpeedTrans));
 
-            if (PlayerInRange && !canSeePlayer())
+            if (PlayerInRange && !canSeePlayer() && !SearchforPlayer())
             {
                 StartCoroutine(roam());
+            }
+            if (TookDmg && ChasingPlayer && !gameManager.instance.playerScript.isDead)
+            {
+
+                StartCoroutine(PlayerLocation());
             }
             else if (!PlayerInRange)
             {
@@ -104,6 +114,77 @@ public class EnemyAI : MonoBehaviour, IDamage
 
 
 
+        }
+    }
+
+    // If the enemy took damage and it does not see the player it looks for the player
+    bool SearchforPlayer()
+    {
+        if (TookDmg)
+        {
+
+            agent.SetDestination(gameManager.instance.player.transform.position);
+            return true;
+        }
+
+        return false;
+    }
+
+
+    IEnumerator PlayerLocation()
+    {
+        float SearchTime = 0f;
+        while (SearchTime < 8f)
+        {
+            SearchforPlayer();
+            SearchTime += Time.deltaTime;
+            yield return null;
+        }
+        TookDmg = false;
+        ChasingPlayer = false;
+    }
+    
+
+
+    IEnumerator AttackLocation()
+    {
+        float SearchTime = 0f;
+        while (SearchTime < 8f)
+        {
+            agent.SetDestination(gameManager.instance.player.transform.position);
+            SearchTime += Time.deltaTime;
+            yield return null;
+        }
+        TookDmg = false;
+        ChasingPlayer = false;
+    }
+
+    void NotifyNearbyEnemies()
+    {
+        Collider[] nearbyColliders = Physics.OverlapSphere(transform.position, notifyRadius);
+
+        foreach (var collider in nearbyColliders)
+        {
+            if (collider.CompareTag("Enemy") && collider.gameObject != gameObject)
+            {
+                EnemyAI nearbyEnemy = collider.GetComponent<EnemyAI>();
+                if (nearbyEnemy != null)
+                {
+                    Debug.Log("Notifying nearby enemy");
+                    nearbyEnemy.StartChasing();
+                }
+            }
+        }
+    }
+
+    public void StartChasing()
+    {
+        Debug.Log("Start Chasing");
+        StopCoroutine(roam());
+        ChasingPlayer = true;
+        if (!PlayerInRange || PlayerInRange)
+        {
+            StartCoroutine(AttackLocation());
         }
     }
 
@@ -149,16 +230,16 @@ public class EnemyAI : MonoBehaviour, IDamage
                 agent.SetDestination(gameManager.instance.player.transform.position);
 
 
-                    if (!isShooting)
-                    {
-                        StartCoroutine(shoot());
-                    }
+                if (!isShooting)
+                {
+                    StartCoroutine(shoot());
+                }
 
-                    if (agent.remainingDistance < agent.stoppingDistance)
-                    {
-                        faceTarget();
-                    }
-                
+                if (agent.remainingDistance < agent.stoppingDistance)
+                {
+                    faceTarget();
+                }
+
 
                 agent.stoppingDistance = stoppingDistanceOrig;
 
@@ -189,7 +270,7 @@ public class EnemyAI : MonoBehaviour, IDamage
     }
 
     public void takeDamage(int amount)
-    { 
+    {
         if (isDead)
             return;
 
@@ -210,13 +291,14 @@ public class EnemyAI : MonoBehaviour, IDamage
 
         else
         {
-            
+            TookDmg = true;
+            ChasingPlayer = true;
             isShooting = false;
             aud.PlayOneShot(hitSound, hitSoundVol);
-           // anim.SetTrigger("Damage");
+            // anim.SetTrigger("Damage");
             destinationChosen = false;
             agent.SetDestination(gameManager.instance.player.transform.position);
-     
+            NotifyNearbyEnemies();
         }
     }
 
