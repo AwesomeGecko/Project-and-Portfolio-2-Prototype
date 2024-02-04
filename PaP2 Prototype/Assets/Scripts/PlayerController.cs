@@ -47,14 +47,12 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
     private Vector3 crouchCameraDist;
     bool isPlayingSteps;
     Quaternion initialRotation;
-    bool isLeaning = false;
     bool isCrouching;
     bool isSliding;
     float slideMod;
     bool isLowHealth;
     bool isLanded = false;
     bool isBurning = false;
-    
 
     [Header("Gameplay Info")]
     public int HPOriginal;
@@ -273,7 +271,6 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
         //Debug.Log(isLeaning);
         if (Input.GetButtonDown("LeanLeft") && !gameManager.instance.onTarget && CanLeanLeft())
         {
-            isLeaning = true;
             initialRotation = transform.rotation;
             // Calculate the lean rotation on the local Z-axis
             Camera.main.transform.position -= Camera.main.transform.right * cameraMoveDist;
@@ -284,7 +281,6 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
         }
         if (Input.GetButtonDown("LeanRight") && !gameManager.instance.onTarget && CanLeanRight())
         {
-            isLeaning = true;
             initialRotation = transform.rotation;
             // Calculate the lean rotation on the local Z-axis
             Camera.main.transform.position += Camera.main.transform.right * cameraMoveDist;
@@ -302,7 +298,6 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
 
         if (Input.GetButtonUp("LeanLeft") || Input.GetButtonUp("LeanRight"))
         {
-            isLeaning = false;
             transform.rotation = Quaternion.Euler(0f, transform.eulerAngles.y, 0f);
             Camera.main.transform.position = transform.position + Vector3.up;
         }
