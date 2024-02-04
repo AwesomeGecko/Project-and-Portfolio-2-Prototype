@@ -110,14 +110,14 @@ public class BossScript : MonoBehaviour, IDamage
 
     IEnumerator ReturnToSpawnAndRecover()
     {
+        // Disable damage and shooting
+        anim.SetTrigger("StopShoot");
+        PlayerInRange = false;
+        damageCol.enabled = false;
         Shield.SetActive(true);
         //Debug.Log("Boss is returning to spawn");
         isReturningToSpawn = true;
 
-        // Disable damage and shooting
-        PlayerInRange = false;
-        damageCol.enabled = false;
-        anim.SetTrigger("StopShoot");
 
         //Debug.Log("Initial Position: " + startingPos);
 
