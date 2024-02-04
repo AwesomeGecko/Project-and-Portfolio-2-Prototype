@@ -179,17 +179,27 @@ public class interactableObject : MonoBehaviour {
 
     void healthBox()
     {
-        
         gameManager.instance.isHP = true;
-        if (gameManager.instance.playerScript.HP < gameManager.instance.playerScript.HPOriginal)
+        PlayerController playerScript = gameManager.instance.playerScript;
+        
+        if (playerScript.HP < playerScript.HPOriginal)
         {
             StartCoroutine(openBox());
             CountDownTimer(20);
-            gameManager.instance.playerScript.HP += healAmount;
-            gameManager.instance.maxText.text = $"Healed by {healAmount}";
+
+            int initialHealth = playerScript.HP;
+            playerScript.HP += healAmount;
+
+            if (playerScript.HP + healAmount > playerScript.HPOriginal)
+            {
+                playerScript.HP = playerScript.HPOriginal;
+            }
+                int actualHealed = Mathf.Clamp(playerScript.HP - initialHealth, 0, healAmount);
+
+            gameManager.instance.maxText.text = $"Healed by {actualHealed}";
             gameManager.instance.runText();
         }
-        else
+        else if(playerScript.HP == playerScript.HPOriginal)
         {
             gameManager.instance.maxItems();
         }
