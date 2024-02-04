@@ -18,7 +18,7 @@ MonoBehaviour:
   gunIcon: {fileID: 21300000, guid: 1de880b0722a658429bef3b0d5392ba9, type: 3}
   shootRate: 0.3
   shootDist: 1000
-  PlayerBulletDamage: 5
+  PlayerBulletDamage: 4
   PlayerBulletSpeed: 3
   AmmoInMag: 22
   MaxGunAmmo: 180

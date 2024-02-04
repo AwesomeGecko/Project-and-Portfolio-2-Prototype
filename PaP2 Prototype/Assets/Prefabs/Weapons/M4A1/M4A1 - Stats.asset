@@ -30,7 +30,7 @@ MonoBehaviour:
   reloadSound: {fileID: 8300000, guid: 0750d4716bc6e984ca12fc704bee4edb, type: 3}
   reloadSoundVol: 1
   hitEffect: {fileID: 468260622339083660, guid: f8c505478bba5bf4dbdeaa85632801a6, type: 3}
-  fieldOfView: 30
+  fieldOfView: 45
   PickupRotateSpeed: 0.4
   isdefaultPistol: 0
   shouldUseScope: 0
