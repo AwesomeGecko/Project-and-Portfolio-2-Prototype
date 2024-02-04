@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 
 public class LaserTrap : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class LaserTrap : MonoBehaviour
     [SerializeField] float movingSpeed;
 
     private bool playerInside = false;
+    Vignette vig;
 
     // Start is called before the first frame update
     void Start()
@@ -60,14 +62,30 @@ public class LaserTrap : MonoBehaviour
     private IEnumerator BurnOverTime(PlayerController HP) // Burn Damage Method
     {
         float timer = 0f;
+        HP.BurnStart();
+
+        /*
+        PostProcessVolume ppVol = HP.GetComponentInChildren<PostProcessVolume>();
+        if(ppVol != null && ppVol.profile.TryGetSettings(out vig))
+        {
+            vig.intensity.value = 0.5f;
+        }
+        */
+
         while (timer < burnOverTime && HP.HP > 0)
         {
             HP.takeDamage(burnAmt);
             yield return new WaitForSeconds(1f);
             timer += 1f;
         }
-
-        if(playerInside && HP.HP > 0)
+        HP.BurnStop();
+        /*
+        if (ppVol != null && ppVol.profile.TryGetSettings(out vig))
+        {
+            vig.intensity.value = 0.5f;
+        }
+        */
+        if (playerInside && HP.HP > 0)
         {
             StartCoroutine(BurnOverTime(HP));
         }

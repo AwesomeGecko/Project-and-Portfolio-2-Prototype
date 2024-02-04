@@ -38,6 +38,7 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
     [SerializeField] AudioClip playerJump;
     [SerializeField] AudioClip playerLand;
     [Range(0f, 1f)][SerializeField] float playerLandVol;
+    [SerializeField] AudioClip playerBurn;
 
     private Vector3 playerVelocity;
     private Vector3 move;
@@ -51,6 +52,7 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
     float slideMod;
     bool isLowHealth;
     bool isLanded = false;
+    bool isBurning = false;
     
 
     [Header("Gameplay Info")]
@@ -60,6 +62,7 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
     public float staminaRestoreSpeed;
     private bool isRunning;
     private bool isStaminaRestore;
+    ParticleSystem burningPs;
 
     //Gun logic
     private float initialSpeed;
@@ -69,6 +72,11 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
     // Start is called before the first frame update
     void Start()
     {
+        burningPs = transform.Find("Burning")?.GetComponent<ParticleSystem>();
+        if(burningPs != null )
+        {
+            burningPs.Stop();
+        }
         HPOriginal = 40;
         gunAnim = gameManager.instance.playerGunControls.gunHolder.GetComponent<Animator>();
         crouchCameraDist = new Vector3(0, crouchDist / 2, 0);
@@ -413,5 +421,34 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
             yield return new WaitForSeconds(1.0f);
         }
         isLowHealth = false;
+    }
+
+    public void BurnStart()
+    {
+        aud.PlayOneShot(playerBurn);
+        isBurning = true;
+        Transform burningPS = transform.Find("Burning");
+        if(burningPS != null)
+        {
+            ParticleSystem ps = burningPS.GetComponent<ParticleSystem>();
+            if(ps != null )
+            {
+                ps.Play();
+            }
+        }
+    }
+
+    public void BurnStop()
+    {
+        isBurning = false;
+        Transform burningPS = transform.Find("Burning");
+        if (burningPS != null)
+        {
+            ParticleSystem ps = burningPS.GetComponent<ParticleSystem>();
+            if (ps != null)
+            {
+                ps.Stop();
+            }
+        }
     }
 }
