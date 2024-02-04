@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
-//using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -12,25 +11,11 @@ public class EnemyAI : MonoBehaviour, IDamage
     [Header("----- Components -----")]
     [SerializeField] NavMeshAgent agent;
     [SerializeField] Rigidbody rb;
-    //[SerializeField] GameObject player;
     [SerializeField] Transform headPos;
     [SerializeField] Animator anim;
     [SerializeField] Renderer model;
     [SerializeField] AudioSource aud;
     [SerializeField] Collider damageCol;
-
-    //[Header("----- Behavior -----")]
-    //public LayerMask HidableLayers;
-    //public EnemyLOS LOSChecker;
-    //[Range(-1, 1)]
-    //[Tooltip("Lower is a better Hiding spot")]
-    //public float HideSensitivity = 0;
-
-    //private Coroutine MovementCoroutine;
-    //private Collider[] Colliders = new Collider[10];
-
-
-
 
     [Header("----- Enemy Stat -----")]
     [SerializeField] int HP;
@@ -49,7 +34,6 @@ public class EnemyAI : MonoBehaviour, IDamage
     [SerializeField] float shootRate;
     [SerializeField] float shootSpeed;
     public Transform enemyshootPos;
-    //public Transform enemyshootPos2;
 
     [Header("----- Audio -----")]
     [SerializeField] AudioClip hitSound;
@@ -69,9 +53,11 @@ public class EnemyAI : MonoBehaviour, IDamage
     private bool TookDmg;
     private bool ChasingPlayer;
     public float notifyRadius = 25f;
+    private int enemyCount;
 
     void Start()
     {
+        //enemyCount++;
         agent = GetComponent<NavMeshAgent>();
 
         startingPos = transform.position;
@@ -80,11 +66,12 @@ public class EnemyAI : MonoBehaviour, IDamage
         float animationSpeed = agent.velocity.normalized.magnitude;
         anim.SetFloat("Speed", Mathf.Lerp(anim.GetFloat("Speed"), animationSpeed, Time.deltaTime * animSpeedTrans));
 
-
+        //gameManager.instance.updateGameGoal(enemyCount);
     }
 
     void Update()
     {
+        //enemyCount++;
         if (gameManager.instance.playerScript.isDead)
         {
             PlayerInRange = false;
@@ -280,11 +267,13 @@ public class EnemyAI : MonoBehaviour, IDamage
         {
             isDead = true;
             mySpawner.heyIDied();
+            //enemyCount--;
             aud.PlayOneShot(deathSound, deathSoundVol);
             gameManager.instance.updateGameGoal(-1);
-            anim.SetBool("Dead", true);
             agent.enabled = false;
             damageCol.enabled = false;
+            StartCoroutine(DeactivateWait());
+            
         }
 
         else
@@ -299,6 +288,12 @@ public class EnemyAI : MonoBehaviour, IDamage
             NotifyNearbyEnemies();
         }
     }
+    IEnumerator DeactivateWait()
+    {
+        anim.SetBool("Dead", true);
+        yield return new WaitForSeconds(10);
+        gameObject.SetActive(false);
+    }
 
     public void OnTriggerEnter(Collider other)
     {
@@ -308,16 +303,15 @@ public class EnemyAI : MonoBehaviour, IDamage
         }
     }
 
-    public void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            PlayerInRange = false;
-            agent.stoppingDistance = 0;
-            isShooting = false;
-            //LOSChecker.GetComponentInChildren<Collider>().enabled = false;
-        }
-    }
+    //public void OnTriggerExit(Collider other)
+    //{
+    //    if (other.CompareTag("Player"))
+    //    {
+    //        PlayerInRange = false;
+    //        agent.stoppingDistance = 0;
+    //        isShooting = false;
+    //    }
+    //}
 
 
 
