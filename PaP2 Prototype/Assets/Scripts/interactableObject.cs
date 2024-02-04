@@ -1,10 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.VFX;
 
 public class interactableObject : MonoBehaviour {
 
+    [SerializeField] public TextMeshProUGUI Counter_Text;
+    [SerializeField] public Image Counter_Image;
+    public int Counter_Countdown;
+    public int Counter_RemaingTime;
     [SerializeField] private string id;
     [ContextMenu("Generate guid for id")]
     private void GenerateGuid()
@@ -154,6 +160,7 @@ public class interactableObject : MonoBehaviour {
             if (gun.PlayerTotalAmmo < gun.MaxGunAmmo)
             {
                 StartCoroutine(openBox());
+                CountDownTimer(20);
                 gun.PlayerTotalAmmo = gun.MaxGunAmmo;
 
 
@@ -177,6 +184,7 @@ public class interactableObject : MonoBehaviour {
         if (gameManager.instance.playerScript.HP < gameManager.instance.playerScript.HPOriginal)
         {
             StartCoroutine(openBox());
+            CountDownTimer(20);
             gameManager.instance.playerScript.HP += healAmount;
             gameManager.instance.maxText.text = $"Healed by {healAmount}";
             gameManager.instance.runText();
@@ -219,6 +227,23 @@ public class interactableObject : MonoBehaviour {
         yield return new WaitForSeconds(20f);
         animator.SetTrigger("isClosed");
         interactCollider.enabled = true;
+    }
+
+    public void CountDownTimer(int seconds)
+    {
+        Counter_RemaingTime = seconds;
+        StartCoroutine(CountDown());
+    }
+
+    IEnumerator CountDown() 
+    {
+        while (Counter_RemaingTime >= 0)
+        {
+            Counter_Text.text = Counter_RemaingTime.ToString();
+            Counter_Image.fillAmount = Mathf.InverseLerp(0, Counter_Countdown, Counter_RemaingTime);
+            Counter_RemaingTime--;
+            yield return new WaitForSeconds(1f);
+        }
     }
 
     void InteractSound()
