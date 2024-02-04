@@ -406,15 +406,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400044, guid: fec746e46c2fd354fa0bc92720075dbd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.25
+      value: -5.030206
       objectReference: {fileID: 0}
     - target: {fileID: 400044, guid: fec746e46c2fd354fa0bc92720075dbd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 16.649998
       objectReference: {fileID: 0}
     - target: {fileID: 400044, guid: fec746e46c2fd354fa0bc92720075dbd, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -115.2
+      value: 73.77
       objectReference: {fileID: 0}
     - target: {fileID: 400044, guid: fec746e46c2fd354fa0bc92720075dbd, type: 3}
       propertyPath: m_LocalRotation.w
@@ -547,7 +547,7 @@ MonoBehaviour:
   aud: {fileID: -5526174643812116812}
   damageCol: {fileID: 5308738840570844236}
   Shield: {fileID: 5417089471508904336}
-  HP: 300
+  HP: 350
   viewCone: 90
   roamDist: 15
   roamPauseTime: 1
@@ -575,11 +575,40 @@ MonoBehaviour:
   startingHP: 0
   initialEnemies:
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   enemiesAt75Percent:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 0}
   enemiesAt50Percent:
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   enemiesAt25Percent:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 0}
 --- !u!23 &481204982885934690
 MeshRenderer:
@@ -632,7 +661,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 4316255527383006322}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 1
+  m_Radius: 3
   m_Speed: 4
   m_Acceleration: 32
   avoidancePriority: 50

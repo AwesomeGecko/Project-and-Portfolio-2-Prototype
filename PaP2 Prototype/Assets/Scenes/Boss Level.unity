@@ -1104,10 +1104,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Robot SoldierBoss
       objectReference: {fileID: 0}
-    - target: {fileID: 8518776721266013799, guid: 9a895fcc957f58c44833d4eaddd094e5, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2031,10 +2027,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Default BossEnemy
       objectReference: {fileID: 0}
-    - target: {fileID: 9062981272011841574, guid: ea07af5e46811224c948a0020402ecec, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 9062981272012274692, guid: ea07af5e46811224c948a0020402ecec, type: 3}
       propertyPath: m_LocalPosition.x
       value: 28.22
@@ -2855,6 +2847,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1808766294574598976, guid: 377f6c14b7a4dfa449ea5656edf9e17c, type: 3}
+      propertyPath: HP
+      value: 350
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808766294574598976, guid: 377f6c14b7a4dfa449ea5656edf9e17c, type: 3}
       propertyPath: initialEnemies.Array.size
       value: 6
       objectReference: {fileID: 0}
@@ -3049,6 +3045,10 @@ PrefabInstance:
     - target: {fileID: 4316255527383162896, guid: 377f6c14b7a4dfa449ea5656edf9e17c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8458292051549923446, guid: 377f6c14b7a4dfa449ea5656edf9e17c, type: 3}
+      propertyPath: m_Radius
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

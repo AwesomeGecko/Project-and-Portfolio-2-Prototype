@@ -2466,7 +2466,7 @@ MonoBehaviour:
   model: {fileID: 1125180650137316569}
   aud: {fileID: 6669982072310782887}
   damageCol: {fileID: 1181870137617099959}
-  HP: 30
+  HP: 35
   viewCone: 90
   speed: 1
   roamDist: 10
@@ -2515,7 +2515,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 8518776721266013799}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 1
   m_Speed: 3.5
   m_Acceleration: 32
   avoidancePriority: 50
