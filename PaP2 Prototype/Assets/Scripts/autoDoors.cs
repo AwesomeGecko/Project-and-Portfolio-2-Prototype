@@ -16,11 +16,9 @@ public class autoDoors : MonoBehaviour
     {
         if(gameManager.instance.playerScript.isDead)
         {
-            //aud.PlayOneShot(doorSound);
             triggerSet = false;
             //give stats to player
             anim.SetBool("character_nearby", false);
-
         }
     }
     private void OnTriggerEnter(Collider other)

@@ -203,12 +203,9 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
             if (Input.GetButtonDown("Crouch"))
             {
                 isCrouching = true;
-                Debug.Log(isCrouching);
                 controller.height -= crouchDist;
                 playerSpeed = crouchSpeed;
                 Camera.main.transform.localPosition -= crouchCameraDist;
-
-                // CR: Adjusts player footsteps louder/faster
                 soundStepsVol = 0.2f;
             }
             else if (Input.GetButtonUp("Crouch"))
@@ -218,8 +215,6 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
                 controller.height += crouchDist;
                 playerSpeed = initialSpeed;
                 Camera.main.transform.localPosition += crouchCameraDist;
-
-                // CR: Reset back to original volume value
                 soundStepsVol = 0.5f;
             }
 

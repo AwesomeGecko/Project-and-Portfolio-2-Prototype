@@ -15,12 +15,7 @@ public class ToggleTrap : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Player Turned Off Trap");
             TurnOffTraps();
-        }
-        else
-        {
-            Debug.Log("Bullet Turned Off Trap");
         }
     }
 
