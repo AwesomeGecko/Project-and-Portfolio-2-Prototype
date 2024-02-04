@@ -121,6 +121,10 @@ PrefabInstance:
       value: Default BossEnemy
       objectReference: {fileID: 0}
     - target: {fileID: 100004, guid: cf3910b7639e12447827e45f63f60201, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: cf3910b7639e12447827e45f63f60201, type: 3}
       propertyPath: m_TagString
       value: Enemy
       objectReference: {fileID: 0}
@@ -192,9 +196,6 @@ PrefabInstance:
       addedObject: {fileID: 6878521555061202636}
     - targetCorrespondingSourceObject: {fileID: 100004, guid: cf3910b7639e12447827e45f63f60201, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3251788820894578651}
-    - targetCorrespondingSourceObject: {fileID: 100004, guid: cf3910b7639e12447827e45f63f60201, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 8168814099955323348}
     - targetCorrespondingSourceObject: {fileID: 100004, guid: cf3910b7639e12447827e45f63f60201, type: 3}
       insertIndex: -1
@@ -252,44 +253,6 @@ MonoBehaviour:
   hitSoundVol: 1
   deathSoundVol: 1
   notifyRadius: 25
---- !u!114 &3251788820894578651
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9062981272011841574}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da042e7206c7d1d47b1febbd9eb08536, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agent: {fileID: 8168814099955323348}
-  rb: {fileID: 0}
-  headPos: {fileID: 9062981272012274718}
-  anim: {fileID: 9062981272021357538}
-  model: {fileID: 5119316622872894172}
-  aud: {fileID: 116684600365427839}
-  damageCol: {fileID: 6982621685235441029}
-  HP: 15
-  viewCone: 90
-  speed: 1
-  roamDist: 10
-  roamPauseTime: 3
-  animSpeedTrans: 8
-  targetFaceSpeed: 3
-  EnemyBullet: {fileID: 3393345968891059192, guid: 8ad9da3d86fcb0b4b8d2949686ce9956, type: 3}
-  bulletDamage: 2
-  bulletDestroyTime: 1
-  bulletSpeed: 5
-  shootRate: 0.25
-  shootSpeed: 0.5
-  enemyshootPos: {fileID: 5701292604254272586}
-  hitSound: {fileID: 8300000, guid: 0aff9e712df58524e92b99abc49873b7, type: 3}
-  deathSound: {fileID: 8300000, guid: aff1c3fe1d4099a46a3d3de76e377364, type: 3}
-  hitSoundVol: 1
-  deathSoundVol: 1
-  mySpawner: {fileID: 0}
 --- !u!195 &8168814099955323348
 NavMeshAgent:
   m_ObjectHideFlags: 0

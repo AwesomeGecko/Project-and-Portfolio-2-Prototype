@@ -2412,7 +2412,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4394663217518112982}
   - component: {fileID: 9148967423706459441}
-  - component: {fileID: 2566759832628294189}
   - component: {fileID: 3818056906370351630}
   - component: {fileID: 5771329640111172623}
   - component: {fileID: 1125180650137316569}
@@ -2425,7 +2424,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4394663217518112982
 Transform:
   m_ObjectHideFlags: 0
@@ -2486,44 +2485,6 @@ MonoBehaviour:
   hitSoundVol: 1
   deathSoundVol: 1
   notifyRadius: 25
---- !u!114 &2566759832628294189
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8518776721266013799}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da042e7206c7d1d47b1febbd9eb08536, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agent: {fileID: 5771329640111172623}
-  rb: {fileID: 0}
-  headPos: {fileID: 7460160442931476358}
-  anim: {fileID: 3818056906370351630}
-  model: {fileID: 1125180650137316569}
-  aud: {fileID: 6669982072310782887}
-  damageCol: {fileID: 1181870137617099959}
-  HP: 30
-  viewCone: 90
-  speed: 1
-  roamDist: 10
-  roamPauseTime: 3
-  animSpeedTrans: 8
-  targetFaceSpeed: 3
-  EnemyBullet: {fileID: 3393345968891059192, guid: 8ad9da3d86fcb0b4b8d2949686ce9956, type: 3}
-  bulletDamage: 4
-  bulletDestroyTime: 1
-  bulletSpeed: 3
-  shootRate: 0.1
-  shootSpeed: 0.5
-  enemyshootPos: {fileID: 3353402849618054329}
-  hitSound: {fileID: 8300000, guid: 0aff9e712df58524e92b99abc49873b7, type: 3}
-  deathSound: {fileID: 8300000, guid: aff1c3fe1d4099a46a3d3de76e377364, type: 3}
-  hitSoundVol: 1
-  deathSoundVol: 1
-  mySpawner: {fileID: 0}
 --- !u!95 &3818056906370351630
 Animator:
   serializedVersion: 5
