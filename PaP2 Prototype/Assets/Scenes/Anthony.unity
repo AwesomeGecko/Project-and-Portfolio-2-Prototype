@@ -1805,30 +1805,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 681734634721804330, guid: 415e8ce8c9de02143b1cd6917b11c526, type: 3}
-      propertyPath: leanDist
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 681734634721804330, guid: 415e8ce8c9de02143b1cd6917b11c526, type: 3}
-      propertyPath: leanSpeed
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 681734634721804330, guid: 415e8ce8c9de02143b1cd6917b11c526, type: 3}
-      propertyPath: gravityValue
-      value: -20
-      objectReference: {fileID: 0}
-    - target: {fileID: 681734634721804330, guid: 415e8ce8c9de02143b1cd6917b11c526, type: 3}
-      propertyPath: cameraMoveDist
-      value: 0.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 754136606034918793, guid: 415e8ce8c9de02143b1cd6917b11c526, type: 3}
-      propertyPath: damage
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1941524770838689977, guid: 415e8ce8c9de02143b1cd6917b11c526, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2032022834073519530, guid: 415e8ce8c9de02143b1cd6917b11c526, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.90720844
@@ -1872,18 +1848,6 @@ PrefabInstance:
     - target: {fileID: 2983655738157960448, guid: 415e8ce8c9de02143b1cd6917b11c526, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 4348678658203458779, guid: 415e8ce8c9de02143b1cd6917b11c526, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4348678658203458779, guid: 415e8ce8c9de02143b1cd6917b11c526, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6951981033588707834, guid: 415e8ce8c9de02143b1cd6917b11c526, type: 3}
-      propertyPath: m_CullingMask.m_Bits
-      value: 1791
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

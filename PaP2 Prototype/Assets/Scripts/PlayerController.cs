@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
     float slideMod;
     bool isLowHealth;
     bool isLanded = false;
-    bool isBurning = false;
+    //bool isBurning = false;
 
     [Header("Gameplay Info")]
     public int HPOriginal;
@@ -218,7 +218,7 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
             else if (Input.GetButtonUp("Crouch"))
             {
                 isCrouching = false;
-                Debug.Log(isCrouching);
+                //Debug.Log(isCrouching);
                 controller.height += crouchDist;
                 playerSpeed = initialSpeed;
                 Camera.main.transform.localPosition += crouchCameraDist;
@@ -441,7 +441,7 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
     public void BurnStart()
     {
         aud.PlayOneShot(playerBurn);
-        isBurning = true;
+        //isBurning = true;
         Transform burningPS = transform.Find("Burning");
         if(burningPS != null)
         {
@@ -455,7 +455,7 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
 
     public void BurnStop()
     {
-        isBurning = false;
+        //isBurning = false;
         Transform burningPS = transform.Find("Burning");
         if (burningPS != null)
         {
