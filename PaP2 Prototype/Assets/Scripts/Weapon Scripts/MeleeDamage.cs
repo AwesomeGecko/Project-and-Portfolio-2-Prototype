@@ -5,6 +5,7 @@ using UnityEngine;
 public class MeleeDamage : MonoBehaviour
 {
     [SerializeField] int damage;
+    bool hitObject;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -15,12 +16,19 @@ public class MeleeDamage : MonoBehaviour
                 return; // Ignore collisions with other player bullets
             }
 
+            if(!other.CompareTag("Enemy"))
+            {
+                hitObject = true;
+                return;
+            }
+
             IDamage dmg = other.GetComponent<IDamage>();
 
-            if (dmg != null)
+            if (dmg != null && !hitObject)
             {
                 dmg.takeDamage(damage);
             }
         }
+        hitObject = false;
     }
 }
