@@ -57,7 +57,7 @@ public class EnemyAI : MonoBehaviour, IDamage
 
     void Start()
     {
-        enemyCount++;
+
         agent = GetComponent<NavMeshAgent>();
 
         startingPos = transform.position;
@@ -66,12 +66,12 @@ public class EnemyAI : MonoBehaviour, IDamage
         float animationSpeed = agent.velocity.normalized.magnitude;
         anim.SetFloat("Speed", Mathf.Lerp(anim.GetFloat("Speed"), animationSpeed, Time.deltaTime * animSpeedTrans));
 
-        gameManager.instance.updateGameGoal(enemyCount);
+        
     }
 
     void Update()
     {
-        enemyCount++;
+      
         if (gameManager.instance.playerScript.isDead)
         {
             PlayerInRange = false;
@@ -266,8 +266,7 @@ public class EnemyAI : MonoBehaviour, IDamage
         if (HP <= 0)
         {
             isDead = true;
-            //mySpawner.heyIDied();
-            enemyCount--;
+            mySpawner.heyIDied();
             aud.PlayOneShot(deathSound, deathSoundVol);
             gameManager.instance.updateGameGoal(-1);
             agent.enabled = false;

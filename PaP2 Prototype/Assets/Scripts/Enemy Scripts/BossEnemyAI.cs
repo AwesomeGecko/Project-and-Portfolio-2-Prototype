@@ -263,6 +263,7 @@ public class BossEnemyAI : MonoBehaviour, IDamage
             anim.SetBool("Dead", true);
             agent.enabled = false;
             damageCol.enabled = false;
+            StartCoroutine(DeactivateWait());
         }
 
         else
@@ -275,6 +276,13 @@ public class BossEnemyAI : MonoBehaviour, IDamage
             agent.SetDestination(gameManager.instance.player.transform.position);
             NotifyNearbyEnemies();
         }
+    }
+
+    IEnumerator DeactivateWait()
+    {
+        anim.SetBool("Dead", true);
+        yield return new WaitForSeconds(10f);
+        gameObject.SetActive(false);
     }
 
     public void OnTriggerEnter(Collider other)
