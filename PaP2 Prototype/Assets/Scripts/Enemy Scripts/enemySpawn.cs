@@ -83,12 +83,8 @@ public class enemySpawn : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnDisable()
     {
-        if (other.CompareTag("Player"))
-        {
-            startSpawning = false;
-
             for (int i = 0; i < spawnList.Count; i++)
             {
                 Destroy(spawnList[i]);
@@ -96,6 +92,6 @@ public class enemySpawn : MonoBehaviour
 
             spawnList.Clear();
             spawnCount = 0;
-        }
+        
     }
 }

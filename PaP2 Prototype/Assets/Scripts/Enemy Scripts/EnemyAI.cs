@@ -57,7 +57,7 @@ public class EnemyAI : MonoBehaviour, IDamage
 
     void Start()
     {
-        //enemyCount++;
+        enemyCount++;
         agent = GetComponent<NavMeshAgent>();
 
         startingPos = transform.position;
@@ -66,12 +66,12 @@ public class EnemyAI : MonoBehaviour, IDamage
         float animationSpeed = agent.velocity.normalized.magnitude;
         anim.SetFloat("Speed", Mathf.Lerp(anim.GetFloat("Speed"), animationSpeed, Time.deltaTime * animSpeedTrans));
 
-        //gameManager.instance.updateGameGoal(enemyCount);
+        gameManager.instance.updateGameGoal(enemyCount);
     }
 
     void Update()
     {
-        //enemyCount++;
+        enemyCount++;
         if (gameManager.instance.playerScript.isDead)
         {
             PlayerInRange = false;
@@ -266,14 +266,13 @@ public class EnemyAI : MonoBehaviour, IDamage
         if (HP <= 0)
         {
             isDead = true;
-            mySpawner.heyIDied();
-            //enemyCount--;
+            //mySpawner.heyIDied();
+            enemyCount--;
             aud.PlayOneShot(deathSound, deathSoundVol);
             gameManager.instance.updateGameGoal(-1);
             agent.enabled = false;
             damageCol.enabled = false;
             StartCoroutine(DeactivateWait());
-            
         }
 
         else
@@ -291,7 +290,7 @@ public class EnemyAI : MonoBehaviour, IDamage
     IEnumerator DeactivateWait()
     {
         anim.SetBool("Dead", true);
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(10f);
         gameObject.SetActive(false);
     }
 
@@ -303,15 +302,15 @@ public class EnemyAI : MonoBehaviour, IDamage
         }
     }
 
-    //public void OnTriggerExit(Collider other)
-    //{
-    //    if (other.CompareTag("Player"))
-    //    {
-    //        PlayerInRange = false;
-    //        agent.stoppingDistance = 0;
-    //        isShooting = false;
-    //    }
-    //}
+    public void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            PlayerInRange = false;
+            agent.stoppingDistance = 0;
+            isShooting = false;
+        }
+    }
 
 
 
