@@ -18,7 +18,6 @@ public class AudioControls : MonoBehaviour
     [SerializeField] List<ToggleTrap> plates;
     [SerializeField] List<autoDoors> doors;
     [SerializeField] teleporterScript teleporter;
-    [SerializeField] List<LaserTrap> lasers;
     [SerializeField] List<SpikeTrap> spikes;
 
     [Header("-----Mute Images-----")]
@@ -191,14 +190,6 @@ public class AudioControls : MonoBehaviour
             if (door != null)
             {
                 door.SetVolume(sfxVol);
-            }
-        }
-
-        foreach (LaserTrap laser in lasers)
-        {
-            if (laser != null)
-            {
-                laser.SetVolume(sfxVol);
             }
         }
 

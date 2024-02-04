@@ -19,17 +19,11 @@ public class LaserTrap : MonoBehaviour
     [SerializeField] Vector3 endPoint;
     [SerializeField] float movingSpeed;
 
-    [SerializeField] AudioSource aud;
-    [SerializeField] AudioClip laser;
-
     private bool playerInside = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        aud.clip = laser;
-        aud.loop = true;
-        aud.Play();
         if(pointToPoint)
         {
             StartCoroutine(Move());
@@ -58,22 +52,6 @@ public class LaserTrap : MonoBehaviour
             playerInside = false;
         }
     }
-
-    /*
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            PlayerController HP = other.GetComponent<PlayerController>();
-            if (HP != null)
-            {
-                HP.takeDamage(dmgAmount);
-                StartCoroutine(BurnOverTime(HP));
-            }
-        }
-    }
-    */
-
     public void Deactivate()
     {
         gameObject.SetActive(false);
@@ -114,13 +92,5 @@ public class LaserTrap : MonoBehaviour
         Vector3 temp = startPoint;
         startPoint = endPoint;
         endPoint = temp;
-    }
-
-    public void SetVolume(float volume)
-    {
-        if (aud != null)
-        {
-            aud.volume = volume;
-        }
     }
 }
