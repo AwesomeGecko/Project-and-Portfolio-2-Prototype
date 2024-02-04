@@ -47,6 +47,7 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
     private Vector3 crouchCameraDist;
     bool isPlayingSteps;
     Quaternion initialRotation;
+    bool isLeaning = false;
     bool isCrouching;
     bool isSliding;
     float slideMod;
@@ -269,8 +270,10 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
 
     void Lean()
     {
-        if (Input.GetButtonDown("LeanLeft") && !gameManager.instance.onTarget)
+        //Debug.Log(isLeaning);
+        if (Input.GetButtonDown("LeanLeft") && !gameManager.instance.onTarget && CanLeanLeft())
         {
+            isLeaning = true;
             initialRotation = transform.rotation;
             // Calculate the lean rotation on the local Z-axis
             Camera.main.transform.position -= Camera.main.transform.right * cameraMoveDist;
@@ -279,8 +282,9 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
             // Smoothly interpolate between the initial rotation and the lean rotation
             transform.rotation = Quaternion.Lerp(initialRotation, initialRotation * leanRotation, leanSpeed);
         }
-        if(Input.GetButtonDown("LeanRight") && !gameManager.instance.onTarget)
+        if (Input.GetButtonDown("LeanRight") && !gameManager.instance.onTarget && CanLeanRight())
         {
+            isLeaning = true;
             initialRotation = transform.rotation;
             // Calculate the lean rotation on the local Z-axis
             Camera.main.transform.position += Camera.main.transform.right * cameraMoveDist;
@@ -290,12 +294,28 @@ public class PlayerController : MonoBehaviour, IDamage, IDataPersistence
             transform.rotation = Quaternion.Lerp(initialRotation, initialRotation * leanRotation, leanSpeed);
         }
 
-        if (Input.GetButtonUp("LeanLeft") || Input.GetButtonUp("LeanRight"))
+        if(Physics.Raycast(Camera.main.transform.position, Camera.main.transform.right, .2f) || Physics.Raycast(Camera.main.transform.position, -Camera.main.transform.right, .2f))
         {
-            Quaternion leanRotation = Quaternion.Euler(0, 0, leanDist);
             transform.rotation = Quaternion.Euler(0f, transform.eulerAngles.y, 0f);
             Camera.main.transform.position = transform.position + Vector3.up;
         }
+
+        if (Input.GetButtonUp("LeanLeft") || Input.GetButtonUp("LeanRight"))
+        {
+            isLeaning = false;
+            transform.rotation = Quaternion.Euler(0f, transform.eulerAngles.y, 0f);
+            Camera.main.transform.position = transform.position + Vector3.up;
+        }
+    }
+
+    bool CanLeanLeft()
+    {
+        return !Physics.Raycast(transform.position + Vector3.up, -transform.right, 1.1f);
+    }
+
+    bool CanLeanRight()
+    {
+        return !Physics.Raycast(transform.position + Vector3.up, transform.right, 1.1f);
     }
 
     IEnumerator Sprint()
