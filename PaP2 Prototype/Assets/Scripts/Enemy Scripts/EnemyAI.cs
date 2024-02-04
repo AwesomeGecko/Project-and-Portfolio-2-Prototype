@@ -169,8 +169,7 @@ public class EnemyAI : MonoBehaviour, IDamage
             {
                 EnemyAI nearbyEnemy = collider.GetComponent<EnemyAI>();
                 if (nearbyEnemy != null)
-                {
-                    Debug.Log("Notifying nearby enemy");
+                {                    
                     nearbyEnemy.StartChasing();
                 }
             }
@@ -179,7 +178,6 @@ public class EnemyAI : MonoBehaviour, IDamage
 
     public void StartChasing()
     {
-        Debug.Log("Start Chasing");
         StopCoroutine(roam());
         ChasingPlayer = true;
         if (!PlayerInRange || PlayerInRange)

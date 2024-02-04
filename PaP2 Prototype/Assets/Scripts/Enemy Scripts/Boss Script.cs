@@ -96,7 +96,7 @@ public class BossScript : MonoBehaviour, IDamage
             float animspeed = agent.velocity.normalized.magnitude;
             anim.SetFloat("Speed", Mathf.Lerp(anim.GetFloat("Speed"), animspeed, Time.deltaTime * animSpeedTrans));
 
-            if (PlayerInRange && !CanSeePLayer())
+            if (PlayerInRange && !CanSeePLayer() && !isReturningToSpawn)
             {
                 StartCoroutine(roam());
             }
@@ -104,7 +104,6 @@ public class BossScript : MonoBehaviour, IDamage
             {
                 StartCoroutine(roam());
             }
-            
         }
     }
 
@@ -115,11 +114,11 @@ public class BossScript : MonoBehaviour, IDamage
         PlayerInRange = false;
         damageCol.enabled = false;
         Shield.SetActive(true);
-        //Debug.Log("Boss is returning to spawn");
+
         isReturningToSpawn = true;
 
 
-        //Debug.Log("Initial Position: " + startingPos);
+
 
         // Move to spawn position
         agent.SetDestination(startingPos);
@@ -132,22 +131,21 @@ public class BossScript : MonoBehaviour, IDamage
         // Wait for 5 seconds
         yield return new WaitForSeconds(15f);
 
+        isReturningToSpawn = false;        
         Shield.SetActive(false);
-        // Re-engage the player
+        damageCol.enabled = true;
+              
         anim.SetTrigger("Shoot");
-        PlayerInRange = true;
         agent.SetDestination(gameManager.instance.player.transform.position);
 
-        // Enable damage and shooting
-        damageCol.enabled = true;
-        isReturningToSpawn = false;        
+
     }
 
     void HandleHealthThreshold(float threshold)
     {
         if (threshold == 0.75f && !hasReturnedToSpawn75)
         {
-           
+            
             StartCoroutine(ReturnToSpawnAndRecover());
             hasReturnedToSpawn75 = true;
             ActivateEnemies(enemiesAt75Percent);
@@ -161,6 +159,7 @@ public class BossScript : MonoBehaviour, IDamage
         }
         else if (threshold == 0.25f && !hasReturnedToSpawn25)
         {
+            
             StartCoroutine(ReturnToSpawnAndRecover());
             hasReturnedToSpawn25 = true;
             ActivateEnemies(enemiesAt25Percent);
@@ -208,35 +207,38 @@ public class BossScript : MonoBehaviour, IDamage
 
     bool CanSeePLayer()
     {
-        playerDir = gameManager.instance.player.transform.position - headPos.position;
-        angleToPlayer = Vector3.Angle(playerDir, transform.forward);
-        playerDir.Normalize();
-
-        RaycastHit hit;
-        if (Physics.Raycast(headPos.position, playerDir, out hit))
+        if (!isReturningToSpawn)
         {
-            if (hit.collider.CompareTag("Player") && angleToPlayer <= viewCone)
+            playerDir = gameManager.instance.player.transform.position - headPos.position;
+            angleToPlayer = Vector3.Angle(playerDir, transform.forward);
+            playerDir.Normalize();
+
+            RaycastHit hit;
+            if (Physics.Raycast(headPos.position, playerDir, out hit))
             {
-                agent.SetDestination(gameManager.instance.player.transform.position);
+                if (hit.collider.CompareTag("Player") && angleToPlayer <= viewCone)
+                {
+                    agent.SetDestination(gameManager.instance.player.transform.position);
 
 
-                if (!isShooting)
-                {
-                    StartCoroutine(shoot());
+                    if (!isShooting)
+                    {
+                        StartCoroutine(shoot());
+                    }
+                    if (agent.remainingDistance < agent.stoppingDistance)
+                    {
+                        faceTarget();
+                    }
                 }
-                if (agent.remainingDistance < agent.stoppingDistance)
-                {
-                    faceTarget();
-                }
+                agent.stoppingDistance = stoppingDistanceOrig;
+
+                return true;
             }
-            agent.stoppingDistance = stoppingDistanceOrig;
 
-            return true;
+            agent.stoppingDistance = 0;
+
         }
-
-        agent.stoppingDistance = 0;
-
-        return false;
+            return false;
     }
 
     void faceTarget()
