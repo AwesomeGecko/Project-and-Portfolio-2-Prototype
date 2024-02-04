@@ -285,7 +285,7 @@ MonoBehaviour:
   staminaRestore: {fileID: 8300000, guid: c89d51e960bc6b14d8dfe5ad4f8ccd9b, type: 3}
   staminaRestoreVol: 0.15
   playerJump: {fileID: 8300000, guid: f5033804d63f795469570849b29ef405, type: 3}
-  playerLand: {fileID: 8300000, guid: c82542490dd023143975455229953999, type: 3}
+  playerLand: {fileID: 8300000, guid: 10e4ce33fbbd4a142acc7f591cb0e8be, type: 3}
   playerLandVol: 1
   playerBurn: {fileID: 8300000, guid: 69466822dac156b43887e63e9b8cc5a4, type: 3}
   HPOriginal: 0
