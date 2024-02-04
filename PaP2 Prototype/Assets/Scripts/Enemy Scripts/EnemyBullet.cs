@@ -35,7 +35,7 @@ public class EnemyBullet : MonoBehaviour
                 return;
             }
         }
-        if (!collision.collider.isTrigger)
+        if (collision.collider)
         {
             // Instantiate the spark particle system at the collision point
             Instantiate(sparkParticles, collision.contacts[0].point, Quaternion.identity);

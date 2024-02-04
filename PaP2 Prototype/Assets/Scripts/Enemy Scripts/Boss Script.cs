@@ -20,8 +20,7 @@ public class BossScript : MonoBehaviour, IDamage
 
     [Header("----- Enemy Stat -----")]
     [SerializeField] int HP;
-    [SerializeField] int viewCone;
-    [SerializeField] int speed;
+    [SerializeField] int viewCone;   
     [SerializeField] int roamDist;
     [SerializeField] int roamPauseTime;
     [SerializeField] float animSpeedTrans;
@@ -36,7 +35,6 @@ public class BossScript : MonoBehaviour, IDamage
     [SerializeField] int SmallcanonbulletDestroyTime;
     [SerializeField] int SmallcanonbulletSpeed;
     [SerializeField] float shootRate;
-    [SerializeField] float shootSpeed;
     [SerializeField] Transform shootPos;
     [SerializeField] Transform shootPos2;
     [SerializeField] Transform shootPos3;
