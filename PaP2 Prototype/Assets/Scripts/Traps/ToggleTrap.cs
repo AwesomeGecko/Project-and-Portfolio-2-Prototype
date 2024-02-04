@@ -13,7 +13,15 @@ public class ToggleTrap : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        TurnOffTraps();
+        if (other.CompareTag("Player"))
+        {
+            Debug.Log("Player Turned Off Trap");
+            TurnOffTraps();
+        }
+        else
+        {
+            Debug.Log("Bullet Turned Off Trap");
+        }
     }
 
     private void TurnOffTraps()
