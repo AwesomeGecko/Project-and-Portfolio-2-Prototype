@@ -528,7 +528,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1224337478795561345}
   - component: {fileID: 2987558489479936003}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: PostProcessing
   m_TagString: DamageScreen
   m_Icon: {fileID: 0}
@@ -737,7 +737,7 @@ MonoBehaviour:
       colorBlindnessStrength: 1
   m_Resources: {fileID: 11400000, guid: d82512f9c8e5d4a4d938b575d47f88d4, type: 2}
   m_ShowToolkit: 0
-  m_ShowCustomSorter: 0
+  m_ShowCustomSorter: 1
   breakBeforeColorGrading: 0
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
