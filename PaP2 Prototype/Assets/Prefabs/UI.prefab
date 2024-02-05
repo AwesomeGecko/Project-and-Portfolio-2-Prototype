@@ -7715,7 +7715,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 2431734772926170803}
         m_TargetAssemblyTypeName: AudioControls, Assembly-CSharp
         m_MethodName: muteSounds
         m_Mode: 1
